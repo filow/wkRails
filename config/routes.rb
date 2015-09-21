@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
 
 
+
+  root 'index/index#index'
+
+  namespace :index do
+    get '/' => 'index#index'
+  end
+
+  namespace :manage do
+    get '/' => 'index#index'
+  end
+
   # ckeditor需要的目录
   mount Ckeditor::Engine => '/ckeditor'
 
