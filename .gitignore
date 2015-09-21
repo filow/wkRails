@@ -15,3 +15,12 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Public目录下的Uploads目录不会上传
+/public/uploads
+/public/assets
+
+# 忽略.idea文件
+/.idea
+
+/vendor/cache

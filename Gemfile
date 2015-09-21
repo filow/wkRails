@@ -1,10 +1,10 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :test
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -17,7 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# 这里不需要使用turbolinks，容易造成很多脚本运行上的问题
+# gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -29,8 +30,41 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# 请注意，不要加入bootstrap-sass这个包，我们前端的样式库会直接编译后添加进项目
+
+# mysql驱动
+gem 'mysql2'
+
+# 为数据库迁移添加外键的支持
+gem 'foreigner'
+
+# 分页插件
+gem 'kaminari'
+
+# memcache插件，用于缓存
+gem 'dalli'
+
+# font-awesome图标字体库
+gem 'font-awesome-rails'
+
+# 处理文件上传的插件
+gem 'carrierwave'
+
+# 富文本编辑器
+gem 'ckeditor'
+
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
+
+# rmagick 是 ImageMagick的ruby接口，在图片上传时可以处理图片
+gem 'rmagick', require: false
+gem 'mini_magick'
+
+# 更友好地显示错误信息
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -42,4 +76,3 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
