@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'index/index#index'
 
-  namespace :index do
+  scope module: 'index' do
     get '/' => 'index#index'
   end
 
