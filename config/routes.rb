@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   namespace :manage do
     get '/' => 'index#index'
+    get 'login' => 'session#index'
+    post 'login' => 'session#create'
+    delete 'login' => 'session#destroy'
+    get 'vcode' => 'session#vcode'
   end
 
   # ckeditor需要的目录
