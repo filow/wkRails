@@ -28,7 +28,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# 请注意，不要加入bootstrap-sass这个包，我们前端的样式库会直接编译后添加进项目
+# bootstrap 3
+gem 'bootstrap-sass'
+# 用于抹平浏览器间的部分兼容性问题
+gem "autoprefixer-rails"
 
 # mysql驱动
 gem 'mysql2'
