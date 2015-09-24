@@ -1,0 +1,33 @@
+// 变量定义
+$global-bg-color: #efefef;
+
+// 全局基础样式
+body {
+  background-color: $global-bg-color;
+  color:#333;
+  min-width: 700px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+
+// header
+header{
+  width: 100%;
+  padding: 16px;
+  background-color: #173C73;
+  background-repeat:repeat no-repeat;
+
+  #logo{
+    height: 40px;
+  }
+  .userinfo{
+    margin-top: 3px;
+  }
+
+}

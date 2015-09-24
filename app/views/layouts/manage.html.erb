@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @title || '微课大赛后台管理系统' %></title>
+  <link rel="shortcut icon" href="favicon.png">
+  <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
+  <%= stylesheet_link_tag  'manage', media: 'all' %>
+  <%= stylesheet_link_tag   params[:controller], media: 'all' %>
+  <%= yield :before_js %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+<header>
+  <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 40, width: 313, alt: '微课大赛后台管理系统' %></a>
+
+	<div class="pull-right userinfo" id="nav-bar">
+    <a class="btn btn-default"><%= session['realname'] || '未登录用户' %> <%= session['uid'] %></a>
+    <a class="btn btn-primary" href="{:U('Account/Index')}">账户管理</a>
+    <a class="btn btn-primary" href="<%= root_path %>">回到前台</a>
+    <a class="btn btn-warning" href="{:U('Public/logout')}">退出登录</a>
+	</div>
+  <div class="clear"></div>
+</header>
+<%= yield %>
+
+</body>
+<%= javascript_include_tag 'manage' %>
+<%= javascript_include_tag params[:controller] %>
+</html>
+    <!--
+    <link rel="stylesheet" href="__PUBLIC__/plugins/icheck/skins/square/blue.css">
+    <link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap-select/bootstrap-select.css">
+    <link rel="stylesheet" href="__PUBLIC__/backyard/style.css" />
+    <link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="__PUBLIC__/plugins/datatables/datatables.css" /> -->
+<!--
+</head>
+<body>
+
+<div class="main">
+
+    <div class="navigator">
+        <ul>
+            {//输出目录列表}
+            <?php foreach($_SESSION[CF('NAV_KEY')] as $key=>$val): ?>
+            <li <?php if($key==ucfirst(strtolower(MODULE_NAME))) echo "class=\"active\"" ?>>
+                <a href="<?php echo U($key.'/'.current(array_keys($val))); ?>">
+                    <i class="icon-{$val.MODULE_ICON} icons-white"></i>
+                    {$val.MODULE_TITLE}</a>
+            </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+
+    <div class="content">
+
+        <div class="nav-bar">
+
+            <ul class="nav-item">
+                <block name="nav-item">
+                <?php foreach($_SESSION[CF('NAV_KEY')][MODULE_NAME] as $key=>$val): ?>
+                <?php if(in_array($key, array('MODULE_ICON','MODULE_TITLE'))) continue; ?>
+                <li <?php if($key==ucfirst(strtolower(ACTION_NAME))) echo "class=\"current\"" ?>>
+                	<a href="<?php echo U(MODULE_NAME.'/'.$key); ?>">
+                        <i class="icon-<?php echo $val[1]; ?> icons-white"></i>
+                        <?php echo $val[0]; ?></a>
+                </li>
+                <?php endforeach; ?>
+                </block>
+                <block name="ext-nav-item"></block>
+            </ul>
+        </div>
+
+        <div class="content-body">
+        <present name="msg">
+        <div class="alert <if condition='$msg[0]==0'>alert-error<else />alert-success</if>">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {$msg.1}
+        </div>
+        <php>XS('message',null);</php>
+        </present>
+          <block name="content"></block>
+
+            <div class="footer">
+                <small> __NAME__ 后台管理系统 &#169; Copyright {:date('Y')} __DEPART__ | <a href="#">回到顶部</a> </small>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__PUBLIC__/js/jquery.js"></script>
+{// 模拟产生本地ajax请求 }
+<script src="__PUBLIC__/js/jquery.mockjax.js"></script>
+<script src="__PUBLIC__/js/bootstrap.js"></script>
+<script src="__PUBLIC__/plugins/icheck/jquery.icheck.min.js"></script>
+<script src="__PUBLIC__/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="__PUBLIC__/js/jquery.autocomplete.js"></script>
+<script src="__PUBLIC__/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/bootstrap-datetimepicker/js/locale.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/datatables/dataTables.js"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/datatables/bootstrap.plugin.js"></script>
+
+
+</body>
+</html> -->

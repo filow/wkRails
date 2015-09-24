@@ -1,2 +1,8 @@
-<h1>Manage::Session#index</h1>
-<p>Find me in app/views/manage/session/index.html.erb</p>
+用户登录窗口
+
+<%= form_tag manage_login_path do %>
+  <%= text_field_tag :username %>
+  <%= password_field_tag :password %>
+  <%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %>
+  <%= submit_tag '登录' %>
+<% end %>

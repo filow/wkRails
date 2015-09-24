@@ -3,6 +3,11 @@ class Manage::SessionController < ApplicationController
   end
 
   def create
+    p params
+    redirect_to manage_login_path
+  end
+
+  def destroy
   end
 
   def vcode
@@ -15,6 +20,4 @@ class Manage::SessionController < ApplicationController
     render text: image[:blob]
   end
 
-  def destroy
-  end
 end
