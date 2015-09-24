@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Uid</th>
+      <th>name</th>
       <th>Password</th>
       <th>Realname</th>
       <th>Is forbidden</th>
@@ -16,7 +16,7 @@
   <tbody>
     <% @manage_admins.each do |manage_admin| %>
       <tr>
-        <td><%= manage_admin.uid %></td>
+        <td><%= manage_admin.name %></td>
         <td><%= manage_admin.password %></td>
         <td><%= manage_admin.realname %></td>
         <td><%= manage_admin.is_forbidden %></td>

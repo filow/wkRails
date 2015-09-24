@@ -1,0 +1,10 @@
+
+nav:
+  -
+    text: 系统概览
+    icon: dashboard
+    path: 'index/index'
+  -
+    text: 管理员管理
+    icon: user
+    path: 'admins/index'

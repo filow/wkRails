@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     # 登录控制
     get 'login' => 'session#index'
     post 'login' => 'session#create'
-    delete 'login' => 'session#destroy'
+    delete 'logout' => 'session#destroy'
     get 'vcode' => 'session#vcode'
 
     # 管理员

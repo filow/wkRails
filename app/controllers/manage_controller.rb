@@ -1,11 +1,11 @@
 class ManageController < ApplicationController
   before_action :build_manage_cache
   before_filter :check_login
-
+  before_action :set_nav
 
   private
   def build_manage_cache
-    @cache = Cache.new("wkRails-Manage")
+    @cache = Cache.new("wkRails-Manage-")
   end
 
   def check_login
@@ -19,6 +19,18 @@ class ManageController < ApplicationController
       end
     else
       redirect_to manage_login_url
+    end
+  end
+
+  def set_nav
+    @navs = @cache.get 'nav' do
+      result = []
+      raw = YAML.load(File.read('config/ext/manage_nav.yml'))["nav"]
+      raw.each do |item|
+        controller, action = item["path"].split('/')
+        result << {text: item["text"], icon: item["icon"], options: {controller: 'manage/' + controller, action: action}}
+      end
+      result
     end
   end
 end

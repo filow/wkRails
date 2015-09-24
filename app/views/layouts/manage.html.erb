@@ -18,13 +18,30 @@
 	<div class="pull-right userinfo" id="nav-bar">
     <a class="btn btn-default"><%= session['admin_realname'] || '未登录用户' %> <%= session['admin_name'] %></a>
     <a class="btn btn-primary" href="{:U('Account/Index')}">账户管理</a>
-    <a class="btn btn-primary" href="<%= root_path %>">回到前台</a>
-    <a class="btn btn-warning" href="{:U('Public/logout')}">退出登录</a>
+    <%= link_to '回到前台', root_path, class:'btn btn-primary' %>
+    <%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %>
 	</div>
   <div class="clear"></div>
 </header>
-<%= yield %>
 
+  <section class="container" id="main-container">
+    <div class="row">
+      <aside class="col-md-3">
+        <nav class="list-group">
+          <% @navs.each do |nav| %>
+            <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
+              <%= link_to nav[:text], nav[:options], class: "list-group-item active" %>
+            <% else %>
+              <%= link_to nav[:text], nav[:options], class: "list-group-item" %>
+            <% end %>
+          <% end %>
+        </nav>
+      </aside>
+      <main class="col-md-9">
+        <%= yield %>
+      </main>
+    </div>
+  </section>
 </body>
 <%= javascript_include_tag 'manage' %>
 <%= javascript_include_tag params[:controller] %>
