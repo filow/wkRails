@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   root 'index/index#index'
 
   scope module: 'index' do
@@ -10,10 +8,15 @@ Rails.application.routes.draw do
 
   namespace :manage do
     get '/' => 'index#index'
+
+    # 登录控制
     get 'login' => 'session#index'
     post 'login' => 'session#create'
     delete 'login' => 'session#destroy'
     get 'vcode' => 'session#vcode'
+
+    # 管理员
+    resources :admins
   end
 
   # ckeditor需要的目录

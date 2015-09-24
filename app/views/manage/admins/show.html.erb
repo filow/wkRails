@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @manage_admin.uid %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @manage_admin.password %>
+</p>
+
+<p>
+  <strong>Realname:</strong>
+  <%= @manage_admin.realname %>
+</p>
+
+<p>
+  <strong>Is forbidden:</strong>
+  <%= @manage_admin.is_forbidden %>
+</p>
+
+<%= link_to 'Edit', edit_manage_admin_path(@manage_admin) %> |
+<%= link_to 'Back', manage_admins_path %>

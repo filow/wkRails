@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  password: MyString
+  realname: MyString
+  is_forbidden: false
+
+two:
+  uid: MyString
+  password: MyString
+  realname: MyString
+  is_forbidden: false

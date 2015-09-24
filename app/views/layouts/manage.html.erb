@@ -16,7 +16,7 @@
   <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 40, width: 313, alt: '微课大赛后台管理系统' %></a>
 
 	<div class="pull-right userinfo" id="nav-bar">
-    <a class="btn btn-default"><%= session['realname'] || '未登录用户' %> <%= session['uid'] %></a>
+    <a class="btn btn-default"><%= session['admin_realname'] || '未登录用户' %> <%= session['admin_name'] %></a>
     <a class="btn btn-primary" href="{:U('Account/Index')}">账户管理</a>
     <a class="btn btn-primary" href="<%= root_path %>">回到前台</a>
     <a class="btn btn-warning" href="{:U('Public/logout')}">退出登录</a>
