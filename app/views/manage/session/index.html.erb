@@ -1,2 +1,43 @@
-<h1>Manage::Session#index</h1>
-<p>Find me in app/views/manage/session/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @title || '微课大赛后台管理系统' %></title>
+  <link rel="shortcut icon" href="favicon.png">
+  <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
+  <%= stylesheet_link_tag  'manage', media: 'all' %>
+  <%= stylesheet_link_tag   params[:controller], media: 'all' %>
+  <%= yield :before_js %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+  <h1>用户登录</h1>
+  <% if flash[:notice] %>
+    <div class="alert alert-warning">
+      <%= flash[:notice] %>
+      <i class="icon-times removing-tag"></i><i class="icon-white"></i>
+    </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+  <% unless @forbidden %>
+    <%= form_tag manage_login_path do %>
+      <%= text_field_tag :username, session[:last_login_user], autofocus: true, placeholder:"请输入用户名" %>
+      <%= password_field_tag :password, placeholder:"请输入密码" %>
+
+      <% if @show_vcode %>
+      <%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %>
+      <% end %>
+
+      <%= submit_tag '登录' %>
+    <% end %>
+<% end %>
+
+</body>
+<%= javascript_include_tag 'manage' %>
+<%= javascript_include_tag params[:controller] %>
+</html>

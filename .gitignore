@@ -24,3 +24,5 @@
 /.idea
 
 /vendor/cache
+
+/app/assets/stylesheets/scaffolds.scss

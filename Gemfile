@@ -23,12 +23,15 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# 请注意，不要加入bootstrap-sass这个包，我们前端的样式库会直接编译后添加进项目
+# bootstrap 3
+gem 'bootstrap-sass'
+# 用于抹平浏览器间的部分兼容性问题
+gem "autoprefixer-rails"
 
 # mysql驱动
 gem 'mysql2'
@@ -69,7 +72,7 @@ group :development, :test do
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  # gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

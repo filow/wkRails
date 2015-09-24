@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Manage Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Uid</th>
+      <th>Password</th>
+      <th>Realname</th>
+      <th>Is forbidden</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_admins.each do |manage_admin| %>
+      <tr>
+        <td><%= manage_admin.uid %></td>
+        <td><%= manage_admin.password %></td>
+        <td><%= manage_admin.realname %></td>
+        <td><%= manage_admin.is_forbidden %></td>
+        <td><%= link_to 'Show', manage_admin %></td>
+        <td><%= link_to 'Edit', edit_manage_admin_path(manage_admin) %></td>
+        <td><%= link_to 'Destroy', manage_admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin', new_manage_admin_path %>
