@@ -30,9 +30,9 @@
         <nav class="list-group">
           <% @navs.each do |nav| %>
             <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
-              <%= link_to nav[:text], nav[:options], class: "list-group-item active" %>
+              <a href="<%= url_for nav[:options] %>" class="list-group-item active"><i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
             <% else %>
-              <%= link_to nav[:text], nav[:options], class: "list-group-item" %>
+              <a href="<%= url_for nav[:options] %>" class="list-group-item"><i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
             <% end %>
           <% end %>
         </nav>
