@@ -6,9 +6,13 @@ nav:
     path: 'index/index'
   -
     text: 管理员管理
-    icon: user
+    icon: star
     path: 'admins/index'
   -
     text: 通知公告
     icon: envelope
     path: 'posts/index'
+  -
+    text: 用户管理
+    icon: user
+    path: 'users/index'

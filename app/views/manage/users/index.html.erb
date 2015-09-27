@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Manage Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Realname</th>
+      <th>Password digest</th>
+      <th>Sex</th>
+      <th>Idcard</th>
+      <th>Group</th>
+      <th>Department</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Is forbidden</th>
+      <th>Is email verified</th>
+      <th>Opus count</th>
+      <th>Msg unread</th>
+      <th>Avatar</th>
+      <th>Popularity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_users.each do |manage_user| %>
+      <tr>
+        <td><%= manage_user.name %></td>
+        <td><%= manage_user.realname %></td>
+        <td><%= manage_user.password_digest %></td>
+        <td><%= manage_user.sex %></td>
+        <td><%= manage_user.idcard %></td>
+        <td><%= manage_user.group %></td>
+        <td><%= manage_user.department %></td>
+        <td><%= manage_user.phone %></td>
+        <td><%= manage_user.email %></td>
+        <td><%= manage_user.is_forbidden %></td>
+        <td><%= manage_user.is_email_verified %></td>
+        <td><%= manage_user.opus_count %></td>
+        <td><%= manage_user.msg_unread %></td>
+        <td><%= manage_user.avatar %></td>
+        <td><%= manage_user.popularity %></td>
+        <td><%= link_to 'Show', manage_user %></td>
+        <td><%= link_to 'Edit', edit_manage_user_path(manage_user) %></td>
+        <td><%= link_to 'Destroy', manage_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_manage_user_path %>
