@@ -23,7 +23,7 @@ class ManageController < ApplicationController
   end
 
   def set_nav
-    @navs = @cache.get 'nav' do
+    @navs = @cache.get 'nav',nil,true do
       result = []
       raw = YAML.load(File.read('config/ext/manage_nav.yml'))["nav"]
       raw.each do |item|

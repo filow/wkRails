@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root 'index/index#index'
 
   scope module: 'index' do
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
     resources :admins
     # 通知公告
     resources :posts
+    # 用户
+    resources :users
   end
 
   # ckeditor需要的目录

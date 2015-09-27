@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manage_user.name %>
+</p>
+
+<p>
+  <strong>Realname:</strong>
+  <%= @manage_user.realname %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @manage_user.password_digest %>
+</p>
+
+<p>
+  <strong>Sex:</strong>
+  <%= @manage_user.sex %>
+</p>
+
+<p>
+  <strong>Idcard:</strong>
+  <%= @manage_user.idcard %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @manage_user.group %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @manage_user.department %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @manage_user.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @manage_user.email %>
+</p>
+
+<p>
+  <strong>Is forbidden:</strong>
+  <%= @manage_user.is_forbidden %>
+</p>
+
+<p>
+  <strong>Is email verified:</strong>
+  <%= @manage_user.is_email_verified %>
+</p>
+
+<p>
+  <strong>Opus count:</strong>
+  <%= @manage_user.opus_count %>
+</p>
+
+<p>
+  <strong>Msg unread:</strong>
+  <%= @manage_user.msg_unread %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @manage_user.avatar %>
+</p>
+
+<p>
+  <strong>Popularity:</strong>
+  <%= @manage_user.popularity %>
+</p>
+
+<%= link_to 'Edit', edit_manage_user_path(@manage_user) %> |
+<%= link_to 'Back', manage_users_path %>

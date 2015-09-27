@@ -1,0 +1,77 @@
+<%= form_for(@manage_user) do |f| %>
+  <% if @manage_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manage_user.errors.count, "error") %> prohibited this manage_user from being saved:</h2>
+
+      <ul>
+      <% @manage_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :realname %><br>
+    <%= f.text_field :realname %>
+  </div>
+  <div class="field">
+    <%= f.label :password_digest %><br>
+    <%= f.text_field :password_digest %>
+  </div>
+  <div class="field">
+    <%= f.label :sex %><br>
+    <%= f.check_box :sex %>
+  </div>
+  <div class="field">
+    <%= f.label :idcard %><br>
+    <%= f.text_field :idcard %>
+  </div>
+  <div class="field">
+    <%= f.label :group %><br>
+    <%= f.number_field :group %>
+  </div>
+  <div class="field">
+    <%= f.label :department %><br>
+    <%= f.text_field :department %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :is_forbidden %><br>
+    <%= f.check_box :is_forbidden %>
+  </div>
+  <div class="field">
+    <%= f.label :is_email_verified %><br>
+    <%= f.check_box :is_email_verified %>
+  </div>
+  <div class="field">
+    <%= f.label :opus_count %><br>
+    <%= f.number_field :opus_count %>
+  </div>
+  <div class="field">
+    <%= f.label :msg_unread %><br>
+    <%= f.number_field :msg_unread %>
+  </div>
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+  <div class="field">
+    <%= f.label :popularity %><br>
+    <%= f.number_field :popularity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
