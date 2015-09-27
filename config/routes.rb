@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
     # 管理员
     resources :admins
+    # 通知公告
+    resources :posts
   end
 
   # ckeditor需要的目录
