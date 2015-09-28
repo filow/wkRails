@@ -2,6 +2,10 @@ class Manage::SessionController < ManageController
   skip_filter :check_login
   layout false
   def index
+    # 已登录状态下就跳转到首页
+    if session[:admin_id]
+      redirect_to manage_path
+    end
     @record = get_record
 
     if @record[:times] >= 5
