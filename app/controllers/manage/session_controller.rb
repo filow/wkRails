@@ -1,5 +1,6 @@
 class Manage::SessionController < ManageController
   skip_filter :check_login
+  layout false
   def index
     @record = get_record
 
@@ -22,7 +23,7 @@ class Manage::SessionController < ManageController
     else
       admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
       # 如果验证失败
-      if admin.nil?
+      if admin
         @record = record_fail
         session[:last_login_user] = prms[:username]
         redirect_to manage_login_path

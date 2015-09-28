@@ -1,3 +1,287 @@
-<h1>Manage::Index#index</h1>
-<p>Find me in app/views/manage/index/index.html.erb</p>
-<%= link_to '前台首页', root_path %>
+<!-- :::: row-1 :::: -->
+        <div class="row">
+
+  		    <div class="col-md-3">
+            <div class="visits">
+              <div class="col-md-8 data">
+                <div class="number">42,900</div>
+                <div class="today">TODAY'S VISITS</div>
+              </div>
+              <div class="col-md-4 icon"><span class="glyphicon glyphicon-globe"></span></div>
+            </div>
+  		    </div>
+
+  		    <div class="col-md-3">
+            <div class="profit">
+              <div class="data col-md-8">
+                <div class="number">180,200</div>
+                <div class="today">TODAY'S PROFIT</div>
+              </div>
+              <div class="col-md-4 icon"><span class="glyphicon glyphicon-folder-open"></span></div>
+            </div>
+  		    </div>
+
+  		    <div class="col-md-3">
+            <div class="orders">
+              <div class="col-md-8 data">
+                <div class="number">38,900</div>
+                <div class="today">PLAY TIMES</div>
+              </div>
+              <div class="col-md-4 icon"><span class="glyphicon glyphicon-equalizer"></span></div>
+            </div>
+  		    </div>
+
+  		    <div class="col-md-3">
+            <div class="comments">
+              <div class="col-md-8 data">
+                <div class="number">3,988</div>
+                <div class="today">NEW COMMENTS</div>
+              </div>
+              <div class="col-md-4 icon"><span class="glyphicon glyphicon-comment"></span></div>
+            </div>
+  			  </div>
+        </div>
+        <!-- end row-1 -->
+
+        <div class="backlog clearfix">
+
+          <div class="group">
+            <button type="button" class="btn btn-default default all">全部</button>
+            <button type="button" class="btn btn-default un-done">未完成</button>
+            <button type="button" class="btn btn-default have-done">已完成</button>
+          </div>
+
+          <table class="table table-hover">
+            <tr id="insert" class="hide">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-primary">Primary</span>
+              </td>
+              <td class="no3">
+                <a></a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="un">
+              <td class="no1">
+                <button class="ok" type="button" name="button">
+                    <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-default">Default</span>
+              </td>
+              <td class="no3">
+                <a>The privilege of a lifetime is being who you are. </a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="un">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-primary">Primary</span>
+              </td>
+              <td class="no3">
+                <a>Life is measured by thought and action not by time. </a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-success">Success</span>
+              </td>
+              <td class="no3">
+                <a>We soon believe what we desire.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-danger">Danger</span>
+              </td>
+              <td class="no3">
+                <a>Freedom isn't given. It is won.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="un">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-warning">Warning</span>
+              </td>
+              <td class="no3">
+                <a>Warmness is luxury—which is reflected by deep cold and hurt. </a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-info">Info</span>
+              </td>
+              <td class="no3">
+                <a>Sometimes you have to be your own hero.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+
+          </table>
+
+          <form class="form-horizontal" action="#" method="post">
+            <textarea class="form-control" rows="2"></textarea>
+            <button class="input-group-btn">
+              <button class="sub-text" class="btn btn-primary" type="submit">提交</button>
+            </button>
+          </form>
+
+        </div>
+        <!-- end backlog -->
+        <div class="backlog havedone clearfix">
+
+          <div class="group">
+            <h2 class="default">已完成</h2>
+          </div>
+
+          <table class="table table-hover">
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-success">Success</span>
+              </td>
+              <td class="no3">
+                <a>We soon believe what we desire.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-danger">Danger</span>
+              </td>
+              <td class="no3">
+                <a>Freedom isn't given. It is won.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+            <tr class="done">
+              <td class="no1">
+                <button type="button" name="button">
+                  <span class="glyphicon glyphicon-ok-circle"></span>
+                </button>
+              </td>
+              <td class="no2">
+                <span class="label label-info">Info</span>
+              </td>
+              <td class="no3">
+                <a>Sometimes you have to be your own hero.</a>
+              </td>
+              <td class="no4">
+                <time datetime="">2015-09-25</time>
+              </td>
+              <td class="no5">
+                <button  class="remove" type="button" name="button">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <!-- end havedone -->

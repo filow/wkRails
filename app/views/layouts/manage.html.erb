@@ -1,26 +1,181 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title><%= @title || '微课大赛后台管理系统' %></title>
-  <link rel="shortcut icon" href="favicon.png">
-  <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
-  <%= stylesheet_link_tag  'manage', media: 'all' %>
-  <%= stylesheet_link_tag   params[:controller], media: 'all' %>
-  <%= yield :before_js %>
-  <%= csrf_meta_tags %>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title><%= @title || '微课大赛后台管理系统' %></title>
+    <link rel="shortcut icon" href="/favicon.png">
+    <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
+    <%= stylesheet_link_tag  'manage', media: 'all' %>
+    <%= stylesheet_link_tag   params[:controller], media: 'all' %>
+    <%= yield :before_js %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="page">
 
-</head>
-<body>
-<header>
+      <!-- ==== START HEADER ==== -->
+      <header class="navbar-fixed-top" role="banner">
+        <!-- :::: logo :::: -->
+        <p class="logo">
+          LOGO
+        </p>
+
+        <!-- :::: user :::: -->
+        <div class="dropdown user">
+          <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <img src="img/user.jpg" alt="" />
+            <span>Adam Schwartz</span>
+            <i class="cart"></i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Edit Profile</a></li>
+            <li><a href="#">Setting</a></li>
+            <li><a href="#">Log Out</a></li>
+          </ul>
+        </div>
+      </header>
+      <!-- end header -->
+
+
+      <!-- ==== Navigation Left==== -->
+      <nav role="navigition">
+        <div data-scrollbar="true" data-height="100%">
+
+          <ul class="nav accordion" id="accordion" >
+
+            <li class="navigition">Navigation</li>
+
+            <li class="has-sub active">
+              <a href="#" class="link">
+                  <i class=" glyphicon glyphicon-blackboard"></i>
+                  <span>Dashboard</span>
+                  <b class="glyphicon glyphicon-chevron-down"></b>
+              </a>
+              <ul class="sub sub-default">
+                <li><a href="#">Dashboard v1</a></li>
+                <li><a href="#">Dashboard v2</a></li>
+              </ul>
+            </li>
+
+            <li class="has-sub">
+              <a href="#">
+                <i class="glyphicon glyphicon-envelope"></i>
+                <span>Email</span>
+              </a>
+            </li>
+
+            <li class="has-sub">
+              <a href="#" class="link">
+                <i class="glyphicon glyphicon-briefcase"></i>
+                <span>UI Elements</span>
+                <b class="glyphicon glyphicon-chevron-down"></b>
+              </a>
+              <ul class="sub">
+                <li><a href="#">General</a></li>
+                <li><a href="#">Typography</a></li>
+                <li><a href="#">Tabs &amp; Accordions</a></li>
+              </ul>
+            </li>
+
+            <li class="has-sub">
+              <a href="#">
+                <i class="glyphicon glyphicon-star"></i>
+                <span>Form Stuff</span>
+                <b class="glyphicon glyphicon-chevron-down"></b>
+              </a>
+            </li>
+
+            <li class="has-sub">
+              <a href="#">
+                <i class="glyphicon glyphicon-th"></i>
+                <span>Tables</span>
+                <b class="glyphicon glyphicon-chevron-down"></b>
+              </a>
+            </li>
+
+            <li class="has-sub">
+              <a href="#">
+                <i class="glyphicon glyphicon-export"></i>
+                <span>Extra</span>
+                <b class="glyphicon glyphicon-chevron-down"></b>
+              </a>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                  <i class="glyphicon glyphicon-random"></i>
+                  <span>Login & Register</span>
+                  <b class="glyphicon glyphicon-chevron-down"></b>
+                </a>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                    <i class="glyphicon glyphicon-tree-deciduous"></i>
+                    <span>Version</span>
+                    <b class="glyphicon glyphicon-chevron-down"></b>
+                </a>
+            </li>
+
+            <li class="has-sub">
+                <a href="#">
+                  <i class="glyphicon glyphicon-cog"></i>
+                  <span>Helper</span>
+                  <b class="glyphicon glyphicon-chevron-down"></b>
+                </a>
+            </li>
+
+            <li class="has-sub">
+              <a href="#">
+                <i class="glyphicon glyphicon-align-left"></i>
+                <span>Menu Level</span>
+                <b class="caret-down pull-right"></b>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+
+
+      <!-- ==== START RIGHT CONTENT ==== -->
+      <main role="main">
+        
+        <%= yield %>
+      </main>
+      <!-- end content -->
+    </div>
+    <!-- end page-->
+    <%= javascript_include_tag 'manage' %>
+    <%= javascript_include_tag params[:controller] %>
+    <%= yield :js %>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+
+
+
   <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 40, width: 313, alt: '微课大赛后台管理系统' %></a>
 
-	<div class="pull-right userinfo" id="nav-bar">
+  <div class="pull-right userinfo" id="nav-bar">
     <a class="btn btn-default"><%= session['admin_realname'] || '未登录用户' %> <%= session['admin_name'] %></a>
     <a class="btn btn-primary" href="{:U('Account/Index')}">账户管理</a>
     <%= link_to '回到前台', root_path, class:'btn btn-primary' %>
     <%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %>
-	</div>
+  </div>
   <div class="clear"></div>
 </header>
 
@@ -38,15 +193,11 @@
         </nav>
       </aside>
       <main class="col-md-9">
-        <%= yield %>
       </main>
     </div>
   </section>
-</body>
-<%= javascript_include_tag 'manage' %>
-<%= javascript_include_tag params[:controller] %>
-</html>
-    <!--
+
+
     <link rel="stylesheet" href="__PUBLIC__/plugins/icheck/skins/square/blue.css">
     <link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap-select/bootstrap-select.css">
     <link rel="stylesheet" href="__PUBLIC__/backyard/style.css" />
@@ -80,7 +231,7 @@
                 <?php foreach($_SESSION[CF('NAV_KEY')][MODULE_NAME] as $key=>$val): ?>
                 <?php if(in_array($key, array('MODULE_ICON','MODULE_TITLE'))) continue; ?>
                 <li <?php if($key==ucfirst(strtolower(ACTION_NAME))) echo "class=\"current\"" ?>>
-                	<a href="<?php echo U(MODULE_NAME.'/'.$key); ?>">
+                  <a href="<?php echo U(MODULE_NAME.'/'.$key); ?>">
                         <i class="icon-<?php echo $val[1]; ?> icons-white"></i>
                         <?php echo $val[0]; ?></a>
                 </li>
