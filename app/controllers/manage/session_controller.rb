@@ -24,14 +24,14 @@ class Manage::SessionController < ManageController
       admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
       # 如果验证失败
       if admin
-        @record = record_fail
-        session[:last_login_user] = prms[:username]
-        redirect_to manage_login_path
-      else
         session[:admin_id] = admin.id
         session[:admin_realname] = admin.realname
         session[:admin_name] = admin.name
         redirect_to manage_path
+      else
+        @record = record_fail
+        session[:last_login_user] = prms[:username]
+        redirect_to manage_login_path
       end
     end
 
