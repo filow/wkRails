@@ -53,6 +53,7 @@ gem 'carrierwave'
 
 # 富文本编辑器
 gem 'ckeditor'
+gem 'responders', '~> 2.0'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development

@@ -28,7 +28,7 @@ class Manage::PostsController < ManageController
 
     respond_to do |format|
       if @manage_post.save
-        format.html { redirect_to @manage_post, notice: 'Post was successfully created.' }
+        format.html { redirect_to @manage_post, notice: '成功添加通知公告' }
         format.json { render :show, status: :created, location: @manage_post }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class Manage::PostsController < ManageController
   def update
     respond_to do |format|
       if @manage_post.update(manage_post_params)
-        format.html { redirect_to @manage_post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @manage_post, notice: '通知公告修改成功' }
         format.json { render :show, status: :ok, location: @manage_post }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class Manage::PostsController < ManageController
   def destroy
     @manage_post.destroy
     respond_to do |format|
-      format.html { redirect_to manage_posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to manage_posts_url, notice: '通知公告被成功删除' }
       format.json { head :no_content }
     end
   end

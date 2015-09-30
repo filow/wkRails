@@ -1,16 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Manage Posts</h1>
+<h1>通知公告</h1>
 
 <table>
   <thead>
     <tr>
       <th>Title</th>
-      <th>Content</th>
-      <th>Content notag</th>
       <th>Valid from</th>
       <th>Is top</th>
-      <th>Is hide</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,15 +15,11 @@
   <tbody>
     <% @manage_posts.each do |manage_post| %>
       <tr>
-        <td><%= manage_post.title %></td>
-        <td><%= manage_post.content %></td>
-        <td><%= manage_post.content_notag %></td>
-        <td><%= manage_post.valid_from %></td>
+        <td><%= link_to manage_post.title, manage_post %></td>
+        <td><%= manage_post.valid_from.strftime('%F %R') %></td>
         <td><%= manage_post.is_top %></td>
-        <td><%= manage_post.is_hide %></td>
-        <td><%= link_to 'Show', manage_post %></td>
-        <td><%= link_to 'Edit', edit_manage_post_path(manage_post) %></td>
-        <td><%= link_to 'Destroy', manage_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '修改', edit_manage_post_path(manage_post) %></td>
+        <td><%= link_to '删除', manage_post, method: :delete, data: { confirm: '确定要删除该公告吗?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Post', new_manage_post_path %>
+<%= link_to '新建通知公告', new_manage_post_path %>

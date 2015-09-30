@@ -1,7 +1,7 @@
 <%= form_for(@manage_post) do |f| %>
   <% if @manage_post.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@manage_post.errors.count, "error") %> prohibited this manage_post from being saved:</h2>
+      <h2>你的提交内容中存在<%= @manage_post.errors.count %>个错误:</h2>
 
       <ul>
       <% @manage_post.errors.full_messages.each do |message| %>
@@ -16,24 +16,17 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :content_notag %><br>
-    <%= f.text_area :content_notag %>
+    <%= javascript_include_tag "ckeditor/init" %>
+    <%= f.label :content%><br>
+    <%= f.cktext_area :content  %>
   </div>
   <div class="field">
     <%= f.label :valid_from %><br>
     <%= f.datetime_select :valid_from %>
   </div>
   <div class="field">
-    <%= f.label :is_top %><br>
+    <%= f.label :is_top %>
     <%= f.check_box :is_top %>
-  </div>
-  <div class="field">
-    <%= f.label :is_hide %><br>
-    <%= f.check_box :is_hide %>
   </div>
   <div class="actions">
     <%= f.submit %>
