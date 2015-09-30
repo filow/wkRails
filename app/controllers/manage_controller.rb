@@ -1,6 +1,6 @@
 class ManageController < ApplicationController
   before_action :build_manage_cache
-  # before_filter :check_login
+  # before_action :check_login
   before_action :set_nav
 
   private

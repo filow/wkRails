@@ -30,6 +30,9 @@
       <%= password_field_tag :password, '',placeholder:"请输入密码" %>
 
       <% if @show_vcode %>
+      验证码
+      <%= text_field_tag :vcode, '' %>
+
       <%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %>
       <% end %>
 

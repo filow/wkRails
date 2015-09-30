@@ -14,29 +14,38 @@ class Manage::SessionController < ManageController
       flash[:notice] = nil
     elsif @record[:times] >= 1
       @show_vcode = true
-      flash[:notice] = "您已经连续登录失败#{@record[:times]}次，超过5次您将暂时无法登陆"
     end
   end
 
   def create
-    prms = params.permit(:username, :password)
+    prms = params.permit(:username, :password, :vcode)
     @record = get_record
     # 超过5次禁止登陆
     if @record[:times] >= 5
       redirect_to manage_login_path
-    else
-      admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
-      # 如果验证失败
-      if admin
-        session[:admin_id] = admin.id
-        session[:admin_realname] = admin.realname
-        session[:admin_name] = admin.name
-        redirect_to manage_path
-      else
-        @record = record_fail
-        session[:last_login_user] = prms[:username]
-        redirect_to manage_login_path
+      return
+    end
+
+    # 要检查验证码是否正确
+    if @record[:times] >= 1
+      if prms[:vcode].nil? || prms[:vcode].upcase != session[:manage_vcode]
+        redirect_to manage_login_path, notice: '请输入正确的验证码'
+        return
       end
+    end
+
+    admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
+    # 如果验证失败
+    if admin
+      session[:admin_id] = admin.id
+      session[:admin_realname] = admin.realname
+      session[:admin_name] = admin.name
+      clear_record
+      redirect_to manage_path
+    else
+      @record = record_fail
+      session[:last_login_user] = prms[:username]
+      redirect_to manage_login_path, notice: "您已经连续登录失败#{@record[:times]}次，超过5次您将暂时无法登陆"
     end
 
   end
@@ -77,6 +86,11 @@ private
     else
       {times: 0, last_try: Time.now}
     end
+  end
+
+  def clear_record
+    @cache = Cache.new("wkRails-Manage-")
+    @cache[login_cache_key] = nil
   end
 
   def login_cache_key
