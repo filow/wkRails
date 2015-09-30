@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  uid: MyString
-  password: MyString
-  realname: MyString
+valid_admin:
+  name: TestUser
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  realname: 测试用户
   is_forbidden: false
 
-two:
-  uid: MyString
-  password: MyString
-  realname: MyString
-  is_forbidden: false
+invalid_admin:
+  name: TestUser2
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  realname: 测试用户2
+  is_forbidden: true

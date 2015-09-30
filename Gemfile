@@ -36,9 +36,6 @@ gem "autoprefixer-rails"
 # mysql驱动
 gem 'mysql2'
 
-# 为数据库迁移添加外键的支持
-gem 'foreigner'
-
 # 分页插件
 gem 'kaminari'
 
