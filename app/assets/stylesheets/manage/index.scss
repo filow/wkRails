@@ -1,6 +1,55 @@
-body {
-  background-color: #D9E0E7;
+html {
+  font-size: 100%;
 }
+.btn-default:link,
+.btn-default:visited,
+.btn-default:focus,
+.btn-default:hover,
+.btn-default:active,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus,
+.btn:hover,
+.btn:focus,
+.btn.focus,
+.btn:active,
+.btn.active,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+.btn-default:active:hover,
+.btn-default.active:hover,
+.btn-default:active:focus,
+.btn-default.active:focus,
+.btn-default:active.focus,
+.btn-default.active.focus,
+.open > .dropdown-toggle.btn-default,
+.open > .dropdown-toggle.btn-default:focus,
+.open > .dropdown-toggle.btn-default:hover,
+.open > .dropdown-toggle.btn-default.focus{
+  color: #fff;
+  background: inherit;
+  border: 2px solid #fff;
+}
+button {
+  border:none;
+}
+a:link,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  opacity: 1;
+  border:none;
+  text-decoration: none;
+  outline: none;
+  background: inherit;
+}
+
 /* HEADER
   ----------------------------- */
 header {
@@ -31,7 +80,15 @@ header {
 /* :::: USER :::: */
 .user {
   height: 3.4rem;
-  margin-top: 6px;
+  margin-top: 12px;
+}
+.dropdown.user,
+.btn.btn-default.dropdown-toggle:focus,
+.user .dropdown-toggle,
+.user .dropdown-toggle:visited ,{
+  border: none;
+  box-shadow: none;
+  background: none;
 }
 .user span {
   display: inline-block;
@@ -39,30 +96,25 @@ header {
   font-size: 14px;
   margin-right: .5rem;
 }
-.adam img,
-.user img {
-  width: 30px;
-  height: 30px;
-  vertical-align: middle;
-  margin-right: 5px;
-          border-radius: 25px;
-  -webkit-border-radius: 25px;
-}
-.user span:hover,
-.user img:hover {
+.user .glyphicon:hover,
+.user span:hover {
   opacity: .8;
 }
 .user .dropdown-menu {
-  font-size: 14px;
-  width: 180px;
-  padding: 10px 20px;
-  margin-top: -6px;
-  margin-left: 20px;
+  font-size: 18px;
+  padding:0;
+  margin-top: -12px;
+  margin-left: -40px; 
+}
+.user .dropdown-menu li {
+  padding: 0;
+  width: 60px;
 }
 .user .dropdown-menu a{
   color: #585663;
   display: block;
-  padding: 8px;
+  padding: 12px 30px;
+  background: none;
 }
 .user .dropdown-menu a:hover {
   opacity: .5;
@@ -79,36 +131,42 @@ nav {
   float: left;
   position: fixed;
   top: 3.4rem;
-  padding-bottom:8rem;
-  overflow: hidden;
+  padding-bottom: 8rem;
 }
 .has-sub {
   position: relative;
 }
-.navigition,
-.has-sub > a {
+.navigition{
   width: 100%;
   display: inline-block;
   color: #a8acb1;
-  padding: 10px 20px;
-  font-size: 14px;
-}
-.navigition {
+  padding: .875rem 1.5rem;
   font-size: 16px;
 }
-.has-sub > a:hover {
+.has-sub .link {
+  padding-left: 24px;
+}
+.has-sub .link:visited {
+  background-color: #00ACAC;
+  color: #fff;
+}
+.has-sub .link:focus,
+.has-sub .link:hover,
+.has-sub .link:active{
   background-color: #232A2F;
   color: #fff;
 }
-.has-sub.active > a {
+.has-sub.active .link {
   background-color: #00ACAC;
   color: #fff;
 }
 .has-sub a i {
   display: inline-block;
-  margin-right: 12px;
+  margin-right: 14px;
   width: 1rem;
 }
+
+/*
 .has-sub a b {
   display: inline-block;
   position: absolute;
@@ -133,7 +191,7 @@ nav {
 .sub-default{
   display: block;
 }
-
+*/
 
 /* MAIN CONTENT
   ------------------------------ */
