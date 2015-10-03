@@ -12,16 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
     <%= javascript_include_tag "ckeditor/init" %>
-    <%= f.label :content%><br>
+    <%= f.label :content%>
     <%= f.cktext_area :content  %>
   </div>
   <div class="field">
-    <%= f.label :valid_from %><br>
+    <%= f.label :valid_from %>
     <%= f.datetime_select :valid_from %>
   </div>
   <div class="field">
