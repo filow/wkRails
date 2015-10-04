@@ -7,10 +7,13 @@
 <dl class="dl-horizontal">
   <dt>标题:</dt>
   <dd>
-    <%= @manage_post.title %>
     <% if @manage_post.is_top %>
         <span class="label label-info">置顶</span>
     <% end %>
+    <% if @manage_post.is_hide %>
+        <span class="label label-default">隐藏</span>
+    <% end %>
+    <%= @manage_post.title %>
   </dd>
 
   <dt>内容:</dt>
