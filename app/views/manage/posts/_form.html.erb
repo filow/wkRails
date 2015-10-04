@@ -1,7 +1,8 @@
+<%= javascript_include_tag "ckeditor/init" %>
 <%= form_for(@manage_post) do |f| %>
   <% if @manage_post.errors.any? %>
-    <div id="error_explanation">
-      <h2>你的提交内容中存在<%= @manage_post.errors.count %>个错误:</h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h3>你的提交内容中存在<%= @manage_post.errors.count %>个错误:</h3>
 
       <ul>
       <% @manage_post.errors.full_messages.each do |message| %>
@@ -11,22 +12,22 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= javascript_include_tag "ckeditor/init" %>
+  <div class="form-group">
     <%= f.label :content%>
     <%= f.cktext_area :content  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :valid_from %>
     <%= f.datetime_select :valid_from %>
   </div>
-  <div class="field">
-    <%= f.label :is_top %>
-    <%= f.check_box :is_top %>
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :is_top %>是否置顶
+    </label>
   </div>
   <div class="actions">
     <%= f.submit %>
