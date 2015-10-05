@@ -4,6 +4,12 @@ class Manage::Post < ActiveRecord::Base
 
   #标题，内容，生效时间不允许空
   validates :title, :content, :valid_from, presence: true
+  #标题不允许重复
+  validates :title, uniqueness: true
+
+  def self.valid_posts
+    where 'valid_from >= ?',Time.now
+  end
 
   private
     #用于添加content_notag字段

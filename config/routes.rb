@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :admins
     # 通知公告
     resources :posts
+    get 'posts/query/valid' => 'posts#valid'
+    get 'posts/query/top' => 'posts#top'
+    get 'posts/query/hide' => 'posts#hide'
+    get 'posts/query/not_hide' => 'posts#not_hide'
     # 用户
     resources :users
   end

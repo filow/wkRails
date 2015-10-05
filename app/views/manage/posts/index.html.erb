@@ -8,6 +8,14 @@
   <h1>通知公告</h1>
 </div>
 
+<div>
+  <%= link_to '全部', manage_posts_path, class: "btn btn-default" %>
+  <%= link_to '生效通知', manage_posts_query_valid_path, class: "btn btn-default" %>
+  <%= link_to '置顶', manage_posts_query_top_path, class: "btn btn-default" %>
+  <%= link_to '隐藏', manage_posts_query_hide_path, class: "btn btn-default" %>
+  <%= link_to '未隐藏', manage_posts_query_not_hide_path, class: "btn btn-default" %>
+</div>
+
 <div class="backlog clearfix">
   <table class="table table-hover">
     <thead>
@@ -59,5 +67,5 @@
     </tbody>
   </table>
 
-  <%= link_to '新建通知公告', new_manage_post_path ,class: "btn btn-success"%>
+  <%= link_to '新建通知公告', new_manage_post_path ,class: "btn btn-success" %>
 </div>

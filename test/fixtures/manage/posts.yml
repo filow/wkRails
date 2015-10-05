@@ -15,3 +15,43 @@ two:
   valid_from: 2015-09-27 10:34:24
   is_top: false
   is_hide: false
+
+#用于测试同名Post
+same_title:
+  title: 不要和我一样
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  valid_from: 2015-09-27 10:34:24
+  is_top: false
+  is_hide: false
+
+#用于测试查询筛选功能
+entry1:
+  title: 我是1
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  valid_from: <%= Time.now+(60*60*24) %>
+  is_top: true
+  is_hide: true
+entry2:
+  title: 我是2
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  valid_from: <%= Time.now+(60*60*24) %>
+  is_top: true
+  is_hide: false
+entry3:
+  title: 我是3
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  valid_from: <%= Time.now+(60*60*24) %>
+  is_top: false
+  is_hide: true
+
+#用于测试content_notag自动生成
+notag:
+  title: 我是4
+  content: <p><span style="font-size:36px;">不要html标签</span></p>
+  valid_from: 2015-09-27 10:34:24
+  is_top: false
+  is_hide: false
