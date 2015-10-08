@@ -8,12 +8,12 @@
   <h1>通知公告</h1>
 </div>
 
-<div>
+<div class="btn-group">
   <%= link_to '全部', manage_posts_path, class: "btn btn-default" %>
-  <%= link_to '生效通知', manage_posts_query_valid_path, class: "btn btn-default" %>
-  <%= link_to '置顶', manage_posts_query_top_path, class: "btn btn-default" %>
-  <%= link_to '隐藏', manage_posts_query_hide_path, class: "btn btn-default" %>
-  <%= link_to '未隐藏', manage_posts_query_not_hide_path, class: "btn btn-default" %>
+  <%= link_to '生效通知', manage_posts_query_filter_path(filter: 'valid'), class: "btn btn-default" %>
+  <%= link_to '置顶', manage_posts_query_filter_path(filter: 'top'), class: "btn btn-default" %>
+  <%= link_to '隐藏', manage_posts_query_filter_path(filter:'hide'), class: "btn btn-default" %>
+  <%= link_to '未隐藏', manage_posts_query_filter_path(filter: 'not_hide'), class: "btn btn-default" %>
 </div>
 
 <div class="backlog clearfix">

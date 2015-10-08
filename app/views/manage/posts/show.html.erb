@@ -23,5 +23,5 @@
   <dd><%= @manage_post.valid_from.strftime('%F %R') %></dd>
 </dl>
 
-<%= link_to '修改', edit_manage_post_path(@manage_post) %> |
-<%= link_to '后退', manage_posts_path %>
+<%= link_to '修改', edit_manage_post_path(@manage_post), class: 'btn btn-default' %>
+<%= link_to '后退', manage_posts_path, class: 'btn btn-default' %>

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Manage::PostsControllerTest < ActionController::TestCase
   setup do
-    @manage_post = manage_posts(:entry2)
+    @manage_post = manage_posts(:posts_filter2)
     #登陆
     @admin = manage_admins(:valid_admin)
     session[:admin_id] = @admin.id
@@ -68,14 +68,14 @@ class Manage::PostsControllerTest < ActionController::TestCase
   end
 
   test "筛选当前生效通知" do
-    get :valid
+    get :filter, filter: 'valid'
     assert_response :success
     assert_not_nil assigns(:manage_posts)
     assert_template :index, layout: 'layouts/manage'
   end
 
   test "筛选隐藏通知" do
-    get :hide
+    get :filter, filter: 'hide'
     assert_response :success
     posts = assigns(:manage_posts)
     assert_not_nil posts
@@ -87,7 +87,7 @@ class Manage::PostsControllerTest < ActionController::TestCase
   end
 
   test "筛选未隐藏通知" do
-    get :not_hide
+    get :filter, filter: 'not_hide'
     assert_response :success
     posts = assigns(:manage_posts)
     assert_not_nil posts
@@ -99,7 +99,7 @@ class Manage::PostsControllerTest < ActionController::TestCase
   end
 
   test "筛选置顶通知" do
-    get :top
+    get :filter, filter: 'top'
     assert_response :success
     posts = assigns(:manage_posts)
     assert_not_nil posts

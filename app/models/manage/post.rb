@@ -8,7 +8,7 @@ class Manage::Post < ActiveRecord::Base
   validates :title, uniqueness: true
 
   def self.valid_posts
-    where 'valid_from >= ?',Time.now
+    where 'valid_from >= ? and is_hide = ?', Time.now, false
   end
 
   private

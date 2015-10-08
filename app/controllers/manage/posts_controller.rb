@@ -1,28 +1,25 @@
 class Manage::PostsController < ManageController
   before_action :set_manage_post, only: [:show, :edit, :update, :destroy]
 
-  # GET /manage/posts/query/valid
-  def valid
-    @manage_posts = Manage::Post.valid_posts
-    render :index
-  end
-
-  # GET /manage/posts/query/hide
-  def hide
-    @manage_posts = Manage::Post.where is_hide: true
-    render :index
-  end
-
-  # GET /manage/posts/query/not_hide
-  def not_hide
-    @manage_posts = Manage::Post.where is_hide: false
-    render :index
-  end
-
-  # GET /manage/posts/query/top
-  def top
-    @manage_posts = Manage::Post.where is_top: true
-    render :index
+  # GET /manage/posts/query/:filter
+  def filter
+    case params[:filter]
+      when 'valid'
+        @manage_posts = Manage::Post.valid_posts
+        render :index
+      when 'hide'
+        @manage_posts = Manage::Post.where is_hide: true
+        render :index
+      when 'not_hide'
+        @manage_posts = Manage::Post.where is_hide: false
+        render :index
+      when 'top'
+        @manage_posts = Manage::Post.where is_top: true
+        render :index
+      else
+        @manage_posts = Manage::Post.all
+        render :index
+    end
   end
 
   # GET /manage/posts
