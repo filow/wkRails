@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  key: MyString
-  value: MyText
-  remark: MyString
-  field_type: MyString
+cfgs_one:
+  key: HELLO
+  value: World
+  remark: 你好世界
+  field_type: text_field
 
-two:
-  key: MyString
-  value: MyText
-  remark: MyString
-  field_type: MyString
+cfgs_another:
+  key: ANA
+  value: 123456
+  remark: ANA123456
+  field_type: number_field

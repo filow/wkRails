@@ -45,7 +45,7 @@ class Cache
 
 private
     def full_key(name)
-        @prefix+name.to_s
+      "wkRails-#{@prefix}-#{name}"
     end
     def expires(expire)
         if expire.nil?
