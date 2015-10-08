@@ -1,34 +1,27 @@
-<p id="notice"><%= notice %></p>
+<% if !notice.blank? %>
+    <div id="error_explanation" class="alert alert-success" role="alert">
+      <p id="notice"><%= notice %></p>
+    </div>
+<% end %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @manage_post.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt>标题:</dt>
+  <dd>
+    <% if @manage_post.is_top %>
+        <span class="label label-info">置顶</span>
+    <% end %>
+    <% if @manage_post.is_hide %>
+        <span class="label label-default">隐藏</span>
+    <% end %>
+    <%= @manage_post.title %>
+  </dd>
 
-<p>
-  <strong>Content:</strong>
-  <%= @manage_post.content %>
-</p>
+  <dt>内容:</dt>
+  <dd><%= @manage_post.content.html_safe %></dd>
 
-<p>
-  <strong>Content notag:</strong>
-  <%= @manage_post.content_notag %>
-</p>
+  <dt>生效时间:</dt>
+  <dd><%= @manage_post.valid_from.strftime('%F %R') %></dd>
+</dl>
 
-<p>
-  <strong>Valid from:</strong>
-  <%= @manage_post.valid_from %>
-</p>
-
-<p>
-  <strong>Is top:</strong>
-  <%= @manage_post.is_top %>
-</p>
-
-<p>
-  <strong>Is hide:</strong>
-  <%= @manage_post.is_hide %>
-</p>
-
-<%= link_to 'Edit', edit_manage_post_path(@manage_post) %> |
-<%= link_to 'Back', manage_posts_path %>
+<%= link_to '修改', edit_manage_post_path(@manage_post), class: 'btn btn-default' %>
+<%= link_to '后退', manage_posts_path, class: 'btn btn-default' %>
