@@ -11,6 +11,9 @@ class Manage::Post < ActiveRecord::Base
     where 'valid_from >= ? and is_hide = ?', Time.now, false
   end
 
+  def published?
+    valid_from < Time.now
+  end
   private
     #用于添加content_notag字段
     def add_content_notag

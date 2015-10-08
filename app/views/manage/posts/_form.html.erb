@@ -1,16 +1,6 @@
 <%= javascript_include_tag "ckeditor/init" %>
 <%= form_for(@manage_post) do |f| %>
-  <% if @manage_post.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger" role="alert">
-      <h3>你的提交内容中存在<%= @manage_post.errors.count %>个错误:</h3>
-
-      <ul>
-      <% @manage_post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_errors(@manage_post) %>
 
   <div class="form-group">
     <%= f.label :title %>

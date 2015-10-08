@@ -33,6 +33,8 @@ gem 'bootstrap-sass'
 # 用于抹平浏览器间的部分兼容性问题
 gem "autoprefixer-rails"
 
+gem 'icheck-rails'
+
 # mysql驱动
 gem 'mysql2'
 
