@@ -2,7 +2,9 @@
 <%= link_to '新建用户', new_manage_user_path ,class: "btn btn-success" %>
 <div class="btn-group" role="group">
   <span style="display:none" id="url_base"><%= manage_users_url %></span>
+  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 详细信息</a>
   <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
+  <a class="btn btn-primary action-btn extra-action" id="forbid" disabled><i class="glyphicon glyphicon-retweet"></i> 切换禁用</a>
   <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
 
 </div>
@@ -21,8 +23,6 @@
     <th>是否禁用</th>
     <th>是否验证</th>
     <th>作品数量</th>
-    <th>未读信息</th>
-    <th>头像</th>
     <th>人气</th>
   </tr>
   </thead>
@@ -62,8 +62,6 @@
           <% end %>
         </td>
         <td><%= p.opus_count %></td>
-        <td><%= p.msg_unread %></td>
-        <td><%= link_to '查看头像' %></td>
         <td><%= p.popularity %></td>
       </tr>
   <% end %>
