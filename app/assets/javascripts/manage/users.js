@@ -6,7 +6,7 @@ $(function(){
   $('.p_radio').iCheck({
   	radioClass: 'iradio_square-blue',
   });
-  var current_line_hide, current_line_top;
+  var current_line_forbid;
   // 点击表单行选中这个行
   $('tr').click(function(){
     var t = $(this);
@@ -21,8 +21,7 @@ $(function(){
       var id = t.data('id'),
           url_base = $('#url_base').text().trim();
 
-      current_line_hide = t.data('hide');
-      current_line_top = t.data('top');
+      current_line_forbid = t.data('forbid');
       $(".action-btn").removeAttr('disabled').each(function(i, e){
         if(e.id == "edit") {
           $(e).attr('href', url_base + "/" + id + '/edit');
@@ -55,17 +54,14 @@ $(function(){
     form.submit();
   }
 
-  // 切换隐藏、切换置顶和删除的操作
+  // 切换和删除的操作
   $('a.extra-action').click(function (){
     var t = $(this);
     if(t.attr('disabled')) return false;
     var href = t.attr('href'), type = this.id;
     switch(type){
-      case 'top':
-        sendRequest(href, 'PATCH', {'manage_post[is_top]': !current_line_top});
-        break;
-      case 'hide':
-        sendRequest(href, 'PATCH', {'manage_post[is_hide]': !current_line_hide});
+      case 'forbid':
+        sendRequest(href, 'PATCH', {'manage_user[is_forbidden]':  !current_line_forbid});
         break;
       case 'delete':
         if(confirm("你确定要删除此用户吗？此操作不可撤销！！")){
