@@ -3,7 +3,7 @@ class Manage::PostsController < ManageController
 
   # GET /manage/posts
   def index
-    @manage_posts = Manage::Post.order(valid_from: :desc).all
+    @manage_posts = Manage::Post.order(valid_from: :desc).page(params[:page])
   end
 
   # GET /manage/posts/1
