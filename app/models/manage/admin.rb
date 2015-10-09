@@ -1,12 +1,20 @@
 class Manage::Admin < ActiveRecord::Base
-  # uid（登陆账号）不允许重复
-	validates_uniqueness_of :name
-	# 提交表单时必须包含uid以及nickname
-	validates_presence_of :name
+  # name（登陆账号）不允许重复
+	#validates_uniqueness_of :name
+
+	# 提交表单时必须包含name以及realname
+	#validates_presence_of :name
 	validates_presence_of :realname
 
+	validates :name,presence: {value: true},
+		uniqueness:  {value: true},
+		#用户名长度以及内容规范应当按照国际惯例
+		length: { minimum: 6,maximum: 16,message: "用户名长度必须在6—16个字符之间" },
+		format: { with: /\A[a-z][0-9a-z]+\Z/,
+			message: "用户名只能由数字和小写字母组成，且开头不能为数字" }
+
   # 密码至少8位
-	validates_length_of :password,minimum: 8,allow_blank:true,on: [:create,:update]
+	validates_length_of :password,minimum: 8,maximum:16, allow_blank:true,on: [:create,:update]
 
 
   # 使用插件建立用户密码验证体系
