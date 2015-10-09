@@ -1,5 +1,14 @@
-<div class="page-header">
-  <h2>通知公告</h2>
+<h2>通知公告</h2>
+<%= link_to '新建通知公告', new_manage_post_path ,class: "btn btn-success" %>
+<div class="btn-group" role="group">
+  <span style="display:none" id="url_base"><%= manage_posts_url %></span>
+  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 预览</a>
+  <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
+  <a class="btn btn-primary action-btn extra-action" id="hide" disabled><i class="glyphicon glyphicon-retweet"></i> 切换隐藏</a>
+  <a class="btn btn-warning action-btn extra-action" id="top" disabled><i class="glyphicon glyphicon-arrow-up"></i> 切换置顶</a>
+  <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
+
+
 </div>
 
 <table class="table table-hover">
@@ -17,7 +26,7 @@
 
   <tbody>
   <% @manage_posts.each do |p| %>
-      <tr>
+      <tr data-id="<%= p.id %>" data-hide="<%= p.is_hide? %>" data-top="<%= p.is_top? %>">
         <td>
           <input type="radio" name="p_radio" class="p_radio" value="<%= p.id %>">
         </td>
@@ -51,5 +60,3 @@
   <% end %>
   </tbody>
 </table>
-
-<%= link_to '新建通知公告', new_manage_post_path ,class: "btn btn-success" %>

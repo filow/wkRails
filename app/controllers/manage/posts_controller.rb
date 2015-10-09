@@ -24,7 +24,7 @@ class Manage::PostsController < ManageController
     @manage_post = Manage::Post.new(manage_post_params)
 
     if @manage_post.save
-      redirect_to @manage_post, notice: '成功添加通知公告'
+      redirect_to @manage_post, notice: "成功添加#{@manage_post.title}"
     else
       render :new
     end
@@ -33,7 +33,7 @@ class Manage::PostsController < ManageController
   # PATCH/PUT /manage/posts/1
   def update
     if @manage_post.update(manage_post_params)
-      redirect_to @manage_post, notice: '通知公告修改成功'
+      redirect_to manage_posts_url, notice: '修改成功'
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class Manage::PostsController < ManageController
   # DELETE /manage/posts/1
   def destroy
     @manage_post.destroy
-    redirect_to manage_posts_url, notice: '通知公告被成功删除'
+    redirect_to manage_posts_url, notice: '删除成功'
   end
 
   private
