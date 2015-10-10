@@ -2,8 +2,9 @@
 <%= link_to '新建管理员', new_manage_admin_path ,class: "btn btn-success" %>
 <div class="btn-group" role="group">
   <span style="display:none" id="url_base"><%= manage_admins_url %></span>
-  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 预览</a>
+  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 查看权限</a>
   <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
+  <a class="btn btn-warning action-btn extra-action" id="forbidden" disabled><i class="glyphicon glyphicon-arrow-up"></i> 切换锁定</a>
   <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
 
 
@@ -23,7 +24,7 @@
 
   <tbody>
   <% @manage_admins.each do |a| %>
-      <tr data-id="<%= a.id %>" >
+      <tr data-id="<%= a.id %>" data-forbidden="<%= a.is_forbidden? %>">
         <td>
           <input type="radio" name="a_radio" class="a_radio" value="<%= a.id %>">
         </td>
