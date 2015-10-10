@@ -4,6 +4,11 @@ class Manage::UsersController < ManageController
   # GET /manage/users
   # GET /manage/users.json
   def index
+    sort = ['id','realname','popularity']
+    sorted = Array.new
+    sort.each do |x|
+      sorted[x] = false
+    end
     @manage_users = Manage::User.all
   end
 
