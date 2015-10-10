@@ -38,8 +38,10 @@ cn:
       manage/post:
         title: '标题'
         content: '内容'
-        valid_from: '生效时间'
         is_top: '是否置顶'
+        publish_at: '发布时间'
+        created_at: '创建时间'
+        updated_at: '最后修改时间'
       manage/admin:
         name: '用户名'
         realname: '真实姓名'
