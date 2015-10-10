@@ -19,7 +19,7 @@ class Cache
         end
     end
 
-    # 测试健是否存在
+    # 测试键是否存在
     def has?(name)
         @store.exist?(full_key(name))
     end

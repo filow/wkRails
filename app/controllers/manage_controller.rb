@@ -15,6 +15,8 @@ class ManageController < ApplicationController
       @admin=Manage::Admin.find(session[:admin_id])
       # 如果用户已经被禁用也直接跳转
       if @admin.is_forbidden?
+        #判断被禁用后直接关掉session，避免重定向循环
+        session[:admin_id] = nil
         redirect_to manage_login_url,:alert => "您的账户已被禁用"
       end
     else

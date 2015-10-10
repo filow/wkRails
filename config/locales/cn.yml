@@ -42,7 +42,10 @@ cn:
         publish_at: '发布时间'
         created_at: '创建时间'
         updated_at: '最后修改时间'
-
+      manage/admin:
+        name: '用户名'
+        realname: '真实姓名'
+        password: '密码'
 
     errors:
       template:

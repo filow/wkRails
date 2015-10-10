@@ -36,12 +36,18 @@ class Manage::SessionController < ManageController
 
     admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
     # 如果验证失败
+
+
     if admin
-      session[:admin_id] = admin.id
-      session[:admin_realname] = admin.realname
-      session[:admin_name] = admin.name
-      clear_record
-      redirect_to manage_path
+      if admin.is_forbidden?
+        redirect_to manage_login_path, notice: "您的账户已被锁定"
+      else
+        session[:admin_id] = admin.id
+        session[:admin_realname] = admin.realname
+        session[:admin_name] = admin.name
+        clear_record
+        redirect_to manage_path
+      end
     else
       @record = record_fail
       session[:last_login_user] = prms[:username]

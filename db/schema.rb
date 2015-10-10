@@ -22,13 +22,6 @@ ActiveRecord::Schema.define(version: 20151010083223) do
     t.datetime "updated_at",                                  null: false
   end
 
-  create_table "cfgs", force: :cascade do |t|
-    t.string "key",        limit: 255
-    t.text   "value",      limit: 65535
-    t.string "remark",     limit: 255
-    t.string "field_type", limit: 255
-  end
-
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
     t.string   "data_content_type", limit: 255
@@ -44,6 +37,16 @@ ActiveRecord::Schema.define(version: 20151010083223) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "nodes", force: :cascade do |t|
+    t.string   "controller", limit: 255
+    t.string   "action",     limit: 255
+    t.string   "title",      limit: 255
+    t.string   "remark",     limit: 255
+    t.boolean  "edit_flag",              default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",         limit: 255,                   null: false
