@@ -29,7 +29,7 @@
 
   <tbody>
   <% @manage_users.each do |p| %>
-      <tr data-id="<%= p.id %>" >
+      <tr data-id="<%= p.id %>" data-forbid="<%= p.is_forbidden %>">
         <td>
           <input type="radio" name="p_radio" class="p_radio" value="<%= p.id %>">
         </td>
