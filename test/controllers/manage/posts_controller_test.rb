@@ -30,7 +30,7 @@ class Manage::PostsControllerTest < ActionController::TestCase
                       is_hide: false,
                       is_top: true,
                       title: '测试',
-                      valid_from: Time.now
+                      publish_at: Date.today
                   }
     end
 
@@ -54,7 +54,7 @@ class Manage::PostsControllerTest < ActionController::TestCase
                      is_hide: @manage_post.is_hide,
                      is_top: @manage_post.is_top,
                      title: @manage_post.title,
-                     valid_from: @manage_post.valid_from
+                     publish_at: @manage_post.publish_at
                  }
     assert_redirected_to manage_post_path(assigns(:manage_post))
   end
@@ -67,46 +67,4 @@ class Manage::PostsControllerTest < ActionController::TestCase
     assert_redirected_to manage_posts_path
   end
 
-  test "筛选当前生效通知" do
-    get :filter, filter: 'valid'
-    assert_response :success
-    assert_not_nil assigns(:manage_posts)
-    assert_template :index, layout: 'layouts/manage'
-  end
-
-  test "筛选隐藏通知" do
-    get :filter, filter: 'hide'
-    assert_response :success
-    posts = assigns(:manage_posts)
-    assert_not_nil posts
-    #检验筛选结果是否正确
-    posts.each do |p|
-      assert p.is_hide
-    end
-    assert_template :index, layout: 'layouts/manage'
-  end
-
-  test "筛选未隐藏通知" do
-    get :filter, filter: 'not_hide'
-    assert_response :success
-    posts = assigns(:manage_posts)
-    assert_not_nil posts
-    #检验筛选结果是否正确
-    posts.each do |p|
-      assert_not p.is_hide
-    end
-    assert_template :index, layout: 'layouts/manage'
-  end
-
-  test "筛选置顶通知" do
-    get :filter, filter: 'top'
-    assert_response :success
-    posts = assigns(:manage_posts)
-    assert_not_nil posts
-    #检验筛选结果是否正确
-    posts.each do |p|
-      assert p.is_top
-    end
-    assert_template :index, layout: 'layouts/manage'
-  end
 end

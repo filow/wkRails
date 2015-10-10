@@ -1,21 +1,34 @@
-<dl class="dl-horizontal">
-  <dt>标题:</dt>
-  <dd>
-    <% if @manage_post.is_top %>
-        <span class="label label-info">置顶</span>
-    <% end %>
-    <% if @manage_post.is_hide %>
-        <span class="label label-default">隐藏</span>
-    <% end %>
-    <%= @manage_post.title %>
-  </dd>
+<%= link_to '返回列表', manage_posts_path, class: 'btn btn-default' %>
+<%= link_to '修改', edit_manage_post_path(@manage_post), class: 'btn btn-success' %>
 
-  <dt>内容:</dt>
-  <dd><%= @manage_post.content.html_safe %></dd>
+<h3>
+  <% if @manage_post.is_hide? %>
+    <%= bs_label_tag "隐藏", "warning" %>
+  <% end %>
+  <% if @manage_post.is_top? %>
+    <%= bs_label_tag "置顶", "primary" %>
+  <% end %>
+  <% if @manage_post.published? %>
+    <%= bs_label_tag "已发布", "success" %>
+  <% else %>
+    <%= bs_label_tag "未发布", "default" %>
+  <% end %>
+  <%= @manage_post.title %>
+</h3>
 
-  <dt>生效时间:</dt>
-  <dd><%= @manage_post.valid_from.strftime('%F %R') %></dd>
-</dl>
-
-<%= link_to '修改', edit_manage_post_path(@manage_post), class: 'btn btn-default' %>
-<%= link_to '后退', manage_posts_path, class: 'btn btn-default' %>
+<table class="table">
+  <tr>
+    <td><%= tmc('publish_at') %></td>
+    <td><%= @manage_post.publish_at.strftime('%F') %></td>
+    <td><%= tmc('created_at') %></td>
+    <td><%= @manage_post.created_at.strftime('%F %R') %></td>
+    <td><%= tmc('updated_at') %></td>
+    <td><%= @manage_post.updated_at.strftime('%F %R') %></td>
+  </tr>
+  <tr>
+    <td colspan="6">
+      <div><%= tmc('content') %></div>
+      <%= @manage_post.content.html_safe %>
+    </td>
+  </tr>
+</table>

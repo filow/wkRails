@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+cfgs_one:
+  key: HELLO
+  value: World
+  remark: 你好世界
+  field_type: text_field
+
+cfgs_another:
+  key: ANA
+  value: 123456
+  remark: ANA123456
+  field_type: number_field
