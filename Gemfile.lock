@@ -47,6 +47,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.4.0)
+      railties (>= 3.0)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -82,11 +84,12 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.5.2)
-    font-awesome-rails (4.3.0.0)
-      railties (>= 3.2, < 5.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    icheck-rails (0.9.0.2)
+      jquery-rails
+      rails (>= 3.1.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -144,6 +147,8 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rmagick (2.14.0)
     sass (3.4.16)
     sass-rails (5.0.3)
@@ -184,19 +189,21 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
+  bootstrap-datepicker-rails
   bootstrap-sass
   byebug
   capistrano-rails
   carrierwave
   ckeditor
   dalli
-  font-awesome-rails
+  icheck-rails
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
   mini_magick
   mysql2
   rails (= 4.2.3)
+  responders (~> 2.0)
   rmagick
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

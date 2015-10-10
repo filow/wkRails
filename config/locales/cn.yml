@@ -32,8 +32,16 @@ cn:
     confirm_delete: 确认删除吗？
   activerecord:
     models:
+      manage/post: '通知公告'
 
     attributes:
+      manage/post:
+        title: '标题'
+        content: '内容'
+        is_top: '是否置顶'
+        publish_at: '发布时间'
+        created_at: '创建时间'
+        updated_at: '最后修改时间'
 
 
     errors:

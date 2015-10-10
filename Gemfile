@@ -33,6 +33,8 @@ gem 'bootstrap-sass'
 # 用于抹平浏览器间的部分兼容性问题
 gem "autoprefixer-rails"
 
+gem 'icheck-rails'
+
 # mysql驱动
 gem 'mysql2'
 
@@ -42,14 +44,14 @@ gem 'kaminari'
 # memcache插件，用于缓存
 gem 'dalli'
 
-# font-awesome图标字体库
-gem 'font-awesome-rails'
+gem 'bootstrap-datepicker-rails'
 
 # 处理文件上传的插件
 gem 'carrierwave'
 
 # 富文本编辑器
 gem 'ckeditor'
+gem 'responders', '~> 2.0'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development

@@ -1,41 +1,43 @@
+<%= javascript_include_tag "ckeditor/init" %>
 <%= form_for(@manage_post) do |f| %>
-  <% if @manage_post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manage_post.errors.count, "error") %> prohibited this manage_post from being saved:</h2>
+  <%= form_errors(@manage_post) %>
 
-      <ul>
-      <% @manage_post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <table class="table">
+    <tr>
+      <td><%= f.label :title %></td>
+      <td><%= f.text_field :title, class: 'form-control' %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= f.label :content%>
+        <%= f.cktext_area :content, :ckeditor => {:uiColor => '#fefefe', :toolbar => 'mini'}  %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :publish_at %></td>
+      <td>
+        <div class="input-group date" style="width: 300px">
+          <%= f.text_field :publish_at, class:'form-control' %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>属性</td>
+      <td>
+        <table style="width: 200px">
+          <tr>
+            <td><%= f.check_box :is_top,class:'p_checkbox' %></td>
+            <td><label for="manage_post_is_top">是否置顶</label></td>
+            <td><%= f.check_box :is_hide,class:'p_checkbox' %></td>
+            <td><label for="manage_post_is_hide">是否隐藏</label></td>
+          </tr>
+        </table>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :content_notag %><br>
-    <%= f.text_area :content_notag %>
-  </div>
-  <div class="field">
-    <%= f.label :valid_from %><br>
-    <%= f.datetime_select :valid_from %>
-  </div>
-  <div class="field">
-    <%= f.label :is_top %><br>
-    <%= f.check_box :is_top %>
-  </div>
-  <div class="field">
-    <%= f.label :is_hide %><br>
-    <%= f.check_box :is_hide %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>

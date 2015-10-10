@@ -1,17 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  content: MyText
-  content_notag: MyText
-  valid_from: 2015-09-27 10:34:24
+#用于测试同名Post
+posts_same_title:
+  title: 不要和我一样
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  publish_at: 2015-09-27 10:34:24
   is_top: false
   is_hide: false
 
-two:
-  title: MyString
-  content: MyText
-  content_notag: MyText
-  valid_from: 2015-09-27 10:34:24
+#用于测试查询筛选功能
+posts_filter1:
+  title: 我是1
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  publish_at: <%= Time.now+(60*60*24) %>
+  is_top: true
+  is_hide: true
+posts_filter2:
+  title: 我是2
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  publish_at: <%= Time.now+(60*60*24) %>
+  is_top: true
+  is_hide: false
+posts_filter3:
+  title: 我是3
+  content: 测试内容！！！！！！！！！！！！
+  content_notag: 测试内容！！！！！！！！！！！！
+  publish_at: <%= Time.now+(60*60*24) %>
+  is_top: false
+  is_hide: true
+
+#用于测试content_notag自动生成
+posts_notag:
+  title: 我是4
+  content: <p><span style="font-size:36px;">不要html标签</span></p>
+  publish_at: 2015-09-27 10:34:24
   is_top: false
   is_hide: false

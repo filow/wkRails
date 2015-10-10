@@ -1,6 +1,6 @@
-<h1>Editing Manage Post</h1>
+<%= link_to '返回通知公告列表', manage_posts_path, class: 'btn btn-default' %>
+
+
+<h2>修改『<%= @manage_post.title %>』</h2>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @manage_post %> |
-<%= link_to 'Back', manage_posts_path %>

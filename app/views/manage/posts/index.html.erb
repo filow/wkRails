@@ -1,37 +1,63 @@
-<p id="notice"><%= notice %></p>
+<h2>通知公告</h2>
+<%= link_to '新建通知公告', new_manage_post_path ,class: "btn btn-success" %>
+<div class="btn-group" role="group">
+  <span style="display:none" id="url_base"><%= manage_posts_url %></span>
+  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 预览</a>
+  <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
+  <a class="btn btn-primary action-btn extra-action" id="hide" disabled><i class="glyphicon glyphicon-retweet"></i> 切换隐藏</a>
+  <a class="btn btn-warning action-btn extra-action" id="top" disabled><i class="glyphicon glyphicon-arrow-up"></i> 切换置顶</a>
+  <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
 
-<h1>Listing Manage Posts</h1>
 
-<table>
+</div>
+
+<table class="table table-hover">
   <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Content notag</th>
-      <th>Valid from</th>
-      <th>Is top</th>
-      <th>Is hide</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th></th>
+    <th>ID</th>
+    <th width="180px"><%= tmc('title') %></th>
+    <th><%= tmc('content') %></th>
+    <th width="100px"><%= tmc('created_at') %></th>
+    <th width="100px"><%= tmc('publish_at') %></th>
+    <th>状态</th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @manage_posts.each do |manage_post| %>
-      <tr>
-        <td><%= manage_post.title %></td>
-        <td><%= manage_post.content %></td>
-        <td><%= manage_post.content_notag %></td>
-        <td><%= manage_post.valid_from %></td>
-        <td><%= manage_post.is_top %></td>
-        <td><%= manage_post.is_hide %></td>
-        <td><%= link_to 'Show', manage_post %></td>
-        <td><%= link_to 'Edit', edit_manage_post_path(manage_post) %></td>
-        <td><%= link_to 'Destroy', manage_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <% @manage_posts.each do |p| %>
+      <tr data-id="<%= p.id %>" data-hide="<%= p.is_hide? %>" data-top="<%= p.is_top? %>">
+        <td>
+          <input type="radio" name="p_radio" class="p_radio" value="<%= p.id %>">
+        </td>
+        <td><%= p.id %></td>
+        <td><%= p.title %></td>
+        <td><%= truncate p.content_notag, length:100 %></td>
+        <td>
+          <span class="time-column" title="<%= p.created_at.strftime("%F %R") %>">
+            <%= p.created_at.strftime("%F") %>
+          </span>
+        </td>
+        <td>
+          <span class="time-column" title="<%= p.created_at.strftime("%F %R") %>">
+            <%= p.created_at.strftime("%F") %>
+          </span>
+        </td>
+        <td>
+          <% if p.is_hide? %>
+            <%= bs_label_tag "隐藏", "warning" %>
+          <% end %>
+          <% if p.is_top? %>
+            <%= bs_label_tag "置顶", "primary" %>
+          <% end %>
+          <% if p.published? %>
+            <%= bs_label_tag "已发布", "success" %>
+          <% else %>
+            <%= bs_label_tag "未发布", "default" %>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Post', new_manage_post_path %>
+<%= paginate @manage_posts %>
