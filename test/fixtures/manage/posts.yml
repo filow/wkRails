@@ -5,7 +5,7 @@ posts_same_title:
   title: 不要和我一样
   content: 测试内容！！！！！！！！！！！！
   content_notag: 测试内容！！！！！！！！！！！！
-  valid_from: 2015-09-27 10:34:24
+  publish_at: 2015-09-27 10:34:24
   is_top: false
   is_hide: false
 
@@ -14,21 +14,21 @@ posts_filter1:
   title: 我是1
   content: 测试内容！！！！！！！！！！！！
   content_notag: 测试内容！！！！！！！！！！！！
-  valid_from: <%= Time.now+(60*60*24) %>
+  publish_at: <%= Time.now+(60*60*24) %>
   is_top: true
   is_hide: true
 posts_filter2:
   title: 我是2
   content: 测试内容！！！！！！！！！！！！
   content_notag: 测试内容！！！！！！！！！！！！
-  valid_from: <%= Time.now+(60*60*24) %>
+  publish_at: <%= Time.now+(60*60*24) %>
   is_top: true
   is_hide: false
 posts_filter3:
   title: 我是3
   content: 测试内容！！！！！！！！！！！！
   content_notag: 测试内容！！！！！！！！！！！！
-  valid_from: <%= Time.now+(60*60*24) %>
+  publish_at: <%= Time.now+(60*60*24) %>
   is_top: false
   is_hide: true
 
@@ -36,6 +36,6 @@ posts_filter3:
 posts_notag:
   title: 我是4
   content: <p><span style="font-size:36px;">不要html标签</span></p>
-  valid_from: 2015-09-27 10:34:24
+  publish_at: 2015-09-27 10:34:24
   is_top: false
   is_hide: false

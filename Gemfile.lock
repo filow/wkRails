@@ -47,6 +47,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.4.0)
+      railties (>= 3.0)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -82,8 +84,6 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.5.2)
-    font-awesome-rails (4.3.0.0)
-      railties (>= 3.2, < 5.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -189,13 +189,13 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
+  bootstrap-datepicker-rails
   bootstrap-sass
   byebug
   capistrano-rails
   carrierwave
   ckeditor
   dalli
-  font-awesome-rails
   icheck-rails
   jbuilder (~> 2.0)
   jquery-rails

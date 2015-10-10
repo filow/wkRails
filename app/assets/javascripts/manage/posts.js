@@ -3,8 +3,17 @@ $(function(){
   // tooltip
   $('.time-column').tooltip();
   // 漂亮的单选和复选框
-  $('.p_radio').iCheck({
+  $('.p_radio, .p_checkbox').iCheck({
   	radioClass: 'iradio_square-blue',
+    checkboxClass: 'icheckbox_square-blue'
+  });
+  // 日期时间选择框
+  window.datepickerInstance = $('.input-group.date').datepicker({
+    language: 'zh-CN',
+    autoclose: true,
+    format: 'yyyy-mm-dd',
+    todayHighlight: true,
+    todayBtn: true
   });
 
   var current_line_hide, current_line_top;

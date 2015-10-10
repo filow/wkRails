@@ -2,27 +2,42 @@
 <%= form_for(@manage_post) do |f| %>
   <%= form_errors(@manage_post) %>
 
-  <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="form-group">
-    <%= f.label :content%>
-    <%= f.cktext_area :content  %>
-  </div>
-  <div class="form-group">
-    <%= f.label :valid_from %>
-    <%= f.datetime_select :valid_from %>
-  </div>
-  <div class="checkbox">
-    <label>
-      <%= f.check_box :is_top %>是否置顶
-    </label>
-    <label>
-      <%= f.check_box :is_hide %>是否隐藏
-    </label>
-  </div>
-  <div class="actions">
-    <%= f.submit class: 'btn btn-info' %>
-  </div>
+  <table class="table">
+    <tr>
+      <td><%= f.label :title %></td>
+      <td><%= f.text_field :title, class: 'form-control' %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= f.label :content%>
+        <%= f.cktext_area :content, :ckeditor => {:uiColor => '#fefefe', :toolbar => 'mini'}  %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :publish_at %></td>
+      <td>
+        <div class="input-group date" style="width: 300px">
+          <%= f.text_field :publish_at, class:'form-control' %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>属性</td>
+      <td>
+        <table style="width: 200px">
+          <tr>
+            <td><%= f.check_box :is_top,class:'p_checkbox' %></td>
+            <td><label for="manage_post_is_top">是否置顶</label></td>
+            <td><%= f.check_box :is_hide,class:'p_checkbox' %></td>
+            <td><label for="manage_post_is_hide">是否隐藏</label></td>
+          </tr>
+        </table>
+
+
+      </td>
+    </tr>
+  </table>
+
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>

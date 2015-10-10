@@ -18,8 +18,8 @@
 
 <table class="table">
   <tr>
-    <td><%= tmc('valid_from') %></td>
-    <td><%= @manage_post.valid_from.strftime('%F %R') %></td>
+    <td><%= tmc('publish_at') %></td>
+    <td><%= @manage_post.publish_at.strftime('%F') %></td>
     <td><%= tmc('created_at') %></td>
     <td><%= @manage_post.created_at.strftime('%F %R') %></td>
     <td><%= tmc('updated_at') %></td>

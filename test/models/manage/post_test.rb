@@ -6,7 +6,7 @@ class Manage::PostTest < ActiveSupport::TestCase
         title: manage_posts(:posts_same_title).title,
         content: '测试内容！！！！！！！！！！！！',
         content_notag: '测试内容！！！！！！！！！！！！',
-        valid_from: Time.now,
+        publish_at: Date.today,
         is_top: false,
         is_hide: false
     )
@@ -29,9 +29,9 @@ class Manage::PostTest < ActiveSupport::TestCase
 
   test "筛选已经生效了的通知公告" do
     valid_posts = Manage::Post.valid_posts
-    now = Time.now
+    now = Date.today
     valid_posts.each do |p|
-      assert p.valid_from >= now
+      assert p.publish_at >= now
       assert_not p.is_hide
     end
   end

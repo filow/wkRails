@@ -3,7 +3,7 @@ class Manage::PostsController < ManageController
 
   # GET /manage/posts
   def index
-    @manage_posts = Manage::Post.order(valid_from: :desc).page(params[:page])
+    @manage_posts = Manage::Post.order(publish_at: :desc).page(params[:page])
   end
 
   # GET /manage/posts/1
@@ -12,7 +12,7 @@ class Manage::PostsController < ManageController
 
   # GET /manage/posts/new
   def new
-    @manage_post = Manage::Post.new
+    @manage_post = Manage::Post.new(publish_at: Date.today)
   end
 
   # GET /manage/posts/1/edit
@@ -22,7 +22,6 @@ class Manage::PostsController < ManageController
   # POST /manage/posts
   def create
     @manage_post = Manage::Post.new(manage_post_params)
-
     if @manage_post.save
       redirect_to @manage_post, notice: "成功添加#{@manage_post.title}"
     else
@@ -53,6 +52,6 @@ class Manage::PostsController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_post_params
-      params.require(:manage_post).permit(:title, :content, :valid_from, :is_top, :is_hide)
+      params.require(:manage_post).permit(:title, :content, :publish_at, :is_top, :is_hide)
     end
 end

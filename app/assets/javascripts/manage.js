@@ -4,7 +4,8 @@
 //= require manage/fold-menu
 //= require manage/backlog
 //= require 'jquery.icheck'
-
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
 
 // 构造一个表单向服务器发起请求
 function sendRequest(href, method, payload){

@@ -44,8 +44,7 @@ gem 'kaminari'
 # memcache插件，用于缓存
 gem 'dalli'
 
-# font-awesome图标字体库
-gem 'font-awesome-rails'
+gem 'bootstrap-datepicker-rails'
 
 # 处理文件上传的插件
 gem 'carrierwave'
