@@ -12,36 +12,27 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="page">
-      <!-- ==== START HEADER ==== -->
-      <header class="navbar-fixed-top" role="banner">
-        <!-- :::: logo :::: -->
-        <p class="logo">
-          <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 40, width: 313, alt: '微课大赛后台管理系统' %></a>
-        </p>
+    <div class="outer">
+      <nav>
+        <header>
+          <div id="logo">
+            <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 128, width: 128, alt: '微课大赛后台管理系统' %></a>
+          </div>
+          <div class="profile">
+            <%= session['admin_realname'] || '未登录用户' %>
+            <br>
+            <%= session['admin_name'] %>
+          </div>
+          <div class="actions">
+            <%= link_to '回到前台', root_path, class:'btn btn-primary' %>
+            <%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %>
+          </div>
 
-        <!-- :::: user :::: -->
-        <div class="dropdown user">
-          <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span><%= session['admin_realname'] || '未登录用户' %> <%= session['admin_name'] %></span>
-            <i class="cart"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><%= link_to '回到前台', root_path, class:'btn btn-primary' %></li>
-            <li><%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %></li>
-          </ul>
-        </div>
-      </header>
-      <!-- end header -->
 
-      <!-- ==== Navigation Left==== -->
-      <nav role="navigition">
+        </header>
         <div data-scrollbar="true" data-height="100%">
 
           <ul class="nav accordion" id="accordion" >
-
-            <li class="navigition">Navigation</li>
-
             <% @navs.each do |nav| %>
               <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
                 <li class="has-sub active">
@@ -72,7 +63,6 @@
           </ul>
         </div>
       </nav>
-      <!-- ==== START RIGHT CONTENT ==== -->
       <main role="main">
         <% unless flash[:notice].nil? %>
           <div class="alert alert-info">
@@ -88,9 +78,11 @@
         <% end %>
         <%= yield %>
       </main>
-      <!-- end content -->
     </div>
-    <!-- end page-->
+
+    <!-- ==== START RIGHT CONTENT ==== -->
+
+    <!-- end content -->
     <%= javascript_include_tag 'manage' %>
     <%= javascript_include_tag params[:controller] %>
     <%= yield :js %>
