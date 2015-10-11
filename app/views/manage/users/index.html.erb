@@ -12,18 +12,17 @@
   <thead>
   <tr>
     <th></th>
-    <th>ID<a class="sort" id='id'><i class="glyphicon glyphicon-sort"></i></a></th>
-    <th>真实姓名<a class="sort" id="realname"><i class="glyphicon glyphicon-sort"></i></a></th>
+    <th>ID<a class="sort" id='id' value="<%= @sorted[:id] %>" ><i class="glyphicon glyphicon-sort"></i></a></th>
+    <th>真实姓名<a class="sort" id="realname" value="<%= @sorted[:realname] %>" ><i class="glyphicon glyphicon-sort"></i></a></th>
     <th>性别</th>
     <!-- <th data-id="idcard" data-sort="false">证件号<a class="sort"><i class="glyphicon glyphicon-sort"></i></a></th> -->
     <th>组别</th>
     <th>部门</th>
     <!-- <th>电话</th> -->
     <!-- <th>邮箱</th> -->
-    <th>是否禁用</th>
-    <th>是否验证</th>
     <th>作品数量</th>
-    <th>人气<a class="sort" id="popularity"><i class="glyphicon glyphicon-sort"></i></a></th>
+    <th>人气<a class="sort" id="popularity" value="<%= @sorted[:popularity] %>"  ><i class="glyphicon glyphicon-sort"></i></a></th>
+    <th>状态</th>
   </tr>
   </thead>
 
@@ -47,22 +46,20 @@
         <td><%= p.department %></td>
         <!-- <td><%= p.phone %></td> -->
         <!-- <td><%= p.email %></td> -->
+        <td><%= p.opus_count %></td>
+        <td><%= p.popularity %></td>
         <td>
           <% if p.is_forbidden %>
             <%= bs_label_tag "禁用", "warning" %>
           <% else %>
             <%= bs_label_tag "解禁", "success" %>
           <% end %>
-        </td>
-        <td>
           <% if p.is_email_verified %>
             <%= bs_label_tag "已验证", "success" %>
           <% else %>
             <%= bs_label_tag "未验证", "warning" %>
           <% end %>
         </td>
-        <td><%= p.opus_count %></td>
-        <td><%= p.popularity %></td>
       </tr>
   <% end %>
   </tbody>

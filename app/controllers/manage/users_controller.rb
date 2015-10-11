@@ -4,12 +4,41 @@ class Manage::UsersController < ManageController
   # GET /manage/users
   # GET /manage/users.json
   def index
-    sort = ['id','realname','popularity']
-    sorted = Array.new
-    sort.each do |x|
-      sorted[x] = false
+    sort_group = ["id","realname","popularity"];
+    @sorted = {};
+    sort_group.each do |x|
+      @sorted[x.to_sym]=1
     end
-    @manage_users = Manage::User.all
+    if !params[:sort_by].nil?
+
+      @sorted[params[:sort_by].to_sym] = params[:sort_type]
+
+      case(params[:sort_by])
+      when "id"
+        if params[:sort_type] == "1"
+          @manage_users = Manage::User.order(id: :asc).page(params[:page])
+        else
+          @manage_users = Manage::User.order(id: :desc).page(params[:page])
+        end
+      when "realname"
+        if params[:sort_type] == "1"
+          @manage_users = Manage::User.order(realname: :asc).page(params[:page])
+        else
+          @manage_users = Manage::User.order(realname: :desc).page(params[:page])
+        end
+      when "popularity"
+        if params[:sort_type] == "1"
+          @manage_users = Manage::User.order(popularity: :asc).page(params[:page])
+        else
+          @manage_users = Manage::User.order(popularity: :desc).page(params[:page])
+        end
+      else
+      end
+
+    else
+      @manage_users = Manage::User.all
+    end
+
   end
 
   # GET /manage/users/1
@@ -74,6 +103,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity)
+      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity,:sort_by,:sort_type)
     end
 end

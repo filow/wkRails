@@ -1,3 +1,4 @@
+
 $(function(){
   // tooltip
   $('.time-column').tooltip();
@@ -54,5 +55,10 @@ $(function(){
   $('a.sort').click(function(){
     var t = $(this);
     var href = t.attr('href'),
+        sort_by = this.id,
+        sort_type = parseInt(t.attr("value"));
+    href = '/manage/users'
+    sort_type ^= 1
+    sendRequest(href,'GET',{'sort_by':sort_by,"sort_type":sort_type});
   })
 })
