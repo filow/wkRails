@@ -6,6 +6,14 @@ $(document).ready(function(){
     $("#insert a").text($("textarea").val());
     $("#insert").removeClass("hide");
   });
+  $(".un button").click(function(){
+    $(this).find("img").attr("src","/assets/manage/check.png");
+    $(this).parent().parent().removeClass("un").addClass("done");
+  })
+  $(".done button").click(function(){
+    $(this).parent().parent().removeClass("done").addClass("un");
+    $(this).find("img").attr("src","/assets/manage/circle.png");
+  })
   $(".all").click(function(){
     $(this).removeClass("un-default").addClass("default");
     $(".have-done").removeClass("default");
