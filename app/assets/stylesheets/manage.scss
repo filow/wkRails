@@ -1,5 +1,7 @@
 @import 'bootstrap-datepicker3';
 @import 'icheck/square/blue';
+$cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
+
 tr[data-hide="true"]{
   color: #999;
 }
@@ -36,42 +38,39 @@ nav {
   }
   .profile{
     text-align: center;
+    margin: 10px auto;
+    font-size: 16px;
+    font-weight: 100;
+    font-family: $cn-font;
+  }
+  .actions{
+    text-align: center;
+    margin: 10px auto;
   }
 }
 
 /* Navgition left
   ------------------------------ */
-
-.has-sub {
-  position: relative;
-
-}
-// .navigition{
-//   width: 100%;
-//   display: inline-block;
-//   color: #a8acb1;
-//   padding: .875rem 1.5rem;
-//   font-size: 16px;
-// }
-.has-sub .link {
-  padding-left: 24px;
-  color: black;
-}
-.has-sub .link:visited {
-  background-color: #00ACAC;
-}
-.has-sub .link:focus,
-.has-sub .link:hover,
-.has-sub .link:active{
-  background-color: #232A2F;
-}
-.has-sub.active .link {
-  background-color: #00ACAC;
-}
-.has-sub a i {
-  display: inline-block;
-  margin-right: 14px;
-  width: 1rem;
+ul.nav {
+  li a{
+    padding-left: 24px;
+    color: black;
+    i {
+      display: inline-block;
+      margin-right: 14px;
+      width: 1rem;
+    }
+  }
+  a:focus,
+  a:hover,
+  a:active{
+    background-color: #007777;
+    color: #fff;
+  }
+  li.active a {
+    background-color: #00ACAC;
+    color: #fff;
+  }
 }
 
 

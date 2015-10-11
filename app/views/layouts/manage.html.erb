@@ -20,48 +20,28 @@
           </div>
           <div class="profile">
             <%= session['admin_realname'] || '未登录用户' %>
-            <br>
-            <%= session['admin_name'] %>
           </div>
           <div class="actions">
             <%= link_to '回到前台', root_path, class:'btn btn-primary' %>
             <%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %>
           </div>
-
-
         </header>
-        <div data-scrollbar="true" data-height="100%">
-
-          <ul class="nav accordion" id="accordion" >
-            <% @navs.each do |nav| %>
-              <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
-                <li class="has-sub active">
-                  <a href="<%= url_for nav[:options] %>" class="link">
-                    <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i>
-                    <span><%= nav[:text] %></span>
-                  </a>
-                </li>
-              <% else %>
-                <li class="has-sub">
-                  <a href="<%= url_for nav[:options] %>" class="link"><i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
-                </li>
-              <% end %>
+        <ul class="nav">
+          <% @navs.each do |nav| %>
+            <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
+              <li class="active">
+                <a href="<%= url_for nav[:options] %>" class="link">
+                  <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i>
+                  <span><%= nav[:text] %></span>
+                </a>
+              </li>
+            <% else %>
+              <li>
+                <a href="<%= url_for nav[:options] %>" class="link"><i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
+              </li>
             <% end %>
-
-
-            <!-- <li class="has-sub active">
-              <a href="#" class="link">
-                  <i class=" glyphicon glyphicon-blackboard"></i>
-                  <span>Dashboard</span>
-                  <b class="glyphicon glyphicon-chevron-down"></b>
-              </a>
-              <ul class="sub sub-default">
-                <li><a href="#">Dashboard v1</a></li>
-                <li><a href="#">Dashboard v2</a></li>
-              </ul>
-            </li> -->
-          </ul>
-        </div>
+          <% end %>
+        </ul>
       </nav>
       <main role="main">
         <% unless flash[:notice].nil? %>
