@@ -4,7 +4,17 @@ class Manage::UsersController < ManageController
   # GET /manage/users
   # GET /manage/users.json
   def index
-    @manage_users = Manage::User.all
+    sort_group = ["id","realname","popularity"];
+    @sorted = {};
+    sort_group.each do |x|
+      @sorted[x.to_sym]=1
+    end
+    if !params[:sort_by].nil?
+      sort(params[:sort_by],params[:sort_type])
+    else
+      @manage_users = Manage::User.all
+    end
+
   end
 
   # GET /manage/users/1
@@ -62,6 +72,15 @@ class Manage::UsersController < ManageController
   end
 
   private
+    # sort
+    def sort(sort_by,sort_type)
+      @sorted[sort_by.to_sym] = sort_type
+      if sort_type == "1"
+        @manage_users = Manage::User.order(sort_by => :asc).page(params[:page])
+      else
+        @manage_users = Manage::User.order(sort_by => :desc).page(params[:page])
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_manage_user
       @manage_user = Manage::User.find(params[:id])
@@ -69,6 +88,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity)
+      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity,:sort_by,:sort_type)
     end
 end
