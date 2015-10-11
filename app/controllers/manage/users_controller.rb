@@ -10,31 +10,7 @@ class Manage::UsersController < ManageController
       @sorted[x.to_sym]=1
     end
     if !params[:sort_by].nil?
-
-      @sorted[params[:sort_by].to_sym] = params[:sort_type]
-
-      case(params[:sort_by])
-      when "id"
-        if params[:sort_type] == "1"
-          @manage_users = Manage::User.order(id: :asc).page(params[:page])
-        else
-          @manage_users = Manage::User.order(id: :desc).page(params[:page])
-        end
-      when "realname"
-        if params[:sort_type] == "1"
-          @manage_users = Manage::User.order(realname: :asc).page(params[:page])
-        else
-          @manage_users = Manage::User.order(realname: :desc).page(params[:page])
-        end
-      when "popularity"
-        if params[:sort_type] == "1"
-          @manage_users = Manage::User.order(popularity: :asc).page(params[:page])
-        else
-          @manage_users = Manage::User.order(popularity: :desc).page(params[:page])
-        end
-      else
-      end
-
+      sort(params[:sort_by],params[:sort_type])
     else
       @manage_users = Manage::User.all
     end
@@ -96,6 +72,15 @@ class Manage::UsersController < ManageController
   end
 
   private
+    # sort
+    def sort(sort_by,sort_type)
+      @sorted[sort_by.to_sym] = sort_type
+      if sort_type == "1"
+        @manage_users = Manage::User.order(sort_by => :asc).page(params[:page])
+      else
+        @manage_users = Manage::User.order(sort_by => :desc).page(params[:page])
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_manage_user
       @manage_user = Manage::User.find(params[:id])
