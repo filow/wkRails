@@ -1,0 +1,57 @@
+<%= form_for(@manage_creation) do |f| %>
+  <% if @manage_creation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manage_creation.errors.count, "error") %> prohibited this manage_creation from being saved:</h2>
+
+      <ul>
+      <% @manage_creation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :desc %><br>
+    <%= f.text_area :desc %>
+  </div>
+  <div class="field">
+    <%= f.label :vote_count %><br>
+    <%= f.number_field :vote_count %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_count %><br>
+    <%= f.number_field :comment_count %>
+  </div>
+  <div class="field">
+    <%= f.label :view_count %><br>
+    <%= f.number_field :view_count %>
+  </div>
+  <div class="field">
+    <%= f.label :popularity %><br>
+    <%= f.number_field :popularity %>
+  </div>
+  <div class="field">
+    <%= f.label :summary %><br>
+    <%= f.text_field :summary %>
+  </div>
+  <div class="field">
+    <%= f.label :thumb %><br>
+    <%= f.text_field :thumb %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br>
+    <%= f.number_field :version %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manage_creation.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @manage_creation.desc %>
+</p>
+
+<p>
+  <strong>Vote count:</strong>
+  <%= @manage_creation.vote_count %>
+</p>
+
+<p>
+  <strong>Comment count:</strong>
+  <%= @manage_creation.comment_count %>
+</p>
+
+<p>
+  <strong>View count:</strong>
+  <%= @manage_creation.view_count %>
+</p>
+
+<p>
+  <strong>Popularity:</strong>
+  <%= @manage_creation.popularity %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @manage_creation.summary %>
+</p>
+
+<p>
+  <strong>Thumb:</strong>
+  <%= @manage_creation.thumb %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @manage_creation.status %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @manage_creation.version %>
+</p>
+
+<%= link_to 'Edit', edit_manage_creation_path(@manage_creation) %> |
+<%= link_to 'Back', manage_creations_path %>

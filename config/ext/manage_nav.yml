@@ -16,3 +16,7 @@ nav:
     text: 用户管理
     icon: user
     path: 'users/index'
+  -
+    text: 作品管理
+    icon: film
+    path: 'creations/index'

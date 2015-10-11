@@ -33,6 +33,7 @@ cn:
   activerecord:
     models:
       manage/post: '通知公告'
+      manage/creation: '作品'
 
     attributes:
       manage/post:
@@ -46,6 +47,19 @@ cn:
         name: '用户名'
         realname: '真实姓名'
         password: '密码'
+      manage/creation:
+        name: 作品名称
+        desc: 介绍
+        summary: 简介
+        thumb: 缩略图
+        status: 状态
+        version: 届数
+        vote_count: 投票数
+        comment_count: 评论数
+        popularity: 人气
+        created_at: 创建时间
+        updated_at: 最后更改时间
+
 
     errors:
       template:

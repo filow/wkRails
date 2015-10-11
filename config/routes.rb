@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  namespace :manage do
+    resources :creations
+  end
   root 'index/index#index'
 
   scope module: 'index' do

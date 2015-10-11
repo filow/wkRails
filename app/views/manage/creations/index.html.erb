@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Manage Creations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>Vote count</th>
+      <th>Comment count</th>
+      <th>View count</th>
+      <th>Popularity</th>
+      <th>Summary</th>
+      <th>Thumb</th>
+      <th>Status</th>
+      <th>Version</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_creations.each do |manage_creation| %>
+      <tr>
+        <td><%= manage_creation.name %></td>
+        <td><%= manage_creation.desc %></td>
+        <td><%= manage_creation.vote_count %></td>
+        <td><%= manage_creation.comment_count %></td>
+        <td><%= manage_creation.view_count %></td>
+        <td><%= manage_creation.popularity %></td>
+        <td><%= manage_creation.summary %></td>
+        <td><%= manage_creation.thumb %></td>
+        <td><%= manage_creation.status %></td>
+        <td><%= manage_creation.version %></td>
+        <td><%= link_to 'Show', manage_creation %></td>
+        <td><%= link_to 'Edit', edit_manage_creation_path(manage_creation) %></td>
+        <td><%= link_to 'Destroy', manage_creation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Creation', new_manage_creation_path %>
