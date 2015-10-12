@@ -32,9 +32,10 @@ cn:
     confirm_delete: 确认删除吗？
   activerecord:
     models:
-      manage/post: '通知公告'
-      manage/creation: '作品'
-      cfg: '设置'
+      manage/post: 通知公告
+      manage/creation: 作品
+      manage/user: 用户
+      cfg: 设置
 
     attributes:
       cfg:
@@ -53,6 +54,21 @@ cn:
         name: '用户名'
         realname: '真实姓名'
         password: '密码'
+      manage/user:
+        name: 用户名
+        realname: 真实姓名
+        sex: 性别
+        idcard: 身份证号
+        group: 组别
+        department: 部门
+        phone: 手机号
+        email: 电子邮箱
+        is_forbidden: 是否禁用
+        is_email_verified: 邮箱验证
+        opus_count: 作品数
+        msg_unread: 未读消息数
+        avatar: 头像
+        popularity: 人气
       manage/creation:
         name: 作品名称
         desc: 介绍

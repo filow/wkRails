@@ -35,11 +35,7 @@
         <td><%= p.id %></td>
         <td><%= p.realname %></td>
         <td>
-          <% if p.sex==0 %>
-            <%= bs_label_tag "男", "default" %>
-          <% else %>
-            <%= bs_label_tag "女", "default" %>
-          <% end %>
+          <%= bs_label_tag p.sex, "default" %>
         </td>
         <!-- <td><%= p.idcard %></td> -->
         <td><%= p.group %></td>
