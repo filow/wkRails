@@ -1,0 +1,56 @@
+upload_date_from:
+  type: date
+  desc: 作品上传开始时间
+  default: ""
+upload_date_to:
+  type: date
+  desc: 作品上传截止时间
+  default: ""
+upload_number:
+  type: number
+  desc: 每个用户最多可发布的作品数量
+  default: 5
+upload_max_size:
+  type: number
+  desc: 上传单个文件的大小限制(MB)
+  default: 510
+upload_max_size_total:
+  type: number
+  desc: 单个作品中所有文件的大小总和限制(MB)
+  default: 1300
+vote_date_from:
+  type: date
+  desc: 用户投票起始日期
+  default: ""
+vote_date_to:
+  type: date
+  desc: 用户投票截止日期
+  default: ""
+vote_number:
+  type: number
+  desc: 每个用户可以投票的总数
+  default: 20
+pro_validate_from:
+  type: date
+  desc: 专家评审起始日期
+  default: ""
+pro_validate_to:
+  type: date
+  desc: 专家评审截止日期
+  default: ""
+show_login_vcode:
+  type: boolean
+  desc: 是否在用户登录时显示验证码（仅前台系统）
+  default: true
+show_vcode_after:
+  type: number
+  desc: 用户登录失败几次后才显示验证码
+  default: 1
+current_version:
+  type: number
+  desc: 当前是第几届比赛
+  default: 1
+broadcast_passage:
+  type: number
+  desc: 顶部通知公告指向的文章ID
+  default: ""

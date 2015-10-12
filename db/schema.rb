@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012063548) do
+ActiveRecord::Schema.define(version: 20151012082723) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20151012063548) do
 
   create_table "cfgs", force: :cascade do |t|
     t.string "key",        limit: 255
-    t.text   "value",      limit: 65535
     t.string "remark",     limit: 255
     t.string "field_type", limit: 255
+    t.string "value",      limit: 255
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|

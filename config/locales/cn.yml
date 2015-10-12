@@ -34,8 +34,14 @@ cn:
     models:
       manage/post: '通知公告'
       manage/creation: '作品'
+      cfg: '设置'
 
     attributes:
+      cfg:
+        key: 设置键
+        value: 设置值
+        remark: 简介
+        field_type: 字段类型（field_type）
       manage/post:
         title: '标题'
         content: '内容'

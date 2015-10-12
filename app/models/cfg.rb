@@ -1,6 +1,6 @@
 class Cfg < ActiveRecord::Base
   @@config_cache = Cache.new("Config-Cache")
-  validates_inclusion_of :field_type,in: %w(text_field text_area ckeditor datetime_field email_field url_field number_field),allow_nil:true,allow_empty:true
+  validates_inclusion_of :field_type,in: %w(string boolean text rich_text date email url number),allow_nil:true,allow_empty:true
 
   def self.get(name, force_refresh=false)
     key = name.to_s.upcase
