@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013030056) do
+ActiveRecord::Schema.define(version: 20151013064008) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(version: 20151013030056) do
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
   end
+
+  create_table "admins_roles", id: false, force: :cascade do |t|
+    t.integer "admin_id", limit: 4, null: false
+    t.integer "role_id",  limit: 4, null: false
+  end
+
+  add_index "admins_roles", ["admin_id", "role_id"], name: "index_admins_roles_on_admin_id_and_role_id", using: :btree
 
   create_table "cfgs", force: :cascade do |t|
     t.string "key",        limit: 255
@@ -122,6 +129,13 @@ ActiveRecord::Schema.define(version: 20151013030056) do
     t.datetime "updated_at",                             null: false
   end
 
+  create_table "nodes_roles", id: false, force: :cascade do |t|
+    t.integer "role_id", limit: 4, null: false
+    t.integer "node_id", limit: 4, null: false
+  end
+
+  add_index "nodes_roles", ["role_id", "node_id"], name: "index_nodes_roles_on_role_id_and_node_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title",         limit: 255,                   null: false
     t.text     "content",       limit: 65535,                 null: false
@@ -131,6 +145,11 @@ ActiveRecord::Schema.define(version: 20151013030056) do
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
     t.date     "publish_at"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.boolean "is_enabled",             default: true
+    t.string  "name",       limit: 255
   end
 
   create_table "users", force: :cascade do |t|

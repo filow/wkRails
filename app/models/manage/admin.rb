@@ -1,7 +1,8 @@
 class Manage::Admin < ActiveRecord::Base
 
   has_many :judges
-
+  has_and_belongs_to_many :roles
+  
 	validates_presence_of :realname
 
 	validates :name,presence: {value: true},
