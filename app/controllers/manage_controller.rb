@@ -5,7 +5,7 @@ class ManageController < ApplicationController
 
   private
   def build_manage_cache
-    @cache = Cache.new("Manage-")
+    @cache = Cache.new("wkRails-Manage-")
   end
 
   def check_login

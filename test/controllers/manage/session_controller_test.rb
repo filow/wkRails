@@ -4,7 +4,7 @@ class Manage::SessionControllerTest < ActionController::TestCase
   setup do
     @password = 'password'
     @admin = Manage::Admin.create(
-      name: 'TestUser-Dynamic',
+      name: 'TestUserDynamic',
       password: @password,
       realname: '真实姓名'
     )
@@ -65,15 +65,15 @@ class Manage::SessionControllerTest < ActionController::TestCase
   end
 
   test "失败5次就禁止登陆" do
+    @controller.send :clear_record
     # 首先登录失败一次，以产生验证码的审核
     post :create, @wrong_payload
-p flash
     # 然后带上验证码去登录
     request_payload = {username: @admin.name, password: 'wrong', vcode: @session_data[:manage_vcode] }
     4.times do |x|
       post :create, request_payload, @session_data
-      assert_equal "您已经连续登录失败#{x+2}次，超过5次您将暂时无法登陆", flash[:notice]
       assert_redirected_to manage_login_url
+      assert_equal "您已经连续登录失败#{x+2}次，超过5次您将暂时无法登陆", flash[:notice]
     end
     # 此时因为禁止登陆，无论提交什么都会跳回首页
     request_payload = {username: @admin.name, password: @password, vcode: @session_data[:manage_vcode] }

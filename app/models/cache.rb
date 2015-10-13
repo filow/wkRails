@@ -12,11 +12,11 @@ class Cache
 
     # 使用t[key]=value  或者  t[key,expire]=value 调用
     def []=(name,expire=nil,value)
-        unless value.nil?
-            @store.write(full_key(name),value,expires_in: expires(expire))
-        else
-            @store.delete(full_key(name))
-        end
+      unless value.nil?
+        @store.write(full_key(name),value,expires_in: expires(expire))
+      else
+        @store.delete(full_key(name))
+      end
     end
 
     # 测试键是否存在

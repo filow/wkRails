@@ -36,8 +36,6 @@ class Manage::SessionController < ManageController
 
     admin = Manage::Admin.find_by_name(prms[:username]).try(:authenticate, prms[:password])
     # 如果验证失败
-
-
     if admin
       if admin.is_forbidden?
         redirect_to manage_login_path, notice: "您的账户已被锁定"
@@ -74,14 +72,9 @@ class Manage::SessionController < ManageController
 
 private
   def record_fail
-    expires = 10.minute;
-    record = @cache[login_cache_key]
-    if record
-      new_record = {times: record[:times]+1, last_try: Time.now}
-    else
-      new_record = {times: 1, last_try: Time.now}
-    end
-    @cache[login_cache_key, expires] = new_record
+    record = get_record
+    new_record = {times: record[:times]+1, last_try: Time.now}
+    @cache[login_cache_key, 10.minute] = new_record
     new_record
   end
 
@@ -95,7 +88,7 @@ private
   end
 
   def clear_record
-    @cache = Cache.new("wkRails-Manage-")
+    @cache ||= Cache.new("wkRails-Manage-")
     @cache[login_cache_key] = nil
   end
 
