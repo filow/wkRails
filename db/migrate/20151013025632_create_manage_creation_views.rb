@@ -1,6 +1,6 @@
 class CreateManageCreationViews < ActiveRecord::Migration
   def change
-    create_table :manage_creation_views do |t|
+    create_table :creation_views do |t|
       t.belongs_to :creation
       t.string :ip, limit:39
       t.string :referer

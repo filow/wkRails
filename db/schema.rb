@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013025632) do
+ActiveRecord::Schema.define(version: 20151013030056) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -54,6 +54,30 @@ ActiveRecord::Schema.define(version: 20151013025632) do
     t.integer "creation_id", limit: 4
   end
 
+  create_table "creation_comments", force: :cascade do |t|
+    t.string   "message",     limit: 255
+    t.boolean  "is_hide",                 default: false
+    t.string   "ip",          limit: 39
+    t.integer  "creation_id", limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at"
+  end
+
+  create_table "creation_views", force: :cascade do |t|
+    t.integer  "creation_id", limit: 4
+    t.string   "ip",          limit: 39
+    t.string   "referer",     limit: 255
+    t.string   "ua",          limit: 255
+    t.datetime "created_at"
+  end
+
+  create_table "creation_votes", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.integer  "creation_id", limit: 4
+    t.string   "ip",          limit: 39
+    t.datetime "created_at"
+  end
+
   create_table "creations", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.text     "desc",          limit: 65535
@@ -75,23 +99,6 @@ ActiveRecord::Schema.define(version: 20151013025632) do
     t.text     "comment",     limit: 65535
     t.integer  "creation_id", limit: 4
     t.integer  "admin_id",    limit: 4
-    t.datetime "created_at"
-  end
-
-  create_table "manage_creation_comments", force: :cascade do |t|
-    t.string   "message",     limit: 255
-    t.boolean  "is_hide",                 default: false
-    t.string   "ip",          limit: 39
-    t.integer  "creation_id", limit: 4
-    t.integer  "user_id",     limit: 4
-    t.datetime "created_at"
-  end
-
-  create_table "manage_creation_views", force: :cascade do |t|
-    t.integer  "creation_id", limit: 4
-    t.string   "ip",          limit: 39
-    t.string   "referer",     limit: 255
-    t.string   "ua",          limit: 255
     t.datetime "created_at"
   end
 
