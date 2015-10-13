@@ -1,77 +1,112 @@
-<%= form_for(@manage_user) do |f| %>
-  <% if @manage_user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manage_user.errors.count, "error") %> prohibited this manage_user from being saved:</h2>
+<%= form_for @manage_user, html:{class:"form-horizontal"} do |f| %>
+  <%= form_errors(@manage_user) %>
 
-      <ul>
-      <% @manage_user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <%= f.label :name ,"用户名",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :name ,class:"form-control",placeholder:"请输入用户名" %>
     </div>
-  <% end %>
+    <span class="col-sm-4 help-block">
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :realname %><br>
-    <%= f.text_field :realname %>
+
+  <div class="form-group">
+    <%= f.label :realname,"真实姓名" ,class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :realname ,class:"form-control",placeholder:"请输入真实姓名" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :password_digest %><br>
-    <%= f.text_field :password_digest %>
+
+  <div class="form-group">
+    <%= f.label :password ,"密码",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :password ,class:"form-control",placeholder:"请输入密码" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :sex %><br>
-    <%= f.check_box :sex %>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation ,"确认密码",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :password_confirmation ,class:"form-control",placeholder:"请再次输入密码" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :idcard %><br>
-    <%= f.text_field :idcard %>
+
+  <div class="form-group">
+    <%= f.label :sex ,"性别",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <select class="form-control">
+        <option>男</option>
+        <option>女</option>
+      </select>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :group %><br>
-    <%= f.number_field :group %>
+
+  <div class="form-group">
+    <%= f.label :idcard ,"证件号",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :idcard ,class:"form-control",placeholder:"请输入证件号" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :department %><br>
-    <%= f.text_field :department %>
+
+  <div class="form-group">
+    <%= f.label :department ,"组别",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <select class="form-control">
+        <option value="1">学生组</option>
+        <option value="2">教室组</option>
+      </select>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
+
+  <div class="form-group">
+    <%= f.label :phone  ,"手机号",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :phone ,class:"form-control",placeholder:"请输入手机号" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+
+  <div class="form-group">
+    <%= f.label :email ,"邮箱",class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :email ,class:"form-control",placeholder:"请输入邮箱地址" %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
   </div>
-  <div class="field">
-    <%= f.label :is_forbidden %><br>
-    <%= f.check_box :is_forbidden %>
+
+  <div class="form-group">
+
+    <div class="actions col-sm-offset-2 col-sm-6">
+      <input type="reset" class="btn btn-danger form-control">
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :is_email_verified %><br>
-    <%= f.check_box :is_email_verified %>
-  </div>
-  <div class="field">
-    <%= f.label :opus_count %><br>
-    <%= f.number_field :opus_count %>
-  </div>
-  <div class="field">
-    <%= f.label :msg_unread %><br>
-    <%= f.number_field :msg_unread %>
-  </div>
-  <div class="field">
-    <%= f.label :avatar %><br>
-    <%= f.file_field :avatar %>
-  </div>
-  <div class="field">
-    <%= f.label :popularity %><br>
-    <%= f.number_field :popularity %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+
+    <div class="actions col-sm-offset-2 col-sm-6">
+      <%= f.submit  class:"btn btn-primary form-control"%>
+    </div>
   </div>
 <% end %>

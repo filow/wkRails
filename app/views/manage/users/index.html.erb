@@ -45,15 +45,15 @@
         <td><%= p.opus_count %></td>
         <td><%= p.popularity %></td>
         <td>
-          <% if p.is_forbidden %>
+          <% if !p.is_forbidden && p.is_email_verified %>
+            <%= bs_label_tag "正常", "success" %>
+          <% elsif p.is_forbidden && !p.is_email_verified %>
             <%= bs_label_tag "禁用", "warning" %>
-          <% else %>
-            <%= bs_label_tag "解禁", "success" %>
-          <% end %>
-          <% if p.is_email_verified %>
-            <%= bs_label_tag "已验证", "success" %>
-          <% else %>
             <%= bs_label_tag "未验证", "warning" %>
+          <% elsif !p.is_forbidden && !p.is_email_verified %>
+            <%= bs_label_tag "未验证", "warning" %>
+          <% else %>
+            <%= bs_label_tag "禁用", "warning" %>
           <% end %>
         </td>
       </tr>
