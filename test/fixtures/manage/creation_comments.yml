@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyString
+  is_hide: false
+  ip: MyString
+
+two:
+  message: MyString
+  is_hide: false
+  ip: MyString

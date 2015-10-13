@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013022110) do
+ActiveRecord::Schema.define(version: 20151013024057) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -75,6 +75,15 @@ ActiveRecord::Schema.define(version: 20151013022110) do
     t.text     "comment",     limit: 65535
     t.integer  "creation_id", limit: 4
     t.integer  "admin_id",    limit: 4
+    t.datetime "created_at"
+  end
+
+  create_table "manage_creation_comments", force: :cascade do |t|
+    t.string   "message",     limit: 255
+    t.boolean  "is_hide",                 default: false
+    t.string   "ip",          limit: 39
+    t.integer  "creation_id", limit: 4
+    t.integer  "user_id",     limit: 4
     t.datetime "created_at"
   end
 

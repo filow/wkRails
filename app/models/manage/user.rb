@@ -1,6 +1,7 @@
 class Manage::User < ActiveRecord::Base
   has_many :messages
   has_many :creations
+  has_many :creation_comments
   mount_uploader :avatar, UserAvatarUploader
 
   def sex
