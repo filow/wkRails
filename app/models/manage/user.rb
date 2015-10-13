@@ -1,4 +1,5 @@
 class Manage::User < ActiveRecord::Base
+  has_many :messages
   mount_uploader :avatar, UserAvatarUploader
 
   def sex
