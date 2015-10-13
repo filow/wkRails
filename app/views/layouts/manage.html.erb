@@ -12,11 +12,12 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+  
     <div class="outer">
       <nav>
         <header>
           <div id="logo">
-            <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', height: 128, width: 128, alt: '微课大赛后台管理系统' %></a>
+            <a href="<%= manage_path %>"><%= image_tag "manage/logo.png", id:'logo', alt: '微课大赛后台管理系统' %></a>
           </div>
           <div class="profile">
             <%= session['admin_realname'] || '未登录用户' %>
@@ -37,12 +38,14 @@
               </li>
             <% else %>
               <li>
-                <a href="<%= url_for nav[:options] %>" class="link"><i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
+                <a href="<%= url_for nav[:options] %>" class="link">
+                <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
               </li>
             <% end %>
           <% end %>
         </ul>
       </nav>
+
       <main role="main">
         <% unless flash[:notice].nil? %>
           <div class="alert alert-info">
@@ -60,9 +63,7 @@
       </main>
     </div>
 
-    <!-- ==== START RIGHT CONTENT ==== -->
 
-    <!-- end content -->
     <%= javascript_include_tag 'manage' %>
     <%= javascript_include_tag params[:controller] %>
     <%= yield :js %>

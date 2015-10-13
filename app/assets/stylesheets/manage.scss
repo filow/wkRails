@@ -25,6 +25,11 @@ body{
   }
 }
 
+
+
+/* Navgition
+  ------------------------------ */
+
 nav {
   float: left;
   width: 21%;
@@ -34,7 +39,13 @@ nav {
   #logo {
     width: 128px;
     height: 128px;
-    margin: 10px auto 20px auto;
+    margin: 20px auto 20px auto;
+    img {
+      display:block;
+      padding:10px;
+      border-radius: 50%;
+      border: 3px solid #59626e;
+    }
   }
   .profile{
     text-align: center;
@@ -49,28 +60,37 @@ nav {
   }
 }
 
-/* Navgition left
-  ------------------------------ */
 ul.nav {
   li a{
-    padding-left: 24px;
-    color: black;
+    padding-left: 46px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #000;
+    opacity: .8;
+    border-bottom: 1px solid #ddd;
+    
+    &:focus,
+    &:hover,
+    &:active{
+      background-color: #fff;
+      opacity: .6;
+    }
+
     i {
       display: inline-block;
-      margin-right: 14px;
-      width: 1rem;
+      margin-right: 12px;
+      width: 16px;
     }
+
   }
-  a:focus,
-  a:hover,
-  a:active{
-    background-color: #007777;
-    color: #fff;
-  }
+  
   li.active a {
-    background-color: #00ACAC;
-    color: #fff;
+    background-color: #fff;
+    opacity: 1;
   }
+
 }
 
 

@@ -21,20 +21,6 @@ button:focus {
   outline: none;
   box-shadow: none;
 }
-.btn-default:active:hover,
-.btn-default.active:hover,
-.btn-default:active:focus,
-.btn-default.active:focus,
-.btn-default:active.focus,
-.btn-default.active.focus,
-.open > .dropdown-toggle.btn-default,
-.open > .dropdown-toggle.btn-default:focus,
-.open > .dropdown-toggle.btn-default:hover,
-.open > .dropdown-toggle.btn-default.focus{
-  color: #fff;
-  background: inherit;
-  border: 2px solid #fff;
-}
 button {
   border:none;
 }
@@ -50,7 +36,7 @@ button {
 }
 .visits, .profit, .orders, .comments{
   border-radius: 6px;
-  height: 7.5rem;
+  height: 6.5rem;
   overflow: hidden;
   margin-top: .5rem;
 }
@@ -61,30 +47,32 @@ button {
   background-color: #348FE2;
 }
 .orders {
-  background-color: #727CB6;
+  background-color: #348FE2;
 }
 .comments {
-  background-color: #2D353C;
+  background-color: #727CB6; /*2D353C*/
 }
 .today {
-  color:#d9e0e7;
+  color: #d9e0e7;
   font-size: 14px;
 }
 .number {
   color: #fff;
-  font-size: 36px;
-  margin-top: .8rem;
-  margin-bottom: .875rem;
+  font-size: 38px;
+  letter-spacing:2px;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }
 .icon {
   color: #fff;
   height: 100%;
   padding: 0;
+  text-align: center;
 }
 .icon span{
   opacity: .3;
   display: block;
-  margin: 32px 0 10px 16px;
+  margin: 28px 0 10px 0;
   font-size: 2.875rem;
 }
 .visits .icon {
@@ -94,48 +82,80 @@ button {
   background-color: #4ca5f7;
 }
 .orders .icon {
-  background-color: #8a93c8;
+  background-color: #4ca5f7;
 }
 .comments .icon {
-  background-color: #41484f;
+  background-color: #8a93c8;/* 41484f */
 }
 .today,
 .number {
-  margin-left: .2rem;
+  margin-left: 10px;
 }
 
 
-/* Backlog */
+/* :::: Disk :::: */
+
+.disk {
+  background-color: #59626e;
+  padding: 1px 30px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  h2 {
+    color: #fff;
+    font-size: 14px;
+    float: left;
+    margin-right: 10px;
+    verticle-align: middle;
+  }
+  .progress{
+    margin-top:18px;
+    height:18px;
+    .progress-bar-danger {
+      background-color: #398b6c;
+    }
+    .progress-bar-success {
+      color: #398b6c;
+      background-color: #fff;
+    }
+  }
+}
+
+/* :::: Backlog :::: */
 .backlog {
   width:100%;
   background-color: #fff;
   border-radius: 6px 6px 0 0 ;
+
+  .group {
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #fc6e51;
+    border-radius: 6px 6px 0 0 ;
+
+    .btn {
+      margin-right:10px;
+      padding: 1px 16px;
+      font-size: 14px;
+      background: none;
+      border: 1px solid #fff;
+      color:#fff;
+
+      &:hover {
+        border: 1px solid #fff;
+        background-color: #fff;
+        color: #fc6e51;
+      }
+    }
+  }
 }
-.backlog .group {
-  padding: 10px;
-  padding-left: 20px;
-  background-color: #fc6e51;
-  border-radius: 6px 6px 0 0 ;
-}
-.group .btn {
-  margin-right:10px;
-  padding: 1px 16px;
-  font-size: 14px;
-  background: none;
-  border: 1px solid #fff;
-  color:#fff;
-}
-.group .btn:hover {
-  background-color: #fff;
-  color:#fc6e51;
-}
+
 .un-default {
   background: none;
-  color:#fff;
+  color: #fff;
 }
 .group .default {
   background-color: #fff;
-  color:#fc6e51;
+  color: #fc6e51;
 }
 .backlog form {
   padding: 0 10px 30px;
@@ -183,8 +203,8 @@ button:hover .glyphicon-remove-circle {
   color: #d33646;
 }
 time {
-display:inline-block;
-padding-top:8px;
+  display:inline-block;
+  padding-top:8px;
   color: #7A7F84;
   font-size: 12px;
 }
@@ -198,22 +218,7 @@ padding-top:8px;
   border-radius: 4px;
   letter-spacing: 4px;
 }
-
 .backlog button[type="submit"]:hover{
   background-color:#4fad79;
 }
-.havedone .group {
-  background-color:#ffce54;
-  padding: 6px 20px;
-}
-.havedone .group .default {
-  background-color:inherit;
-  color: #fff;
-}
-.havedone h2 {
-  font-size: 22px;
-  letter-spacing: 4px;
-  display: inline-block;
-  margin: 0;
-  padding: 2px 10px;
-}
+
