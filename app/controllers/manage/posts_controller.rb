@@ -3,7 +3,7 @@ class Manage::PostsController < ManageController
 
   # GET /manage/posts
   def index
-    @manage_posts = Manage::Post.order(publish_at: :desc).page(params[:page])
+    @posts = Post.order(publish_at: :desc).page(params[:page])
   end
 
   # GET /manage/posts/1
@@ -12,7 +12,7 @@ class Manage::PostsController < ManageController
 
   # GET /manage/posts/new
   def new
-    @manage_post = Manage::Post.new(publish_at: Date.today)
+    @post = Post.new(publish_at: Date.today)
   end
 
   # GET /manage/posts/1/edit
@@ -21,9 +21,9 @@ class Manage::PostsController < ManageController
 
   # POST /manage/posts
   def create
-    @manage_post = Manage::Post.new(manage_post_params)
-    if @manage_post.save
-      redirect_to @manage_post, notice: "成功添加#{@manage_post.title}"
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to [:manage, @post], notice: "成功添加#{@post.title}"
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Manage::PostsController < ManageController
 
   # PATCH/PUT /manage/posts/1
   def update
-    if @manage_post.update(manage_post_params)
+    if @post.update(post_params)
       redirect_to manage_posts_url, notice: '修改成功'
     else
       render :edit
@@ -40,18 +40,18 @@ class Manage::PostsController < ManageController
 
   # DELETE /manage/posts/1
   def destroy
-    @manage_post.destroy
+    @post.destroy
     redirect_to manage_posts_url, notice: '删除成功'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_manage_post
-      @manage_post = Manage::Post.find(params[:id])
+      @post = Post.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def manage_post_params
-      params.require(:manage_post).permit(:title, :content, :publish_at, :is_top, :is_hide)
+    def post_params
+      params.require(:post).permit(:title, :content, :publish_at, :is_top, :is_hide)
     end
 end

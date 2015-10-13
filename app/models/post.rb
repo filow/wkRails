@@ -1,4 +1,4 @@
-class Manage::Post < ActiveRecord::Base
+class Post < ActiveRecord::Base
   #在存储前添加content_notag
   before_save :add_content_notag
 

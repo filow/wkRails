@@ -25,7 +25,7 @@
   </thead>
 
   <tbody>
-  <% @manage_posts.each do |p| %>
+  <% @posts.each do |p| %>
       <tr data-id="<%= p.id %>" data-hide="<%= p.is_hide? %>" data-top="<%= p.is_top? %>">
         <td>
           <input type="radio" name="p_radio" class="p_radio" value="<%= p.id %>">
@@ -60,4 +60,4 @@
   <% end %>
   </tbody>
 </table>
-<%= paginate @manage_posts %>
+<%= paginate @posts %>

@@ -50,10 +50,10 @@ $(function(){
     var href = t.attr('href'), type = this.id;
     switch(type){
       case 'top':
-        sendRequest(href, 'PATCH', {'manage_post[is_top]': !current_line_top});
+        sendRequest(href, 'PATCH', {'post[is_top]': !current_line_top});
         break;
       case 'hide':
-        sendRequest(href, 'PATCH', {'manage_post[is_hide]': !current_line_hide});
+        sendRequest(href, 'PATCH', {'post[is_hide]': !current_line_hide});
         break;
       case 'delete':
         if(confirm("你确定要删除这篇文章吗？此操作不可撤销！！")){

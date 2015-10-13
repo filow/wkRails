@@ -1,6 +1,6 @@
 <%= javascript_include_tag "ckeditor/init" %>
-<%= form_for(@manage_post) do |f| %>
-  <%= form_errors(@manage_post) %>
+<%= form_for([:manage, @post]) do |f| %>
+  <%= form_errors(@post) %>
 
   <table class="table">
     <tr>

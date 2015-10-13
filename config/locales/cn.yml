@@ -32,7 +32,7 @@ cn:
     confirm_delete: 确认删除吗？
   activerecord:
     models:
-      manage/post: 通知公告
+      post: 通知公告
       manage/creation: 作品
       manage/user: 用户
       cfg: 设置
@@ -43,7 +43,7 @@ cn:
         value: 设置值
         remark: 简介
         field_type: 字段类型（field_type）
-      manage/post:
+      post:
         title: '标题'
         content: '内容'
         is_top: '是否置顶'
