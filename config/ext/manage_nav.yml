@@ -20,3 +20,7 @@ nav:
     text: 作品管理
     icon: film
     path: 'creations/index'
+  -
+    text: 个人信息管理
+    icon: edit
+    path: 'admins/edit_self'

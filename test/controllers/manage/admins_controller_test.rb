@@ -1,6 +1,72 @@
 require 'test_helper'
 
 class Manage::AdminsControllerTest < ActionController::TestCase
+  setup do
+    #登陆
+    @manage_admin = manage_admins(:valid_admin)
+    session[:admin_id] = @manage_admin.id
+    session[:admin_realname] = @manage_admin.realname
+    session[:admin_name] = @manage_admin.name
+    #旧密码
+    @op = 'password'
+    @wrong_op = 'wrong _old_password'
+    #验证码
+    session[:manage_vcode] = 'ABCD'
+  end
+
+  test "进入修改页" do
+    get :edit_self
+    assert_response :success
+  end
+
+  test "成功修改个人信息" do
+    post :update_self,
+          id: @manage_admin,
+          vcode: session[:manage_vcode],
+          old_password: @op,
+          manage_admin: {
+              is_forbidden: @manage_admin.is_forbidden,
+              password: "new_password",
+              realname: @manage_admin.realname,
+              name: @manage_admin.name
+          }
+    admin = assigns :admin
+    admin.errors.full_messages.each do |message|
+      puts "<li>#{message}</li>\n"
+    end
+    assert_redirected_to manage_admins_edit_self_path
+    assert_equal "修改成功", flash[:notice]
+  end
+
+  test "验证码错误,修改个人信息失败" do
+    post :update_self,
+          id: @manage_admin,
+          vcode: 'asdf',
+          old_password: @op,
+          manage_admin: {
+              is_forbidden: @manage_admin.is_forbidden,
+              password: "new_password",
+              realname: @manage_admin.realname,
+              name: @manage_admin.name
+          }
+    assert_redirected_to manage_admins_edit_self_path
+    assert_equal flash[:alert], '请输入正确的验证码'
+  end
+
+  test "原密码错误,修改个人信息失败" do
+    post :update_self,
+          id: @manage_admin,
+          vcode: session[:manage_vcode],
+          old_password: @wrong_op,
+          manage_admin: {
+              is_forbidden: @manage_admin.is_forbidden,
+              password: "new_password",
+              realname: @manage_admin.realname,
+              name: @manage_admin.name
+          }
+    assert_redirected_to manage_admins_edit_self_path
+    assert_equal flash[:alert], '原密码错误，修改个人信息失败'
+  end
   # setup do
   #   @manage_admin = manage_admins(:one)
   # end

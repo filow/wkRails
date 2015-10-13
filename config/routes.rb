@@ -19,12 +19,18 @@ Rails.application.routes.draw do
     delete 'logout' => 'session#destroy'
     get 'vcode' => 'session#vcode'
 
+    # 个人信息修改
+    get 'admins/edit_self'
+    post 'admins/edit_self' => 'admins#update_self'
+
     # 管理员
     resources :admins
+
     # 通知公告
     resources :posts
     # 用户
     resources :users
+
   end
 
   # ckeditor需要的目录

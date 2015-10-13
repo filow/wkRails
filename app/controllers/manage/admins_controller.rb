@@ -19,6 +19,29 @@ class Manage::AdminsController < ManageController
   def edit
   end
 
+  def edit_self
+  end
+
+  def update_self
+    prms = params.permit(:old_password, :vcode)
+    # 要检查验证码是否正确
+    if prms[:vcode].nil? || prms[:vcode].upcase != session[:manage_vcode]
+      redirect_to manage_admins_edit_self_path, alert: '请输入正确的验证码'
+      return
+    end
+    admin = @admin.try(:authenticate, prms[:old_password])
+    # 如果验证失败
+    if admin
+      if @admin.update(manage_admin_params)
+        redirect_to manage_admins_edit_self_path, notice: '修改成功'
+      else
+        render :edit_self
+      end
+    else
+      redirect_to manage_admins_edit_self_path, alert: '原密码错误，修改个人信息失败'
+    end
+  end
+
   # POST /manage/admins
   def create
     @manage_admin = Manage::Admin.new(manage_admin_params)
