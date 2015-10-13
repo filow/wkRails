@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     resources :posts
     # 用户
     resources :users
+
+    #个人信息修改
+    get 'info_update' => 'info_update#index'
+    post 'info_update' => 'info_update#update'
   end
 
   # ckeditor需要的目录

@@ -1,0 +1,29 @@
+<%= link_to '显示个人信息', @manage_admin, class: 'btn btn-default' %>
+<%= link_to '返回', '/manage', class: 'btn btn-warning' %>
+<h1>更新个人信息</h1>
+<%= form_for(@manage_admin, url: manage_info_update_path, html: { method: 'post' } ) do |f| %>
+    <%= form_errors(@manage_admin) %>
+    <table class="table">
+      <tr class="field">
+        <td><%= f.label :name %></td>
+        <td><%= @manage_admin.name %></td>
+      </tr>
+      <tr class="field">
+        <td><%= label_tag :old_password, '原密码' %></td>
+        <td><%= password_field_tag :old_password, '', class: 'form-control' %></td>
+      </tr>
+      <tr class="field">
+        <td><%= f.label :新密码 %></td>
+        <td><%= f.password_field :password, class: 'form-control' %></td>
+      </tr>
+      <tr class="field">
+        <td><%= f.label :realname %></td>
+        <td><%= f.text_field :realname, class: 'form-control' %></td>
+      </tr>
+      <tr>
+        <td><%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %></td>
+        <td><%= text_field_tag :vcode, '' %></td>
+      </tr>
+    </table>
+    <%= f.submit class: 'btn btn-primary' %>
+<% end %>
