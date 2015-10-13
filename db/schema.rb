@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013064008) do
+ActiveRecord::Schema.define(version: 20151013070908) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -120,13 +120,10 @@ ActiveRecord::Schema.define(version: 20151013064008) do
   end
 
   create_table "nodes", force: :cascade do |t|
-    t.string   "controller", limit: 255
-    t.string   "action",     limit: 255
-    t.string   "title",      limit: 255
-    t.string   "remark",     limit: 255
-    t.boolean  "edit_flag",              default: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string "controller", limit: 255
+    t.string "action",     limit: 255
+    t.string "title",      limit: 255
+    t.string "remark",     limit: 255
   end
 
   create_table "nodes_roles", id: false, force: :cascade do |t|

@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  rank: 9.99
-  comment: MyText
+judges_one:
+  rank: 99
+  comment: 这个作品很不错
+  creation: creations_one
+  admin: valid_admin
 
-two:
-  rank: 9.99
-  comment: MyText
+judges_two:
+  rank: 56
+  comment: 做的很粗糙
+  creation: creations_two
+  admin: valid_admin

@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+creation_authors_man:
+  name: 作品作者1
   sex: false
-  department: MyString
-  phone: MyString
-  email: MyString
+  department: 测试单位1
+  phone: 13112344321
+  email: jsjs@sjjs.com
+  creation: creations_one
 
-two:
-  name: MyString
-  sex: false
+creation_authors_woman:
+  name: 测试作者2
+  sex: true
   department: MyString
-  phone: MyString
-  email: MyString
+  phone: 13112344321
+  email: jsjs@sjjs.com
+  creation: creations_two

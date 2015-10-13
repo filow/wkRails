@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  message: MyString
+creation_comments_normal:
+  message: 这是一条测试留言
   is_hide: false
-  ip: MyString
+  ip: 127.0.0.1
+  creation: creations_one
+  user: users_one
 
-two:
-  message: MyString
-  is_hide: false
-  ip: MyString
+creation_comments_hide:
+  message: 这是一条隐藏的测试留言
+  is_hide: true
+  ip: ::1
+  creation: users_one
+  user: users_two

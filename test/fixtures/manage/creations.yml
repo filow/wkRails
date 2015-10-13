@@ -1,25 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  desc: MyText
-  vote_count: 1
-  comment_count: 1
-  view_count: 1
-  popularity: 1
-  summary: MyString
-  thumb: MyString
-  status: 1
+creations_one:
+  name: 草稿状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 0
   version: 1
+  vote_count: 10
+  comment_count: 5
+  view_count: 100
+  popularity: 0
+  user: users_one
 
-two:
-  name: MyString
-  desc: MyText
-  vote_count: 1
-  comment_count: 1
-  view_count: 1
-  popularity: 1
-  summary: MyString
-  thumb: MyString
+creations_two:
+  name: 发布审核状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
   status: 1
   version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two

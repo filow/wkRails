@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class Manage::PostTest < ActiveSupport::TestCase
+class PostTest < ActiveSupport::TestCase
   test "标题不能重复" do
-    post=Manage::Post.new(
-        title: manage_posts(:posts_same_title).title,
+    post = Post.new(
+        title: posts(:posts_same_title).title,
         content: '测试内容！！！！！！！！！！！！',
         content_notag: '测试内容！！！！！！！！！！！！',
         publish_at: Date.today,
@@ -17,7 +17,7 @@ class Manage::PostTest < ActiveSupport::TestCase
   end
 
   test "自动生成不含有html标签的content_notag" do
-    post = manage_posts(:posts_notag)
+    post = posts(:posts_notag)
     #开始时content_notag是空的
     assert post.content_notag.blank?
     #成功存入
@@ -28,7 +28,7 @@ class Manage::PostTest < ActiveSupport::TestCase
   end
 
   test "筛选已经生效了的通知公告" do
-    valid_posts = Manage::Post.valid_posts
+    valid_posts = Post.valid_posts
     now = Date.today
     valid_posts.each do |p|
       assert p.publish_at >= now

@@ -10,7 +10,7 @@ class Manage::SessionControllerTest < ActionController::TestCase
     )
     @payload = {username: @admin.name, password: @password }
     @wrong_payload = {username: @admin.name, password: 'Some Wrong password' }
-    @session_data = {manage_vcode: 'ABCD'}
+    @session_data = {manage_vcode: '53'}
 
     # 清除登录失败的记录
     @controller.send :clear_record
@@ -67,7 +67,7 @@ class Manage::SessionControllerTest < ActionController::TestCase
   test "失败5次就禁止登陆" do
     # 首先登录失败一次，以产生验证码的审核
     post :create, @wrong_payload
-
+p flash
     # 然后带上验证码去登录
     request_payload = {username: @admin.name, password: 'wrong', vcode: @session_data[:manage_vcode] }
     4.times do |x|

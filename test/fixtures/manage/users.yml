@@ -1,35 +1,35 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  realname: MyString
-  password_digest: MyString
+users_one:
+  name: LiangCheng
+  realname: 叶良辰
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   sex: false
-  idcard: MyString
-  group: 1
-  department: MyString
-  phone: MyString
-  email: MyString
+  idcard: 330399200101011010
+  group: 0
+  department: FBI
+  phone: 12399998888
+  email: lc@fbi.com
   is_forbidden: false
-  is_email_verified: false
+  is_email_verified: true
   opus_count: 1
   msg_unread: 1
-  avatar: MyString
+  avatar: a.png
   popularity: 1
 
-two:
-  name: MyString
-  realname: MyString
-  password_digest: MyString
-  sex: false
-  idcard: MyString
+users_two:
+  name: Mr.Right
+  realname: 赵日天
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  sex: true
+  idcard: 330399200101011010
   group: 1
-  department: MyString
-  phone: MyString
-  email: MyString
+  department: 国安局
+  phone: 45699992222
+  email: rt@ga.cn
   is_forbidden: false
   is_email_verified: false
   opus_count: 1
   msg_unread: 1
-  avatar: MyString
+  avatar: b.jpg
   popularity: 1

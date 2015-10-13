@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 1
-  creation_id: 1
-  ip: MyString
+creation_votes_one:
+  user: users_one
+  creation: creations_one
+  ip: 127.0.0.1
 
-two:
-  user_id: 1
-  creation_id: 1
-  ip: MyString
+creation_votes_two:
+  user: users_two
+  creation: creations_two
+  ip: ::1
