@@ -1,9 +1,7 @@
 class Manage::Admin < ActiveRecord::Base
-  # name（登陆账号）不允许重复
-	#validates_uniqueness_of :name
 
-	# 提交表单时必须包含name以及realname
-	#validates_presence_of :name
+  has_many :judges
+
 	validates_presence_of :realname
 
 	validates :name,presence: {value: true},
