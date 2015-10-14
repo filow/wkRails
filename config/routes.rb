@@ -32,6 +32,15 @@ Rails.application.routes.draw do
     get 'judges' => 'judge#index'
     get 'judges/:id' => 'judge#show'
     post 'judges/:id' => 'judge#update'
+
+    get 'comments' => 'comment#index'
+    get 'comment/:id' => 'comment#show'
+    patch 'comment/:id' => 'comment#update'
+    delete 'comment/:id' => 'comment#destroy'
+
+    get 'cfgs' => 'cfg#index'
+    patch 'cfg/:id' => 'cfg#update'
+
   end
 
   # ckeditor需要的目录
