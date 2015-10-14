@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-
-  namespace :manage do
-    resources :creations
-  end
   root 'index/index#index'
 
   scope module: 'index' do
@@ -30,7 +26,12 @@ Rails.application.routes.draw do
     resources :posts
     # 用户
     resources :users
+    # 作品
+    resources :creations
 
+    get 'judges' => 'judge#index'
+    get 'judges/:id' => 'judge#show'
+    post 'judges/:id' => 'judge#update'
   end
 
   # ckeditor需要的目录
