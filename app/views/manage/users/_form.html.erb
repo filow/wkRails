@@ -22,9 +22,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :password ,"密码",class:"col-sm-2 control-label" %>
+    <%= f.label :password_digest ,"密码",class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <%= f.text_field :password ,class:"form-control",placeholder:"请输入密码" %>
+      <%= f.text_field :password_digest ,class:"form-control",placeholder:"请输入密码" %>
     </div>
     <span class="col-sm-4 help-block">
 
@@ -59,7 +59,7 @@
     <div class="col-sm-6">
       <select class="form-control">
         <option value="1">学生组</option>
-        <option value="2">教室组</option>
+        <option value="2">教师组</option>
       </select>
     </div>
     <span class="col-sm-4 help-block">
