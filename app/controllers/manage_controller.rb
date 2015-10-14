@@ -25,7 +25,8 @@ class ManageController < ApplicationController
   end
 
   def set_nav
-    @navs = @cache.get 'nav',nil,true do
+    # 如果在开发模式下nav在每次页面加载时都会刷新
+    @navs = @cache.get 'nav', nil, Rails.env.development? do
       result = []
       raw = YAML.load(File.read('config/ext/manage_nav.yml'))["nav"]
       raw.each do |item|

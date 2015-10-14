@@ -36,15 +36,15 @@
         <div class="disk">
           <h2>磁盘空间占用情况：</h2>
           <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width: 35%">
-              <span>128 GB</span>
+            <div class="progress-bar progress-bar-danger" style="width: <%= @disk[:percent] %>%">
+              <span><%= format "%.1f",@disk[:used] %> GB</span>
             </div>
-            <div class="progress-bar progress-bar-success" style="width: 65%">
-              <span>567 GB</span>
+
+            <div class="progress-bar progress-bar-success" style="width: <%= 100-@disk[:percent] %>%">
+              <span><%= format "%.1f",@disk[:avaliable] %> GB</span>
             </div>
           </div>
         </div>
-
 
         <!--
         <div class="backlog clearfix">
@@ -194,4 +194,3 @@
         </div>
         -->
         <!-- end backlog -->
-

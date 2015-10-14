@@ -60,6 +60,9 @@ gem 'capistrano-rails', group: :development
 gem 'rmagick', require: false
 gem 'mini_magick'
 
+# 获取文件系统信息
+gem 'sys-filesystem'
+
 # 更友好地显示错误信息
 group :development do
   gem "better_errors"
