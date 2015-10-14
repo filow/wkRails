@@ -88,6 +88,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity,:sort_by,:sort_type)
+      params.require(:manage_user).permit(:name, :realname,  :password, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity,:sort_by,:sort_type)
     end
 end

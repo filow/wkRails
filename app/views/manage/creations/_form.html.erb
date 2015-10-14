@@ -1,3 +1,4 @@
+<%= javascript_include_tag "ckeditor/init" %>
 <%= form_for(@manage_creation) do |f| %>
   <% if @manage_creation.errors.any? %>
     <div id="error_explanation">
@@ -17,7 +18,7 @@
   </div>
   <div class="field">
     <%= f.label :desc %><br>
-    <%= f.text_area :desc %>
+    <%= f.cktext_area :desc, :ckeditor => {:uiColor => '#fefefe', :toolbar => 'mini'}  %>
   </div>
   <div class="field">
     <%= f.label :vote_count %><br>
@@ -41,11 +42,15 @@
   </div>
   <div class="field">
     <%= f.label :thumb %><br>
-    <%= f.text_field :thumb %>
+    <%= f.file_field :thumb %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.number_field :status %>
+    <%= f.select :status do %>
+        <% [['草稿', 'draft'], ['发布审核', 'publishing'], ['已发布', 'published'], ['撤销审核', 'unpublishing']].each do |c| %>
+            <%= content_tag :option, c.first, value: c.last %>
+        <% end %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :version %><br>
