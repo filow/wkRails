@@ -36,7 +36,7 @@ class NodeSeed
     nodes_to_delete = Array.new
     exsited_nodes.each do |e|
       t = current_nodes.fetch(e.controller,[nil])
-      #如果t=nil 或者t中没有该action <=> 除非t且t有action，否则 压进待删数组
+      #如果t=nil 或者t中没有该action <=> 除非t且t有action，否则 将其id压进待删数组
       unless t && t.include?(e.action)
         nodes_to_delete << e.id
       end
