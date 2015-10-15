@@ -26,6 +26,7 @@ class Manage::CreationsController < ManageController
   def create
     @manage_creation = Manage::Creation.new(manage_creation_params)
 
+    @manage_creation.user_id = 2
     respond_to do |format|
       if @manage_creation.save
         format.html { redirect_to @manage_creation, notice: 'Creation was successfully created.' }
