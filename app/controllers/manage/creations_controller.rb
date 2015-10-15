@@ -5,6 +5,7 @@ class Manage::CreationsController < ManageController
   # GET /manage/creations.json
   def index
     @manage_creations = Manage::Creation.all
+    @pre_creations = Manage::Creation.where status: [1, 3]
   end
 
   # GET /manage/creations/1
