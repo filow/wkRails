@@ -2,8 +2,8 @@ class NodeSeed
   def explain
     '更新节点信息'
   end
-  def log(method, key)
-    print "\033[1m[#{method}]\033[0m  记录#{key}.."
+  def log(method, node)
+    print "\033[1m[#{method}]\033[0m  记录#{node}.."
   end
   def result_log(result, obj)
     if result
@@ -29,24 +29,28 @@ class NodeSeed
       end
       current_nodes.store(controller,actions)
     end
-    p current_nodes
 
-    # 获得数据库当前的所有
-    exsited_nodes = Manage::Node.select(:controller,:action).all.collect{|item| item.action}
-    p "------------------------------"
-    p exsited_nodes
+    # 获得数据库当前的所有节点
+    exsited_nodes = Manage::Node.select(:id,:controller,:action).all
     # 删除多余的数据库项目
-    #！！！！！！！！！！！！！！需要改写
-    keys_to_delete = exsited_nodes.reject{|x| current_nodes.find_index(x) != nil}
-    keys_to_delete.each do |k|
-      db_item = Manage::Node.find_by_key k
-      print "#{db_item.action}不存在于配置文件中，要删除它吗？(Y/N):"
+    nodes_to_delete = Array.new
+    exsited_nodes.each do |e|
+      t = current_nodes.fetch(e.controller,[nil])
+      #如果t=nil 或者t中没有该action <=> 除非t且t有action，否则 压进待删数组
+      unless t && t.include?(e.action)
+        nodes_to_delete << e.id
+      end
+    end
+
+    nodes_to_delete.each do |k|
+      db_item = Manage::Node.find k
+      print "#{db_item.controller}_#{db_item.action}不存在于配置文件中，要删除它吗？(Y/N):"
       input = STDIN.gets.chop.downcase
       if input == 'y'
-        log '删除', k
+        log '删除', db_item.controller + '_' + db_item.action
         result_log db_item.destroy, db_item
       else
-        log '跳过', k
+        log '跳过', db_item.controller + '_' + db_item.action
         puts
       end
     end
@@ -61,12 +65,11 @@ class NodeSeed
         action = act[0]
         title  = act[1]["title"]
         remark = act[1]["remark"]
-        # 如果数据库中存在这个键
-        if exsited_nodes.find_index(action)
+        # 如果数据库中存在这个节点
+        if e = exsited_nodes.where("action=? AND controller=?",action, controller).take
           # 更新操作
-          #！！！！！！！！！！！！！！！需要改写
           print "\033[1m[更新]\033[0m  记录#{controller}_#{action}.."
-          db_item = Manage::Node.find_by_key(key)
+          db_item = Manage::Node.find(e.id)
           result_log db_item.update(controller: controller, action: action, title: title, remark: remark), db_item
         else
           # 插入操作

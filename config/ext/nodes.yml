@@ -14,11 +14,3 @@ admin:
   delete:
     title: 删除管理员
     remark: 删除管理员
-
-test_controller:
-  exam_action1:
-    title: hhhh
-    remark: adfsgfg
-  exam_action2:
-    title: asdasd
-    remark: asd432
