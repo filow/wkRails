@@ -22,9 +22,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :password_digest ,"密码",class:"col-sm-2 control-label" %>
+    <%= f.label :password ,"密码",class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <%= f.text_field :password_digest ,class:"form-control",placeholder:"请输入密码" %>
+      <%= f.text_field :password ,class:"form-control",placeholder:"请输入密码" %>
     </div>
     <span class="col-sm-4 help-block">
 
@@ -34,9 +34,9 @@
   <div class="form-group">
     <%= f.label :sex ,"性别",class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <select class="form-control">
-        <option>男</option>
-        <option>女</option>
+      <select name="manage_user[sex]" id="manage_user_sex" class="form-control">
+        <option value="male">男</option>
+        <option value="female">女</option>
       </select>
     </div>
     <span class="col-sm-4 help-block">
@@ -57,9 +57,9 @@
   <div class="form-group">
     <%= f.label :department ,"组别",class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <select class="form-control">
-        <option value="1">学生组</option>
-        <option value="2">教师组</option>
+      <select name="manage_user[department]" id="manage_user_department" class="form-control">
+        <option value="student">学生组</option>
+        <option value="teacher">教师组</option>
       </select>
     </div>
     <span class="col-sm-4 help-block">

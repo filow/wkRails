@@ -36,29 +36,39 @@ class Manage::UsersController < ManageController
   def create
     @manage_user = Manage::User.new(manage_user_params)
 
-    respond_to do |format|
-      if @manage_user.save
-        format.html { redirect_to @manage_user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @manage_user }
-      else
-        format.html { render :new }
-        format.json { render json: @manage_user.errors, status: :unprocessable_entity }
-      end
+    if @manage_user.save
+      redirect_to @manage_user, notice: "新的用户 #{@manage_user.name} 创建成功！"
+    else
+      render :new
     end
+    # respond_to do |format|
+    #   if @manage_user.save
+    #     format.html { redirect_to @manage_user, notice: 'User was successfully created.' }
+    #     format.json { render :show, status: :created, location: @manage_user }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @manage_user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /manage/users/1
   # PATCH/PUT /manage/users/1.json
   def update
-    respond_to do |format|
-      if @manage_user.update(manage_user_params)
-        format.html { redirect_to @manage_user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @manage_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @manage_user.errors, status: :unprocessable_entity }
-      end
+    if @manage_user.update(manage_user_params)
+      redirect_to manage_users_url, notice: '修改成功'
+    else
+      render :edit
     end
+    # respond_to do |format|
+    #   if @manage_user.update(manage_user_params)
+    #     format.html { redirect_to @manage_user, notice: 'User was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @manage_user }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @manage_user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /manage/users/1
@@ -88,6 +98,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :is_email_verified, :opus_count, :msg_unread, :avatar, :popularity,:sort_by,:sort_type)
+      params.require(:manage_user).permit(:name, :realname, :password_digest, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :avatar,:sort_by,:sort_type,:password,:password_confirmation)
     end
 end

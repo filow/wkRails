@@ -1,5 +1,6 @@
 class Manage::User < ActiveRecord::Base
   mount_uploader :avatar, UserAvatarUploader
+  enum sex:[:male,:female]
   validates :name, presence:true,length:{maximum:30}
   validates :realname, presence:true,length:{maximum:15}
   validates :idcard, presence:true
@@ -9,5 +10,5 @@ class Manage::User < ActiveRecord::Base
             format: {with: VALID_EMAIL_REGEX},
             uniqueness:{case_senstive: false}
   has_secure_password
-  # validates :password,length:{minimum:6}
+  validates :password,length:{minimum:6}
 end
