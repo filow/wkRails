@@ -2,7 +2,7 @@
   <%= form_errors(@manage_user) %>
 
   <div class="form-group">
-    <%= f.label :name ,"用户名",class:"col-sm-2 control-label" %>
+    <%= f.label :name ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
       <%= f.text_field :name ,class:"form-control",placeholder:"请输入用户名" %>
     </div>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :realname,"真实姓名" ,class:"col-sm-2 control-label" %>
+    <%= f.label :realname ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
       <%= f.text_field :realname ,class:"form-control",placeholder:"请输入真实姓名" %>
     </div>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :password ,"密码",class:"col-sm-2 control-label" %>
+    <%= f.label :password ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
       <%= f.text_field :password ,class:"form-control",placeholder:"请输入密码" %>
     </div>
@@ -32,9 +32,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :password_confirmation ,"确认密码",class:"col-sm-2 control-label" %>
+    <%= f.label :sex ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <%= f.text_field :password_confirmation ,class:"form-control",placeholder:"请再次输入密码" %>
+      <%= f.select :sex,[['男', 'male'], ['女', 'female']] ,{include_blank: true}, class: 'form-control' %>
     </div>
     <span class="col-sm-4 help-block">
 
@@ -42,20 +42,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :sex ,"性别",class:"col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <select class="form-control">
-        <option>男</option>
-        <option>女</option>
-      </select>
-    </div>
-    <span class="col-sm-4 help-block">
-
-    </span>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :idcard ,"证件号",class:"col-sm-2 control-label" %>
+    <%= f.label :idcard ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
       <%= f.text_field :idcard ,class:"form-control",placeholder:"请输入证件号" %>
     </div>
@@ -65,16 +52,17 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :department ,"组别",class:"col-sm-2 control-label" %>
+    <%= f.label :group ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <select class="form-control">
-        <option value="1">学生组</option>
-        <option value="2">教室组</option>
-      </select>
+      <%= f.select :group,[['学生组', 'student'], ['教师组', 'teacher']] ,{}, class: 'form-control' %>
     </div>
-    <span class="col-sm-4 help-block">
+  </div>
 
-    </span>
+  <div class="form-group">
+    <%= f.label :department ,class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :department ,class:"form-control" %>
+    </div>
   </div>
 
   <div class="form-group">
@@ -97,12 +85,6 @@
     </span>
   </div>
 
-  <div class="form-group">
-
-    <div class="actions col-sm-offset-2 col-sm-6">
-      <input type="reset" class="btn btn-danger form-control">
-    </div>
-  </div>
   <div class="form-group">
 
     <div class="actions col-sm-offset-2 col-sm-6">

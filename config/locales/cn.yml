@@ -57,6 +57,7 @@ cn:
       manage/user:
         name: 用户名
         realname: 真实姓名
+        password: 密码
         sex: 性别
         idcard: 身份证号
         group: 组别

@@ -4,6 +4,8 @@ class Manage::User < ActiveRecord::Base
   has_many :creation_comments
   mount_uploader :avatar, UserAvatarUploader
 
+  enum sex: [:male, :female]
+  enum group: [:student, :teacher]
   validates :name, presence:true,length:{maximum:30}
   validates :realname, presence:true,length:{maximum:15}
   # validates :idcard, presence:true
@@ -17,25 +19,5 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
 
-  def sex
-    s = super
-    if s.nil?
-      ""
-    elsif s == true
-      "男"
-    else
-      "女"
-    end
-  end
-
-  def sex=(new_sex)
-    if new_sex == '男'
-      super(true)
-    elsif new_sex == '女'
-      super(false)
-    else
-      super(new_sex)
-    end
-  end
 
 end
