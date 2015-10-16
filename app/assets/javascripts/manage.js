@@ -3,7 +3,8 @@
 //= require bootstrap-sprockets
 //= require manage/fold-menu
 //= require manage/backlog
-//= require 'jquery.icheck'
+//= require jquery.icheck
+//= require jquery.btnGroup
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
 

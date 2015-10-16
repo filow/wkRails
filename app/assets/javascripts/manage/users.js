@@ -61,4 +61,6 @@ $(function(){
     sort_type ^= 1
     sendRequest(href,'GET',{'sort_by':sort_by,"sort_type":sort_type});
   })
+
+  $('section.btnGroup').btnGroup();
 })
