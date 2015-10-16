@@ -31,10 +31,10 @@ class NodeSeed
     end
 
     # 获得数据库当前的所有节点
-    exsited_nodes = Manage::Node.select(:id,:controller,:action).all
+    existed_nodes = Manage::Node.select(:id,:controller,:action).all
     # 删除多余的数据库项目
     nodes_to_delete = Array.new
-    exsited_nodes.each do |e|
+    existed_nodes.each do |e|
       t = current_nodes.fetch(e.controller,[nil])
       #如果t=nil 或者t中没有该action <=> 除非t且t有action，否则 将其id压进待删数组
       unless t && t.include?(e.action)
@@ -66,11 +66,11 @@ class NodeSeed
         title  = act[1]["title"]
         remark = act[1]["remark"]
         # 如果数据库中存在这个节点
-        if e = exsited_nodes.where("action=? AND controller=?",action, controller).take
+        if e = existed_nodes.where("action=? AND controller=?",action, controller).take
           # 更新操作
           print "\033[1m[更新]\033[0m  记录#{controller}_#{action}.."
           db_item = Manage::Node.find(e.id)
-          result_log db_item.update(controller: controller, action: action, title: title, remark: remark), db_item
+          result_log db_item.update(title: title, remark: remark), db_item
         else
           # 插入操作
           print "\033[1m[新增]\033[0m  记录#{controller}_#{action}.."
