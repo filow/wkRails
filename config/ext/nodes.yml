@@ -1,15 +1,32 @@
+# 请按照以下格式来添加节点
+# controller1:
+#   action1:
+#     title: something
+#     remark: something in detail
+#   action2:
+#     title: something
+#     remark: something in detail
+#
+# controller2:
+#   action1:
+#     title: something
+#     remark: something in detail
+#   action2:
+#     title: something
+#     remark: something in detail
 admin:
-    title: 管理员管理
-    remark: 这里控制所有的有关“管理员管理”有关的权限。例如添加、编辑、删除管理员，编辑管理员权限等等。
-    actions:
-        list:
-            title: 查看管理员列表
-            remark: 列出管理员，查看管理员的大致信息
-        add:
-            title: 添加管理员
-        edit:
-            title: 编辑管理员信息
-        show:
-            title: 查看管理员详细信息
-        delete:
-            title: 删除管理员
+  list:
+    title: 查看管理员列表
+    remark: 列出管理员，查看管理员的大致信息
+  add:
+    title: 添加管理员
+    remark: 添加一个新的管理员账户
+  edit:
+    title: 编辑信息
+    remark: 编辑管理员的基本信息，或者管理员的权限
+  show:
+    title: 查看详细信息
+    remark: 查看管理员详细信息
+  delete:
+    title: 删除管理员
+    remark: 删除管理员
