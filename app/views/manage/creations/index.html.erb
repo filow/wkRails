@@ -7,58 +7,102 @@
   <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
 </div>
 
+<% if @pre_creations.any? %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2 class="panel-title">待处理的作品</h2>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th></th>
+          <th>缩略图</th>
+          <th width="10%">作品名称</th>
+          <th width="25%">简介</th>
+          <th width="10%">创建时间</th>
+          <th width="15%">最后更改时间</th>
+          <th width="10%">投票数</th>
+          <th>状态</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @pre_creations.each do |c| %>
+            <tr data-id="<%= c.id %>" %>
+              <td>
+                <input type="radio" name="p_radio" class="p_radio" value="<%= c.id %>">
+              </td>
+              <td>
+                <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+              </td>
+              <td><%= c.name %></td>
+              <td><%= truncate c.summary, length:100 %></td>
+              <td>
+          <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
+            <%= c.created_at.strftime("%F") %>
+          </span>
+              </td>
+              <td>
+          <span class="time-column" title="<%= c.updated_at.strftime("%F %R") %>">
+            <%= c.updated_at.strftime("%F") %>
+          </span>
+              </td>
+              <td>
+                <%= c.vote_count %>
+              </td>
+              <td>
+                <%= bs_label_tag c.status_cn, "info" %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
 <table class="table table-hover">
-  <thead>
-  <tr>
-    <th></th>
-    <th>缩略图</th>
-    <th>作品名称</th>
-    <th>简介</th>
-    <th>创建时间</th>
-    <th>最后更改时间</th>
-    <th>投票数</th>
-    <th>评论数</th>
-    <th>浏览量</th>
-    <th>人气</th>
-    <th>状态</th>
-  </tr>
-  </thead>
+  <% unless @pre_creations.any? %>
+      <thead>
+      <tr>
+        <th></th>
+        <th>缩略图</th>
+        <th width="10%">作品名称</th>
+        <th width="25%">简介</th>
+        <th width="10%">创建时间</th>
+        <th width="15%">最后更改时间</th>
+        <th width="10%">投票数</th>
+        <th>状态</th>
+      </tr>
+      </thead>
+  <% end %>
 
   <tbody>
   <% @manage_creations.each do |c| %>
-      <tr data-id="<%= c.id %>" %>">
-        <td>
-          <img src=<%= c.thumb %> alt="...">
-        </td>
+      <tr data-id="<%= c.id %>" %>
         <td>
           <input type="radio" name="p_radio" class="p_radio" value="<%= c.id %>">
         </td>
-        <td><%= c.name %></td>
-        <td><%= truncate c.summary, length:100 %></td>
         <td>
+          <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+        </td>
+        <td width="10%"><%= c.name %></td>
+        <td width="25%"><%= truncate c.summary, length:100 %></td>
+        <td width="10%">
           <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
             <%= c.created_at.strftime("%F") %>
           </span>
         </td>
-        <td>
+        <td width="15%">
           <span class="time-column" title="<%= c.updated_at.strftime("%F %R") %>">
             <%= c.updated_at.strftime("%F") %>
           </span>
         </td>
-        <td>
+        <td width="10%">
           <%= c.vote_count %>
         </td>
         <td>
-          <%= c.comment_count %>
-        </td>
-        <td>
-          <%= c.view_count %>
-        </td>
-        <td>
-          <%= c.popularity %>
-        </td>
-        <td>
-          <%= bs_label_tag c.status, "info" %>
+          <%= bs_label_tag c.status_cn, "info" %>
         </td>
       </tr>
   <% end %>

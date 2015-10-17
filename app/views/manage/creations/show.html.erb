@@ -1,54 +1,32 @@
-<p id="notice"><%= notice %></p>
+<%= link_to '返回列表', manage_creations_path, class: 'btn btn-default' %>
+<%= link_to '修改', edit_manage_creation_path(@manage_creation), class: 'btn btn-success' %>
 
-<p>
-  <strong>Name:</strong>
+<h3>
+  <%= bs_label_tag @manage_creation.status_cn, "info" %>
   <%= @manage_creation.name %>
-</p>
+</h3>
 
-<p>
-  <strong>Desc:</strong>
-  <%= @manage_creation.desc %>
-</p>
+<div>
+  <img src="<%= @manage_creation.thumb %>" alt="缩略图" class="img-thumbnail">
+</div>
 
-<p>
-  <strong>Vote count:</strong>
-  <%= @manage_creation.vote_count %>
-</p>
-
-<p>
-  <strong>Comment count:</strong>
-  <%= @manage_creation.comment_count %>
-</p>
-
-<p>
-  <strong>View count:</strong>
-  <%= @manage_creation.view_count %>
-</p>
-
-<p>
-  <strong>Popularity:</strong>
-  <%= @manage_creation.popularity %>
-</p>
-
-<p>
-  <strong>Summary:</strong>
-  <%= @manage_creation.summary %>
-</p>
-
-<p>
-  <strong>Thumb:</strong>
-  <%= @manage_creation.thumb %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @manage_creation.status %>
-</p>
-
-<p>
-  <strong>Version:</strong>
-  <%= @manage_creation.version %>
-</p>
-
-<%= link_to 'Edit', edit_manage_creation_path(@manage_creation) %> |
-<%= link_to 'Back', manage_creations_path %>
+<table class="table">
+  <tr>
+    <td><%= tmc('comment_count') %></td>
+    <td><%= @manage_creation.comment_count %></td>
+    <td><%= tmc('view_count') %></td>
+    <td><%= @manage_creation.view_count %></td>
+    <td><%= tmc('vote_count') %></td>
+    <td><%= @manage_creation.vote_count %></td>
+    <td><%= tmc('created_at') %></td>
+    <td><%= @manage_creation.created_at.strftime('%F %R') %></td>
+    <td><%= tmc('updated_at') %></td>
+    <td><%= @manage_creation.updated_at.strftime('%F %R') %></td>
+  </tr>
+  <tr>
+    <td colspan="10">
+      <div><%= tmc('desc') %></div>
+      <%= @manage_creation.desc.html_safe %>
+    </td>
+  </tr>
+</table>

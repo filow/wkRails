@@ -36,7 +36,7 @@ class CreationThumbUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [320, 180]
+    process :resize_to_fill => [192, 108]
   end
 
   version :thumb_mini, :from_version => :thumb do

@@ -4,7 +4,12 @@ class Manage::CreationsController < ManageController
   # GET /manage/creations
   # GET /manage/creations.json
   def index
-    @manage_creations = Manage::Creation.all
+    @manage_creations = Manage::Creation.all.order created_at: :desc
+    @pre_creations = Manage::Creation.where status: [
+                                                Manage::Creation.statuses[:publishing],
+                                                Manage::Creation.statuses[:unpublishing]
+                                            ]
+
   end
 
   # GET /manage/creations/1
@@ -70,6 +75,6 @@ class Manage::CreationsController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_creation_params
-      params.require(:manage_creation).permit(:name, :desc, :vote_count, :comment_count, :view_count, :popularity, :summary, :thumb, :status, :version)
+      params.require(:manage_creation).permit(:name, :thumb_cache, :desc, :vote_count, :comment_count, :view_count, :popularity, :summary, :thumb, :status, :version)
     end
 end

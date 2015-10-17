@@ -12,6 +12,17 @@ class Manage::Creation < ActiveRecord::Base
 
   mount_uploader :thumb, CreationThumbUploader
 
+  def status_cn
+    #翻译映射
+    t = {
+        draft: '草稿',
+        publishing: '发布审核',
+        published: '已发布',
+        unpublishing: '撤销审核'
+    }
+    t[self.status.to_sym]
+  end
+
   private
     #生成简介
     def add_summary
