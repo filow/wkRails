@@ -1,2 +1,37 @@
-<h1>Manage::Cfg#index</h1>
-<p>Find me in app/views/manage/cfg/index.html.erb</p>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+  </script>
+  <!--以上待删，只能这样引用才能实现日期选择框，可能是因为引用不到父级的js和css  -->
+<table class="table">
+  <thead>
+  <tr>
+    <th width="500px;">remark</th>
+    <th>field_type</th>
+    <th>value</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @manage_cfgs.each do |cfg| %>
+      <tr data-id="<%= cfg.id %>" >
+        <td><%= cfg.remark %></td>
+        <td><%= cfg.field_type %></td>
+
+        <!-- date用日期选择框，number用textfield并限制输入，boolean用下拉框 -->
+        <td>
+          <div class="input-group date">
+            <input class="form-control datepicker" type="text_field" value="<%= cfg.value %>">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+          </div>
+        </td>
+        <td><button class="btn btn-warning">提交</button></td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
