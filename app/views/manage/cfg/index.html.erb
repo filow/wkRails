@@ -1,16 +1,9 @@
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
-  </script>
+
   <!--以上待删，只能这样引用才能实现日期选择框，可能是因为引用不到父级的js和css  -->
 <table class="table">
   <thead>
   <tr>
-    <th width="500px;">remark</th>
+    <th width="60%;">remark</th>
     <th>field_type</th>
     <th>value</th>
   </tr>
@@ -25,11 +18,36 @@
         <!-- date用日期选择框，number用textfield并限制输入，boolean用下拉框 -->
         <td>
           <div class="input-group date">
-            <input class="form-control datepicker" type="text_field" value="<%= cfg.value %>">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <form action="cfg/<%= cfg.id %>" method="post">
+              <!-- 为通过权限验证 -->
+              <%= tag(:input, :type => "hidden", :name =>
+              request_forgery_protection_token.to_s,
+              :value =>   form_authenticity_token) %>
+              <!-- 使用patch方法 -->
+              <input name="_method" type="hidden" value="patch" />
+              <!-- 传递参数 -->
+              <input name="cfg_id" type="hidden" value="<%= cfg.id %>">
+              <!-- 选择对应的输入框 -->
+              <% case cfg.field_type %>
+                <% when "number" %>
+                  <input name="cfg_value" class="form-control " type="text_field" value="<%= cfg.value %>">
+                <% when "boolean" %>
+                  <select name="cfg_value" class="form-control" >
+                    <% if cfg.value == "true" %>
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                    <% else %>
+                    <option value="false">否</option>
+                    <option value="true">是</option>
+                    <% end %>
+                  </select>
+                <% when "date" %>
+                
+              <% end %>
+              <td><input type="submit" value="提交" class="btn btn-warning"></td>
+            </form>
           </div>
         </td>
-        <td><button class="btn btn-warning">提交</button></td>
 
       </tr>
   <% end %>
