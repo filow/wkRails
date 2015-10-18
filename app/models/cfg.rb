@@ -4,7 +4,7 @@ class Cfg < ActiveRecord::Base
 
   #根据field_type的值来验证value是否合法
   validates :value, numericality: { only_integer: true ,greater_than_or_equal_to: 0},if: "field_type == 'number'"
-  validates :value, format: {with: /\Ad{4}-d{2}-d{2}/}, if: "field_type == 'date'"
+  validates :value, format: {with: /\A[\d]{4}-[\d]{2}-[\d]{2}/ }, if: "field_type == 'date'"
   validates :value, inclusion: {in: %w(true false)}, if: "field_type == 'boolean'"
 
 

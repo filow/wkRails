@@ -1,24 +1,20 @@
 
-  <!--以上待删，只能这样引用才能实现日期选择框，可能是因为引用不到父级的js和css  -->
 <table class="table">
   <thead>
   <tr>
-    <th width="60%;">remark</th>
-    <th>field_type</th>
-    <th>value</th>
+    <th width="60%;">设置项</th>
+    <th>值</th>
   </tr>
   </thead>
 
   <tbody>
   <% @manage_cfgs.each do |cfg| %>
-      <tr data-id="<%= cfg.id %>" >
+      <tr  >
         <td><%= cfg.remark %></td>
-        <td><%= cfg.field_type %></td>
-
         <!-- date用日期选择框，number用textfield并限制输入，boolean用下拉框 -->
         <td>
-          <div class="input-group date">
-            <form action="cfg/<%= cfg.id %>" method="post">
+          <div >
+            <form action="cfg/<%= cfg.id %>" method="post" class="form-group">
               <!-- 为通过权限验证 -->
               <%= tag(:input, :type => "hidden", :name =>
               request_forgery_protection_token.to_s,
@@ -42,7 +38,7 @@
                     <% end %>
                   </select>
                 <% when "date" %>
-                
+                  <input name="cfg_value" class="form-control input-group date" value="<%= cfg.value %>" type="text">
               <% end %>
               <td><input type="submit" value="提交" class="btn btn-warning"></td>
             </form>
