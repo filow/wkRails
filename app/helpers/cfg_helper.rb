@@ -18,4 +18,8 @@ module CfgHelper
       {:class => 'form-control input-group date'})
   end
 
+  def cfg_text_field cfg
+    text_field_tag(:cfg_value,cfg.value,
+      {:class => 'form-control'})
+  end
 end

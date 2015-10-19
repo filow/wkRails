@@ -11,14 +11,14 @@ class Manage::CfgControllerTest < ActionController::TestCase
     session[:admin_name] = @admin.name
   end
 
-  test "should get index" do
+  test "展示列表" do
     get :index
     assert_response :success
   end
 
-  # test "更改系统设置" do
-  #   patch :update ,id: cfg.id
-  #   assert_redirected_to manage_cfgs_path
-  # end
+  test "更改系统设置" do
+    patch :update, id: @cfg, post: {value: '123'}
+    assert_redirected_to manage_cfgs_path
+  end
 
 end
