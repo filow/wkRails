@@ -18,4 +18,10 @@ module CfgHelper
       {:class => 'form-control input-group date'})
   end
 
+  def cfg_text_field cfg
+    text_field_tag(:cfg_value,cfg.value,
+      {:class => 'form-control'})
+  end
+
+  #应当整合更多种type处理 以应对未来新增的设置项
 end
