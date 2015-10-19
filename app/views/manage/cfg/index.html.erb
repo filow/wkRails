@@ -3,6 +3,7 @@
   <thead>
   <tr>
     <th width="60%;">设置项</th>
+    <th></th>
     <th>值</th>
   </tr>
   </thead>
@@ -11,37 +12,13 @@
   <% @manage_cfgs.each do |cfg| %>
       <tr  >
         <td><%= cfg.remark %></td>
-        <!-- date用日期选择框，number用textfield并限制输入，boolean用下拉框 -->
         <td>
           <div >
-            <form action="cfg/<%= cfg.id %>" method="post" class="form-group">
-              <!-- 为通过权限验证 -->
-              <%= tag(:input, :type => "hidden", :name =>
-              request_forgery_protection_token.to_s,
-              :value =>   form_authenticity_token) %>
-              <!-- 使用patch方法 -->
-              <input name="_method" type="hidden" value="patch" />
-              <!-- 传递参数 -->
-              <input name="cfg_id" type="hidden" value="<%= cfg.id %>">
-              <!-- 选择对应的输入框 -->
-              <% case cfg.field_type %>
-                <% when "number" %>
-                  <input name="cfg_value" class="form-control " type="text_field" value="<%= cfg.value %>">
-                <% when "boolean" %>
-                  <select name="cfg_value" class="form-control" >
-                    <% if cfg.value == "true" %>
-                    <option value="true">是</option>
-                    <option value="false">否</option>
-                    <% else %>
-                    <option value="false">否</option>
-                    <option value="true">是</option>
-                    <% end %>
-                  </select>
-                <% when "date" %>
-                  <input name="cfg_value" class="form-control input-group date" value="<%= cfg.value %>" type="text">
-              <% end %>
-              <td><input type="submit" value="提交" class="btn btn-warning"></td>
-            </form>
+            <!-- 使用form_tag构造表单 -->
+            <%= form_tag("cfg/#{cfg.id}", method: "patch", class: "form-group") do  %>
+              <td><%= send "cfg_#{cfg.field_type}_field",cfg %></td>
+              <td><%= submit_tag("提交2",class: "btn btn-warning") %></td>
+            <% end %>
           </div>
         </td>
 

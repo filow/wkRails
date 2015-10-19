@@ -4,7 +4,7 @@ class Manage::CfgController < ManageController
   end
 
   def update
-    @manage_cfg = Cfg.find(params[:cfg_id])
+    @manage_cfg = Cfg.find(params[:id])
     if @manage_cfg.update( value: params[:cfg_value])
       redirect_to manage_cfgs_url, notice: '修改成功'
     else
