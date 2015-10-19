@@ -17,7 +17,7 @@
             <!-- 使用form_tag构造表单 -->
             <%= form_tag("cfg/#{cfg.id}", method: "patch", class: "form-group") do  %>
               <td><%= send "cfg_#{cfg.field_type}_field",cfg %></td>
-              <td><%= submit_tag("提交2",class: "btn btn-warning") %></td>
+              <td><%= submit_tag("提交",class: "btn btn-warning") %></td>
             <% end %>
           </div>
         </td>
