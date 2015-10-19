@@ -22,4 +22,6 @@ module CfgHelper
     text_field_tag(:cfg_value,cfg.value,
       {:class => 'form-control'})
   end
+
+  #应当整合更多种type处理 以应对未来新增的设置项
 end
