@@ -30,7 +30,11 @@ class Manage::UsersController < ManageController
   # GET /manage/users/1/edit
   def edit
   end
-
+  # GET /manage/users/1/message
+  def message
+    @target_users = Manage::User.all
+    # @recent_froms = Manage::Message
+  end
   # POST /manage/users
   # POST /manage/users.json
   def create

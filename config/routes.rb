@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     # 通知公告
     resources :posts
     # 用户
-    resources :users
+    resources :users do
+      member do
+        get 'message'
+      end
+    end
     # 作品
     resources :creations
 
