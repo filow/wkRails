@@ -4,6 +4,7 @@ class Manage::AdminsController < ManageController
   # GET /manage/admins
   def index
     @manage_admins = Manage::Admin.all
+    @manage_roles  = Manage::Role.all 
   end
 
   # GET /manage/admins/1
