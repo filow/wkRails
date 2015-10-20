@@ -11,6 +11,8 @@ class Manage::Creation < ActiveRecord::Base
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
   mount_uploader :thumb, CreationThumbUploader
+  #分页显示每页的个数
+  paginates_per 6
 
   def status_cn
     #翻译映射
