@@ -1,12 +1,6 @@
 
 $(function(){
-  // tooltip
-  $('.time-column').tooltip();
-  // 漂亮的单选和复选框
-  $('.p_radio').iCheck({
-  	radioClass: 'iradio_square-blue',
-  });
-  var current_line_forbid;
+
   // 点击表单行选中这个行
   $('tr').click(function(){
     var t = $(this);
@@ -18,38 +12,11 @@ $(function(){
       // 选中
       selector.iCheck('check');
 
-      var id = t.data('id'),
-          url_base = $('#url_base').text().trim();
-
-      current_line_forbid = t.data('forbid');
-      $(".action-btn").removeAttr('disabled').each(function(i, e){
-        if(e.id == "edit") {
-          $(e).attr('href', url_base + "/" + id + '/edit');
-        }else {
-          $(e).attr('href', url_base + "/" + id);
-        }
-      });
+      var id = t.data('id'), is_forbidden = t.data('is_forbidden');
+      btnGroup.btnGroup('setLineId', id);
+      btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
     }
   });
-
-  // 切换和删除的操作
-  $('a.extra-action').click(function (){
-    var t = $(this);
-    if(t.attr('disabled')) return false;
-    var href = t.attr('href'), type = this.id;
-    switch(type){
-      case 'forbid':
-        sendRequest(href, 'PATCH', {'manage_user[is_forbidden]':  !current_line_forbid});
-        break;
-      case 'delete':
-        if(confirm("你确定要删除此用户吗？此操作不可撤销！！")){
-          sendRequest(href, 'DELETE');
-        }
-        break;
-    }
-    return false;
-
-  })
 
   // sort
   $('a.sort').click(function(){
@@ -61,4 +28,6 @@ $(function(){
     sort_type ^= 1
     sendRequest(href,'GET',{'sort_by':sort_by,"sort_type":sort_type});
   })
+
+
 })

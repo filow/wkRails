@@ -1,14 +1,13 @@
 <h2>管理员列表</h2>
-<%= link_to '新建管理员', new_manage_admin_path ,class: "btn btn-success" %>
-<div class="btn-group" role="group">
-  <span style="display:none" id="url_base"><%= manage_admins_url %></span>
-  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 查看权限</a>
-  <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
-  <a class="btn btn-warning action-btn extra-action" id="forbidden" disabled><i class="glyphicon glyphicon-arrow-up"></i> 切换锁定</a>
-  <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
-
-
-</div>
+<section id="btnGroup" data-base="<%= manage_admins_url %>">
+  <a role="new">新建管理员</a>
+  <div class="btn-group" role="group">
+    <a role="show">查看权限</a>
+    <a role="edit"></a>
+    <a role="toggle" target="manage_admin[is_forbidden]" data-icon="lock" data-button="warning">切换锁定</a>
+    <a role="delete"></a>
+  </div>
+</section>
 
 <table class="table table-hover">
   <thead>
@@ -26,7 +25,7 @@
   <% @manage_admins.each do |a| %>
       <tr data-id="<%= a.id %>" data-forbidden="<%= a.is_forbidden? %>">
         <td>
-          <input type="radio" name="a_radio" class="a_radio" value="<%= a.id %>">
+          <input type="radio" name="p_radio" class="p_radio" value="<%= a.id %>">
         </td>
         <td><%= a.id %></td>
         <td><%= a.name %></td>
