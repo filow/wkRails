@@ -41,7 +41,7 @@ pro_validate_to:
 show_login_vcode:
   type: boolean
   desc: 是否在用户登录时显示验证码（仅前台系统）
-  default: true
+  default: "true"
 show_vcode_after:
   type: number
   desc: 用户登录失败几次后才显示验证码

@@ -1,2 +1,28 @@
-<h1>Manage::Cfg#index</h1>
-<p>Find me in app/views/manage/cfg/index.html.erb</p>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th width="60%;">设置项</th>
+    <th></th>
+    <th>值</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @manage_cfgs.each do |cfg| %>
+      <tr  >
+        <td><%= cfg.remark %></td>
+        <td>
+          <div >
+            <!-- 使用form_tag构造表单 -->
+            <%= form_tag("cfg/#{cfg.id}", method: "patch", class: "form-group") do  %>
+              <td><%= send "cfg_#{cfg.field_type}_field",cfg %></td>
+              <td><%= submit_tag("提交",class: "btn btn-warning") %></td>
+            <% end %>
+          </div>
+        </td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
