@@ -9,6 +9,7 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
 
 $(function (){
+  $('.time-column').tooltip();
   window.btnGroup = $('#btnGroup').btnGroup();
   // 漂亮的单选和复选框
   $('.p_radio, .p_checkbox').iCheck({
