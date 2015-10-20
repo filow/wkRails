@@ -17,7 +17,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "自动生成不含有html标签的content_notag" do
-    post = posts(:z)
+    post = posts(:posts_notag)
     #开始时content_notag是空的
     assert post.content_notag.blank?
     #成功存入
