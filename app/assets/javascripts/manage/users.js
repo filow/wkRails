@@ -1,12 +1,6 @@
 
 $(function(){
-  // tooltip
-  $('.time-column').tooltip();
-  // 漂亮的单选和复选框
-  $('.p_radio').iCheck({
-  	radioClass: 'iradio_square-blue',
-  });
-  window.btnGroup = $('section.btnGroup').btnGroup();
+
   // 点击表单行选中这个行
   $('tr').click(function(){
     var t = $(this);
@@ -23,25 +17,6 @@ $(function(){
       btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
     }
   });
-
-  // 切换和删除的操作
-  // $('a.extra-action').click(function (){
-  //   var t = $(this);
-  //   if(t.attr('disabled')) return false;
-  //   var href = t.attr('href'), type = this.id;
-  //   switch(type){
-  //     case 'forbid':
-  //       sendRequest(href, 'PATCH', {'manage_user[is_forbidden]':  !current_line_forbid});
-  //       break;
-  //     case 'delete':
-  //       if(confirm("你确定要删除此用户吗？此操作不可撤销！！")){
-  //         sendRequest(href, 'DELETE');
-  //       }
-  //       break;
-  //   }
-  //   return false;
-  //
-  // })
 
   // sort
   $('a.sort').click(function(){
