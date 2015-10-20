@@ -16,10 +16,10 @@
       <table class="table table-hover">
         <thead>
         <tr>
-          <th></th>
-          <th>缩略图</th>
-          <th width="10%">作品名称</th>
-          <th width="25%">简介</th>
+          <th width="5%"></th>
+          <th width="10%">缩略图</th>
+          <th width="15%">作品名称</th>
+          <th width="30%">简介</th>
           <th width="10%">创建时间</th>
           <th width="15%">最后更改时间</th>
           <th width="10%">投票数</th>
@@ -34,7 +34,7 @@
                 <input type="radio" name="p_radio" class="p_radio" value="<%= c.id %>">
               </td>
               <td>
-                <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+                <img src="<%= c.thumb.thumb_mini %>" alt="缩略图" class="img-thumbnail">
               </td>
               <td><%= c.name %></td>
               <td><%= truncate c.summary, length:100 %></td>
@@ -65,10 +65,10 @@
   <% unless @pre_creations.any? %>
       <thead>
       <tr>
-        <th></th>
-        <th>缩略图</th>
-        <th width="10%">作品名称</th>
-        <th width="25%">简介</th>
+        <th width="5%"></th>
+        <th width="10%">缩略图</th>
+        <th width="15%">作品名称</th>
+        <th width="30%">简介</th>
         <th width="10%">创建时间</th>
         <th width="15%">最后更改时间</th>
         <th width="10%">投票数</th>
@@ -80,14 +80,14 @@
   <tbody>
   <% @manage_creations.each do |c| %>
       <tr data-id="<%= c.id %>" %>
-        <td>
+        <td width="5%">
           <input type="radio" name="p_radio" class="p_radio" value="<%= c.id %>">
         </td>
-        <td>
-          <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+        <td width="10%">
+          <img src="<%= c.thumb.thumb_mini %>" alt="缩略图" class="img-thumbnail">
         </td>
-        <td width="10%"><%= c.name %></td>
-        <td width="25%"><%= truncate c.summary, length:100 %></td>
+        <td width="15%"><%= c.name %></td>
+        <td width="30%"><%= truncate c.summary, length:100 %></td>
         <td width="10%">
           <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
             <%= c.created_at.strftime("%F") %>

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     # 用户
     resources :users
     # 作品
-    resources :creations, only: [:index, :edit, :update, :show]
+    resources :creations, only: [:index, :edit, :update, :show, :destroy]
 
     get 'judges' => 'judge#index'
     get 'judges/:id' => 'judge#show'

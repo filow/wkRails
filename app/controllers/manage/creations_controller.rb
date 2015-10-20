@@ -75,6 +75,6 @@ class Manage::CreationsController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_creation_params
-      params.require(:manage_creation).permit(:name, :thumb_cache, :desc, :vote_count, :comment_count, :view_count, :popularity, :summary, :thumb, :status, :version)
+      params.require(:manage_creation).permit(:name, :desc, :summary, :thumb)
     end
 end
