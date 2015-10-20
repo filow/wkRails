@@ -1,11 +1,11 @@
 <h2>作品列表</h2>
-
-<div class="btn-group" role="group">
-  <span style="display:none" id="url_base"><%= manage_creations_url %></span>
-  <a class="btn btn-info action-btn" id="preview" disabled><i class="glyphicon glyphicon-eye-open"></i> 查看</a>
-  <a class="btn btn-success action-btn" id="edit" disabled><i class="glyphicon glyphicon-pencil"></i> 编辑</a>
-  <a class="btn btn-danger action-btn extra-action" id="delete" disabled><i class="glyphicon glyphicon-remove"></i> 删除</a>
-</div>
+<section id="btnGroup" data-base="<%= manage_creations_url %>">
+  <div class="btn-group" role="group">
+    <a role="show"></a>
+    <a role="edit"></a>
+    <a role="delete"></a>
+  </div>
+</section>
 
 <table class="table table-hover">
   <thead>
@@ -26,7 +26,7 @@
 
   <tbody>
   <% @manage_creations.each do |c| %>
-      <tr data-id="<%= c.id %>" %>">
+      <tr data-id="<%= c.id %>">
         <td>
           <img src=<%= c.thumb %> alt="...">
         </td>
