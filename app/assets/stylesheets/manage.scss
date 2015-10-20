@@ -67,15 +67,13 @@ ul.nav {
     padding-bottom: 12px;
     font-size: 14px;
     letter-spacing: 2px;
-    color: #000;
-    opacity: .8;
+    color: #222;
     border-bottom: 1px solid #ddd;
-    
+
     &:focus,
     &:hover,
     &:active{
-      background-color: #fff;
-      opacity: .6;
+      background-color: rgb(219, 226, 232);
     }
 
     i {
@@ -85,10 +83,9 @@ ul.nav {
     }
 
   }
-  
+
   li.active a {
-    background-color: #fff;
-    opacity: 1;
+    background-color: rgb(219, 226, 232);
   }
 
 }
