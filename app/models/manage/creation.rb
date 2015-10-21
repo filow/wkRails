@@ -8,9 +8,13 @@ class Manage::Creation < ActiveRecord::Base
   has_many :creation_votes
   has_many :judges
 
+  validates_presence_of :name, :desc
+
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
   mount_uploader :thumb, CreationThumbUploader
+  #分页显示每页的个数
+  paginates_per 10
 
   def status_cn
     #翻译映射

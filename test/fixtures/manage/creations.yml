@@ -25,3 +25,55 @@ creations_two:
   view_count: 400
   popularity: 0
   user: users_two
+
+creations_three:
+  name: 发布审核状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 1
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two
+
+creations_four:
+  name: 发布审核状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 1
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two
+
+creations_five:
+  name: 发布审核状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 1
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two
+
+#用于测试简介的自动生成
+creations_without_summary:
+  name: 我有一百种方法让你们待不下去
+  desc: <a>鄙人叶良辰也，汝等所为太甚。汝若技痒，吾自奉陪。呵，汝当明之，辰未曾食言。汝当祈不遇辰。聿本土以百种良策驱之。汝等皆无计可施。辰甚好自恃者，汝等铭记，吾叶良辰。汝等自可唤七朋八友，辰当应之。吾若胜，汝等滚退，切勿相欺。然，汝等休手，辰必有重谢。识实务者为俊杰，吾叶氏，字良辰!</a>
+  thumb: head.png
+  status: 1
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two

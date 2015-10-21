@@ -40,7 +40,7 @@ class CreationThumbUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb_mini, :from_version => :thumb do
-    process :resize_to_fill => [64, 36]
+    process :resize_to_fill => [96, 54]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
