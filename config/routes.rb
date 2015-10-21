@@ -25,11 +25,9 @@ Rails.application.routes.draw do
     # 通知公告
     resources :posts
     # 用户
-    resources :users do
-      member do
-        get 'message'
-      end
-    end
+    resources :users
+    get 'users/:id/message' => 'messages#new'
+    post 'users/:id/message' => 'messages#create'
     # 作品
     resources :creations
 
@@ -44,6 +42,7 @@ Rails.application.routes.draw do
 
     get 'cfgs' => 'cfg#index'
     patch 'cfg/:id' => 'cfg#update'
+
 
   end
 

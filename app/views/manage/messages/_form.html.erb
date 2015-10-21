@@ -1,0 +1,33 @@
+<h2>发送站内信</h2>
+<div><h4>目标发送队列：</h4></div>
+<div>
+  <% @target_users.each do |p| %>
+    <button class="btn btn-primary"><%= p.name %> <span class="glyphicon glyphicon-remove"></span></button>
+  <% end %>
+  <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></button>
+</div>
+<hr>
+<div><h4>发送内容：</h4></div>
+<%= javascript_include_tag "ckeditor/init" %>
+<%= form_for :message do |f| %>
+  <table class="table">
+    <tr class="sr-only">
+      <td><%= f.text_field :user_id, class: 'form-control' ,value:@target_users[0].id %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :title ,"标题"%></td>
+      <td><%= f.text_field :title, class: 'form-control' %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= f.label :content,"内容"%>
+        <%= f.cktext_area :content, :ckeditor => {:uiColor => '#fefefe', :toolbar => 'mini'}  %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :from ,"发送人"%></td>
+      <td><%= f.select :from,[['sd','fd']], {},class: 'form-control' %></td>
+    </tr>
+  </table>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

@@ -30,11 +30,7 @@ class Manage::UsersController < ManageController
   # GET /manage/users/1/edit
   def edit
   end
-  # GET /manage/users/1/message
-  def message
-    @target_users = Manage::User.all
-    # @recent_froms = Manage::Message
-  end
+  
   # POST /manage/users
   # POST /manage/users.json
   def create
@@ -102,6 +98,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :avatar, :sort_by, :sort_type, :password, :password_confirmation)
+      params.require(:manage_user).permit(:user_id,:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :avatar, :sort_by, :sort_type, :password, :password_confirmation)
     end
 end
