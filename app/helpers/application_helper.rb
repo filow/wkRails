@@ -22,4 +22,8 @@ STR
     ctl=params[:controller]
     t("activerecord.attributes.#{ctl[0,ctl.length-1]}.#{str.downcase}")
   end
+
+  def index_nav_active(url)
+    raw 'class="active"' if request.url == url
+  end
 end

@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
   scope module: 'index' do
     get '/' => 'index#index'
+    get '/passage/:id' => 'passage#show', as: 'passage'
+    get 'creations' => 'creation#index', as: 'creations'
+    get 'creations/:id' => 'creation#show', as: 'creation'
+    post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
+    post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
+    get 'usercenter' => 'usercenter#index'
   end
 
   namespace :manage do

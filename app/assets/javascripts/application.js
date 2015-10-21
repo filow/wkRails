@@ -12,3 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
+//= require bootstrap2.min.js
+
+$(document).on('ready page:load', function(){
+  Turbolinks.enableProgressBar()
+    $(".to_top").click(function(){
+        $('body,html').animate({scrollTop:0},1000);
+        return false;
+    }).hide();
+    $(document).scroll(function() {
+        $(this).scrollTop()==0?$(".to_top").hide():$(".to_top").show();
+    });
+});
