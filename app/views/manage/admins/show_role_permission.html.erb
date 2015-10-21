@@ -1,0 +1,29 @@
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title><%= @title || '微课大赛后台管理系统' %></title>
+    <link rel="shortcut icon" href="/favicon.png">
+    <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
+    <%= stylesheet_link_tag  'manage', media: 'all' %>
+    <%= stylesheet_link_tag   params[:controller], media: 'all' %>
+    <%= yield :before_js %>
+    <%= csrf_meta_tags %>
+  </head>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>权限</th>
+    <th width="100px">描述</th>
+    <th>状态</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @manage_role.nodes.each do |a| %>
+      <tr data-id="<%= a.id %>" >
+        <td><%= a.title %></td>
+        <td><%= a.remark %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -16,6 +16,5 @@ $(function(){
       btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
     }
   });
-
-
+  
 });
