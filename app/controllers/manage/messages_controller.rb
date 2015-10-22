@@ -1,4 +1,4 @@
-class Manage::MessagesController < ApplicationController
+class Manage::MessagesController < ManageController
   def create
     @message = Manage::Message.new(manage_message_params)
 
