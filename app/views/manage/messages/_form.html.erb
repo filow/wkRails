@@ -25,8 +25,8 @@
     </tr>
     <tr>
       <td><%= f.label :from ,"发送人"%></td>
-      <td><%= f.select :from,[['sd','fd']], {},class: 'form-control' %></td>
+      <td><%= f.select :from,[session['admin_realname']], {},class: 'form-control' %></td>
     </tr>
   </table>
-  <%= f.submit class: 'btn btn-primary' %>
+  <%= f.submit class: 'btn btn-primary',value:'发送' %>
 <% end %>

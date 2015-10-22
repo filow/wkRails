@@ -11,6 +11,7 @@ class Manage::MessagesController < ManageController
   # GET /manage/users/1/message
   def new
     @target_users = [Manage::User.find(params[:id])].flatten
+    # @from = 
     @message = Manage::Message.new
     # @recent_froms = Manage::Message
   end
