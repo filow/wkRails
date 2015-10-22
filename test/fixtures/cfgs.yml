@@ -11,3 +11,8 @@ cfgs_another:
   value: 123456
   remark: ANA123456
   field_type: number
+
+cfgs_links:
+  key: links
+  remark: 友情链接
+  field_type: url

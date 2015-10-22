@@ -23,5 +23,13 @@ module CfgHelper
       {:class => 'form-control'})
   end
 
+  def cfg_img_field cfg
+    file_field_tag(:cfg_value)
+  end
+
+  def cfg_url_field cfg
+    text_area_tag(:cfg_value, cfg.value, {:class => 'form-control'})
+  end
+
   #应当整合更多种type处理 以应对未来新增的设置项
 end
