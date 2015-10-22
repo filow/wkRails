@@ -54,9 +54,17 @@ broadcast_passage:
   type: number
   desc: 顶部通知公告指向的文章ID
   default: ""
-broadcast_imges:
+broadcast_img1:
   type: img
-  desc: 巨幕上的海报图片
+  desc: 海报图片1
+  default: ""
+broadcast_img2:
+  type: img
+  desc: 海报图片2
+  default: ""
+broadcast_img3:
+  type: img
+  desc: 海报图片3
   default: ""
 links:
   type: url

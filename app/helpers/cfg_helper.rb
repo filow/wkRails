@@ -24,7 +24,7 @@ module CfgHelper
   end
 
   def cfg_img_field cfg
-    file_field_tag(:cfg_value, {:class => 'form-control'})
+    file_field_tag(:cfg_value)
   end
 
   def cfg_url_field cfg
