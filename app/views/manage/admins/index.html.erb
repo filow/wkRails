@@ -49,6 +49,7 @@
 
 <hr>
 <h2>角色列表</h2>
+
 <table class="table table-hover">
   <thead>
   <tr>
@@ -59,8 +60,8 @@
   </thead>
 
   <tbody>
-  <% @manage_roles.each do |r| %>
-      <tr data-id="<%= r.id %>" >
+    <% @manage_roles.each do |r| %>
+      <tr>
         <td><%= r.id %></td>
         <td><%= r.name %></td>
         <td>
@@ -71,16 +72,46 @@
           <% end %>
         </td>
         <!-- 假装按钮可以用 -->
-        <td><button class="btn btn-success " data-toggle="modal" id="roleShow">
-          查看权限</button>
+        <td><a class="btn btn-success view_permissions" data-id="<%= r.id %>">查看权限</a>
         </td>
-        <td><%= link_to "编辑权限","/manage/role/#{r.id}/permission",class: 'btn btn-warning' %></td>
+        <td><%= link_to "编辑权限","/manage/roles/#{r.id}/permission",class: 'btn btn-warning' %></td>
         <td>
-          <%= form_tag("role/#{r.id}",method: "delete",class: "form-group" )do  %>
-            <%= submit_tag("删除",class: 'btn btn-danger')%>
+          <%= form_tag("roles/#{r.id}",method: "delete",class: "form-group" )do  %>
+            <%= submit_tag("删除",class: 'btn btn-danger',data: { confirm: '你确定要删除这个角色吗？' })%>
           <% end %>
         </td>
       </tr>
-  <% end %>
+    <% end %>
+    <tr>
+      <%= form_tag("/manage/roles",method: "post") do %>
+      <td colspan="3">
+
+        <label class="">角色名</label><%= text_field_tag(:name)%>
+
+
+      </td>
+      <td>
+        <%= submit_tag("新建角色",class: "btn btn-success") %>
+      </td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
+
+
+<div class="modal fade" id="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">查看角色权限</h4>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -69,6 +69,22 @@ class Manage::AdminsController < ManageController
     redirect_to manage_admins_url, notice: '管理员账户删除成功'
   end
 
+  #查看角色权限
+  def show_role
+    @manage_role = Manage::Role.find(params[:id])
+    render :show_role, layout: false
+  end
+
+  #创建角色
+  def create_role
+    @manage_role = Manage::Role.new(name: params[:name])
+    if @manage_role.save
+      redirect_to manage_admins_url, notice: "新的角色 #{@manage_role.name} 创建成功！"
+    else
+      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"
+    end
+  end
+
   #更新角色权限
   def update_role
     @manage_role = Manage::Role.find(params[:id])
@@ -77,7 +93,7 @@ class Manage::AdminsController < ManageController
     if params[:new_nodes] && @manage_role.nodes << Manage::Node.find(params[:new_nodes])
       redirect_to manage_admins_url, notice: '修改角色权限成功'
     else
-      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:value].first}"
+      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"
     end
   end
 
@@ -88,10 +104,10 @@ class Manage::AdminsController < ManageController
     redirect_to manage_admins_url,notice: '角色删除成功'
   end
 
-  #查看角色权限
-  def show_role_permission
+  #修改角色权限
+  def edit_role_permission
     @manage_role = Manage::Role.find(params[:id])
-    render :show_role_permission,layout: false
+    # render :edit_role_permission,layout: false
   end
 
   private

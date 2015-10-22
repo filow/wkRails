@@ -1,0 +1,11 @@
+<body class="container">
+      <div class="node_list">
+        <% @manage_role.nodes.all.each do |n| %>
+                  <div  title="<%= n.remark %>" class="node" >
+                    <label  class="btn btn-default " >
+                    <%= n.title %></label>
+                  </div>
+        <% end %>
+      </div>
+      <div class="clearfix"></div>
+</body>
