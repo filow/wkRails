@@ -74,11 +74,12 @@
         <td><button class="btn btn-success " data-toggle="modal" id="roleShow">
           查看权限</button>
         </td>
-        <td><button class="btn btn-warning" data-toggle="modal"
-          data-remote="/manage/role/<%= r.id %>/permission">
-          编辑权限</button>
+        <td><%= link_to "编辑权限","/manage/role/#{r.id}/permission",class: 'btn btn-warning' %></td>
+        <td>
+          <%= form_tag("role/#{r.id}",method: "delete",class: "form-group" )do  %>
+            <%= submit_tag("删除",class: 'btn btn-danger')%>
+          <% end %>
         </td>
-        <td><button class="btn btn-danger" >删除</button></td>
       </tr>
   <% end %>
   </tbody>

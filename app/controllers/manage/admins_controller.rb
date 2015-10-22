@@ -71,10 +71,19 @@ class Manage::AdminsController < ManageController
 
   #更新角色权限
   def update_role
+    @manage_role = Manage::Role.find(params[:id])
+    @manage_role.nodes.clear
+    p @new_nodes
+    if params[:new_nodes] && @manage_role.nodes << Manage::Node.find(params[:new_nodes])
+      redirect_to manage_admins_url, notice: '修改角色权限成功'
+    else
+      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:value].first}"
+    end
   end
 
   #删除角色
   def destroy_role
+    @manage_role = Manage::Role.find(params[:id])
     @manage_role.destroy
     redirect_to manage_admins_url,notice: '角色删除成功'
   end
@@ -94,5 +103,8 @@ class Manage::AdminsController < ManageController
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_admin_params
       params.require(:manage_admin).permit(:name, :password, :realname, :is_forbidden)
+    end
+    def manage_role_params
+      params.require(:manage_role).permit(:name, :is_enabled)
     end
 end
