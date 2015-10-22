@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :posts
     # 用户
     resources :users
+    get 'users/:id/message' => 'messages#new'
+    post 'users/:id/message' => 'messages#create'
     # 作品
     resources :creations, only: [:index, :edit, :update, :show, :destroy]
 
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
 
     get 'cfgs' => 'cfg#index'
     patch 'cfg/:id' => 'cfg#update'
+
 
   end
 
