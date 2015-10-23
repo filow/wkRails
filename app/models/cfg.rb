@@ -1,12 +1,12 @@
 class LinksValidator < ActiveModel::Validator
   def validate(record)
     if record.key == 'links'
+      #按行切分
       links = record.value.split "\n"
-      entry = 0
-      links.each do |l|
-        entry += 1
-        unless l =~ /^[\u2E80-\uFE4F\w]+\|([\w:\/.]+)[\r\n]*$/
-          record.errors[:value] << "第#{entry}条格式不正确"
+      #对每行进行检验
+      links.each_index do |i|
+        unless links[i] =~ /^[\u2E80-\uFE4F\w]+\|([\w:\/.]+)[\r\n]*$/
+          record.errors[:value] << "第#{i+1}条格式不正确"
         end
       end
     end
@@ -22,6 +22,7 @@ class Cfg < ActiveRecord::Base
   validates :value, numericality: { only_integer: true ,greater_than_or_equal_to: 0},if: "field_type == 'number'",allow_blank:true
   validates :value, format: {with: /\A[\d]{4}-[\d]{2}-[\d]{2}/ }, if: "field_type == 'date'",allow_blank:true
   validates :value, inclusion: {in: %w(true false)}, if: "field_type == 'boolean'",allow_blank:true
+  #验证友情链接格式是否合法
   validates_with LinksValidator
 
   def self.get(name, force_refresh=false)
