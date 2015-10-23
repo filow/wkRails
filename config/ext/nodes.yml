@@ -30,3 +30,17 @@ admin:
   delete:
     title: 删除管理员
     remark: 删除管理员
+
+test:
+  listtest:
+    title: 查看管理员列表test
+    remark: 列出管理员，查看管理员的大致信息
+  addtest:
+    title: 添加管理员test
+    remark: 添加一个新的管理员账户
+  edittest:
+    title: 编辑信息test
+    remark: 编辑管理员的基本信息，或者管理员的权限
+  showtest:
+    title: 查看详细信息test
+    remark: 查看管理员详细信息
