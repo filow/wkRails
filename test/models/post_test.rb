@@ -31,7 +31,7 @@ class PostTest < ActiveSupport::TestCase
     valid_posts = Post.valid_posts
     now = Date.today
     valid_posts.each do |p|
-      assert p.publish_at >= now
+      assert p.publish_at <= now
       assert_not p.is_hide
     end
   end
