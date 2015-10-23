@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   validates :title, uniqueness: true
 
   def self.valid_posts
-    where 'publish_at <= ? and is_hide = ?', Date.today, false
+    where 'publish_at >= ? and is_hide = ?', Date.today, false
   end
 
   def published?

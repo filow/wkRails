@@ -29,15 +29,18 @@ class Manage::AdminsController < ManageController
       redirect_to manage_admins_edit_self_path, alert: '请输入正确的验证码'
       return
     end
+    #验证原密码
     admin = @admin.try(:authenticate, prms[:old_password])
-    # 如果验证失败
     if admin
+      #原密码正确
       if @admin.update(manage_admin_params)
+        session[:admin_realname] = @admin.realname
         redirect_to manage_admins_edit_self_path, notice: '修改成功'
       else
         render :edit_self
       end
     else
+      #原密码错误
       redirect_to manage_admins_edit_self_path, alert: '原密码错误，修改个人信息失败'
     end
   end

@@ -51,8 +51,8 @@ class Manage::SessionControllerTest < ActionController::TestCase
     assert_equal "请输入正确的验证码", flash[:notice]
     assert_redirected_to manage_login_url
   end
-
-
+  #
+  #
   test "验证码输入出错" do
     # 首先登录失败一次，以产生验证码的审核
     post :create, @wrong_payload
@@ -63,7 +63,7 @@ class Manage::SessionControllerTest < ActionController::TestCase
     assert_equal "请输入正确的验证码", flash[:notice]
     assert_redirected_to manage_login_url
   end
-
+  #
   test "失败5次就禁止登陆" do
     @controller.send :clear_record
     # 首先登录失败一次，以产生验证码的审核
