@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     # 用户
     resources :users
     get 'users/:id/message' => 'messages#new', as: 'send_message'
-    post 'users/:id/message' => 'messages#create'
+    post 'users/message' => 'messages#create', as: 'post_message'
     # 作品
     resources :creations, only: [:index, :edit, :update, :show, :destroy]
 
