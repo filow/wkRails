@@ -7,8 +7,8 @@
 
       <% Manage::Node.group("controller").each do |c| %>
         <div class="caption">
-          <!-- 待翻译 -->
-          <h3><%= c.controller %></h3>
+          <!-- 已翻译 -->
+          <h3><%= t(c.controller) %></h3>
         </div>
 
         <div class="node_list">
