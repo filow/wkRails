@@ -1,6 +1,24 @@
-<h1>Editing Manage Admin</h1>
+<body class="container">
+  <div class="page-header">
+    <h1>修改管理员角色<small>更改角色以适应用户需求</small></h1>
+  </div>
+  <div class="">
+    <%= form_tag("/manage/admins/#{@manage_admin.id}",method: "patch") do %>
 
-<%= render 'form' %>
+      <% Manage::Role.all.each do |r| %>
+        <div class="role_list">
+            <div  title="<%= r.name %>" class="role" >
+              <label  class="btn btn-default " >
+              <%= check_box_tag "new_roles[]", r.id, @manage_admin.roles.include?(r) %>
+              <%= r.name %></label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+      <% end %>
 
-<%= link_to 'Show', @manage_admin %> |
-<%= link_to 'Back', manage_admins_path %>
+      <hr>
+      <%= submit_tag("提交更改",class: 'btn btn-success')%>
+      <a href="/manage/admins" class="btn btn-default">返回</a>
+    <% end %>
+  </div>
+</body>
