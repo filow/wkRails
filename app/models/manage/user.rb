@@ -20,7 +20,10 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, on: [:create]
 
   def send_message(options)
-    Manage::Message.create(options.merge({user_id: id}))
+    m = Manage::Message.create(options.merge({"user_id"=> id}))
+    count = messages.where(is_readed: false).count
+    update_column(:msg_unread, count)
+    m
   end
 
 end

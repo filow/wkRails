@@ -5,8 +5,8 @@ class Manage::MessagesController < ManageController
     userid = params[:user_id]
     userid.each do |id|
       user = Manage::User.find(id)
-      m = user.send(message_content)
-      if m.save
+      m = user.send_message(message_content)
+      if m.errors.count == 0 
         @messages[:done].push(m)
       else
         @messages[:fail].push(m)
