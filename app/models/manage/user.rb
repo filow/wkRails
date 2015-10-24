@@ -19,5 +19,8 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
 
+  def send_message(options)
+    Manage::Message.create(options.merge({user_id: id}))
+  end
 
 end
