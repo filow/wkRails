@@ -7,5 +7,7 @@ class ApplicationController < ActionController::Base
 
   def set_broadcast_id
     @broadcast_passage = Cfg.get('broadcast_passage')
+    links = Cfg.get('links')
+    @friend_links = links.split("\n").collect {|x| o = x.strip.split('|'); {name: o[0], link: o[1]}}
   end
 end
