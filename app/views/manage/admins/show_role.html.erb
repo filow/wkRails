@@ -1,13 +1,14 @@
 <body class="container">
   <div class="">
       <% Manage::Node.group("controller").each do |c| %>
-        <div class="caption">
-          <!-- 已翻译 -->
-          <h3><%= t(c.controller) %></h3>
-        </div>
-
+        <% if  @manage_role.nodes.where(controller:  c.controller).exists?  %>
+          <div class="caption">
+            <!-- 已翻译 -->
+            <h3><%= t(c.controller) %></h3>
+          </div>
+        <% end %>
         <div class="node_list">
-          <% Manage::Node.where("controller = ?", c.controller).each do |n| %>
+          <% @manage_role.nodes.where("controller = ?", c.controller).each do |n| %>
             <div  title="<%= n.remark %>" class="node" >
               <label  class="btn btn-default " >
               <%= n.title %></label>
