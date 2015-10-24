@@ -49,7 +49,12 @@ Rails.application.routes.draw do
     get 'cfgs' => 'cfg#index'
     patch 'cfg/:id' => 'cfg#update'
 
-
+    #新建/更新/删除角色
+    get 'roles/:id' => 'admins#show_role'
+    post 'roles' => 'admins#create_role'
+    get 'roles/:id/permission' => 'admins#edit_role_permission'
+    patch 'roles/:id' => 'admins#update_role'
+    delete 'roles/:id' => 'admins#destroy_role'
   end
 
   # ckeditor需要的目录
