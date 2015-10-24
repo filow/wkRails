@@ -1,18 +1,17 @@
-<div><h4>目标发送队列：</h4></div>
-<div>
-  <% @target_users.each do |p| %>
-    <button class="btn btn-primary"><%= p.name %> <span class="glyphicon glyphicon-remove"></span></button>
-  <% end %>
-  <button class="btn btn-default"><span class="glyphicon glyphicon-plus"></button>
-</div>
-<hr>
-<div><h4>发送内容：</h4></div>
 <%= javascript_include_tag "ckeditor/init" %>
 <%= form_for :message do |f| %>
   <% @target_users.each do |p| %>
     <input type="hidden" name="user_id[]" value="<%= p.id %>">
   <% end %>
   <table class="table">
+    <tr>
+      <td>收件人</td>
+      <td>
+        <% @target_users.each do |p| %>
+          <span class="label label-primary user-list"><%= p.name %></span>
+        <% end %>
+      </td>
+    </tr>
     <tr>
       <td><%= f.label :title ,"标题"%></td>
       <td><%= f.text_field :title, class: 'form-control' %></td>
