@@ -18,4 +18,12 @@ $(function(){
   });
 
 
+
+  $('.view_permissions').click(function(){
+    $.get('/manage/roles/' + $(this).data('id'), function (data){
+      $('#modal-body').html(data);
+      $('#modal').modal();
+    });
+    return false;
+  });
 });

@@ -1,0 +1,20 @@
+<body class="container">
+  <div class="">
+      <% Manage::Node.group("controller").each do |c| %>
+        <div class="caption">
+          <!-- 已翻译 -->
+          <h3><%= t(c.controller) %></h3>
+        </div>
+
+        <div class="node_list">
+          <% Manage::Node.where("controller = ?", c.controller).each do |n| %>
+            <div  title="<%= n.remark %>" class="node" >
+              <label  class="btn btn-default " >
+              <%= n.title %></label>
+            </div>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      <% end %>
+  </div>
+</body>

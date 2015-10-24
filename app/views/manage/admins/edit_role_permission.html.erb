@@ -1,0 +1,31 @@
+<body class="container">
+  <div class="page-header">
+    <h1>修改角色权限<small>更改权限以适应用户需求</small></h1>
+  </div>
+  <div class="">
+    <%= form_tag("/manage/roles/#{@manage_role.id}",method: "patch") do %>
+
+      <% Manage::Node.group("controller").each do |c| %>
+        <div class="caption">
+          <!-- 已翻译 -->
+          <h3><%= t(c.controller) %></h3>
+        </div>
+
+        <div class="node_list">
+          <% Manage::Node.where("controller = ?", c.controller).each do |n| %>
+            <div  title="<%= n.remark %>" class="node" >
+              <label  class="btn btn-default " >
+              <%= check_box_tag "new_nodes[]", n.id, @manage_role.nodes.include?(n) %>
+              <%= n.title %></label>
+            </div>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      <% end %>
+
+      <hr>
+      <%= submit_tag("提交更改",class: 'btn btn-success')%>
+      <a href="/manage/admins" class="btn btn-default">返回</a>
+    <% end %>
+  </div>
+</body>
