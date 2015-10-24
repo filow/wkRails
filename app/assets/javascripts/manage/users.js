@@ -1,21 +1,22 @@
 
 $(function(){
 
+  $('tr').delegate('.p_checkbox', 'ifChecked', function (e){
+    var $elem = $(e.delegateTarget);
+    $elem.addClass('info');
+    var id = $elem.data('id'), is_forbidden = $elem.data('is_forbidden');
+    btnGroup.btnGroup('addLineId', id);
+    btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
+  });
+  $('tr').delegate('.p_checkbox', 'ifUnchecked', function (e){
+    var $elem = $(e.delegateTarget);
+    $elem.removeClass('info');
+    var id = $elem.data('id');
+    btnGroup.btnGroup('removeLineId', id);
+  });
   // 点击表单行选中这个行
   $('tr').click(function(){
-    var t = $(this);
-  	var selector = t.find('.p_radio');
-    if(selector.length > 0){
-      // 高亮行
-      $('tr').removeClass('info');
-      t.addClass('info');
-      // 选中
-      selector.iCheck('check');
-
-      var id = t.data('id'), is_forbidden = t.data('is_forbidden');
-      btnGroup.btnGroup('setLineId', id);
-      btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
-    }
+  	$(this).find('.iCheck-helper').trigger('click');
   });
 
   // sort

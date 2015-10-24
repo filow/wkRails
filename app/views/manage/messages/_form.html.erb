@@ -9,10 +9,10 @@
 <div><h4>发送内容：</h4></div>
 <%= javascript_include_tag "ckeditor/init" %>
 <%= form_for :message do |f| %>
+  <% @target_users.each do |p| %>
+    <input type="hidden" name="user_id[]" value="<%= p.id %>">
+  <% end %>
   <table class="table">
-    <tr class="sr-only">
-      <td><%= f.text_field :user_id, class: 'form-control' ,value:@target_users[0].id %></td>
-    </tr>
     <tr>
       <td><%= f.label :title ,"标题"%></td>
       <td><%= f.text_field :title, class: 'form-control' %></td>
@@ -25,7 +25,8 @@
     </tr>
     <tr>
       <td><%= f.label :from ,"发送人"%></td>
-      <td><%= f.select :from,[session['admin_realname']], {},class: 'form-control' %></td>
+
+      <td><%= f.text_field :from, class: 'form-control' %></td>
     </tr>
   </table>
   <%= f.submit class: 'btn btn-primary',value:'发送' %>

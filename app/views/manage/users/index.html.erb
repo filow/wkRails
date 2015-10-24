@@ -1,10 +1,10 @@
 <h2>用户管理</h2>
 <section id="btnGroup" data-base="<%= manage_users_url %>">
-  <a role="new">新建用户</a>
+  <a role="new" data-needid="false">新建用户</a>
   <div class="btn-group" role="group">
     <a role="show"></a>
     <a role="edit"></a>
-    <a role="message" data-method="get" data-url="/{id}/message" data-button="primary" data-icon="envelope">发送短消息</a>
+    <a role="message" data-method="get" data-url="/{id}/message" data-button="primary" data-icon="envelope" data-multiple="true">发送短消息</a>
     <a role="toggle" target="manage_user[is_forbidden]">切换禁用</a>
     <a role="delete"></a>
   </div>
@@ -31,7 +31,7 @@
   <% @manage_users.each do |p| %>
       <tr data-id="<%= p.id %>" data-is_forbidden="<%= p.is_forbidden %>">
         <td>
-          <input type="radio" name="p_radio" class="p_radio" value="<%= p.id %>">
+          <input type="checkbox" name="p_checkbox" class="p_checkbox" value="<%= p.id %>">
         </td>
         <td><%= p.id %></td>
         <td><%= p.realname %></td>

@@ -1,0 +1,29 @@
+<h2>发送结果</h2>
+<p>
+  共发送<%= @messages[:done].length + @messages[:fail].length %>条信息, 成功<%= @messages[:done].length %> 条， 失败<%= @messages[:fail].length %>条
+</p>
+<% if @messages[:done].length > 0 %>
+  <h3>发送成功的对象：</h3>
+  <% @messages[:done].each do |m| %>
+  <% user = Manage::User.find(m.user_id) %>
+    <p>
+      用户:  <%= user.realname %>，
+      id: <%= user.id %>
+    </p>
+  <% end %>
+<% end %>
+<% if @messages[:fail].length > 0 %>
+  <h3>发送失败的对象：</h3>
+  <% @messages[:fail].each do |m| %>
+  <% user = Manage::User.find(m.user_id) %>
+    <p>
+      用户:  <%= user.realname %>，
+      id: <%= user.id %>，
+      失败原因： <%= m.errors.full_messages.join('; ') %>
+    </p>
+  <% end %>
+<% end %>
+
+<%= link_to '< 返回用户列表', manage_users_url, class: 'btn btn-default' %>
+<a href="javascript: history.back()" class="btn btn-primary">返回重试</a>
+<%= link_to '为发送失败的用户重新编写短消息', manage_send_message_url(params[:user_id].join(',')), class: 'btn btn-warning' %>
