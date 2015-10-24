@@ -30,12 +30,9 @@ class Manage::AdminsControllerTest < ActionController::TestCase
               realname: @manage_admin.realname,
               name: @manage_admin.name
           }
-    admin = assigns :admin
-    admin.errors.full_messages.each do |message|
-      puts "<li>#{message}</li>\n"
-    end
     assert_redirected_to manage_admins_edit_self_path
     assert_equal "修改成功", flash[:notice]
+    assert_equal session[:admin_realname],@manage_admin.realname
   end
 
   test "验证码错误,修改个人信息失败" do
