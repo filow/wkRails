@@ -1,11 +1,6 @@
 <div><h4>发送内容：</h4></div>
 <%= javascript_include_tag "ckeditor/init" %>
 <%= form_for :message, url: manage_post_message_path do |f| %>
-<div id="dynamic" class="sr-only">
-  <% @target_users.each do |p| %>
-    <input type="hidden" name="user_id[]" value="<%= p.id %>">
-  <% end %>
-</div>
   <table class="table">
     <tr>
       <td>收件人</td>
@@ -13,6 +8,7 @@
         <% @target_users.each do |p| %>
           <button class="item btn btn-primary">
             <%= p.name %>
+            <input type="hidden" name="user_id[]" value="<%= p.id %>">
             <span class="item-remove glyphicon glyphicon-remove" data-id="<%= p.id %>"></span>
           </button>
         <% end %>
