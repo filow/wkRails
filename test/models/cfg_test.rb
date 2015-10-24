@@ -6,9 +6,12 @@ class CfgTest < ActiveSupport::TestCase
     assert_equal cfg.value, Cfg.get(cfg.key)
   end
 
-  test '...' do
+  test '友情链接设置项的格式验证' do
     cfg = cfgs(:cfgs_links)
-    cfg.value = "百度|www.baidu.com\r\nakf百度www.baidu.com"
-    cfg.save
+    cfg.value = "百度|www.baidu.com\r\n百度www.baidu.com"
+    assert_not cfg.save
+    assert_equal cfg.errors[:value].join(','), '第2条格式不正确'
+    cfg.value = "百度|www.baidu.com\r\n百度|www.baidu.com"
+    assert cfg.save
   end
 end
