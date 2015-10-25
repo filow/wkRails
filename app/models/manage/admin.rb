@@ -15,6 +15,19 @@ class Manage::Admin < ActiveRecord::Base
   # 密码至少8位
 	validates_length_of :password,minimum: 8,maximum:16, allow_blank:true,on: [:create,:update]
 
+  def child_nodes
+     Manage::Node.joins(:roles).where("roles.id" => self.role_ids, "roles.is_enabled" => true).uniq
+  end
+
+  def can_access?
+  end
+
+  def clear_privilege_cache
+  end
+
+  def set_admin_privileges
+  end
+
 
   # 使用插件建立用户密码验证体系
   has_secure_password

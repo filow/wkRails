@@ -9,12 +9,7 @@ class Manage::AdminsController < ManageController
 
   # GET /manage/admins/1
   def show
-    permission_ids = []
-    @manage_admin.roles.each do |role|
-        permission_ids.concat role.nodes.ids
-    end
-    permission_ids.uniq!
-    @manage_admin_permissions = Manage::Node.find(permission_ids)
+    @manage_admin_permissions = @manage_admin.child_nodes
   end
 
   # GET /manage/admins/new

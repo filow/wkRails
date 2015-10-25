@@ -6,12 +6,22 @@
     </div>
   <% end %>
 
-  <div class="node_list">
-    <% @manage_admin_permissions.each do |p| %>
-      <div  title="<%= p.remark %>" class="node" >
-        <label  class="btn btn-default " >
-        <%= p.title %></label>
-      </div>
-      <div class="clearfix"></div>
-    <% end %>
+  <div class="">
+      <% Manage::Node.group("controller").each do |c| %>
+        <% if  @manage_admin_permissions.where(controller:  c.controller).exists?  %>
+          <div class="caption">
+            <!-- 已翻译 -->
+            <h3><%= t(c.controller) %></h3>
+          </div>
+        <% end %>
+        <div class="node_list">
+          <% @manage_admin_permissions.where("controller = ?", c.controller).each do |n| %>
+            <div  title="<%= n.remark %>" class="node" >
+              <label  class="btn btn-default " >
+              <%= n.title %></label>
+            </div>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      <% end %>
   </div>
