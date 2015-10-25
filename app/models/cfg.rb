@@ -25,6 +25,9 @@ class Cfg < ActiveRecord::Base
   #验证友情链接格式是否合法
   validates_with LinksValidator
 
+  before_save :refresh_cache
+
+
   def self.get(name, force_refresh=false)
     key = name.to_s.upcase
     result = @@config_cache.get(key, nil, force_refresh) do
@@ -33,4 +36,9 @@ class Cfg < ActiveRecord::Base
     return result.value if result
   end
 
+private
+  def refresh_cache
+    c_key = key.to_s.upcase
+    @@config_cache[c_key] = nil
+  end
 end
