@@ -1,2 +1,210 @@
-<h1>Index::Creation#show</h1>
-<p>Find me in app/views/index/creation/show.html.erb</p>
+<extend name="Common:base" />
+<block name="title">{$opus.opus_name}--作品欣赏</block>
+<block name="extra_css">
+	<link rel="stylesheet" href="__PUBLIC__/index/css/opus.css">
+</block>
+<block name="SEO_SETTING">
+<meta name="description" content="{$opus.overview}" />
+</block>
+<block name="content">
+<div class="opus_wrapper">
+	<div class="row-fluid">
+		<div class="opus_main span9">
+			<div class="opus_title">
+				<strong>
+					<if condition="$opus['old_version']!=CF('CURRENT_VERSION')">[第{$opus.old_version}届作品] </if>
+					{$opus.opus_name}
+					<if condition="$opus['status']==1">[草稿]</if>
+					<if condition="$opus['status']==2">[禁用]</if>
+				</strong>
+			</div>
+			<div class="opus_video">
+				<div id="player_box" style="">
+				</div>
+			</div>
+			<div class="opus_enjoy"> <!-- vote&share -->
+				<div class="opus_vote">
+					<a>票数：<i class="icon-thumbs-o-up"></i><span id="vote_count">{$opus.vote_count}</span></a>
+
+						<if condition="getVoteStatus($opus['id'])">
+							<a class="btn btn-primary" disabled>已投票</a>
+						<else />
+							<if condition="can_vote()">
+								<?php if($opus['old_version']==CF('CURRENT_VERSION')){ ?>
+									<a class="btn btn-primary" id="vote" href="{:U('vote',array('opus_id'=>$opus['id']))}" onclick="return ajaxvote()">投他一票</a>
+								<?php }else{ ?>
+									<a class="btn btn-primary" id="vote" disabled>往届作品不可投票</a>
+								<?php } ?>
+
+							<else />
+								<a class="btn btn-primary" disabled>投票已截止</a>
+			                </if>
+						</if>
+
+					<a href="{:getdown($opus['documents']['access_key'])}" class="btn btn-warning">查看作品说明文档</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="opus_author">
+				<div class="opus_author_hp">
+					<a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><img src="{:getAvatar($author['avatar_large'])}" ></a>
+				</div>
+				<div class="opus_author_info">
+					<div class="opus_author_name"><a href="{:U('User/userinfo',array('uid'=>$author['uid']))}">{$author.nickname}</a></div>
+					<div class="opus_author_depart">{$author.belong.merge}</div>
+				</div>
+			</div>
+			<div class="opus_upt">
+				<div class="opus_upt_views">播放次数：<span class="label label-success" id="opus_view_label">{$opus.view_count}</span></div>
+				<div class="opus_upt_time">上传时间：{$opus.add_time|date="Y年m月d日",###}</div>
+			</div>
+			<div class="clear"></div>
+			<div class="opus_intro">
+				<div class="well">
+					<p>{$opus.content}
+					</p>
+				</div>
+
+			</div><!--  opus_intro end -->
+
+			<div class="opus_doc"></div>
+				<div class="clear"></div>
+				<div class="opus_cmt">
+					<div class="opus_cmt_header">全部评论（<span>{$pagecfg.count}</span>）</div>
+					<div class="cmt_menu">
+						<span>第{$pagecfg.first}-{$pagecfg.list}条/共{$pagecfg.count}条</span>
+						<div class="pagination">
+						  <ul>{$show}</ul>
+						</div>
+					</div>
+					<div class="opus_cmt_box">
+						<volist name="comment_data" id="li">
+						<div class="cmt_hp"><img src="{:getAvatar($li['avatar_large'])}" alt=""></div>
+						<a href="{:U('User/userinfo',array('uid'=>$li['uid']))}" class="cmt_author">{$li.nickname}</a>
+						<div class="cmt_content">
+							<p>{$li.message}</p>
+						</div>
+						<div class="cmt_panel">
+							<span class="cmt_time">{:tmspan($li['date'])}</span>
+						</div>
+						</volist>
+					</div>
+
+				<div class="cmt_menu cmt_menu_bottom">
+					<span>第{$pagecfg.first}-{$pagecfg.list}条/共{$pagecfg.count}条</span>
+					<div class="pagination">
+					  <ul>{$show}</ul>
+					</div>
+				</div>
+			</div> <!-- opus_cmt end -->
+			<if condition="$opus['old_version']==CF('CURRENT_VERSION')">
+				<div class="opus_cmt_editor">
+					<if condition="islogged()">
+						<form action="{:U('comment')}" method="post">
+							<input type="hidden" name="opus_id" value="{$opus.id}">
+							<textarea name="comments" id="" cols="33" rows="3" placeholder="发表你对视频的看法"></textarea>
+							<input type="submit" class="btn btn-primary" value="发表评论">
+						</form>
+					<else />
+						<textarea name="" id="" cols="33" rows="3" disabled>登录后才可使用评论功能！</textarea>
+					</if>
+				</div> <!-- opus_cmt_editor end -->
+			</if>
+		</div> <!-- opus_main end -->
+		<div class="opus_sidebar span3">
+			<if condition="$other_opus">
+			<div class="opus_otheropus">
+				<div class="opus_header"><a>{$author.nickname}</a>的其他作品</div>
+				<ul class="opus_list">
+					<volist name="other_opus" id="li">
+					<li>
+						<div class="opus">
+							<a href="{:U('Opus/view',array('id'=>$li['id']))}">
+								<div class="opus_thumb">
+									<img src="{:getThumbMini($li['id'])}"  width="100">
+								</div>
+							</a>
+							<a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
+						</div>
+					</li>
+					</volist>
+				</ul>
+				<div class="clear"></div>
+			</div> <!-- opus_otheropus end -->
+			</if>
+
+			<div class="opus_hotopus">
+				<div class="opus_header"><a>热门</a>作品</div>
+					<ul class="opus_list">
+					<volist name="hot_opus" id="li">
+					<li>
+						<div class="opus">
+							<a href="{:U('Opus/view',array('id'=>$li['id']))}">
+							<div class="opus_thumb">
+								<img src="{:getThumbMini($li['id'])}"  width="100">
+							</div>
+							</a>
+						<a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
+						</div>
+					</li>
+					</volist>
+				</ul>
+				<div class="clear"></div>
+			</div><!--  opus_hotopus end -->
+			<div class="opus_hotauthor">
+				<div class="opus_header"><a>人气</a>选手</div>
+				<ul class="author_list">
+					<volist name="hot_user" id="li">
+					<li>
+						<div class="hot_author">
+							<img src="{:getAvatar($li['avatar'])}" alt="{$li.nickname}">
+							<a href="{:U('User/userinfo',array('uid'=>$li['uid']))}">{$li.nickname} <span>{$li.department}</span></a>
+						</div>
+					</li>
+					</volist>
+				<ul>
+			</div>
+		</div> <!-- opus_sidebar end -->
+	</div> <!-- row-fliud end -->
+</div> <!-- opus_wrapper end -->
+</block>
+<block name="extra_js">
+<script type="text/javascript" src="__PUBLIC__/plugins/baiduWebPlayer/js/cyberplayer.min.js"></script>
+<script>
+function ajaxvote(){
+	return false;
+}
+$(document).ready(function(){
+	$('#vote').click(function(){
+		if($(this).attr('disabled')) return;
+		$(this).attr('disabled','disabled').html('已投票');
+		var vote_url=$(this).attr('href');
+		$.get(vote_url,function (result){
+			alert(result[1]);
+			if(typeof(_czc) != 'undefined'){
+                _czc.push(["_trackEvent","作品页投票",vote_url,1,"vote"]);
+            }
+			if(result[0]==1){
+				var count=parseInt($('#vote_count').html());
+				$('#vote_count').html(count+1);
+			}
+
+		});
+	});
+
+	<if condition="$opus['video']">
+	player = cyberplayer("player_box").setup({
+        width : 760,
+        height : 450,
+        stretching : "uniform",
+        file : "{$opus['video']['file_location']}",
+        autoStart : true,
+        volume : 70,
+        controlbar : "over",
+        ak:"{:CF('BAIDU_AK')}",
+        sk:"{:CF('BAIDU_SK')}"
+    });
+	</if>
+});
+</script>
+</block>
