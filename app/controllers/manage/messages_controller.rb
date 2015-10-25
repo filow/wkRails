@@ -3,13 +3,15 @@ class Manage::MessagesController < ManageController
     message_content = manage_message_params
     @messages = {done: [], fail: []}
     userid = params[:user_id]
-    userid.each do |id|
-      user = Manage::User.find(id)
-      m = user.send_message(message_content)
-      if m.errors.count == 0 
-        @messages[:done].push(m)
-      else
-        @messages[:fail].push(m)
+    if !userid.nil?
+      userid.each do |id|
+        user = Manage::User.find(id)
+        m = user.send_message(message_content)
+        if m.errors.count == 0
+          @messages[:done].push(m)
+        else
+          @messages[:fail].push(m)
+        end
       end
     end
     render :result

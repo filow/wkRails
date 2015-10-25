@@ -26,4 +26,6 @@
 
 <%= link_to '< 返回用户列表', manage_users_url, class: 'btn btn-default' %>
 <a href="javascript: history.back()" class="btn btn-primary">返回重试</a>
-<%= link_to '再写一则短消息', manage_send_message_url(params[:user_id].join(',')), class: 'btn btn-warning' %>
+<% if !params[:user_id].nil? %>
+  <%= link_to '再写一则短消息', manage_send_message_url(params[:user_id].join(',')), class: 'btn btn-warning' %>
+<% end %>
