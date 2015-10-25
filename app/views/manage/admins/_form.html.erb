@@ -1,19 +1,42 @@
 <%= form_for(@manage_admin) do |f| %>
   <%= form_errors(@manage_admin) %>
-  <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="form-group">
-    <%= f.label :realname %><br>
-    <%= f.text_field :realname %>
-  </div>
-
+  <table class="table">
+    <tr>
+      <td><%= f.label "用户名" %></td>
+      <td><%= f.text_field :name,
+        {:class => "form-control", :placeholder => "请填写用户名"} %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label "真实姓名" %></td>
+      <td><%= f.text_field :realname,
+        {:class => "form-control", :placeholder => "请填写真实姓名"} %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label "密码" %></td>
+      <td><%= f.password_field :password,
+        {:class => "form-control", :placeholder => ""} %>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="">角色</label></td>
+      <td>
+        <% Manage::Role.all.each do |r| %>
+        <div class="float-margin">
+          <label  class="btn btn-default " >
+          <%= check_box_tag "new_roles[]", r.id, @manage_admin.roles.include?(r) %>
+          <%= r.name %></label>
+        </div>
+          <% end %>
+        <div class="clearfix"></div>
+      </td>
+    </tr>
+  </table>
+  <hr>
   <div class="actions">
     <%= f.submit class: 'btn btn-info' %>
+    <%= link_to '返回', '/manage/admins', class: 'btn btn-default' %>
   </div>
+
 <% end %>
