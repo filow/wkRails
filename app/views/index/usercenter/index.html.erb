@@ -1,2 +1,111 @@
-<h1>Index::Usercenter#index</h1>
-<p>Find me in app/views/index/usercenter/index.html.erb</p>
+<extend name="Common:base" />
+<block name="title">用户管理中心</block>
+<block name="extra_css">
+	<link rel="stylesheet" href="__PUBLIC__/index/css/usercenter.css">
+	<style>
+		.work_thumb a img{
+			width: 160px;
+			height: 120px;
+		}
+	</style>
+</block>
+<block name="content">
+<div class="usercenter">
+	<div class="row-fluid">
+    <%= render 'sidebar' %>
+		<div class="main span9">
+			<div class="user_info box">
+				<div class="box-header"><a href="{:U('userinfo')}" class="pull-right">编辑资料</a>个人资料</div>
+				<div class="box-body">
+					<table class="user_info_table table">
+						<tr>
+							<td>用户名：</td>
+							<td>{$acc.uid}</td>
+							<td>姓名：</td>
+							<td>{$acc.nickname}</td>
+						</tr>
+						<tr>
+							<td>性别：</td>
+							<td><eq name="acc['sex']" value="0">男<else />女</eq></td>
+						</tr>
+						<tr>
+							<td>类型：</td>
+							<td>
+								<eq name="acc['belong_type']" value="1">学生组
+								<else />教师组</eq>
+							</td>
+							<td>所属单位：</td>
+							<td>
+
+							<present name="acc['belong']">
+								{$acc['belong']['college']} / {$acc.belong.profession} / {$acc.belong.grade}
+							<else />
+								{$acc.department}
+							</present>
+							</td>
+						</tr>
+						<tr>
+							<td>电话号码：</td><td>{$acc.phone}</td>
+							<td>电子邮箱：</td><td>{$acc.email}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="user_work box">
+				<div class="box-header">作品管理</div>
+				<div class="box-body">
+					<div class="tabbable">
+					<div class="user_work_nav">
+						<ul>
+							<li class="active"><a href="#tab1" data-toggle="tab">我的作品</a></li>
+							<li><a href="#tab2" data-toggle="tab">我投票过的作品</a></li>
+						</ul>
+				    </div>{//user_work_nav}
+					<div class="tab-content">
+					    <div class="tab-pane active work_list " id="tab1">
+					      <ul>
+					      	<volist name="opus" id="li">
+					      	<li>
+					      		<div class="work_thumb">
+					      			<a href="{:U('Opus/view',array('id'=>$li['id']))}" class="thumbnail">
+                                      <img data-src="holder.js/160x120" src="{:getThumb($li['id'])}" alt="{$li.opus_name}" >
+					                </a>
+					            </div>
+					      		<div class="user_work_info">
+					      			<div class="user_work_name">{$li.opus_name}</div>
+					      			<div class="user_work_vote"><span>{$li.vote_count}</span>当前票数：</div>
+					      			<div class="user_work_uploadtime"><span>{$li.add_time|date="Y-m-d H:i",###}</span>上传时间:</div>
+					      		</div>
+					      	</li>
+					      	</volist>
+					      </ul>
+					      <div class="clear"></div>
+					    </div>
+					    <div class="tab-pane vote_list " id="tab2">
+							<ul>
+								<volist name="vote" id="li">
+						      	<li class="span3">
+						      		<div class="work_thumb">
+						      			<a href="{:U('Opus/view',array('id'=>$li['id']))}" class="thumbnail">
+	                                      <img data-src="holder.js/160x120" src="{:getThumb($li['id'])}" alt="{$li.opus_name}" />
+						                </a>
+						            </div>
+						      		<div class="user_work_info">
+						      			<div class="user_work_name">{$li.opus_name}</div>
+						      			<div class="user_work_author">作者:<span>{$li.nickname}</span></div>
+						      			<div class="user_work_vote">当前票数：<span>{$li.vote_count}</span></div>
+						      			<div class="user_work_uploadtime">投票时间:<span>{$li.vote_date|date="Y-m-d H:i",###}</span></div>
+						      		</div>
+						      	</li>
+							    </volist>
+					    	</ul>
+					    	<div class="clear"></div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
