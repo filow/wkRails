@@ -44,18 +44,34 @@ class Cfg < ActiveRecord::Base
     return result.value if result
   end
 
-  def save_poster(img)
-    uploader = PosterUploader.new
-    # 先删除原图片
-    unless value.blank?
-      uploader.retrieve_from_store! value
-      uploader.remove!
+  def update(attributes)
+    if field_type == 'img'
+      uploader = PosterUploader.new
+      # 先删除原图片
+      unless value.blank?
+        uploader.retrieve_from_store! value
+        uploader.remove!
+      end
+      #存储图片
+      uploader.store! attributes[:value]
+      #更新文件名
+      attributes[:value] = uploader.filename
     end
-    #存储图片
-    uploader.store! img
-    #更新文件名
-    update value: uploader.filename
+    super(attributes)
   end
+
+  # def save_poster(img)
+  #   uploader = PosterUploader.new
+  #   # 先删除原图片
+  #   unless value.blank?
+  #     uploader.retrieve_from_store! value
+  #     uploader.remove!
+  #   end
+  #   #存储图片
+  #   uploader.store! img
+  #   #更新文件名
+  #   update value: uploader.filename
+  # end
 
 private
   def refresh_cache
