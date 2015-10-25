@@ -1,2 +1,10 @@
-<h1>Index::Passage#show</h1>
-<p>Find me in app/views/index/passage/show.html.erb</p>
+
+<div class="article_wrapper">
+	<div class="article_title"><h3>{$passage.title}</h3></div>
+	<div class="article_info">
+		<span>发布时间: {$passage.date|date="Y年m月d日 H:i",###}</span>
+	</div>
+	<div class="article_body">
+		{$passage.content}
+	</div>
+</div><!-- article_wrapper end -->

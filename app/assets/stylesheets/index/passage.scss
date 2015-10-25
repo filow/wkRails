@@ -1,3 +1,29 @@
-// Place all the styles related to the Index::Passage controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.article_wrapper{
+	background-color: #fff;
+  border-radius: 5px;
+	margin: 20px 0 10px 0 ;
+	padding: 10px 30px;
+	min-height: 470px;
+	.article_title{
+		padding: 20px 0;
+		border-bottom: 1px solid #9a9a9a;
+		h3{text-align: center;}
+	}
+	.article_info{
+		color: #797979;
+		text-align: center;
+		margin-top: 5px;
+		span{
+			margin-left: 35px;
+			&:first-child{margin-left: 0;}
+			a{
+				margin-left: 10px;
+				&:first-child{margin-left: 0;}
+			}
+		}
+	}
+	.article_body{
+		padding: 0 70px;
+		margin-top: 20px;
+	}
+}
