@@ -1,15 +1,9 @@
-<extend name="Common:base" />
-<block name="title">用户管理中心</block>
-<block name="extra_css">
-	<link rel="stylesheet" href="__PUBLIC__/index/css/usercenter.css">
 	<style>
 		.work_thumb a img{
 			width: 160px;
 			height: 120px;
 		}
 	</style>
-</block>
-<block name="content">
 <div class="usercenter">
 	<div class="row-fluid">
     <%= render 'sidebar' %>
@@ -57,8 +51,8 @@
 					<div class="tabbable">
 					<div class="user_work_nav">
 						<ul>
-							<li class="active"><a href="#tab1" data-toggle="tab">我的作品</a></li>
-							<li><a href="#tab2" data-toggle="tab">我投票过的作品</a></li>
+							<li class="active"><a href="#tab1" data-toggle="tab">本届作品</a></li>
+							<li><a href="#tab2" data-toggle="tab">往届作品</a></li>
 						</ul>
 				    </div>{//user_work_nav}
 					<div class="tab-content">
@@ -108,4 +102,3 @@
 		</div>
 	</div>
 </div>
-</block>
