@@ -9,6 +9,12 @@ class Manage::AdminsController < ManageController
 
   # GET /manage/admins/1
   def show
+    permission_ids = []
+    @manage_admin.roles.each do |role|
+        permission_ids.concat role.nodes.ids
+    end
+    permission_ids.uniq!
+    @manage_admin_permissions = Manage::Node.find(permission_ids)
   end
 
   # GET /manage/admins/new
@@ -51,7 +57,13 @@ class Manage::AdminsController < ManageController
     @manage_admin = Manage::Admin.new(manage_admin_params)
 
     if @manage_admin.save
-      redirect_to @manage_admin, notice: "新的管理员 #{@manage_admin.name} 创建成功！"
+      if params[:new_roles] == nil #如果没有传回数组，则当做没有角色
+        redirect_to manage_admins_url, notice: "新的管理员 #{@manage_admin.name} 创建成功！"
+      elsif @manage_admin.roles << Manage::Role.find(params[:new_roles])
+        redirect_to manage_admins_url, notice: "新的管理员 #{@manage_admin.name} 创建成功！"
+      else
+        redirect_to manage_admins_url, notice: "#{@manage_admin.errors[:name].first}"
+      end
     else
       render :new
     end
@@ -60,7 +72,15 @@ class Manage::AdminsController < ManageController
   # PATCH/PUT /manage/admins/1
   def update
     if @manage_admin.update(manage_admin_params)
-      redirect_to manage_admins_url, notice: '修改成功'
+      #如果成功更新了信息，并且没有更改锁定状态,则清空admin.roles，否则不更新admin.roles
+      @manage_admin.roles.clear if manage_admin_params[:is_forbidden] == nil
+      if params[:new_roles] == nil #如果没有传回数组，则当做没有角色
+        redirect_to manage_admins_url, notice: '修改角色成功'
+      elsif @manage_admin.roles << Manage::Role.find(params[:new_roles])
+        redirect_to manage_admins_url, notice: '修改角色成功'
+      else
+        redirect_to manage_admins_url, notice: "#{@manage_admin.errors[:name].first}"
+      end
     else
       render :edit
     end
@@ -92,8 +112,9 @@ class Manage::AdminsController < ManageController
   def update_role
     @manage_role = Manage::Role.find(params[:id])
     @manage_role.nodes.clear
-    p @new_nodes
-    if params[:new_nodes] && @manage_role.nodes << Manage::Node.find(params[:new_nodes])
+    if params[:new_nodes] == nil#如果没有传回数组，则当做没有权限
+      redirect_to manage_admins_url, notice: '修改角色权限成功'
+    elsif  @manage_role.nodes << Manage::Node.find(params[:new_nodes])
       redirect_to manage_admins_url, notice: '修改角色权限成功'
     else
       redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"

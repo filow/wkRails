@@ -1,4 +1,9 @@
 <body class="container">
+  <% if @manage_role.nodes == [] %>
+    <div class="">
+      该角色没有权限...
+    </div>
+  <% end %>
   <div class="">
       <% Manage::Node.group("controller").each do |c| %>
         <% if  @manage_role.nodes.where(controller:  c.controller).exists?  %>
