@@ -15,9 +15,6 @@ class Manage::AdminsController < ManageController
     end
     permission_ids.uniq!
     @manage_admin_permissions = Manage::Node.find(permission_ids)
-    p '----------------------------------------'
-    p permission_ids
-    p '----------------------------------------'
   end
 
   # GET /manage/admins/new
