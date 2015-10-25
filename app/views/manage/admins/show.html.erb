@@ -1,24 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @manage_admin.name %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @manage_admin.password %>
-</p>
-
-<p>
-  <strong>Realname:</strong>
-  <%= @manage_admin.realname %>
-</p>
-
-<p>
-  <strong>Is forbidden:</strong>
-  <%= @manage_admin.is_forbidden %>
-</p>
-
-<%= link_to '编辑信息', edit_manage_admin_path(@manage_admin) %> |
-<%= link_to '返回', manage_admins_path %>
+<body class="container">
+  <% if @manage_admin.roles == [] %>
+    <div class="">
+      该用户没有权限...
+    </div>
+  <% end %>
+</body>

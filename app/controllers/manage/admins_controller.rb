@@ -56,15 +56,8 @@ class Manage::AdminsController < ManageController
 
   # PATCH/PUT /manage/admins/1
   def update
-    #如果传回了manage_admin的参数组，则按照基本法
-    if params[:manage_admin] != nil
-      if @manage_admin.update(manage_admin_params)
-        redirect_to manage_admins_url, notice: '修改成功'
-      else
-        render :edit
-      end
-    #否则就当做是更改角色
-    else
+    if @manage_admin.update(manage_admin_params)
+      #如果成功更新了信息，则清空roles，准备接受数组
       @manage_admin.roles.clear
       if params[:new_roles] == nil #如果没有传回数组，则当做没有角色
         redirect_to manage_admins_url, notice: '修改角色成功'
@@ -73,6 +66,8 @@ class Manage::AdminsController < ManageController
       else
         redirect_to manage_admins_url, notice: "#{@manage_admin.errors[:name].first}"
       end
+    else
+      render :edit
     end
   end
 
