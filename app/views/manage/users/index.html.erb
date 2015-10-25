@@ -14,6 +14,7 @@
   <tr>
     <th></th>
     <th>ID<a class="sort" id='id' value="<%= @sorted[:id] %>" ><i class="glyphicon glyphicon-sort"></i></a></th>
+    <th>头像</th>
     <th>真实姓名<a class="sort" id="realname" value="<%= @sorted[:realname] %>" ><i class="glyphicon glyphicon-sort"></i></a></th>
     <th>性别</th>
     <!-- <th data-id="idcard" data-sort="false">证件号<a class="sort"><i class="glyphicon glyphicon-sort"></i></a></th> -->
@@ -34,6 +35,7 @@
           <input type="checkbox" name="p_checkbox" class="p_checkbox" value="<%= p.id %>">
         </td>
         <td><%= p.id %></td>
+        <td><%= image_tag(p.avatar_url(:thumb_mini)) if p.avatar? %></td>
         <td><%= p.realname %></td>
         <td>
           <% if p.male? %>

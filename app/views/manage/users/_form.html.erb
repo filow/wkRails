@@ -30,6 +30,16 @@
 
     </span>
   </div>
+  <div class="form-group">
+    <%= f.label :avatar ,class:"col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.file_field :avatar %>
+      <%= f.hidden_field :avatar_cache %>
+    </div>
+    <span class="col-sm-4 help-block">
+
+    </span>
+  </div>
 
   <div class="form-group">
     <%= f.label :sex ,class:"col-sm-2 control-label" %>

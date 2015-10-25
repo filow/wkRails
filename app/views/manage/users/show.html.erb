@@ -2,6 +2,7 @@
 <%= link_to '修改', edit_manage_user_path(@manage_user), class: 'btn btn-success' %>
 
 <h3>
+  <%= image_tag(@manage_user.avatar_url(:thumb)) if @manage_user.avatar? %>
   <% if !@manage_user.is_forbidden && @manage_user.is_email_verified %>
     <%= bs_label_tag "正常", "success" %>
   <% elsif @manage_user.is_forbidden && !@manage_user.is_email_verified %>
