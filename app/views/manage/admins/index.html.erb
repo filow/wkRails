@@ -17,6 +17,7 @@
     <th>真实姓名</th>
     <th width="100px">创建日期</th>
     <th>状态</th>
+    <th width="20%">角色</th>
   </tr>
   </thead>
 
@@ -39,6 +40,12 @@
             <%= bs_label_tag "正常", "success" %>
           <% else %>
             <%= bs_label_tag "锁定", "danger" %>
+          <% end %>
+        </td>
+        <td>
+          <%= bs_label_tag( "无", "default" ) if a.roles.empty?  %>
+          <% a.roles.each do |r| %>
+            <%= bs_label_tag "#{r.name}", "info"%>
           <% end %>
         </td>
       </tr>

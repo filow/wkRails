@@ -1,7 +1,17 @@
-<body class="container">
+<h2>用户权限</h2>
+<%= link_to '返回', '/manage/admins', class: 'btn btn-default' %>
   <% if @manage_admin.roles == [] %>
     <div class="">
       该用户没有权限...
     </div>
   <% end %>
-</body>
+
+  <div class="node_list">
+    <% @manage_admin_permissions.each do |p| %>
+      <div  title="<%= p.remark %>" class="node" >
+        <label  class="btn btn-default " >
+        <%= p.title %></label>
+      </div>
+      <div class="clearfix"></div>
+    <% end %>
+  </div>
