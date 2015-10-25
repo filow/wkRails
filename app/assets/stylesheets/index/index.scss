@@ -430,3 +430,148 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 .hot_author,.hot_work{
 	padding: 5px 10px;
 }
+
+
+
+// 搜索模块
+
+.search_title{
+	color: #555;
+	margin-top: 20px;
+	span{
+		color: #bc0c0c;
+	}
+}
+.nav{margin-bottom: 10px;}
+.keyword{color:#bc0c0c !important;}
+/******* works_list *********/
+.works_group{
+	ul{
+		margin: 0;
+		li{
+			list-style: none;
+			float: left;
+			margin: 0 25px 30px 0;
+			&:nth-child(4n){
+				margin-right: 0;
+			}
+		}
+	}
+	.works_pic img {width: 210px; height: 150px;}
+	.works_name h5{margin: 0px;}
+	.works{
+		position: relative;
+		padding: 9px 9px 5px 9px;
+		background-color: #fff;
+    border-radius: 3px;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+		.works_info{
+			margin: 5px 0 5px 0;
+			text-align: right;
+			height: 16px;
+			li{
+				float:right;
+				font-size: 13px;
+				margin: 0 0 0 10px;
+				a{
+					color: #b1aabc;
+					i{
+						margin: 3px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.works_author{
+	margin-top: 8px;
+	a{
+		margin-left: 10px;
+		span{
+			color: #4083a9;
+			font-size: 14px;
+			margin-left: 5px;
+			&:hover{
+				color: #142A36;
+			}
+		}
+
+
+	}
+	.department{
+		float: right;
+		margin-right: 10px;
+		color:#999;
+	}
+}
+
+/******* news_list ********/
+.news_list{
+	width: 700px;
+	ul{
+		margin: 0;
+		li{
+			list-style: none;
+			margin-bottom: 20px;
+		}
+	}
+	.news_title{
+		font-size: 16px;
+		font-family: $cn-font;
+		margin-bottom: 6px;
+	}
+	.news p{ overflow:ellipsis;}
+}
+
+.news_info span{
+	color: #888;
+	padding-right: 5px;
+	font-size: 12px !important;
+}
+
+
+/******* users_list *********/
+.users_list ul li{
+	list-style: none;
+	margin: 0 30px 30px 0;
+	width: 460px;
+	float: left;
+	&:nth-child(2n){margin-right: 0;}
+	// user head photo
+	.users_hp{
+		float: left;
+		img{
+			width: 67px;
+			height: 67px;
+		}
+	}
+	.users_info{
+		color: #444;
+		margin-left: 80px;
+		span,p{
+			color: #888;
+		}
+		i{margin: 5px;}
+		div{
+			margin: 3px 0;
+		}
+		p{
+			text-indent: 0;
+			margin-bottom: 5px;
+			display: inline-block;
+			margin-left: 8px;
+		}
+		.users_name a{
+			color: #4083a9;
+			font-weight: bold;
+			&:hover{
+				color:#5b5f82;
+			}
+
+		}
+		.users_work_amount,.users_work_views{
+			margin: 0 20px 0 8px;
+		}
+	}
+}

@@ -1,0 +1,133 @@
+<extend name="Common:base" />
+<block name="title">{$user.nickname}的个人主页</block>
+<block name="extra_css">
+	<link rel="stylesheet" href="__PUBLIC__/index/css/user.css">
+</block>
+<block name="content">
+<div class="user">
+	<div class="row-fluid">
+		<div class="sidebar span3">
+			<div class="box">
+				<div class="box-header">头像</div>
+				<div class="box-body">
+					<div class="user_head">
+						<img src="{:getAvatar($user['avatar_large'])}" alt="{$user.nickname}的头像" width="160">
+						<a id="user_name">{$user.nickname}</a>
+					</div>
+					<div class="user_info well">
+						<table class="user_statics">
+							<tr>
+								<td class="user_statics_figure">{$user.opus_count}</td>
+								<td class="user_statics_figure">{$view_count}</td>
+							</tr>
+							<tr>
+								<td>作品数</td>
+								<td>视频播放总数</td>
+							</tr>
+						</table>
+						<hr />
+						<table class="user_info_list">
+							<tr>
+								<td class="user_info_option">性别</td>
+								<eq name="user['sex']" value="0">
+									<td><span class="user_sex user_sex_male"></span></td>
+								<else />
+									<td><span class="user_sex user_sex_female"></span></td>
+								</eq>
+							</tr>
+							<tr>
+								<td class="user_info_option">类型</td>
+								<td><eq name="user['belong_type']" value="1">学生组<else />教师组</eq></td>
+							</tr>
+							<tr>
+								<td class="user_info_option">单位：</td>
+								<td>{$user.department}</td>
+							</tr>
+						</table>
+						<div class="user_statics_hr"><hr></div>
+						<div class="user_intro">
+							<span>个人简介</span>
+							<p>{$user.intro}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+		<div class="main span9">
+			<div class="user_work box">
+				<div class="box-header">{$user.nickname}的作品</div>
+				<div class="box-body">
+					<div class="newest_work">
+						<div class="newest_work_header"><h4>最新上传</h4></div>
+						<empty name="opus_first">
+							该用户目前还未上传任何作品！
+						<else />
+						<div class="newest_work_video">
+							<a href="{$opus_first.video.file_location}" style="display:block;width:500px;height:380px;" id="player"> </a>
+						</div>
+						</div>
+						<div class="newest_work_info">
+							<ul>
+								<li><a class="newest_work_title" href="{:U('Opus/view',array('id'=>$opus_first['id']))}">{$opus_first.opus_name}</a></li>
+								<li><span>{$opus_first.add_time|date="m月d日",###}</span>发布时间：</li>
+								<li><span><i class="icon-eye"></i>{$opus_first.view_count}</span>播放次数：</li>
+								<li><span><i class="icon-comment"></i>{$opus_first.comment_count}</span>评论数：</li>
+								<li><span><i class="icon-heart"></i>{$opus_first.vote_count}</span>票数</li>
+								<li>视频简介：<p>{$opus_first.overview}</p></li>
+								<li><a href="{:U('Opus/view',array('id'=>$opus_first['id']))}" class="pull-right">详细&gt;&gt;</a></li>
+							</ul>
+						</div>
+						</empty>
+					</div> <!-- newest_work end -->
+					<div class="clear"></div>
+					<notempty name="opus">
+					<div class="whole_work">
+						<div class="whole_work_title">
+							<h4>其他作品</h4>
+						</div>
+						<div class="work_list">
+							<ul>
+								<volist name="opus" id="li">
+						      	<li class="span3">
+						      		<div class="work_thumb">
+						      			<a href="{:U('Opus/view',array('id'=>$li['id']))}" class="thumbnail">
+                                          <img data-src="holder.js/260x180" src="{:getThumb($li['id'])}" alt="{$li.opus_name}" >
+						                </a>
+						            </div>
+						      		<div class="user_work_info">
+						      			<div class="user_work_name"><a>{$li.opus_name}</a></div>
+						      			<div class="user_work_vote"><span>{$li.vote_count}</span>当前票数：</div>
+						      			<div class="user_work_uploadtime"><span>{$li.add_time|date="m月d日",###}</span>上传时间:</div>
+						      		</div>
+						      	</li>
+						      	</volist>
+					      </ul>
+						</div> <!-- work_list end -->
+						<div class="clear"></div>
+					</div> <!-- whole_work end -->
+					</notempty>
+				</div> <!-- box-body end -->
+			</div><!-- user_work end -->
+		</div> <!-- main end -->
+	</div>
+</div>
+</block>
+<block name="extra_js">
+<script type="text/javascript" src="__PUBLIC__/plugins/flowflash/flowplayer-3.2.12.min.js"></script>
+<script>
+$(document).ready(function(){
+	<notempty name="opus_first">
+		flowplayer("player", "__PUBLIC__/plugins/flowflash/flowplayer.swf", {
+            clip: {
+                autoPlay: false,
+                autoBuffering: true
+            },
+            canvas: {backgroundColor: "#000000"},
+            plugins: {
+            	<include file="Common:playerControl" />
+            }
+        });
+	</notempty>
+});
+</script>
+</block>

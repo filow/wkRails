@@ -1,4 +1,5 @@
 @charset "utf-8";
+$cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
 .works_banner{
 	background:rgba(0,0,0,0.07);
 	padding: 20px 0;
@@ -7,7 +8,7 @@
 	margin-top: 10px;
 	font-size: 18px;
 	font-weight: bold;
-	font-family: "Microsoft Yahei";
+	font-family: $cn-font;
 }
 .works_nav ul{
 	margin: 0;
@@ -181,7 +182,7 @@ a{
 }
 .opus_title{
 	font-size: 20px;
-	font-family: "Microsoft Yahei";
+	font-family: $cn-font;
 	margin: 15px 0;
 }
 .opus_video{
@@ -198,7 +199,7 @@ a{
 	padding: 7px 18px;
 	margin-bottom: 0;
 	font-size: 16px;
-	font-family: "Microsoft Yahei";
+	font-family: $cn-font;
 	color: #fff;
 	line-height: 20px;
 	text-align: center;

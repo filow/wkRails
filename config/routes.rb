@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
 
+
   root 'index/index#index'
 
   scope module: 'index' do
     get '/' => 'index#index'
+    get '/search' => 'index#search', as: 'search'
     get '/passage/:id' => 'passage#show', as: 'passage'
     get 'creations' => 'creation#index', as: 'creations'
     get 'creations/:id' => 'creation#show', as: 'creation'
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
     get 'usercenter' => 'usercenter#index'
+    get 'user/reg'
+    get 'user/login'
+    post 'user/login' => 'user#create'
+    get 'user/:name' => 'user#show'
   end
 
   namespace :manage do
