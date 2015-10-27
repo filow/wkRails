@@ -37,6 +37,7 @@ class Manage::UsersController < ManageController
     @manage_user = Manage::User.new(manage_user_params)
 
     if @manage_user.save
+      @manage_user.send_activation_email
       redirect_to @manage_user, notice: "新的用户 #{@manage_user.name} 创建成功！"
     else
       render :new
