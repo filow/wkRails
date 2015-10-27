@@ -6,6 +6,7 @@
     <a role="edit"></a>
     <a role="message" data-method="get" data-url="/{id}/message" data-button="primary" data-icon="envelope" data-multiple="true">发送短消息</a>
     <a role="toggle" target="manage_user[is_forbidden]">切换禁用</a>
+    <a role="verify" target="manage_user[is_email_verified]" data-method="patch" data-url="/{id}" data-button="primary" data-icon="ok" data-multiple="false">设为验证</a>
     <a role="delete"></a>
   </div>
 </section>
@@ -30,7 +31,7 @@
 
   <tbody>
   <% @manage_users.each do |p| %>
-      <tr data-id="<%= p.id %>" data-is_forbidden="<%= p.is_forbidden %>">
+      <tr data-id="<%= p.id %>" data-is_forbidden="<%= p.is_forbidden %>" data-is_email_verified="<%= p.is_email_verified %>">
         <td>
           <input type="checkbox" name="p_checkbox" class="p_checkbox" value="<%= p.id %>">
         </td>
