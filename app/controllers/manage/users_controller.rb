@@ -37,6 +37,7 @@ class Manage::UsersController < ManageController
     @manage_user = Manage::User.new(manage_user_params)
 
     if @manage_user.save
+      @manage_user.send_activation_email
       redirect_to @manage_user, notice: "新的用户 #{@manage_user.name} 创建成功！"
     else
       render :new
@@ -98,6 +99,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden, :avatar, :sort_by, :sort_type, :password, :password_confirmation)
+      params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden,:is_email_verified, :avatar, :password, :password_confirmation)
     end
 end

@@ -6,7 +6,8 @@ $(function(){
     $elem.addClass('info');
     var id = $elem.data('id'), is_forbidden = $elem.data('is_forbidden');
     btnGroup.btnGroup('addLineId', id);
-    btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden);
+    btnGroup.btnGroup('setField', 'is_forbidden', !is_forbidden),
+    btnGroup.btnGroup('setField', 'is_email_verified', true);
   });
   $('tr').delegate('.p_checkbox', 'ifUnchecked', function (e){
     var $elem = $(e.delegateTarget);

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'index/index#index'
 
   scope module: 'index' do
+    resources :user,only:[:edit]
     get '/' => 'index#index'
     get '/search' => 'index#search', as: 'search'
     get '/passage/:id' => 'passage#show', as: 'passage'
