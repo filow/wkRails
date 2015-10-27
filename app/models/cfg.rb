@@ -27,14 +27,51 @@ class Cfg < ActiveRecord::Base
 
   before_save :refresh_cache
 
-
   def self.get(name, force_refresh=false)
-    key = name.to_s.upcase
+    #从缓存中获取设置项
+    key = name.to_s.downcase
     result = @@config_cache.get(key, nil, force_refresh) do
-      self.select('value').where(key: key).first
+      self.where(key: key).first
+    end
+
+    if result.field_type == 'img'   #处理图片类型的设置项
+      uploader = PosterUploader.new
+      unless result.value.blank?
+        uploader.retrieve_from_store! result.value
+        result.value = uploader.url
+      end
     end
     return result.value if result
   end
+
+  def update(attributes)
+    if field_type == 'img'
+      uploader = PosterUploader.new
+      # 先删除原图片
+      unless value.blank?
+        uploader.retrieve_from_store! value
+        uploader.remove!
+      end
+      #存储图片
+      uploader.store! attributes[:value]
+      #更新文件名
+      attributes[:value] = uploader.filename
+    end
+    super(attributes)
+  end
+
+  # def save_poster(img)
+  #   uploader = PosterUploader.new
+  #   # 先删除原图片
+  #   unless value.blank?
+  #     uploader.retrieve_from_store! value
+  #     uploader.remove!
+  #   end
+  #   #存储图片
+  #   uploader.store! img
+  #   #更新文件名
+  #   update value: uploader.filename
+  # end
 
 private
   def refresh_cache
