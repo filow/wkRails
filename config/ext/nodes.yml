@@ -14,7 +14,7 @@
 #   action2:
 #     title: something
 #     remark: something in detail
-admin:
+admins:
   list:
     title: 查看管理员列表
     remark: 列出管理员，查看管理员的大致信息
@@ -31,7 +31,7 @@ admin:
     title: 删除管理员
     remark: 删除管理员
 
-test:
+tests:
   listtest:
     title: 查看管理员列表test
     remark: 列出管理员，查看管理员的大致信息

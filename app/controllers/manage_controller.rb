@@ -3,6 +3,10 @@ class ManageController < ApplicationController
   before_action :check_login
   before_action :set_nav
 
+  def can?(action)
+    @admin.can_access?(action, params[:controller].split('/')[-1])
+  end
+
   private
   def build_manage_cache
     @cache = Cache.new("wkRails-Manage-")

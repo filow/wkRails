@@ -114,6 +114,7 @@ class Manage::AdminsController < ManageController
     else
       redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"
     end
+    @manage_role.save
   end
 
   #删除角色
@@ -126,7 +127,6 @@ class Manage::AdminsController < ManageController
   #修改角色权限
   def edit_role_permission
     @manage_role = Manage::Role.find(params[:id])
-    # render :edit_role_permission,layout: false
   end
 
   private

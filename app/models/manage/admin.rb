@@ -15,18 +15,51 @@ class Manage::Admin < ActiveRecord::Base
   # 密码至少8位
 	validates_length_of :password,minimum: 8,maximum:16, allow_blank:true,on: [:create,:update]
 
+  #更新用户信息前清空缓存
+  before_update :clear_privilege_cache
+
   def child_nodes
      Manage::Node.joins(:roles).where("roles.id" => self.role_ids, "roles.is_enabled" => true).uniq
   end
 
-  def can_access?
+  def can_access?(action,controller)
+    init_cache
+    nodes = @privilege_cache[self.id]
+    nodes ||= set_admin_privileges
+    nodes.include?(controller.to_s + '_' + action.to_s)
+  end
+
+  def with_access(privilege_name)
+    if block_given? && can_access?(privilege_name)
+      yield
+    end
+  end
+
+  def without_access(privilege_name)
+    if block_given? && !can_access?(privilege_name)
+      yield
+    end
+  end
+
+  def init_cache
+    @privilege_cache ||= Cache.new("ManageAdminPrivileges")
   end
 
   def clear_privilege_cache
+    init_cache
+    @privilege_cache.delete(self.id)
   end
 
-  def set_admin_privileges
-  end
+  private
+
+    def set_admin_privileges
+      nodes = child_nodes
+      node_names = nodes.collect{|node| node.controller + "_" + node.action }
+      init_cache
+
+      @privilege_cache[self.id] = node_names
+      node_names
+    end
 
 
   # 使用插件建立用户密码验证体系
