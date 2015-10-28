@@ -7,7 +7,7 @@ class Manage::UsersController < ManageController
     sort_group = ["id","realname","popularity"];
     @sorted = {};
     sort_group.each do |x|
-      @sorted[x.to_sym]=1
+      @sorted[x.to_sym]=0
     end
     if !params[:sort_by].nil?
       sort(params[:sort_by],params[:sort_type])
