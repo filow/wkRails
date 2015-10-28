@@ -116,4 +116,4 @@ cn:
       update: "更新%{model}信息"
   confirm_delete: 确认删除？
 
-  admin: 管理员
+  admins: 管理员
