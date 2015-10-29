@@ -21,6 +21,15 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
 
+  #用于前台的搜索功能
+  def self.search(key_word)
+    rs = where('realname LIKE ?', "%#{key_word}%")
+    #设置高亮
+    rs.each do |u|
+      u.realname[key_word] = "<font color='red'>#{key_word}</font>"
+    end
+  end
+
   def send_message(options)
     m = Manage::Message.create(options.merge({"user_id"=> id}))
     count = messages.where(is_readed: false).count
