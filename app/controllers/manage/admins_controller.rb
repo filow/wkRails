@@ -5,8 +5,7 @@ class Manage::AdminsController < ManageController
   def index
     unless can?("list")
       # 需要修改，合适的反馈错误的方案
-      @manage_admins = Manage::Admin.all
-      @manage_roles  = Manage::Role.all
+      redirect_to manage_url, alert: "您没有查看管理员的权限"
     else
       @manage_admins = Manage::Admin.all
       @manage_roles  = Manage::Role.all
@@ -25,7 +24,7 @@ class Manage::AdminsController < ManageController
   # GET /manage/admins/new
   def new
     unless can?("add")
-      redirect_to manage_admins_url, alert: "您没有该项权限"
+      redirect_to manage_admins_url, alert: "您没有添加管理员的权限"
     else
       @manage_admin = Manage::Admin.new
     end
@@ -33,7 +32,7 @@ class Manage::AdminsController < ManageController
 
   # GET /manage/admins/1/edit
   def edit
-    redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit")
+    redirect_to manage_admins_url, alert: "您没有编辑管理员的权限" unless can?("edit")
   end
 
   def edit_self
@@ -65,7 +64,7 @@ class Manage::AdminsController < ManageController
   # POST /manage/admins
   def create
     # 没有权限则直接跳转回管理员列表
-    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("add")
+    return redirect_to manage_admins_url, alert: "您没有新建管理员的该项权限" unless can?("add")
     #如果有权限则继续
     @manage_admin = Manage::Admin.new(manage_admin_params)
     if @manage_admin.save
@@ -104,7 +103,7 @@ class Manage::AdminsController < ManageController
   # DELETE /manage/admins/1
   def destroy
     unless can?("delete")
-      redirect_to manage_admins_url, alert: '您没有该项权限'
+      redirect_to manage_admins_url, alert: '您没有删除管理员的权限权限'
     else
       @manage_admin.destroy
       redirect_to manage_admins_url, notice: '管理员账户删除成功'
