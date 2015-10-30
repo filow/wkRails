@@ -10,13 +10,13 @@
     </div>
     <div class="well">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#creation" data-toggle="tab">用户作品(<%= @count[:creations] %>)</a></li>
-        <li class="disabled"><a href="#user" data-toggle="tab">参赛选手(<%= @count[:users] %>)</a></li>
-        <li class="disabled"><a href="#post" data-toggle="tab">通知公告(<%= @count[:posts] %>)</a></li>
+        <li class="<%= @count[:creations] == 0? 'disabled':'active' %>"><a href="#creation" data-toggle="tab">用户作品(<%= @count[:creations] %>)</a></li>
+        <li class="<%= @count[:users] == 0? 'disabled':'active' %>"><a href="#user" data-toggle="tab">参赛选手(<%= @count[:users] %>)</a></li>
+        <li class="<%= @count[:posts] == 0? 'disabled':'active' %>"><a href="#post" data-toggle="tab">通知公告(<%= @count[:posts] %>)</a></li>
       </ul>
       <div class="tab-content">
-      <div class="tab-pane active" id="user">
-        <% if @count[:post] == 0  %>
+      <div class="tab-pane <%= @count[:users] == 0? 'disabled':'active' %>" id="user">
+        <% if @count[:users] == 0  %>
             <p>没有符合筛选条件的用户</p>
         <% end %>
         <div class="search_users">
@@ -27,13 +27,13 @@
                   <li>
                     <div class="users">
                       <div class="users_hp">
-                        <%= link_to root_path do %>
-                            <img src="<%= u.avatar %>" alt="头像" class="img-thumbnail">
+                        <%= link_to root_path, target: '_blank' do %>
+                            <img src="<%= u.avatar.thumb %>" alt="头像" class="img-thumbnail">
                         <% end %>
                       </div>
                       <div class="users_info">
                         <div class="users_name">
-                          <%= link_to u.realname.html_safe, root_path %>
+                          <%= link_to u.realname.html_safe, root_path, target: '_blank' %>
                         </div>
                         <div>
                           <% if u.sex == Manage::User.sexes[:male] %>
@@ -51,7 +51,12 @@
                           个人简介:<span>......</span>
                         </div>
                         <div class="users_work">
-                          <a href="{:U('Opus/view',array('id'=>$ops['id']))}"><i class="icon-video-camera"></i>{$ops.opus_name}</a>
+                          <% u.creations.each do |c| %>
+                              <%= link_to creation_path(c), target: '_blank' do %>
+                                  <i class="icon-film"></i>
+                                  <%= c.name %>
+                              <% end %>
+                          <% end %>
                         </div>
                       </div>
                     </div>
@@ -62,29 +67,33 @@
         </div><!--  search_user end -->
         <div class="clear"></div>
       </div> <!-- tab-pane#id end -->
-      <div class="tab-pane active" id="post">
-        <% if @count[:post] == 0  %>
+      <div class="tab-pane <%= @count[:posts] == 0? 'disabled':'active' %>" id="post">
+        <% if @count[:posts] == 0  %>
             <p>没有符合筛选条件的通知公告</p>
         <% end %>
         <div class="search_news">
           <!-- 顶部内容 -->
           <div class="news_list">
             <ul>
-              <li>
-                <div class="news">
-                  <div class="news_title"><a href="{:U('passage/'.$li['id'])}">{$li.title}</a></div>
-                  <div class="news_summary">{$li.content_notag}</div>
-                  <div class="news_info">
-                    <span class="news_time">发布时间：{$li.date|date="Y-m-d",###}</span>
-                  </div>
-                </div>
-              </li>
+              <% @result[:posts].each do |p| %>
+                  <li>
+                    <div class="news">
+                      <div class="news_title">
+                        <%= link_to p.title.html_safe, passage_path(p) %>
+                      </div>
+                      <div class="news_summary"><%= p.content_notag.html_safe %></div>
+                      <div class="news_info">
+                        <span class="news_time">发布时间：<%= p.publish_at %></span>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
             </ul>
           </div><!-- posts_list end -->
         </div> <!-- search_posts end -->
       </div><!-- tab-pane#post end -->
-      <div class="tab-pane active" id="creation">
-        <% if @count[:creation] == 0  %>
+      <div class="tab-pane <%= @count[:creations] == 0? 'disabled':'active' %>" id="creation">
+        <% if @count[:creations] == 0  %>
             <p>没有符合筛选条件的作品</p>
         <% end %>
         <div class="search_works">
@@ -95,31 +104,33 @@
                 <li>
                   <div class="works">
                     <div class="works_shot">
-                      <%= link_to creation_path(c) do %>
-                          <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
-                      <% end %>
-                      <a href="{:U('Opus/view',array('id'=>$li['id']))}" target="_blank" class="works_name">
-                        <h5>[第<%= c.version %>届] <%= c.name.html_safe %></h5>
-                      </a>
                       <div class="works_thumb">
-                        <a href="{:U('Opus/view',array('id'=>$li['id']))}" target="_blank">
-                          <div class="works_pic">
-                            <img src="{:getThumb($li['id'])}">
-                          </div>
-                        </a>
+                        <%= link_to(creation_path(c), target: '_blank') do %>
+                            <div class="works_pic">
+                              <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+                            </div>
+                        <% end %>
+                      </div>
+                      <%= link_to(creation_path(c), target: '_blank', class: 'works_name') do %>
+                          <h5>[第<%= c.version %>届] <%= c.name.html_safe %></h5>
+                      <% end %>
+                      <div class="works_summary">
+                        简介：<p><%= c.summary.html_safe %></p>
                       </div>
 
                       <ul class="works_info">
-                        <li class="views"><a title="浏览数"><i class="icon-eye"></i>{$li.view_count}</a></li>
-                        <li class="comments"><a title="评论数"><i class="icon-comment"></i>{$li.comment_count}</a></li>
-                        <li class="votes"><a title="投票数"><i class="icon-heart"></i>{$li.vote_count}</a></li>
-                        <div class="clear"></div>
+                        <li class="views"><a title="浏览数"><i class="icon-eye-open"></i><%= c.view_count %></a></li>
+                        <li class="comments"><a title="评论数"><i class="icon-comment"></i><%= c.comment_count %></a></li>
+                        <li class="votes"><a title="投票数"><i class="icon-heart"></i><%= c.vote_count %></a></li>
                       </ul>
                     </div>
                   </div>
                   <div class="works_author">
-                    <a href="{:U('User/userinfo',array('uid'=>$li['userinfo']['uid']))}"><img src="{:getAvatar($li['userinfo']['avatar'])}" alt="作者" width="22"><span class="works_author_name">{$li.userinfo.nickname}</span></a>
-                    <span class="department">{$li.userinfo.department}</span>
+                    <%= link_to root_path do %>
+                        <img src="<%= c.user.avatar.thumb_mini %>" alt="作者" width="22">
+                        <span class="works_author_name"><%= c.user.realname %></span>
+                    <% end %>
+                    <span class="department"><%= c.user.department %></span>
                   </div>
                 </li>
                 <% end %>

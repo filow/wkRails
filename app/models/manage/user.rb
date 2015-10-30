@@ -57,11 +57,6 @@ class Manage::User < ActiveRecord::Base
   def self.new_token
     SecureRandom.urlsafe_base64
   end
-  def authenticated?(attribute,token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
-  end
   private
   def create_activation_digest
     self.activation_token = Manage::User.new_token
