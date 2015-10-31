@@ -2,35 +2,25 @@ class Manage::OptionRecord < ActiveRecord::Base
   belongs_to :admins
   before_save :get_params_to_json
   before_save :desc
-
   attr_accessor :hash_params
 
+  DESCRIBE_CONFIG = {
+    "manage/users/create" => "创建新用户",
+    'manage/users/update' => "更新用户",
+    'manage/users/destroy' => "删除用户",
+    'manage/messages/create' => "发送新消息给用户",
+    'manage/admins/create' => "创建新管理员",
+    'manage/admins/update' => "更新管理员",
+    'manage/admins/destroy' => "删除管理员",
+    'manage/admins/update_self' => "更新自己信息",
+    'manage/admins/create_role' => "创建角色",
+    'manage/admins/update_role' => "更新角色",
+    'manage/admins/destroy_role' => "删除角色"
+  }
 private
   def desc
-    case self.target
-    when 'manage/users/create'
-      self.desc = "管理员\""+admin_describe+"\"创建新用户:\""+target_describe+"\""
-    when 'manage/users/update'
-      self.desc = "管理员\""+admin_describe+"\"更新用户:\""+target_describe+"\""
-    when 'manage/users/destroy'
-      self.desc = "管理员\""+admin_describe+"\"删除用户:\""+target_describe+"\""
-    when 'manage/messages/create'
-      self.desc = "管理员\""+admin_describe+"\"发送新消息给用户:\""+target_describe+"\""
-    when 'manage/admins/create'
-      self.desc = "管理员\""+admin_describe+"\"创建新管理员:\""+target_describe+"\""
-    when 'manage/admins/update'
-      self.desc = "管理员\""+admin_describe+"\"更新管理员:\""+target_describe+"\""
-    when 'manage/admins/destroy'
-      self.desc = "管理员\""+admin_describe+"\"删除管理员:\""+target_describe+"\""
-    when 'manage/admins/update_self'
-      self.desc = "管理员\""+admin_describe+"\"更新自己信息:\""+target_describe+"\""
-    when 'manage/admins/create_role'
-      self.desc = "管理员\""+admin_describe+"\"创建角色:\""+target_describe+"\""
-    when 'manage/admins/update_role'
-      self.desc = "管理员\""+admin_describe+"\"更新角色:\""+target_describe+"\""
-    when 'manage/admins/destroy_role'
-      self.desc = "管理员\""+admin_describe+"\"删除角色:\""+target_describe+"\""
-    end
+    option = DESCRIBE_CONFIG["#{self.target}"]
+    self.desc = "管理员\"#{admin_describe}\"#{option}:\"#{target_describe}\""
   end
 
   def get_params_to_json
@@ -54,7 +44,7 @@ private
     elsif target_type[-2]=="admins"
       if target_type[-1].include?("role")
         ids.each do |id|
-          realname << "#{Manage::Admin.find(id).name}(#{id})" #角色用name描述
+          realname << "#{Manage::Role.find(id).name}(#{id})" #角色用name描述
         end
       else
         ids.each do |id|
