@@ -16,6 +16,11 @@ class Manage::Creation < ActiveRecord::Base
   #分页显示每页的个数
   paginates_per 10
 
+  #用于前台的搜索功能
+  def self.search(key_word)
+    rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
+  end
+
   def status_cn
     #翻译映射
     t = {

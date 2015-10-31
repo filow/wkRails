@@ -1,4 +1,4 @@
-class Index::CreationController < ApplicationController
+class Index::CreationController < IndexController
   def index
   end
 

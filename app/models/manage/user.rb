@@ -21,6 +21,11 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
 
+  #用于前台的搜索功能
+  def self.search(key_word)
+    rs = where('realname LIKE ?', "%#{key_word}%")
+  end
+
   def send_message(options)
     m = Manage::Message.create(options.merge({"user_id"=> id}))
     count = messages.where(is_readed: false).count
@@ -47,11 +52,6 @@ class Manage::User < ActiveRecord::Base
   end
   def self.new_token
     SecureRandom.urlsafe_base64
-  end
-  def authenticated?(attribute,token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
   end
   private
   def create_activation_digest

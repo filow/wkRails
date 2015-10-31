@@ -6,6 +6,10 @@ class Post < ActiveRecord::Base
   validates :title, :content, :publish_at, presence: true
   #标题不允许重复
   validates :title, uniqueness: true
+  #用于前台的搜索功能
+  def self.search(key_word)
+    rs = where('title LIKE ? AND content_notag LIKE ?', "%#{key_word}%", "%#{key_word}%")
+  end
 
   def self.valid_posts
     where 'publish_at <= ? and is_hide = ?', Date.today, false
