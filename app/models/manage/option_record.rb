@@ -20,7 +20,7 @@ class Manage::OptionRecord < ActiveRecord::Base
 private
   def desc
     option = DESCRIBE_CONFIG["#{self.target}"]
-    self.desc = "管理员\"#{admin_describe}\"#{option}:\"#{target_describe}\""
+    self.desc = "\"#{admin_describe}\"#{option}:\"#{target_describe}\""
   end
 
   def get_params_to_json
@@ -55,6 +55,6 @@ private
     realname = realname.join("|")
   end
   def admin_describe
-    Manage::Admin.find(self.admin_id).realname
+    "管理员#{Manage::Admin.find(self.admin_id).realname}"
   end
 end
