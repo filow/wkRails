@@ -19,11 +19,6 @@ class Manage::Creation < ActiveRecord::Base
   #用于前台的搜索功能
   def self.search(key_word)
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
-    #设置高亮
-    rs.each do |c|
-      c.name[key_word] = "<font color='red'>#{key_word}</font>"
-      c.summary[key_word] = "<font color='red'>#{key_word}</font>"
-    end
   end
 
   def status_cn

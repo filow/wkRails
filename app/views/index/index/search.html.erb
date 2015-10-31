@@ -33,14 +33,14 @@
                       </div>
                       <div class="users_info">
                         <div class="users_name">
-                          <%= link_to u.realname.html_safe, root_path, target: '_blank' %>
+                          <%= link_to highlight(u.realname, @kw), root_path, target: '_blank' %>
+                          <% if u.sex == 'female' %>
+                              <span class="user_sex user_sex_female"></span>
+                          <% else %>
+                              <span class="user_sex user_sex_male"></span>
+                          <% end %>
                         </div>
                         <div>
-                          <% if u.sex == Manage::User.sexes[:male] %>
-                              <span class="users_sex users_sex_male"></span>
-                          <% else %>
-                              <span class="users_sex users_sex_female"></span>
-                          <% end %>
                           <span><%= u.department %></span>
                         </div>
                         <div>
@@ -79,9 +79,9 @@
                   <li>
                     <div class="news">
                       <div class="news_title">
-                        <%= link_to p.title.html_safe, passage_path(p) %>
+                        <%= link_to highlight(p.title, @kw), passage_path(p) %>
                       </div>
-                      <div class="news_summary"><%= p.content_notag.html_safe %></div>
+                      <div class="news_summary"><%= highlight p.content_notag, @kw %></div>
                       <div class="news_info">
                         <span class="news_time">发布时间：<%= p.publish_at %></span>
                       </div>
@@ -112,10 +112,10 @@
                         <% end %>
                       </div>
                       <%= link_to(creation_path(c), target: '_blank', class: 'works_name') do %>
-                          <h5>[第<%= c.version %>届] <%= c.name.html_safe %></h5>
+                          <h5>[第<%= c.version %>届] <%= highlight c.name, @kw %></h5>
                       <% end %>
                       <div class="works_summary">
-                        简介：<p><%= c.summary.html_safe %></p>
+                        简介：<p><%= highlight c.summary, @kw %></p>
                       </div>
 
                       <ul class="works_info">

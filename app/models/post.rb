@@ -9,11 +9,6 @@ class Post < ActiveRecord::Base
   #用于前台的搜索功能
   def self.search(key_word)
     rs = where('title LIKE ? AND content_notag LIKE ?', "%#{key_word}%", "%#{key_word}%")
-    #设置高亮
-    rs.each do |p|
-      p.title[key_word] = "<font color='red'>#{key_word}</font>"
-      p.content_notag[key_word] = "<font color='red'>#{key_word}</font>"
-    end
   end
 
   def self.valid_posts
