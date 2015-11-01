@@ -1,47 +1,35 @@
-	<style>
-		.work_thumb a img{
-			width: 160px;
-			height: 120px;
-		}
-	</style>
 <div class="usercenter">
 	<div class="row-fluid">
     <%= render 'sidebar' %>
 		<div class="main span9">
 			<div class="user_info box">
-				<div class="box-header"><a href="{:U('userinfo')}" class="pull-right">编辑资料</a>个人资料</div>
+				<div class="box-header"><a href="#" class="pull-right">编辑资料</a>个人资料</div>
 				<div class="box-body">
 					<table class="user_info_table table">
 						<tr>
 							<td>用户名：</td>
-							<td>{$acc.uid}</td>
+							<td><%= @user.name %></td>
 							<td>姓名：</td>
-							<td>{$acc.nickname}</td>
+							<td><%= @user.realname %></td>
 						</tr>
 						<tr>
 							<td>性别：</td>
-							<td><eq name="acc['sex']" value="0">男<else />女</eq></td>
+							<td><%= @user.sex_cn %></td>
 						</tr>
 						<tr>
 							<td>类型：</td>
-							<td>
-								<eq name="acc['belong_type']" value="1">学生组
-								<else />教师组</eq>
-							</td>
+							<td><%= @user.group_cn %></td>
 							<td>所属单位：</td>
-							<td>
-
-							<present name="acc['belong']">
-								{$acc['belong']['college']} / {$acc.belong.profession} / {$acc.belong.grade}
-							<else />
-								{$acc.department}
-							</present>
-							</td>
+							<td><%= @user.department %></td>
 						</tr>
 						<tr>
-							<td>电话号码：</td><td>{$acc.phone}</td>
-							<td>电子邮箱：</td><td>{$acc.email}</td>
+							<td>电话号码：</td><td><%= @user.phone %></td>
+							<td>电子邮箱：</td><td><%= @user.email %></td>
 						</tr>
+                      <tr>
+                        <td>身份证号</td>
+                        <td><%= @user.idcard %></td>
+                      </tr>
 					</table>
 				</div>
 			</div>
@@ -54,44 +42,44 @@
 							<li class="active"><a href="#tab1" data-toggle="tab">本届作品</a></li>
 							<li><a href="#tab2" data-toggle="tab">往届作品</a></li>
 						</ul>
-				    </div>{//user_work_nav}
+				    </div>
 					<div class="tab-content">
-					    <div class="tab-pane active work_list " id="tab1">
+					    <div class="tab-pane active work_list" id="tab1">
 					      <ul>
-					      	<volist name="opus" id="li">
-					      	<li>
-					      		<div class="work_thumb">
-					      			<a href="{:U('Opus/view',array('id'=>$li['id']))}" class="thumbnail">
-                                      <img data-src="holder.js/160x120" src="{:getThumb($li['id'])}" alt="{$li.opus_name}" >
-					                </a>
-					            </div>
-					      		<div class="user_work_info">
-					      			<div class="user_work_name">{$li.opus_name}</div>
-					      			<div class="user_work_vote"><span>{$li.vote_count}</span>当前票数：</div>
-					      			<div class="user_work_uploadtime"><span>{$li.add_time|date="Y-m-d H:i",###}</span>上传时间:</div>
-					      		</div>
-					      	</li>
-					      	</volist>
+                            <% @current_creations.each do |c| %>
+                                <li>
+                                  <div class="work_thumb">
+                                    <a href="<%= creation_path(c) %>" class="thumbnail">
+                                      <%= image_tag c.thumb.thumb, alt: c.name %>
+                                    </a>
+                                  </div>
+                                  <div class="user_work_info">
+                                    <div class="user_work_name"><%= c.name %></div>
+                                    <div class="user_work_vote"><span><%= c.vote_count %></span>当前票数：</div>
+                                    <div class="user_work_uploadtime"><span><%= c.created_at.strftime("%F %R") %></span>上传时间:</div>
+                                  </div>
+                                </li>
+                            <% end %>
 					      </ul>
 					      <div class="clear"></div>
 					    </div>
-					    <div class="tab-pane vote_list " id="tab2">
+					    <div class="tab-pane work_list" id="tab2">
 							<ul>
-								<volist name="vote" id="li">
-						      	<li class="span3">
-						      		<div class="work_thumb">
-						      			<a href="{:U('Opus/view',array('id'=>$li['id']))}" class="thumbnail">
-	                                      <img data-src="holder.js/160x120" src="{:getThumb($li['id'])}" alt="{$li.opus_name}" />
-						                </a>
-						            </div>
-						      		<div class="user_work_info">
-						      			<div class="user_work_name">{$li.opus_name}</div>
-						      			<div class="user_work_author">作者:<span>{$li.nickname}</span></div>
-						      			<div class="user_work_vote">当前票数：<span>{$li.vote_count}</span></div>
-						      			<div class="user_work_uploadtime">投票时间:<span>{$li.vote_date|date="Y-m-d H:i",###}</span></div>
-						      		</div>
-						      	</li>
-							    </volist>
+                              <% @original_creations.each do |c| %>
+                                  <li>
+                                    <div class="work_thumb">
+                                      <a href="<%= creation_path(c) %>" class="thumbnail">
+                                        <%= image_tag c.thumb.thumb, alt: c.name %>
+                                      </a>
+                                    </div>
+                                    <div class="user_work_info">
+                                      <div class="user_work_name"><%= c.name %></div>
+                                      <div class="user_work_author">作者:<span><%= c.authors_str %></span></div>
+                                      <div class="user_work_vote">当前票数：<span><%= c.vote_count %></span></div>
+                                      <div class="user_work_uploadtime">投票时间:<span>########</span></div>
+                                    </div>
+                                  </li>
+                              <% end %>
 					    	</ul>
 					    	<div class="clear"></div>
 						</div>

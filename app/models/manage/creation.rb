@@ -21,6 +21,12 @@ class Manage::Creation < ActiveRecord::Base
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
   end
 
+  #生成作品作者组成的字符串
+  def authors_str
+    names = self.creation_authors.select 'name'
+    names.join(',')
+  end
+
   def status_cn
     #翻译映射
     t = {
