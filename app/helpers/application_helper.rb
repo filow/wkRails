@@ -26,4 +26,9 @@ STR
   def index_nav_active(url)
     raw 'class="active"' if request.url == url
   end
+
+  def can_access?(admin,action)
+    admin.can_access?(action, params[:controller].split('/')[-1])
+  end
+
 end

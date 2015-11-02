@@ -30,6 +30,18 @@ admins:
   delete:
     title: 删除管理员
     remark: 删除管理员
+  editRole:
+    title: 编辑角色权限
+    remark: 修改角色的权限，或者角色的名字
+  deleteRole:
+    title: 删除角色
+    remark: 删除角色
+  addRole:
+    title: 新建角色
+    remark: 新建一个角色
+  showRole:
+    title: 查看角色权限
+    remark: 查看角色的权限
 
 tests:
   listtest:

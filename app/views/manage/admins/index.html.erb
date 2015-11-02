@@ -2,6 +2,7 @@
 <section id="btnGroup" data-base="<%= manage_admins_url %>">
   <a role="new">新建管理员</a>
   <div class="btn-group" role="group">
+    <%can_access?(@manage_admin,"show")%>
     <a role="show">查看权限</a>
     <a role="edit"></a>
     <a role="toggle" target="manage_admin[is_forbidden]" data-icon="lock" data-button="warning">切换锁定</a>
