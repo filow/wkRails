@@ -55,7 +55,7 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 	min-height: 220px;
 	width: 275px;
 	margin: 0 4px;
-  border-radius: 5px;
+    border-radius: 5px;
 	box-shadow:0 2px 7px #9e9f9f;
 	form{
 		padding: 20px;
@@ -69,6 +69,13 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 		height: 28px !important;
 		width: 210px;
 	}
+    .login_submit{ padding: 8px 97px; }
+    .regist{
+        padding: 8px 61px;
+        width: 100px;
+        margin-left: 6px;
+        margin-top: 5px;
+    }
 }
 /********** after login ***********/
 

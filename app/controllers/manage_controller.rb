@@ -2,7 +2,7 @@ class ManageController < ApplicationController
   before_action :build_manage_cache
   before_action :check_login
   before_action :set_nav
-
+  before_action :option_record ,only:[:create,:update,:destroy,:update_self,:create_role,:update_role,:destroy_role]
   def can?(action)
     @admin.can_access?(action, params[:controller].split('/')[-1])
   end
@@ -25,6 +25,63 @@ class ManageController < ApplicationController
       end
     else
       redirect_to manage_login_url
+    end
+  end
+
+  def option_record
+    admin_id = session[:admin_id]
+    target = params[:controller]+"/"+params[:action]
+    record = Manage::OptionRecord.new(admin_id: admin_id,target: target)
+    case params[:controller]
+
+    when 'manage/users'
+      case params[:action]
+      when 'create'
+        record.hash_params = params[:manage_user]
+        record.save
+      when 'update'
+        record.hash_params = params[:manage_user]
+        record.hash_params[:id] = params[:id]
+        record.save
+      when 'destroy'
+        record.hash_params = {id: params[:id]}
+        record.save
+      end
+
+    when 'manage/messages'
+      case params[:action]
+      when "create"
+        record.hash_params = params[:message]
+        record.hash_params[:id] = params[:user_id]
+        record.save
+      end
+
+    when 'manage/admins'
+      case params[:action]
+      when "create"
+        record.hash_params = params[:manage_admin]
+        record.save
+      when "update"
+        record.hash_params = params[:manage_admin]
+        record.hash_params[:id] = params[:id]
+        record.save
+      when "destroy"
+        record.hash_params = {id: params[:id]}
+        record.save
+      when "update_self"
+        record.hash_params = params[:manage_admin]
+        record.save
+      when "create_role"
+        record.hash_params = {name: params[:name]}
+        record.save
+      when "update_role"
+        record.hash_params = {new_nodes: params[:new_nodes]}
+        record.hash_params[:id] = params[:id]
+        record.save
+      when "destroy_role"
+        record.hash_params = {id: params[:id]}
+        record.save
+      end
     end
   end
 

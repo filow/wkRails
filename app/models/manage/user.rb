@@ -21,6 +21,26 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
 
+  #对sex汉化
+  def sex_cn
+    #翻译映射
+    t = {
+        male: '男',
+        female: '女',
+    }
+    t[self.sex.to_sym]
+  end
+
+  #对group汉化
+  def group_cn
+    #翻译映射
+    t = {
+        student: '学生组',
+        teacher: '老师组',
+    }
+    t[self.group.to_sym]
+  end
+
   #用于前台的搜索功能
   def self.search(key_word)
     rs = where('realname LIKE ?', "%#{key_word}%")
