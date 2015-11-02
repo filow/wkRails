@@ -46,6 +46,7 @@ class Manage::User < ActiveRecord::Base
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
   end
+
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -53,10 +54,11 @@ class Manage::User < ActiveRecord::Base
   def self.new_token
     SecureRandom.urlsafe_base64
   end
+  
   private
   def create_activation_digest
-    self.activation_token = Manage::User.new_token
-    self.activation_digest = Manage::User.digest(activation_token)
+    self.activation_token = self.class.new_token
+    self.activation_digest = self.class.digest(activation_token)
   end
 
 end
