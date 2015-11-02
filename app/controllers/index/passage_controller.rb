@@ -1,4 +1,4 @@
-class Index::PassageController < ApplicationController
+class Index::PassageController < IndexController
   def show
     # 设置页面标题为文章标题
     @post = Post.find(params[:id])

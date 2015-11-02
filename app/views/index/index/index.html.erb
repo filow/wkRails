@@ -33,10 +33,10 @@
     <div class="introduce span4">
       <div class="icon">
         <%= image_tag 'index/icon_intro.png' %>
-        <%= image_tag 'index/title_intro.png', class:'icon_img', alt: '大赛介绍' %>
+        <%= image_tag 'index/title_intro.png', class:'icindex/user#login on_img', alt: '大赛介绍' %>
       </div>
       <div class="main_content">
-        <div class="well list_box">
+        <div class="well list_box">index/user#login
           <ol>
             <volist name="intro" id="ito" key="k">
             <li><a href="{$ito.url}">{$k}. {$ito.title}</a></li>
@@ -51,54 +51,54 @@
       <div class="icon">
         <%= image_tag 'index/icon_login.png' %>
         <%= image_tag 'index/title_login.png', class:'icon_img', alt: '选手登录' %>
-    	</div>
+      </div>
         <div class="main_content">
-            <present name="acc">
-                <div class="login_box">
-                    <div class="user_after">
-                        <div class="user_info">
-                            <div class="headphoto">
-                                <img src="{:getAvatar($acc['avatar_large'])}" class="user_header">
-                            </div>
-                            <div class="user_info_detail">
-                                    <div class="user_name">
-                                        <a href="{:U('UserCenter/index')}">{$acc.nickname}</a>
-                                    </div>
-                                    <div>作品数：<span>{$opus_count}</span></div>
-                                    <div>单位:<span>{$acc.department}</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="user_nav">
-                            <ul class="nav nav-list">
-                                <li>
-                                    <a href="{:U('UserCenter/message')}">
-                                        <i class="icon-comments"></i>
-                                        消息箱
-                                        <span class="badge badge-info">{$msg_unread}</span>
-                                    </a>
-                                </li>
-                                <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>
-                            </ul>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="user_button">
-                            <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
-                            <a href="{:U('User/logout')}" class="btn btn-warning">退出登录</a>
-                        </div>
-                        <div class="clear"></div>
+          <% unless session[:user_id].blank? %>
+              <div class="login_box">
+                <div class="user_after">
+                  <div class="user_info">
+                    <div class="headphoto">
+                      <img src="{:getAvatar($acc['avatar_large'])}" class="user_header">
                     </div>
-                </div> <!-- login-box end -->
-            <else />
-                <div class="login_box">
-                    <form action="{:U('User/login')}" method="post">
-                        <input type="text" name="username" placeholder="用户名" class="login_input">
-                        <input type="password" name="password" placeholder="密码" class="login_input">
-                        <input type="submit" class="btn btn-warning" style="padding: 8px 97px;" value="登陆"><br>
-                        <a href="{:U('User/reg')}" class="btn btn-success" style="padding: 8px 61px;width: 100px;margin-left: 6px;margin-top: 5px;">立即注册</a>
-                    </form>
+                    <div class="user_info_detail">
+                      <div class="user_name">
+                        <a href="{:U('UserCenter/index')}">{$acc.nickname}</a>
+                      </div>
+                      <div>作品数：<span>{$opus_count}</span></div>
+                      <div>单位:<span>{$acc.department}</span></div>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="user_nav">
+                    <ul class="nav nav-list">
+                      <li>
+                        <a href="{:U('UserCenter/message')}">
+                          <i class="icon-comments"></i>
+                          消息箱
+                          <span class="badge badge-info">{$msg_unread}</span>
+                        </a>
+                      </li>
+                      <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>
+                    </ul>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="user_button">
+                    <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
+                    <a href="{:U('User/logout')}" class="btn btn-warning">退出登录</a>
+                  </div>
+                  <div class="clear"></div>
                 </div>
-            </present>
+              </div> <!-- login-box end -->
+          <% else %>
+            <div class="login_box">
+              <%= form_tag(user_login_path, method: :post) do %>
+                  <input type="text" name="username" placeholder="用户名" class="login_input">
+                  <input type="password" name="password" placeholder="密码" class="login_input">
+                  <input type="submit" class="login_submit btn btn-warning" value="登陆"><br>
+                  <a href="<%= user_reg_path %>" class="regist btn btn-success" style="">立即注册</a>
+              <% end %>
+            </div>
+          <% end %>
         </div>
     </div>
     </div>

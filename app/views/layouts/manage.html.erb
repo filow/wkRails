@@ -12,7 +12,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-  
+
     <div class="outer">
       <nav>
         <header>
@@ -61,6 +61,7 @@
         <% end %>
         <%= yield %>
       </main>
+      <%= debug(params) if Rails.env.development? %>
     </div>
 
 

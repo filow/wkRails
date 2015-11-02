@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027113131) do
+ActiveRecord::Schema.define(version: 20151031064738) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -123,6 +123,14 @@ ActiveRecord::Schema.define(version: 20151027113131) do
   end
 
   add_index "nodes_roles", ["role_id", "node_id"], name: "index_nodes_roles_on_role_id_and_node_id", using: :btree
+
+  create_table "option_records", force: :cascade do |t|
+    t.integer  "admin_id",   limit: 4,     null: false
+    t.string   "target",     limit: 255,   null: false
+    t.string   "params",     limit: 255,   null: false
+    t.text     "desc",       limit: 65535
+    t.datetime "created_at",               null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",         limit: 255,                   null: false

@@ -8,7 +8,7 @@
   <%= yield :seo_extra %>
   <title><% if @title %><%= @title %>--<% end %>远教院微课大赛官方网站</title>
   <%= stylesheet_link_tag  'bootstrap2', media: 'all' %>
-  <%= stylesheet_link_tag  'application', media: 'all','data-turbolinks-track'=> true %>
+  <%= stylesheet_link_tag  'index', media: 'all','data-turbolinks-track'=> true %>
   <%= stylesheet_link_tag  params[:controller], media: 'all','data-turbolinks-track'=> true %>
   <link rel="shortcut icon" href="/favicon.png">
   <%= yield :before_js %>
@@ -94,7 +94,7 @@
 
 <!-- <script src="__PUBLIC__/plugins/unslider/unslider.min.js" type="text/javascript"></script> -->
 
-<%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'index' %>
 <%= javascript_include_tag params[:controller], 'data-turbolinks-track'=> true %>
 <%= yield :js %>
 </body>
