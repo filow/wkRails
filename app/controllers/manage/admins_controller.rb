@@ -1,14 +1,11 @@
 class Manage::AdminsController < ManageController
   before_action :set_manage_admin, only: [:show, :edit, :update, :destroy]
-  before_action :judge_permission, only: [:show, :new, :edit, :destroy ,
+  before_action :judge_permission, only: [:index, :show, :new, :edit, :destroy ,
     :show_role, :edit_role, :create_role, :destroy_role]
 
-  # before_action do |c|
-  #   p c.action
-  # end
   # GET /manage/admins
   def index
-    return redirect_to manage_url, alert: "您没有权限" unless can?("index")
+    # return redirect_to manage_url, alert: "您没有权限" unless can?("index")
     @manage_admins = Manage::Admin.all
     @manage_roles  = Manage::Role.all
   end
@@ -106,9 +103,6 @@ class Manage::AdminsController < ManageController
 
   #创建角色
   def create_role
-    # # 没有权限则直接跳转回管理员列表
-    # return redirect_to manage_admins_url, alert: "您没有权限新建角色" unless can?("create_role")
-    # # 有权限则继续
     @manage_role = Manage::Role.new(name: params[:name])
     if @manage_role.save
       redirect_to manage_admins_url, notice: "新的角色 #{@manage_role.name} 创建成功！"
@@ -143,7 +137,6 @@ class Manage::AdminsController < ManageController
 
   #修改角色权限
   def edit_role
-    # redirect_to manage_admins_url, alert: "您没有权限编辑角色" unless can?("edit_role")
     @manage_role = Manage::Role.find(params[:id])
   end
 
@@ -162,9 +155,14 @@ class Manage::AdminsController < ManageController
     end
 
     def judge_permission
-      # p params[:action]
-      # p @_action_name
       unless can? @_action_name
+        if @_action_name == 'index'
+          if request.referer != nil
+            return redirect_to request.referer,alert: '您没有权限'
+          else
+            return redirect_to manage_url, alert: '您没有权限'
+          end
+        end
         redirect_to manage_admins_url, alert: '您没有权限'
       end
     end
