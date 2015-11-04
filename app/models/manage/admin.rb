@@ -23,10 +23,12 @@ class Manage::Admin < ActiveRecord::Base
   end
 
   def can_access?(action,controller)
+    #开发阶段超级管理员
+    return true if Rails.env.development? && is_super
     init_cache
     nodes = @privilege_cache[self.id]
     nodes ||= set_admin_privileges
-    nodes.include?(controller.to_s + '_' + action.to_s)
+    nodes.include?(controller.to_s + '_' + action.to_s) || access_white_list.include?(controller.to_s + '_' + action.to_s)
   end
 
   def with_access(privilege_name)
@@ -61,6 +63,9 @@ class Manage::Admin < ActiveRecord::Base
       node_names
     end
 
+    def access_white_list
+      ["index_index","admins_edit_self"]
+    end
 
   # 使用插件建立用户密码验证体系
   has_secure_password

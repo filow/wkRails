@@ -40,13 +40,6 @@ class ManageController < ApplicationController
         controller, action = item["path"].split('/')
         result << {text: item["text"], icon: item["icon"], options: {controller: 'manage/' + controller, action: action}}
       end
-      #如果没有查看管理员列表的权限则直接删掉这个nav
-      unless  @admin == nil || @admin.can_access?("index","admins")
-        result.delete_if{|r| r[:options][:controller]=='manage/admins' && r[:options][:action]=='index'}
-      end
-      result.each do |r|
-        p r[:options]
-      end
       result
     end
   end
