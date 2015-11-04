@@ -15,44 +15,66 @@
 #     title: something
 #     remark: something in detail
 admins:
-  list:
-    title: 查看管理员列表
+  index:
+    title:  查看管理员列表
     remark: 列出管理员，查看管理员的大致信息
-  add:
-    title: 添加管理员
+  new:
+    title:  添加管理员
     remark: 添加一个新的管理员账户
   edit:
-    title: 编辑信息
+    title:  编辑信息
     remark: 编辑管理员的基本信息，或者管理员的权限
   show:
-    title: 查看详细信息
+    title:  查看详细信息
     remark: 查看管理员详细信息
-  delete:
-    title: 删除管理员
+  destroy:
+    title:  删除管理员
     remark: 删除管理员
-  editRole:
-    title: 编辑角色权限
+  edit_role:
+    title:  编辑角色权限
     remark: 修改角色的权限，或者角色的名字
-  deleteRole:
-    title: 删除角色
+  destroy_role:
+    title:  删除角色
     remark: 删除角色
-  addRole:
-    title: 新建角色
+  create_role:
+    title:  新建角色
     remark: 新建一个角色
-  showRole:
-    title: 查看角色权限
+  show_role:
+    title:  查看角色权限
     remark: 查看角色的权限
 
-tests:
-  listtest:
-    title: 查看管理员列表test
-    remark: 列出管理员，查看管理员的大致信息
-  addtest:
-    title: 添加管理员test
-    remark: 添加一个新的管理员账户
-  edittest:
-    title: 编辑信息test
-    remark: 编辑管理员的基本信息，或者管理员的权限
-  showtest:
-    title: 查看详细信息test
-    remark: 查看管理员详细信息
+posts:
+  index:
+    title:  查看公告列表
+    remark: 查看所有的通知公告
+  show:
+    title:  查看公告详细
+    remark: 查看完整的通知公告
+  destroy:
+    title:  删除通知公告
+    remark: 删除通知公告
+
+users:
+  index:
+    title:  查看用户列表
+    remark: 查看全部用户
+
+creations:
+  index:
+    title:  查看作品列表
+    remark: 查看所有的作品
+
+comment:
+  index:
+    title: 查看评论列表
+    remark: 查看所有的评论
+
+judge:
+  index:
+    title:  查看作品评审
+    remark: 查看作品评审的主页
+
+cfg:
+  index:
+    title:  查看设置项列表
+    remark: 查看全部设置项列表

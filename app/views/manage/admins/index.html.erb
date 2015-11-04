@@ -1,17 +1,17 @@
 <h2>管理员列表</h2>
 <section id="btnGroup" data-base="<%= manage_admins_url %>">
-  <% if can_access?("add") %>
+  <% can?("new") do%>
     <a role="new">新建管理员</a>
   <% end %>
   <div class="btn-group" role="group">
-    <% if can_access?("show") %>
+    <%  can?("show") do %>
       <a role="show">查看权限</a>
     <% end %>
-    <% if can_access?("edit") %>
+    <% can?("edit") do %>
       <a role="edit"></a>
       <a role="toggle" target="manage_admin[is_forbidden]" data-icon="lock" data-button="warning">切换锁定</a>
     <% end %>
-    <% if can_access?("delete") %>
+    <% can?("destroy") do %>
       <a role="delete"></a>
     <% end %>
   </div>
@@ -83,22 +83,18 @@
             <%= bs_label_tag "关闭", "default" %>
           <% end %>
         </td>
-        <% if can_access?("showRole") %>
+        <% can?("show_role") do %>
           <td><a class="btn btn-success view_permissions" data-id="<%= r.id %>">查看权限</a></td>
         <% end %>
-        <% if can_access?("editRole") %>
           <td><%= link_to "编辑权限","/manage/roles/#{r.id}/permission",class: 'btn btn-warning' %></td>
-        <% end %>
-        <% if can_access?("deleteRole") %>
           <td>
             <%= form_tag("roles/#{r.id}",method: "delete",class: "form-group" )do  %>
               <%= submit_tag("删除",class: 'btn btn-danger',data: { confirm: '你确定要删除这个角色吗？' })%>
             <% end %>
           </td>
-        <% end %>
       </tr>
     <% end %>
-    <% if can_access?("addRole") %>
+    <% can?("create_role") do %>
       <tr>
         <%= form_tag("/manage/roles",method: "post") do %>
         <td colspan="2">

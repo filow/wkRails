@@ -4,6 +4,9 @@ class ManageController < ApplicationController
   before_action :set_nav
 
   def can?(action)
+    p params[:controller].split('/')[-1]
+    p action
+    p '----------------'
     @admin.can_access?(action, params[:controller].split('/')[-1])
   end
 
@@ -38,8 +41,11 @@ class ManageController < ApplicationController
         result << {text: item["text"], icon: item["icon"], options: {controller: 'manage/' + controller, action: action}}
       end
       #如果没有查看管理员列表的权限则直接删掉这个nav
-      unless Manage::Admin.find(session[:admin_id]).can_access?("list","admins")
+      unless  @admin == nil || @admin.can_access?("index","admins")
         result.delete_if{|r| r[:options][:controller]=='manage/admins' && r[:options][:action]=='index'}
+      end
+      result.each do |r|
+        p r[:options]
       end
       result
     end

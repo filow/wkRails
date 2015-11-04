@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     #新建/更新/删除角色
     get 'roles/:id' => 'admins#show_role'
     post 'roles' => 'admins#create_role'
-    get 'roles/:id/permission' => 'admins#edit_role_permission'
+    get 'roles/:id/permission' => 'admins#edit_role'
     patch 'roles/:id' => 'admins#update_role'
     delete 'roles/:id' => 'admins#destroy_role'
   end
