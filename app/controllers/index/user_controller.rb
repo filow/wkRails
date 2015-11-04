@@ -8,6 +8,11 @@ class Index::UserController < IndexController
     end
   end
 
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path
+  end
+
   def show
   end
 
@@ -20,7 +25,7 @@ class Index::UserController < IndexController
         redirect_to user_login_path, notice: "您的账户已被锁定"
       else    #为其登陆
         session[:user_id] = user.id
-        redirect_to root_path
+        redirect_to usercenter_path
       end
     else
       redirect_to user_login_path, notice: "用户名或密码错误，请重试"

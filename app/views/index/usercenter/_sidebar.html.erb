@@ -3,8 +3,8 @@
     <div class="box-header">头像</div>
     <div class="box-body">
       <div class="user_head">
-        <a href="{:U('userinfo')}"><img src="{:getAvatar($acc['avatar_large'])}" alt="头像" width="160" height="160"></a>
-        <a href="{:U('userinfo')}" id="user_name">{$acc.nickname}</a>
+        <a href="{:U('userinfo')}"><%= image_tag @user.avatar, alt: '用户头像' %></a>
+        <a href="{:U('userinfo')}" id="user_name"><%= @user.realname %></a>
       </div>
     </div>
   </div>
@@ -17,11 +17,11 @@
               <i class="icon-home"></i>用户中心首页
           <% end %>
         </li>
-        <li><a href="{:U('message')}"><i class="icon-comments"></i>消息箱
+        <li><a href="{:U('message')}"><i class="icon-envelope"></i>消息箱
           <span class="badge badge-info">{$msg_unread}</span></a></li>
         <li><a href="{:U('userInfo')}"><i class="icon-cog"></i>个人信息设置</a></li>
         <li><a href="{:U('OpusManage')}"><i class="icon-film"></i>我的作品</a></li>
-        <li><a href="{:U('OpusVote')}"><i class="icon-thumbs-o-up"></i>我投票过的作品</a></li>
+        <li><a href="{:U('OpusVote')}"><i class="icon-file"></i>我投票过的作品</a></li>
         <li><a href="{:U('OpusComment')}"><i class="icon-bullhorn"></i>我评论过的作品</a></li>
       </ul>
     </div>
