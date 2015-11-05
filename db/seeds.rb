@@ -20,7 +20,7 @@ if Manage::Admin.count == 0
     print '请输入管理员账户的姓名：'
     realname = STDIN.gets.chop
 
-    result = Manage::Admin.create(name: username, password: password, realname: realname)
+    result = Manage::Admin.create(name: username, password: password, realname: realname,is_super: true)
     if result.id.nil?
       puts "抱歉，您的输入有误：#{result.errors.full_messages.join('，')}"
     else

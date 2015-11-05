@@ -4,6 +4,9 @@ class ManageController < ApplicationController
   before_action :set_nav
   before_action :option_record ,only:[:create,:update,:destroy,:update_self,:create_role,:update_role,:destroy_role]
   def can?(action)
+    p params[:controller].split('/')[-1]
+    p action
+    p '----------------'
     @admin.can_access?(action, params[:controller].split('/')[-1])
   end
 

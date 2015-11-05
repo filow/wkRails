@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031064738) do
+ActiveRecord::Schema.define(version: 20151104111553) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20151031064738) do
     t.boolean  "is_forbidden",                default: false
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
+    t.boolean  "is_super",                    default: false
   end
 
   create_table "admins_roles", id: false, force: :cascade do |t|

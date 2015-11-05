@@ -1,8 +1,11 @@
 class Manage::AdminsController < ManageController
   before_action :set_manage_admin, only: [:show, :edit, :update, :destroy]
+  before_action :judge_permission, only: [:index, :show, :new, :edit, :destroy ,
+    :show_role, :edit_role, :create_role, :destroy_role]
 
   # GET /manage/admins
   def index
+    # return redirect_to manage_url, alert: "您没有权限" unless can?("index")
     @manage_admins = Manage::Admin.all
     @manage_roles  = Manage::Role.all
   end
@@ -49,15 +52,17 @@ class Manage::AdminsController < ManageController
 
   # POST /manage/admins
   def create
+    # 额外判定 没有权限则直接跳转回管理员列表
+    return redirect_to manage_admins_url, alert: "您没有权限新建管理员" unless can?("new")
+    #如果有权限则继续
     @manage_admin = Manage::Admin.new(manage_admin_params)
-
     if @manage_admin.save
       if params[:new_roles] == nil #如果没有传回数组，则当做没有角色
         redirect_to manage_admins_url, notice: "新的管理员 #{@manage_admin.name} 创建成功！"
       elsif @manage_admin.roles << Manage::Role.find(params[:new_roles])
         redirect_to manage_admins_url, notice: "新的管理员 #{@manage_admin.name} 创建成功！"
       else
-        redirect_to manage_admins_url, notice: "#{@manage_admin.errors[:name].first}"
+        redirect_to manage_admins_url, alert: "#{@manage_admin.errors[:name].first}"
       end
     else
       render :new
@@ -66,6 +71,9 @@ class Manage::AdminsController < ManageController
 
   # PATCH/PUT /manage/admins/1
   def update
+    #避免“切换锁定”跳过 admins#edit
+    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit")
+    #如果有权限则继续
     if @manage_admin.update(manage_admin_params)
       #如果成功更新了信息，并且没有更改锁定状态,则清空admin.roles，否则不更新admin.roles
       @manage_admin.roles.clear if manage_admin_params[:is_forbidden] == nil
@@ -74,7 +82,7 @@ class Manage::AdminsController < ManageController
       elsif @manage_admin.roles << Manage::Role.find(params[:new_roles])
         redirect_to manage_admins_url, notice: '修改角色成功'
       else
-        redirect_to manage_admins_url, notice: "#{@manage_admin.errors[:name].first}"
+        redirect_to manage_admins_url, alert: "#{@manage_admin.errors[:name].first}"
       end
     else
       render :edit
@@ -99,12 +107,15 @@ class Manage::AdminsController < ManageController
     if @manage_role.save
       redirect_to manage_admins_url, notice: "新的角色 #{@manage_role.name} 创建成功！"
     else
-      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"
+      redirect_to manage_admins_url, alert: "#{@manage_role.errors[:name].first}"
     end
   end
 
   #更新角色权限
   def update_role
+    #避免强制push表单
+    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit_role")
+
     @manage_role = Manage::Role.find(params[:id])
     @manage_role.nodes.clear
     if params[:new_nodes] == nil#如果没有传回数组，则当做没有权限
@@ -112,7 +123,7 @@ class Manage::AdminsController < ManageController
     elsif  @manage_role.nodes << Manage::Node.find(params[:new_nodes])
       redirect_to manage_admins_url, notice: '修改角色权限成功'
     else
-      redirect_to manage_admins_url, notice: "#{@manage_role.errors[:name].first}"
+      redirect_to manage_admins_url, alert: "#{@manage_role.errors[:name].first}"
     end
     @manage_role.save
   end
@@ -125,7 +136,7 @@ class Manage::AdminsController < ManageController
   end
 
   #修改角色权限
-  def edit_role_permission
+  def edit_role
     @manage_role = Manage::Role.find(params[:id])
   end
 
@@ -142,4 +153,15 @@ class Manage::AdminsController < ManageController
     def manage_role_params
       params.require(:manage_role).permit(:name, :is_enabled)
     end
+
+    def judge_permission
+      unless can? @_action_name
+        if request.referer != nil
+          return redirect_to request.referer,alert: '您没有访问此功能的权限'
+        else
+          return redirect_to manage_url, alert: '您没有访问此功能的权限'
+        end
+      end
+    end
+
 end
