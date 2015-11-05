@@ -18,6 +18,10 @@ class Manage::Admin < ActiveRecord::Base
   #更新用户信息前清空缓存
   before_update :clear_privilege_cache
 
+  def self.Spliter
+    '_'
+  end
+
   def child_nodes
      Manage::Node.joins(:roles).where("roles.id" => self.role_ids, "roles.is_enabled" => true).uniq
   end
@@ -28,7 +32,7 @@ class Manage::Admin < ActiveRecord::Base
     init_cache
     nodes = @privilege_cache[self.id]
     nodes ||= set_admin_privileges
-    nodes.include?(controller.to_s + '_' + action.to_s) || access_white_list.include?(controller.to_s + '_' + action.to_s)
+    nodes.include?(controller.to_s + self.Spliter + action.to_s) || access_white_list.include?(controller.to_s + self.Spliter + action.to_s)
   end
 
   def with_access(privilege_name)
@@ -56,7 +60,7 @@ class Manage::Admin < ActiveRecord::Base
 
     def set_admin_privileges
       nodes = child_nodes
-      node_names = nodes.collect{|node| node.controller + "_" + node.action }
+      node_names = nodes.collect{|node| node.controller + self.Spliter + node.action }
       init_cache
 
       @privilege_cache[self.id] = node_names
