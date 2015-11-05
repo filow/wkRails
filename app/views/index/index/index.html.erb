@@ -84,7 +84,7 @@
                   </div>
                   <div class="user_button">
                     <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
-                    <a href="{:U('User/logout')}" class="btn btn-warning">退出登录</a>
+                    <%= link_to '退出登陆', user_logout_path, class: "btn btn-warning", method: :delete %>
                   </div>
                   <div class="clear"></div>
                 </div>

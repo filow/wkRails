@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'user/reg'
     get 'user/login'
     post 'user/login' => 'user#create'
+    delete 'user/logout' => 'user#destroy'
     get 'user/:name' => 'user#show'
   end
 
