@@ -1,226 +1,109 @@
-<extend name="Common:base" />
-<block name="title">用户注册</block>
-<block name="extra_css">
-	<link rel="stylesheet" href="__PUBLIC__/index/css/usercenter.css">
-	<style>
-		.error{border-color: red !important;}
-		input{
-			padding: 10px !important;
-			font-size: 16px !important;
-			color: #12376F !important;
-			font-family: "微软雅黑","黑体","宋体";
-		}
-		.largefont{
-			font-size: 16px;
-			text-align: right !important;
-			color: #080B64;
-			padding-top: 20px !important;
-		}
-		tr > td:nth-child(1){
-			font-size: 16px;
-			text-align: right;
-			color: #080B64;
-			padding-top: 20px;
-		}
-		#btn-submit{
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			text-align: center;
-			color: #FFF !important;
-			padding: 15px 50px !important;
-		}
-	</style>
-</block>
-<block name="content">
 <div class="usercenter">
 	<div class="row-fluid">
-		<include file="sidebar" />
 		<div class="main span12">
 			<div class="box">
 				<div class="box-header">用户注册</div>
 				<div class="box-body">
-					<form action="{:U('addUser')}" method="post" id="form">
-					<table class="table">
-						<thead>
-							<th width="300"></th>
-							<th></th>
-							<th width="300"></th>
-						</thead>
-						<tr>
-							<td>用户ID(必填)</td>
-							<td><input type="text" name="uid" id="uid" value="{$data.uid}"  /></td>
-							<td>
-								<div class="alert alert-error hide" id="uiderr">
-									格式错误
-								</div>
-								<div class="alert alert-success hide" id="uidsuccess">
-									该用户名可以使用
-								</div>
-								<div class="alert alert-info notify">
-									用户ID由5位以上的大小写字母和数字组成，不允许重复,设定后不允许更改
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>用户姓名(必填)</td>
-							<td>
-								<input type="text" name="nickname" value="{$data.nickname}" />
-							</td>
-							<td>
-
-								<div class="alert alert-info notify Validform_label">
-									请填写您的真实姓名
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>用户密码(必填)</td>
-							<td><input type="text" name="password" data-type="*6-16" errormsg="密码要求6位以上,16位以下" /></td>
-							<td>
-								<div class="alert alert-info notify">
-									密码要求6位以上,16位以下
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>性别</td>
-							<td>
-								<select name="sex">
-									<option value="0" selected>男</option>
-									<option value="1">女</option>
-								</select>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>用户类型</td>
-							<td>
-					<select name="belong_type" class="belong_type">
-						<option value="1">学生组</option>
-						<option value="0">教师组</option>
-					</select>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>所属单位</td>
-							<td class="depart_td">
-					<div class="depart" style="display:none;">学院(必填)：<input type="text" name="department" value="" /></div>
-					<div class="college">学院(必填)：<input type="text" name="college"  placeholder="学院" /></div>
-					<div class="profession">专业(选填)：<input type="text" name="profession" placeholder="专业" /></div>
-					<div class="grade" >年级(选填)：<input type="text" name="grade" placeholder="年级" /></div>
-							</td>
-							<td>
-								<div class="alert alert-info notify">
-									请填写对应单位的全称。<br>
-									如果您是本校教师，则只需要填写学院即可，否则请将专业和年级也一并填好<br><br>
-									（年级填写示例：12级本科生/12级研究生）
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>联系电话</td>
-							<td><input type="text" name="phone" value="{$data.phone}" /></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>电子邮箱</td>
-							<td><input type="text" name="email" data-type="e" /></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="3">
-								<input type="submit" value="提交" class="btn btn-primary btn-large" id="btn-submit" onclick="return checkform()" />
-							</td>
-						</tr>
-					</table>
-					</form>
+                  <%= form_errors @user %>
+                  <%= form_for(@user, url: user_reg_path, html: {id: 'form'}) do |f| %>
+                      <table class="table">
+                        <thead>
+                        <th width="300"></th>
+                        <th></th>
+                        <th width="300"></th>
+                        </thead>
+                        <tr>
+                          <td><%= f.label :name, class: 'essential' %></td>
+                          <td><%= f.text_field :name %></td>
+                          <td>
+                            <div class="alert alert-error hide" id="uiderr">
+                              格式错误
+                            </div>
+                            <div class="alert alert-success hide" id="uidsuccess">
+                              该用户名可以使用
+                            </div>
+                            <div class="alert alert-info notify">
+                              用户ID由5位以上的大小写字母和数字组成，不允许重复,设定后不允许更改
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :realname, class: 'essential' %></td>
+                          <td><%= f.text_field :realname %></td>
+                          <td>
+                            <div class="alert alert-info notify Validform_label">
+                              请填写您的真实姓名
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :password, class: 'essential' %></td>
+                          <td><%= f.text_field :password %></td>
+                          <td>
+                            <div class="alert alert-info notify">
+                              密码要求6位以上,16位以下
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :avatar %></td>
+                          <td><%= f.file_field :avatar %></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :sex %></td>
+                          <td>
+                            <%= f.select :sex, [['男', 'male'], ['女', 'female']] %>
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :group %></td>
+                          <td>
+                            <%= f.select :group, [['学生组', 'student'], ['老师组', 'teacher']] %>
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :department %></td>
+                          <td class="depart_td">
+                            <div class="depart" style="display:none;">学院(必填)：<input type="text" name="department" value="" /></div>
+                            <div class="college">学院(必填)：<input type="text" name="college"  placeholder="学院" /></div>
+                            <div class="profession">专业(选填)：<input type="text" name="profession" placeholder="专业" /></div>
+                            <div class="grade" >年级(选填)：<input type="text" name="grade" placeholder="年级" /></div>
+                          </td>
+                          <td>
+                            <div class="alert alert-info notify">
+                              请填写对应单位的全称。<br>
+                              如果您是本校教师，则只需要填写学院即可，否则请将专业和年级也一并填好<br><br>
+                              （年级填写示例：12级本科生/12级研究生）
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :phone, class: 'essential' %></td>
+                          <td><%= f.text_field :phone %></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :email %></td>
+                          <td><%= f.text_field :email %></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><%= f.label :idcard %></td>
+                          <td><%= f.text_field :idcard %></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3">
+                            <input type="submit" value="提交" class="btn btn-primary btn-large" id="btn-submit" onclick="return checkform()" />
+                          </td>
+                        </tr>
+                      </table>
+                  <% end %>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-</block>
-<block name="extra_js">
-<script>
-function checkform(){
-	var uid=$(form.uid).val();
-	if(uid.length<5){
-		alert("用户ID位数必须大于5位！");
-		$(form.uid).focus();
-		return false;
-	}
-	var nickname=$(form.nickname).val();
-	if(nickname.length==0){
-		alert("必须填写用户姓名！");
-		$(form.nickname).focus();
-		return false;
-	}
-	var password=$(form.password).val();
-	if(password.length<6){
-		alert("密码长度必须大于6！");
-		$(form.password).focus();
-		return false;
-	}
-	var belong_type=$(form.belong_type).val();
-	var department=$(form.department).val();
-	if(belong_type=="1"){
-		if($(form.college).val().length==0){
-			alert("请填写学院！");
-			$(form.college).focus();
-			return false;
-		}
-	}else{
-		if(department.length==0){
-			alert("请填写单位！");
-			$(form.department).focus();
-			return false;
-		}
-	}
-
-}
-$(document).ready(function(){
-	$('.belong_type').change(function(){
-		node=$(".depart_td");
-		if($(this).val()=="1"){
-			node.find('.depart').hide();
-			node.find('.college').show();
-			node.find('.profession').show();
-			node.find('.grade').show();
-		}else{
-			node.find('.depart').show();
-			node.find('.college').hide();
-			node.find('.profession').hide();
-			node.find('.grade').hide();
-		}
-	});
-	$('#uid').focusout(function(){
-		var selector=$(this);
-		var val=selector.val();
-		if(val.length<5){
-			selector.addClass('error');
-			$('#uiderr').html("您输入的uid位数不足5位");
-			$('#uiderr').removeClass('hide');
-			$('#uidsuccess').addClass('hide');
-		}else{
-			url="{:U('checkUid')}"+"?uid="+$(this).val();
-			$.get(url,function (data){
-				if(data=="0"){
-					selector.removeClass('error');
-					$('#uiderr').addClass('hide');
-					$('#uidsuccess').removeClass('hide');
-				}else if(data=="1"){
-					selector.addClass('error');
-					$('#uiderr').html("该用户名已存在");
-					$('#uiderr').removeClass('hide');
-					$('#uidsuccess').addClass('hide');
-				}
-			});
-		}
-	});
-	$('tr > td:nth-child(1)').addClass('largefont');
-});
-</script>
-</block>
