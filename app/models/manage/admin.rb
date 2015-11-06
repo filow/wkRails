@@ -40,7 +40,7 @@ class Manage::Admin < ActiveRecord::Base
     init_cache
     nodes = @privilege_cache[self.id]
     nodes ||= set_admin_privileges
-    nodes.include?(self.full(controller, action)) || access_white_list.include?(self.full(controller, action))
+    nodes.include?(self.class.full(controller, action)) || access_white_list.include?(self.class.full(controller, action))
   end
 
   def with_access(privilege_name)

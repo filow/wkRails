@@ -28,6 +28,12 @@ cfgs_poster:
   remark: 海报图片
   field_type: img
 
+cfgs_version:
+  key: current_version
+  value: 1
+  remark: 友情链接
+  field_type: number
+  
 cfgs_post:
   key: broadcast_passage
   value: 1
