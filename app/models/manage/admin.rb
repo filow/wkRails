@@ -22,6 +22,14 @@ class Manage::Admin < ActiveRecord::Base
     '_'
   end
 
+  def self.full(controller, action)
+    controller.to_s + self.Spliter + action.to_s
+  end
+
+  def self.split(full_path)
+    full_path.split(self.Spliter)
+  end
+
   def child_nodes
      Manage::Node.joins(:roles).where("roles.id" => self.role_ids, "roles.is_enabled" => true).uniq
   end
@@ -32,7 +40,7 @@ class Manage::Admin < ActiveRecord::Base
     init_cache
     nodes = @privilege_cache[self.id]
     nodes ||= set_admin_privileges
-    nodes.include?(controller.to_s + self.Spliter + action.to_s) || access_white_list.include?(controller.to_s + self.Spliter + action.to_s)
+    nodes.include?(self.full(controller, action)) || access_white_list.include?(self.full(controller, action))
   end
 
   def with_access(privilege_name)
@@ -60,7 +68,7 @@ class Manage::Admin < ActiveRecord::Base
 
     def set_admin_privileges
       nodes = child_nodes
-      node_names = nodes.collect{|node| node.controller + self.Spliter + node.action }
+      node_names = nodes.collect{|node| self.full(node.controller, node.action) }
       init_cache
 
       @privilege_cache[self.id] = node_names

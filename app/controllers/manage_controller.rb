@@ -8,11 +8,11 @@ class ManageController < ApplicationController
 
   def can?(action, controller=nil)
     controller ||= params[:controller].split('/')[-1]
-    key = controller + Manage::Admin.Spliter + action.to_s
+    key = Manage::Admin.full(controller, action)
     # 如果存在别名，就映射到对应的另外一个权限上
     if @@permission_alias_store[key]
       new_key = @@permission_alias_store[key]
-      action = new_key.split('_')[-1]
+      _, action = Manage::Admin.split(new_key)
     end
     @admin.can_access?(action, controller)
   end
@@ -23,10 +23,9 @@ class ManageController < ApplicationController
     # self = Manage::AdminController
     # self.to_s.underscore = "manage/admins_controller"
     controller = self.to_s.underscore.split(/[\/_]/)[-2]
-    src_full = controller + Manage::Admin.Spliter + src.to_s
-    dest_full = controller + Manage::Admin.Spliter + dest.to_s
+    src_full = Manage::Admin.full(controller, src)
+    dest_full = Manage::Admin.full(controller, dest)
     @@permission_alias_store[dest_full] = src_full
-    p @@permission_alias_store
   end
 
   private
