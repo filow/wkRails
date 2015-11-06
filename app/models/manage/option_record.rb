@@ -1,5 +1,5 @@
 class Manage::OptionRecord < ActiveRecord::Base
-  belongs_to :admins
+  belongs_to :admin
   before_save :get_params_to_json
   before_save :desc
   attr_accessor :hash_params

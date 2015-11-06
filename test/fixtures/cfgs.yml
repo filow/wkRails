@@ -14,6 +14,11 @@ cfgs_another:
 
 cfgs_links:
   key: links
+  value:
+    "河海大学|http://www.hhu.edu.cn/
+    河海大学远程与继续教育学院|http://jjy.hhu.edu.cn/
+    全国微课程大赛|http://www.iweike.org.cn/
+    全国高校微课教学比赛|http://weike.enetedu.com/"
   remark: 友情链接
   field_type: url
 
@@ -21,4 +26,10 @@ cfgs_poster:
   key: broadcast_img
   value: poster.jpg
   remark: 海报图片
+  field_type: img
+
+cfgs_post:
+  key: broadcast_passage
+  value: 1
+  remark: 海报文章
   field_type: img
