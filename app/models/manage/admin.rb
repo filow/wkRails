@@ -43,14 +43,14 @@ class Manage::Admin < ActiveRecord::Base
     nodes.include?(self.class.full(controller, action)) || access_white_list.include?(self.class.full(controller, action))
   end
 
-  def with_access(privilege_name)
-    if block_given? && can_access?(privilege_name)
+  def with_access(action, controller)
+    if block_given? && can_access?(action, controller)
       yield
     end
   end
 
-  def without_access(privilege_name)
-    if block_given? && !can_access?(privilege_name)
+  def without_access(action, controller)
+    if block_given? && !can_access?(action, controller)
       yield
     end
   end
