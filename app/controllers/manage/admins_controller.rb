@@ -1,39 +1,28 @@
 class Manage::AdminsController < ManageController
   before_action :set_manage_admin, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission, except: [:edit_self, :update_self]
 
+  permission_alias :new, :create
+  permission_alias :edit, :update
   # GET /manage/admins
   def index
-    unless can?("list")
-      # 需要修改，合适的反馈错误的方案
-      @manage_admins = Manage::Admin.all
-      @manage_roles  = Manage::Role.all
-    else
-      @manage_admins = Manage::Admin.all
-      @manage_roles  = Manage::Role.all
-    end
+    # return redirect_to manage_url, alert: "您没有权限" unless can?("index")
+    @manage_admins = Manage::Admin.all
+    @manage_roles  = Manage::Role.all
   end
 
   # GET /manage/admins/1
   def show
-    unless can?("show")
-      redirect_to manage_admins_url, alert: "您没有该项权限"
-    else
-      @manage_admin_permissions = @manage_admin.child_nodes
-    end
+    @manage_admin_permissions = @manage_admin.child_nodes
   end
 
   # GET /manage/admins/new
   def new
-    unless can?("add")
-      redirect_to manage_admins_url, alert: "您没有该项权限"
-    else
-      @manage_admin = Manage::Admin.new
-    end
+    @manage_admin = Manage::Admin.new
   end
 
   # GET /manage/admins/1/edit
   def edit
-    redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit")
   end
 
   def edit_self
@@ -64,8 +53,6 @@ class Manage::AdminsController < ManageController
 
   # POST /manage/admins
   def create
-    # 没有权限则直接跳转回管理员列表
-    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("add")
     #如果有权限则继续
     @manage_admin = Manage::Admin.new(manage_admin_params)
     if @manage_admin.save
@@ -83,8 +70,6 @@ class Manage::AdminsController < ManageController
 
   # PATCH/PUT /manage/admins/1
   def update
-    #避免“切换锁定”跳过 admins#edit
-    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit")
     #如果有权限则继续
     if @manage_admin.update(manage_admin_params)
       #如果成功更新了信息，并且没有更改锁定状态,则清空admin.roles，否则不更新admin.roles
@@ -103,12 +88,8 @@ class Manage::AdminsController < ManageController
 
   # DELETE /manage/admins/1
   def destroy
-    unless can?("delete")
-      redirect_to manage_admins_url, alert: '您没有该项权限'
-    else
-      @manage_admin.destroy
-      redirect_to manage_admins_url, notice: '管理员账户删除成功'
-    end
+    @manage_admin.destroy
+    redirect_to manage_admins_url, notice: '管理员账户删除成功'
   end
 
   #查看角色权限
@@ -129,6 +110,9 @@ class Manage::AdminsController < ManageController
 
   #更新角色权限
   def update_role
+    #避免强制push表单
+    return redirect_to manage_admins_url, alert: "您没有该项权限" unless can?("edit_role")
+
     @manage_role = Manage::Role.find(params[:id])
     @manage_role.nodes.clear
     if params[:new_nodes] == nil#如果没有传回数组，则当做没有权限
@@ -149,7 +133,7 @@ class Manage::AdminsController < ManageController
   end
 
   #修改角色权限
-  def edit_role_permission
+  def edit_role
     @manage_role = Manage::Role.find(params[:id])
   end
 
@@ -166,4 +150,15 @@ class Manage::AdminsController < ManageController
     def manage_role_params
       params.require(:manage_role).permit(:name, :is_enabled)
     end
+
+    def check_permission
+      unless can? params[:action]
+        if request.referer != nil
+          redirect_to request.referer,alert: '您没有访问此功能的权限'
+        else
+          redirect_to manage_url, alert: '您没有访问此功能的权限'
+        end
+      end
+    end
+
 end

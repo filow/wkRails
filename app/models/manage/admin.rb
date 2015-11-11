@@ -18,15 +18,29 @@ class Manage::Admin < ActiveRecord::Base
   #更新用户信息前清空缓存
   before_update :clear_privilege_cache
 
+  def self.Spliter
+    '_'
+  end
+
+  def self.full(controller, action)
+    controller.to_s + self.Spliter + action.to_s
+  end
+
+  def self.split(full_path)
+    full_path.split(self.Spliter)
+  end
+
   def child_nodes
      Manage::Node.joins(:roles).where("roles.id" => self.role_ids, "roles.is_enabled" => true).uniq
   end
 
   def can_access?(action,controller)
+    #开发阶段超级管理员
+    return true if Rails.env.development? && is_super
     init_cache
     nodes = @privilege_cache[self.id]
     nodes ||= set_admin_privileges
-    nodes.include?(controller.to_s + '_' + action.to_s)
+    nodes.include?(self.class.full(controller, action)) || access_white_list.include?(self.class.full(controller, action))
   end
 
   def with_access(privilege_name)
@@ -54,13 +68,16 @@ class Manage::Admin < ActiveRecord::Base
 
     def set_admin_privileges
       nodes = child_nodes
-      node_names = nodes.collect{|node| node.controller + "_" + node.action }
+      node_names = nodes.collect{|node| self.full(node.controller, node.action) }
       init_cache
 
       @privilege_cache[self.id] = node_names
       node_names
     end
 
+    def access_white_list
+      ["index_index","admins_edit_self"]
+    end
 
   # 使用插件建立用户密码验证体系
   has_secure_password

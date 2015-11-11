@@ -29,18 +29,20 @@
         </header>
         <ul class="nav">
           <% @navs.each do |nav| %>
-            <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
-              <li class="active">
-                <a href="<%= url_for nav[:options] %>" class="link">
-                  <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i>
-                  <span><%= nav[:text] %></span>
-                </a>
-              </li>
-            <% else %>
-              <li>
-                <a href="<%= url_for nav[:options] %>" class="link">
-                <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
-              </li>
+            <% can?(nav[:options][:action], nav[:options][:controller]) do %>
+              <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
+                <li class="active">
+                  <a href="<%= url_for nav[:options] %>" class="link">
+                    <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i>
+                    <span><%= nav[:text] %></span>
+                  </a>
+                </li>
+              <% else %>
+                <li>
+                  <a href="<%= url_for nav[:options] %>" class="link">
+                  <i class="glyphicon glyphicon-<%= nav[:icon] %>"></i> <%= nav[:text] %></a>
+                </li>
+              <% end %>
             <% end %>
           <% end %>
         </ul>
@@ -61,9 +63,7 @@
         <% end %>
         <%= yield %>
       </main>
-      <%= debug(params) if Rails.env.development? %>
     </div>
-
 
     <%= javascript_include_tag 'manage' %>
     <%= javascript_include_tag params[:controller] %>

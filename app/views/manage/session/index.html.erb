@@ -12,33 +12,50 @@
 
 </head>
 <body>
-  <h1>用户登录</h1>
-  <% if flash[:notice] %>
-    <div class="alert alert-warning">
-      <%= flash[:notice] %>
-      <i class="icon-times removing-tag"></i><i class="icon-white"></i>
-    </div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
-  <% unless @forbidden %>
-    <%= form_tag manage_login_path do %>
-      <%= text_field_tag :username, session[:last_login_user], autofocus: true, placeholder:"请输入用户名" %>
-      <%= password_field_tag :password, '',placeholder:"请输入密码" %>
-
-      <% if @show_vcode %>
-      验证码
-      <%= text_field_tag :vcode, '' %>
-
-      <%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %>
-      <% end %>
-
-      <%= submit_tag '登录' %>
+  <div id="box">
+    <header>用户登录</header>
+    <div class="login_main">
+    <% if flash[:notice] %>
+      <div class="alert alert-warning">
+        <%= flash[:notice] %>
+        <i class="icon-times removing-tag"></i><i class="icon-white"></i>
+      </div>
     <% end %>
-<% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% unless @forbidden %>
+      <%= form_tag manage_login_path do %>
+        <div class="form-field">
+          <label for="username">用户名</label>
+          <%= text_field_tag :username, session[:last_login_user], autofocus: true, placeholder:"请输入用户名",class: 'form-control' %>
+        </div>
+        <div class="form-field">
+          <label for="password">密码</label>
+          <%= password_field_tag :password, '',placeholder:"请输入密码",class: 'form-control' %>
+        </div>
+
+        <% if @show_vcode %>
+        <div class="form-field">
+          <label for="vcode">验证码</label>
+          <div class="row">
+            <div class="col-md-5"><%= image_tag manage_vcode_path(format: :png),id:"vcode",onclick:"this.src=\"#{manage_vcode_url(format: :png)}?rand=\"+Math.random()" %></div>
+            <div class="col-md-7"><%= text_field_tag :vcode, '',class: 'form-control' %></div>
+          </div>
+
+
+        </div>
+        <% end %>
+        <hr>
+        <%= submit_tag '登录',class: 'btn btn-block btn-primary' %>
+        <a href="<%= root_url %>" class="btn btn-block btn-default">返回首页</a>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+
 
 </body>
 <%= javascript_include_tag 'manage' %>

@@ -34,6 +34,8 @@ class Cfg < ActiveRecord::Base
       self.where(key: key).first
     end
 
+    logger.error("设置 - #{name}不存在，请检查数据库中是否有该项目")
+
     if result.field_type == 'img'   #处理图片类型的设置项
       uploader = PosterUploader.new
       unless result.value.blank?

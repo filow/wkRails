@@ -3,8 +3,29 @@ class ManageController < ApplicationController
   before_action :check_login
   before_action :set_nav
   before_action :option_record ,only:[:create,:update,:destroy,:update_self,:create_role,:update_role,:destroy_role]
-  def can?(action)
-    @admin.can_access?(action, params[:controller].split('/')[-1])
+
+  @@permission_alias_store = Hash.new
+
+  def can?(action, controller=nil)
+    controller ||= params[:controller].split('/')[-1]
+    key = Manage::Admin.full(controller, action)
+    # 如果存在别名，就映射到对应的另外一个权限上
+    if @@permission_alias_store[key]
+      new_key = @@permission_alias_store[key]
+      _, action = Manage::Admin.split(new_key)
+    end
+    @admin.can_access?(action, controller)
+  end
+
+  protected
+  # 设置权限别名，比如让检查dest的
+  def self.permission_alias(src, dest)
+    # self = Manage::AdminController
+    # self.to_s.underscore = "manage/admins_controller"
+    controller = self.to_s.underscore.split(/[\/_]/)[-2]
+    src_full = Manage::Admin.full(controller, src)
+    dest_full = Manage::Admin.full(controller, dest)
+    @@permission_alias_store[dest_full] = src_full
   end
 
   private

@@ -5,17 +5,27 @@ Rails.application.routes.draw do
 
   scope module: 'index' do
     resources :user,only:[:edit]
+    #主页
     get '/' => 'index#index'
+    #前台查询
     get '/search' => 'index#search', as: 'search'
+    #通知公告
     get '/passage/:id' => 'passage#show', as: 'passage'
+
     get 'creations' => 'creation#index', as: 'creations'
     get 'creations/:id' => 'creation#show', as: 'creation'
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
+    #用户中心
     get 'usercenter' => 'usercenter#index'
+    #用户注册
     get 'user/reg'
+    post 'user/reg' => 'user#create'
+    #登陆控制
     get 'user/login'
-    post 'user/login' => 'user#create'
+    post 'user/login' => 'user#do_login'
+    delete 'user/logout' => 'user#logout'
+
     get 'user/:name' => 'user#show'
   end
 
@@ -59,7 +69,7 @@ Rails.application.routes.draw do
     #新建/更新/删除角色
     get 'roles/:id' => 'admins#show_role'
     post 'roles' => 'admins#create_role'
-    get 'roles/:id/permission' => 'admins#edit_role_permission'
+    get 'roles/:id/permission' => 'admins#edit_role'
     patch 'roles/:id' => 'admins#update_role'
     delete 'roles/:id' => 'admins#destroy_role'
   end
