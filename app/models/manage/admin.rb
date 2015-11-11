@@ -68,7 +68,7 @@ class Manage::Admin < ActiveRecord::Base
 
     def set_admin_privileges
       nodes = child_nodes
-      node_names = nodes.collect{|node| self.full(node.controller, node.action) }
+      node_names = nodes.collect{|node| self.class.full(node.controller, node.action) }
       init_cache
 
       @privilege_cache[self.id] = node_names
