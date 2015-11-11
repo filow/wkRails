@@ -1,8 +1,14 @@
 <div class="slidebox">
   <div id="poster_slide" class="carousel slide poster_slide">
     <div class="carousel-inner">
-      <div class="active item"><%= image_tag 'index/poster.jpg' %></div>
-      <div class="item"><%= image_tag 'index/poster2.jpg' %></div>
+      <% @posters.each_with_index do |x, index| %>
+          <% if index == 0 %>
+              <div class="active item"><%= image_tag x %></div>
+          <% else %>
+              <div class="item"><%= image_tag x %></div>
+          <% end %>
+      <% end %>
+
     </div>
     <a class="carousel-control left" href="#poster_slide" data-slide="prev">&lsaquo;</a>
     <a class="carousel-control right" href="#poster_slide" data-slide="next">&rsaquo;</a>

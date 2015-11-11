@@ -1,6 +1,12 @@
 class Index::IndexController < IndexController
   def index
     @posts = Post.valid_posts.order(is_top: :desc, publish_at: :desc, id: :desc).select(:id, :title, :publish_at).limit(6)
+
+    #下面处理海报列表
+    @posters = Cfg.get_all('broadcast_img').reject{|x| x.empty?}
+    if @posters.empty?
+      @posters.push('index/poster.jpg')
+    end
   end
 
   def search
