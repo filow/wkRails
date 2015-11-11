@@ -34,7 +34,7 @@ class Cfg < ActiveRecord::Base
       self.where(key: key).first
     end
 
-    logger.error("设置 - #{name}不存在，请检查数据库中是否有该项目")
+    logger.error("设置 - #{name}不存在，请检查数据库中是否有该项目") if result.nil?
 
     if result.field_type == 'img'   #处理图片类型的设置项
       uploader = PosterUploader.new
@@ -44,6 +44,10 @@ class Cfg < ActiveRecord::Base
       end
     end
     return result.value if result
+  end
+
+  def self.get_all(name, force_refresh = false)
+    self.where('`key` like ?', "#{name}%").select(:key).collect{|x| Cfg.get(x.key)}
   end
 
   def update(attributes)
@@ -77,7 +81,7 @@ class Cfg < ActiveRecord::Base
 
 private
   def refresh_cache
-    c_key = key.to_s.upcase
+    c_key = key.to_s.downcase
     @@config_cache[c_key] = nil
   end
 end
