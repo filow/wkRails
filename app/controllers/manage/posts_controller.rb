@@ -1,6 +1,10 @@
 class Manage::PostsController < ManageController
   before_action :set_manage_post, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission
 
+  permission_alias :new, :create
+  permission_alias :edit, :update
+  
   # GET /manage/posts
   def index
     @posts = Post.order(publish_at: :desc).page(params[:page])

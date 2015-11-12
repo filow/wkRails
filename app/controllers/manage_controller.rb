@@ -17,6 +17,16 @@ class ManageController < ApplicationController
     @admin.can_access?(action, controller)
   end
 
+  def check_permission
+    unless can? params[:action]
+      if request.referer != nil
+        redirect_to request.referer,alert: '您没有访问此功能的权限'
+      else
+        redirect_to manage_url, alert: '您没有访问此功能的权限'
+      end
+    end
+  end
+
   protected
   # 设置权限别名，比如让检查dest的
   def self.permission_alias(src, dest)
