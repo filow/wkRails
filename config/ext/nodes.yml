@@ -96,6 +96,6 @@ cfg:
   index:
     title:  查看设置项
     remark: 查看全部设置项列表
-  edit:
+  update:
     title: 修改系统设置
     remark: 修改系统设置
