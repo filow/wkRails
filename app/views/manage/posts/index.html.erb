@@ -1,12 +1,20 @@
 <h2>通知公告</h2>
 <section id="btnGroup" data-base="<%= manage_posts_url %>">
-  <a role="new">新建通知公告</a>
+  <% can?("new") do%>
+    <a role="new">新建通知公告</a>
+  <% end %>
   <div class="btn-group" role="group">
-    <a role="show">预览</a>
-    <a role="edit"></a>
-    <a role="toggle" target="post[is_hide]">切换隐藏</a>
-    <a role="toggle" target="post[is_top]" data-icon="arrow-up" data-button="warning">切换置顶</a>
-    <a role="delete"></a>
+    <%  can?("show") do %>
+      <a role="show">预览</a>
+    <% end %>
+    <%  can?("edit") do %>
+      <a role="edit"></a>
+      <a role="toggle" target="post[is_hide]">切换隐藏</a>
+      <a role="toggle" target="post[is_top]" data-icon="arrow-up" data-button="warning">切换置顶</a>
+    <% end %>
+    <%  can?("destroy") do %>
+      <a role="delete"></a>
+    <% end %>
   </div>
 </section>
 
