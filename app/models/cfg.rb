@@ -46,6 +46,10 @@ class Cfg < ActiveRecord::Base
     return result.value if result
   end
 
+  def self.version
+    self.get('current_version').to_i
+  end
+
   def self.get_all(name, force_refresh = false)
     self.where('`key` like ?', "#{name}%").select(:key).collect{|x| Cfg.get(x.key)}
   end

@@ -21,6 +21,17 @@ class Manage::Creation < ActiveRecord::Base
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
   end
 
+  # 筛选出所有目前在前台展示的作品
+  def self.onshow
+    where(status: self.statuses[:published]).where(version: Cfg.version)
+
+  end
+
+
+  def self.ranklist
+    onshow.order(popularity: :desc, vote_count: :desc, created_at: :desc)
+  end
+
   #生成作品作者组成的字符串
   def authors_str
     names = self.creation_authors.select 'name'
@@ -37,6 +48,7 @@ class Manage::Creation < ActiveRecord::Base
     }
     t[self.status.to_sym]
   end
+
 
   private
     #生成简介

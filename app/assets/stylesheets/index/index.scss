@@ -303,136 +303,147 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 
 
 /******** 排行榜 *********/
-.hot_author_box,.hot_work_box{
-	background-color: #fafafa;
-	border-radius: 5px;
-	margin: 20px 0;
-	padding: 10px;
-	border: 1px solid #e5e6e6;
-	min-height: 150px;
-	hr{
-		margin: 2px;
-		border-top: 1px solid #E9E9E9;
-		border-bottom: 1px solid #FFF;
-	}
-		ul{
-		margin: 0;
-		li{
-			list-style: none;
-			table{
-				width: 100%;
-				.workname{
-					padding-left: 15px;
-					a{
-						color: #646464;
-						font-size: 13px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block;
-            white-space: nowrap;
-						width:220px;
-					}
 
-				}
-				.workauthor{
-					color: #bcbcbc;
-					margin-right: 25px;
-					padding-right: 20px;
-					text-align: right;
-					font-size: 13px;
-				}
-			}
-		}
-	}
-	.hot_box_title{margin: 10px;}
+.ranklist{
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #e5e6e6;
+  box-shadow: 0 0 5px #E2E2E2;
+  min-height: 150px;
+  .video_thumb {
+
+    height: 108px;
+    width: 192px;
+    margin: 4px auto;
+    display: block;
+  }
+  hr{
+    margin: 2px auto;
+    border-top: 1px solid #E9E9E9;
+    border-bottom: 1px solid #FFF;
+  }
+  table.hot_work{
+    a {
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    }
+    .workname a {
+      color: #646464;
+      width: 180px;
+    }
+    .workauthor a {
+      color: #bcbcbc;
+      text-align: right;
+      width: 95px;
+    }
+  }
+  .hot_box_title{margin: 10px;}
 }
 .hot_author_box{
 
-	.top_author_headphoto{width: 70px; height: 70px;}
-	.top_author{
-		padding: 8px;
-		.author_name{
-			color: #121212 !important;
-		}
-		.author_info{
-			margin-left: 83px;
-			margin-top: -72px;
-			a{
-				display: block;
-				color: #707070;
-				padding: 2px 0;
-				span{
-					float: right;
-					strong{
-						color: #d42020;
-					}
-				}
-			}
-		}
-	}
+  .top_author_headphoto{width: 70px; height: 70px;}
+  .top_author{
+    padding: 8px;
+    .author_name{
+      color: #121212 !important;
+    }
+    .author_info{
+      margin-left: 83px;
+      margin-top: -72px;
+      a{
+        display: block;
+        color: #707070;
+        padding: 2px 0;
+        span{
+          float: right;
+          strong{
+            color: #d42020;
+          }
+        }
+      }
+    }
+  }
 
-	.hot_author{
-		width: 297px;
-		margin-left: 5px;
-		.avatar{width: 25px; height: 25px;}
-		img{
-			width: 27px;
-			height: 27px;
-		}
-		.thumb{
-			width: 35px;
-		}
-		.username{
-			width: 40%;
-		}
-		.department{
-			text-align: right;
-			color:#888;
-		}
-	}
+  .hot_author{
+    width: 297px;
+    margin-left: 5px;
+    .avatar{width: 25px; height: 25px;}
+    img{
+      width: 27px;
+      height: 27px;
+    }
+    .thumb{
+      width: 35px;
+    }
+    .username{
+      width: 40%;
+    }
+    .department{
+      text-align: right;
+      color:#888;
+    }
+  }
+}
+.ranklist .top {
+  .details {
+    text-align: center;
+  }
+  .work_name {
+    font-size: 18px !important;
+    color: #9C2222;
+    font-family: $cn-font;
+    display: block;
+  }
+  a{color: #444}
+
 }
 .hot_work_box{
-	.top_work{
-		padding: 8px;
-		padding-bottom: 0px;
-		height: 140px;
-		.video_thumb{width: 100px; height: 80px;}
-		.work_descrtion a span {
-			float: right;
-			strong{
-				color: #d42020;
-			}
-		}
+  .top_work{
+    padding: 8px;
+    padding-bottom: 0px;
+    height: 140px;
 
-		.work_info{
-			font-size: 14px;
-			color: #646464;
-			margin-top: -75px;
-			margin-left: 2px;
+    .work_descrtion a span {
+      float: right;
+      strong{
+        color: #d42020;
+      }
+    }
 
-			a{
-				color:#707070;
-				font-size: 14px;
-				padding: 2px 0;
-			}
-			.work_name{
-				margin-left: 110px;
-				font-size: 18px !important;
-				color: #000 !important;
+    .work_info{
+      font-size: 14px;
+      color: #646464;
+      margin-top: -75px;
+      margin-left: 2px;
+
+      a{
+        color:#707070;
+        font-size: 14px;
+        padding: 2px 0;
+      }
+      .work_name{
+        margin-left: 110px;
+        font-size: 18px !important;
+        color: #000 !important;
         font-family: $cn-font;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
         white-space: nowrap;
-			}
-			.work_descrtion {
-				width: 150px;
-				margin-left: 110px;
-				margin-top:10px;
-				a{color:#444;}
-			}
-		}
-	}
+      }
+      .work_descrtion {
+        width: 150px;
+        margin-left: 110px;
+        margin-top:4px;
+        a{color:#444;}
+      }
+    }
+  }
 }
 .hot_author,.hot_work{
 	padding: 5px 10px;

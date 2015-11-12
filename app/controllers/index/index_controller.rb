@@ -7,6 +7,8 @@ class Index::IndexController < IndexController
     if @posters.empty?
       @posters.push('index/poster.jpg')
     end
+
+    @opus_rank = Manage::Creation.ranklist.limit(7)
   end
 
   def search

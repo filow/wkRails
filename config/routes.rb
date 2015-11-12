@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     post 'user/login' => 'user#do_login'
     delete 'user/logout' => 'user#logout'
 
-    get 'user/:name' => 'user#show'
+    get 'user/:name' => 'user#show', as: 'user_detail'
   end
 
   namespace :manage do
