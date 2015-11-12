@@ -47,6 +47,12 @@ posts:
   index:
     title:  查看公告列表
     remark: 查看所有的通知公告
+  new:
+    title: 新建通知公告
+    remark: 新建一个通知公告
+  edit:
+    title: 编辑通知公告
+    remark: 编辑通知公告
   show:
     title:  查看公告详细
     remark: 查看完整的通知公告
@@ -58,6 +64,18 @@ users:
   index:
     title:  查看用户列表
     remark: 查看全部用户
+  new:
+    title: 新建用户
+    remark: 新建一个用户
+  edit:
+    title: 编辑用户
+    remark: 编辑用户信息
+  show:
+    title:  查看用户信息
+    remark: 查看用户详细信息
+  destroy:
+    title:  删除用户
+    remark: 删除用户
 
 creations:
   index:
@@ -76,5 +94,8 @@ judge:
 
 cfg:
   index:
-    title:  查看设置项列表
+    title:  查看设置项
     remark: 查看全部设置项列表
+  edit:
+    title: 修改系统设置
+    remark: 修改系统设置
