@@ -9,6 +9,7 @@ class Index::IndexController < IndexController
     end
 
     @opus_rank = Manage::Creation.ranklist.limit(7)
+    @user_rank = Manage::User.ranklist.limit(7)
   end
 
   def search

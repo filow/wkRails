@@ -46,6 +46,15 @@ class Manage::User < ActiveRecord::Base
     rs = where('realname LIKE ?', "%#{key_word}%")
   end
 
+  # 判断用户是否是一个可以上传的用户,条件为:没有被禁用, 邮箱通过验证
+  def self.valid_account
+    where(is_forbidden: false, is_email_verified: true)
+  end
+
+  def self.ranklist
+    valid_account.where('popularity != 0').order(popularity: :desc, id: :asc)
+  end
+
   def send_message(options)
     m = Manage::Message.create(options.merge({"user_id"=> id}))
     count = messages.where(is_readed: false).count

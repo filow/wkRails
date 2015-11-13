@@ -25,11 +25,11 @@
         <div class="well list_box">
           <ol>
             <% @posts.each_with_index do |p, i| %>
-            <li>
-              <a href="<%= passage_path(p) %>">
-                <%= i+1 %>.<span class="label label-info"><%= p.publish_at.strftime("%m-%d") %></span> <%= p.title %>
-              </a>
-            </li>
+                <li>
+                  <a href="<%= passage_path(p) %>">
+                    <%= i+1 %>.<span class="label label-info"><%= p.publish_at.strftime("%m-%d") %></span> <%= p.title %>
+                  </a>
+                </li>
             <% end %>
           </ol>
         </div>
@@ -45,7 +45,7 @@
         <div class="well list_box">index/user#login
           <ol>
             <volist name="intro" id="ito" key="k">
-            <li><a href="{$ito.url}">{$k}. {$ito.title}</a></li>
+              <li><a href="{$ito.url}">{$k}. {$ito.title}</a></li>
             </volist>
           </ol>
         </div>
@@ -58,44 +58,44 @@
         <%= image_tag 'index/icon_login.png' %>
         <%= image_tag 'index/title_login.png', class:'icon_img', alt: '选手登录' %>
       </div>
-        <div class="main_content">
-          <% unless session[:user_id].blank? %>
-              <div class="login_box">
-                <div class="user_after">
-                  <div class="user_info">
-                    <div class="headphoto">
-                      <img src="{:getAvatar($acc['avatar_large'])}" class="user_header">
-                    </div>
-                    <div class="user_info_detail">
-                      <div class="user_name">
-                        <a href="{:U('UserCenter/index')}">{$acc.nickname}</a>
-                      </div>
-                      <div>作品数：<span>{$opus_count}</span></div>
-                      <div>单位:<span>{$acc.department}</span></div>
-                    </div>
-                    <div class="clear"></div>
+      <div class="main_content">
+        <% unless session[:user_id].blank? %>
+            <div class="login_box">
+              <div class="user_after">
+                <div class="user_info">
+                  <div class="headphoto">
+                    <img src="{:getAvatar($acc['avatar_large'])}" class="user_header">
                   </div>
-                  <div class="user_nav">
-                    <ul class="nav nav-list">
-                      <li>
-                        <a href="{:U('UserCenter/message')}">
-                          <i class="icon-comments"></i>
-                          消息箱
-                          <span class="badge badge-info">{$msg_unread}</span>
-                        </a>
-                      </li>
-                      <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>
-                    </ul>
-                    <div class="clear"></div>
-                  </div>
-                  <div class="user_button">
-                    <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
-                    <%= link_to '退出登陆', user_logout_path, class: "btn btn-warning", method: :delete %>
+                  <div class="user_info_detail">
+                    <div class="user_name">
+                      <a href="{:U('UserCenter/index')}">{$acc.nickname}</a>
+                    </div>
+                    <div>作品数：<span>{$opus_count}</span></div>
+                    <div>单位:<span>{$acc.department}</span></div>
                   </div>
                   <div class="clear"></div>
                 </div>
-              </div> <!-- login-box end -->
-          <% else %>
+                <div class="user_nav">
+                  <ul class="nav nav-list">
+                    <li>
+                      <a href="{:U('UserCenter/message')}">
+                        <i class="icon-comments"></i>
+                        消息箱
+                        <span class="badge badge-info">{$msg_unread}</span>
+                      </a>
+                    </li>
+                    <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>
+                  </ul>
+                  <div class="clear"></div>
+                </div>
+                <div class="user_button">
+                  <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
+                  <%= link_to '退出登陆', user_logout_path, class: "btn btn-warning", method: :delete %>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div> <!-- login-box end -->
+        <% else %>
             <div class="login_box">
               <%= form_tag(user_login_path, method: :post) do %>
                   <input type="text" name="username" placeholder="用户名" class="login_input">
@@ -104,203 +104,213 @@
                   <a href="<%= user_reg_path %>" class="regist btn btn-success" style="">立即注册</a>
               <% end %>
             </div>
-          <% end %>
-        </div>
+        <% end %>
+      </div>
     </div>
-    </div>
+  </div>
 </div>
 
 
 <div class="content_video">
-    <div class="row-fluid">
-        <div class="main-content span8">
-            <!-- 示例视频 -->
-<div class="video_example well">
-    <h4>示例视频</h4>
-    <div class="videobox">
-        <div id="video_exp_carousel" class="carousel slide">
-                <div class="carousel-inner">
-                    <volist name="exp_video" id="li" key="k">
-                        <div class="item <eq name='k' value='1'>active</eq>">
-                             <a href="#video_exp_modal" data-toggle="modal" data-title="{$li.title}" data-thumb="{:getThumb($li['id'])}" data-location="{$li.location}" class="video_exp_btn"><img src="{:getThumb($li['id'])}" alt="{$li.title}"></a>
-                            <div class="caption" style="bottom:0">
-                                <p>{$li.title} <small>作者：{$li.username}</small></p>
-                            </div>
-                        </div>
-                    </volist>
+  <div class="row-fluid">
+    <div class="main-content span8">
+      <!-- 示例视频 -->
+      <div class="video_example well">
+        <h4>示例视频</h4>
+        <div class="videobox">
+          <div id="video_exp_carousel" class="carousel slide">
+            <div class="carousel-inner">
+              <volist name="exp_video" id="li" key="k">
+                <div class="item <eq name='k' value='1'>active</eq>">
+                  <a href="#video_exp_modal" data-toggle="modal" data-title="{$li.title}" data-thumb="{:getThumb($li['id'])}" data-location="{$li.location}" class="video_exp_btn"><img src="{:getThumb($li['id'])}" alt="{$li.title}"></a>
+                  <div class="caption" style="bottom:0">
+                    <p>{$li.title} <small>作者：{$li.username}</small></p>
+                  </div>
                 </div>
-                <a class="left carousel-control" href="#video_exp_carousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#video_exp_carousel" data-slide="next">›</a>
-              </div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-            <!-- Video_Example Modal -->
-            <div id="video_exp_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:680px;">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="video_exp_title"></h3>
-              </div>
-              <div class="modal-body" style="max-height:500px;">
-                <div id="exp_player"></div>
-              </div>
+              </volist>
             </div>
-
-
-            <div class="works_show"><img src="__PUBLIC__/index/img/works_show.png" alt=""></div>
-            <div class="slogan"></div>
-            <!-- 作品 -->
-            <volist name="random_video" id="li">
-            <div class="work well">
-                <div class="row-fluid">
-                    <div class="video">
-                        <a href="{:U('Opus/view',array('id'=>$li['id']))}">
-                            <img src="{:getThumb($li['id'])}" alt="{$li.opus_name}" class="video_pic">
-                        </a>
-                    </div>
-                    <div class="video_info">
-                        <h3>{$li.opus_name}</h3>
-                        <p>{$li.overview}</p>
-                        <div style="float:right;">
-                            <a class="btn btn-primary" href="{:U('Opus/view',array('id'=>$li['id']))}">查看详情</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="info">
-                    <volist name="li['authors']" id="author">
-                    <div class="author" title="{$author.author} {$author.sex} {$author.belong}">
-                        <i class="icon-user"></i>
-                        <a>{$author.author}</a>
-                    </div>
-                    </volist>
-                    <div class="vote">
-                        当前票数:<span style="margin: 0 5px;"><i class="icon-heart"></i><a class="poll vote_count">{$li['vote_count']}</a></span>
-                        <if condition="getVoteStatus($li['id'])">
-                            <a class="btn btn-primary" disabled>已投票</a>
-                        <else />
-                            <if condition="can_vote()">
-                                <a class="btn btn-primary vote_btn" href="{:U('opus/vote',array('opus_id'=>$li['id']))}" onclick="return ajaxvote()">投他一票</a>
-                            <else />
-                                <a class="btn btn-primary" disabled>投票已截止</a>
-                            </if>
-                        </if>
-
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            </volist>
-	    </div>
-        <div class="sidebar span4">
-            <div class="hot_author_box ranklist">
-              <%= image_tag 'index/top_author.png', alt:'人气选手', class:'hot_box_title', width: 96, height: 23 %>
-                <hr>
-                <present name="user_rank_first">
-                <div class="top_author">
-                    <a href="{:U('User/userinfo',array('uid'=>$user_rank_first['uid']))}"><img src="{:getAvatar($user_rank_first['avatar'])}" alt="{$user_rank_first.nickname}" class="top_author_headphoto"></a>
-                    <div class="author_info">
-                        <a href="{:U('User/userinfo',array('uid'=>$user_rank_first['uid']))}" class="author_name">{$user_rank_first.nickname}</a>
-                        <a><span>{$user_rank_first.department}</span>单位:</a>
-                        <a><span><strong>{$user_rank_first.popularity}</strong></span>热度:</a>
-                    </div>
-                </div>
-                <else />
-                    目前还没有上传作品的用户！
-                </present>
-              <table class="hot_author">
-                <tr>
-                  <td class="thumb"><img src="{:getAvatar($li['avatar'])}" alt="{$li.nickname}" class="avatar"></td>
-                  <td class="username"><a href="{:U('User/userinfo',array('uid'=>$li['uid']))}">{$li.nickname} </a></td>
-                  <td class="department">{$li.department}</td>
-                </tr>
-              </table>
-            </div>
-            <div class="hot_work_box ranklist">
-              <%= image_tag 'index/top_work.png', alt:'人气作品', class:'hot_box_title',width: 95, height: 23 %>
-              <hr>
-              <% if @opus_rank.length > 0 %>
-              <div class="top">
-                <%= image_tag @opus_rank[0].thumb.url(:thumb),alt: @opus_rank[0].name,class:'video_thumb' %>
-                <div class="details">
-                  <%= link_to @opus_rank[0].name, creation_url(@opus_rank[0].name),class:'work_name',title:@opus_rank[0].name %>
-                  作者：<%= link_to @opus_rank[0].user.realname, user_detail_path(@opus_rank[0].user.realname) %>
-                </div>
-              </div>
-              <% else %>
-                  目前还没有已发布的作品！
-              <% end %>
-              <table class="hot_work table">
-                <% @opus_rank.each_with_index do |item,i|%>
-                    <% unless i == 0 %>
-                        <tr>
-                          <td class="workname">
-                            <%= link_to item.name, creation_path(item.name), title: item.name %>
-                          </td>
-                          <td class="workauthor">
-                            <%= link_to item.user.realname, user_detail_path(item.user.realname) %>
-                          </td>
-                        </tr>
-                    <% end %>
-                <% end %>
-              </table>
-            </div>
+            <a class="left carousel-control" href="#video_exp_carousel" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#video_exp_carousel" data-slide="next">›</a>
+          </div>
+          <div class="clear"></div>
         </div>
+      </div>
+
+      <!-- Video_Example Modal -->
+      <div id="video_exp_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:680px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="video_exp_title"></h3>
+        </div>
+        <div class="modal-body" style="max-height:500px;">
+          <div id="exp_player"></div>
+        </div>
+      </div>
+
+
+      <div class="works_show"><img src="__PUBLIC__/index/img/works_show.png" alt=""></div>
+      <div class="slogan"></div>
+      <!-- 作品 -->
+      <volist name="random_video" id="li">
+        <div class="work well">
+          <div class="row-fluid">
+            <div class="video">
+              <a href="{:U('Opus/view',array('id'=>$li['id']))}">
+                <img src="{:getThumb($li['id'])}" alt="{$li.opus_name}" class="video_pic">
+              </a>
+            </div>
+            <div class="video_info">
+              <h3>{$li.opus_name}</h3>
+              <p>{$li.overview}</p>
+              <div style="float:right;">
+                <a class="btn btn-primary" href="{:U('Opus/view',array('id'=>$li['id']))}">查看详情</a>
+              </div>
+            </div>
+          </div>
+          <div class="info">
+            <volist name="li['authors']" id="author">
+              <div class="author" title="{$author.author} {$author.sex} {$author.belong}">
+                <i class="icon-user"></i>
+                <a>{$author.author}</a>
+              </div>
+            </volist>
+            <div class="vote">
+              当前票数:<span style="margin: 0 5px;"><i class="icon-heart"></i><a class="poll vote_count">{$li['vote_count']}</a></span>
+              <if condition="getVoteStatus($li['id'])">
+                <a class="btn btn-primary" disabled>已投票</a>
+                <else />
+                <if condition="can_vote()">
+                  <a class="btn btn-primary vote_btn" href="{:U('opus/vote',array('opus_id'=>$li['id']))}" onclick="return ajaxvote()">投他一票</a>
+                  <else />
+                  <a class="btn btn-primary" disabled>投票已截止</a>
+                </if>
+              </if>
+
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </volist>
     </div>
+    <div class="sidebar span4">
+
+
+      <div class="hot_author_box ranklist">
+        <%= image_tag 'index/top_author.png', alt:'人气选手', class:'hot_box_title', width: 96, height: 23 %>
+        <hr>
+        <% if @user_rank.length > 0 %>
+            <div class="top_author">
+              <a href="<%= user_detail_path @user_rank[0].name %>">
+                <%= image_tag @user_rank[0].avatar.url(:thumb), alt: @user_rank[0].realname, class:'top_author_headphoto' %>
+              </a>
+              <div class="author_info">
+                <a href="<%= user_detail_path @user_rank[0].realname %>" class="author_name"><%= @user_rank[0].realname %></a>
+                <a><span><%= @user_rank[0].department %></span>单位:</a>
+                <a><span><strong><%= @user_rank[0].popularity %></strong></span>热度:</a>
+              </div>
+            </div>
+        <% else %>
+            目前还没有上传作品的用户！
+        <% end %>
+        <table class="hot_author table">
+          <% @user_rank.each_with_index do |item, i| %>
+              <% unless i == 0 %>
+                  <tr>
+                    <td class="thumb"><%= image_tag item.avatar.url(:thumb_mini), alt: item.realname, class:'avatar' %></td>
+                    <td class="username"><%= link_to item.realname, user_detail_path(item.realname) %></td>
+                    <td class="department"><%= item.department %></td>
+                  </tr>
+              <% end %>
+          <% end %>
+        </table>
+      </div>
+
+
+      <div class="hot_work_box ranklist">
+        <%= image_tag 'index/top_work.png', alt:'人气作品', class:'hot_box_title',width: 95, height: 23 %>
+        <hr>
+        <% if @opus_rank.length > 0 %>
+            <div class="top">
+              <%= image_tag @opus_rank[0].thumb.url(:thumb),alt: @opus_rank[0].name,class:'video_thumb' %>
+              <div class="details">
+                <%= link_to @opus_rank[0].name, creation_url(@opus_rank[0].name),class:'work_name',title:@opus_rank[0].name %>
+                作者：<%= link_to @opus_rank[0].user.realname, user_detail_path(@opus_rank[0].user.realname) %>
+              </div>
+            </div>
+        <% else %>
+            目前还没有已发布的作品！
+        <% end %>
+        <table class="hot_work table">
+          <% @opus_rank.each_with_index do |item,i|%>
+              <% unless i == 0 %>
+                  <tr>
+                    <td class="workname">
+                      <%= link_to item.name, creation_path(item.name), title: item.name %>
+                    </td>
+                    <td class="workauthor">
+                      <%= link_to item.user.realname, user_detail_path(item.user.realname) %>
+                    </td>
+                  </tr>
+              <% end %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <block name="extra_js">
-<!--<script src="__PUBLIC__/plugins/sliders/slides.min.jquery.js" type="text/javascript"></script>-->
-<!--<script type="text/javascript" src="__PUBLIC__/plugins/baiduWebPlayer/js/cyberplayer.min.js"></script>-->
-<script>
-// function ajaxvote(){return false;}
-//
-// $(document).ready(function(){
-//
-//     var player;
-//
-//     $('.video_exp_btn').click(function(){
-//         var title=$(this).attr('data-title');
-//         var location=$(this).attr('data-location');
-//         var thumb=$(this).attr('data-thumb');
-//         $('.video_exp_title').html(title);
-//         $('#exp_player').attr('href',location);
-//         player = cyberplayer("exp_player").setup({
-//             width : 650,
-//             height : 450,
-//             stretching : "uniform",
-//             file : location,
-//             image : thumb,
-//             autoStart : true,
-//             volume : 70,
-//             controlbar : "over",
-//             ak:"{:CF('BAIDU_AK')}",
-//             sk:"{:CF('BAIDU_SK')}"
-//         });
-//     });
-//     $('#video_exp_modal').on('hidden', function () {
-//         if(typeof(player)!=undefined && player.getState()!=undefined)
-//             player.remove();
-//     });
-//     $('.author').tooltip();
-//     $('.vote_btn').click(function(){
-//         if($(this).attr('disabled')) return;
-//         $(this).attr('disabled','disabled').html('已投票');
-//         var selector=$(this);
-//         var vote_url=selector.attr('href');
-//         $.get(vote_url,function (result){
-//             alert(result[1]+"（投票结果不会立即更新）");
-//             if(typeof(_czc) != 'undefined'){
-//                 _czc.push(["_trackEvent","首页作品投票",vote_url,1,"vote_btn"]);
-//             }
-//             if(result[0]==1){
-//                 var vote_count_feild=selector.parent().find('.vote_count');
-//                 var count=parseInt(vote_count_feild.html());
-//                 vote_count_feild.html(count+1);
-//             }
-//         });
-//     });
-// });
-</script>
+  <!--<script src="__PUBLIC__/plugins/sliders/slides.min.jquery.js" type="text/javascript"></script>-->
+  <!--<script type="text/javascript" src="__PUBLIC__/plugins/baiduWebPlayer/js/cyberplayer.min.js"></script>-->
+  <script>
+    // function ajaxvote(){return false;}
+    //
+    // $(document).ready(function(){
+    //
+    //     var player;
+    //
+    //     $('.video_exp_btn').click(function(){
+    //         var title=$(this).attr('data-title');
+    //         var location=$(this).attr('data-location');
+    //         var thumb=$(this).attr('data-thumb');
+    //         $('.video_exp_title').html(title);
+    //         $('#exp_player').attr('href',location);
+    //         player = cyberplayer("exp_player").setup({
+    //             width : 650,
+    //             height : 450,
+    //             stretching : "uniform",
+    //             file : location,
+    //             image : thumb,
+    //             autoStart : true,
+    //             volume : 70,
+    //             controlbar : "over",
+    //             ak:"{:CF('BAIDU_AK')}",
+    //             sk:"{:CF('BAIDU_SK')}"
+    //         });
+    //     });
+    //     $('#video_exp_modal').on('hidden', function () {
+    //         if(typeof(player)!=undefined && player.getState()!=undefined)
+    //             player.remove();
+    //     });
+    //     $('.author').tooltip();
+    //     $('.vote_btn').click(function(){
+    //         if($(this).attr('disabled')) return;
+    //         $(this).attr('disabled','disabled').html('已投票');
+    //         var selector=$(this);
+    //         var vote_url=selector.attr('href');
+    //         $.get(vote_url,function (result){
+    //             alert(result[1]+"（投票结果不会立即更新）");
+    //             if(typeof(_czc) != 'undefined'){
+    //                 _czc.push(["_trackEvent","首页作品投票",vote_url,1,"vote_btn"]);
+    //             }
+    //             if(result[0]==1){
+    //                 var vote_count_feild=selector.parent().find('.vote_count');
+    //                 var count=parseInt(vote_count_feild.html());
+    //                 vote_count_feild.html(count+1);
+    //             }
+    //         });
+    //     });
+    // });
+  </script>
 </block>
 <%= link_to '后台管理', manage_path %>
