@@ -3,7 +3,7 @@ class Index::IndexController < IndexController
     @posts = Post.valid_posts.order(is_top: :desc, publish_at: :desc, id: :desc).select(:id, :title, :publish_at).limit(6)
 
     #下面处理海报列表
-    @posters = Cfg.get_all('broadcast_img').reject{|x| x.empty?}
+    @posters = Cfg.get_all('broadcast_img').reject{|x| x.blank?}
     if @posters.empty?
       @posters.push('index/poster.jpg')
     end
