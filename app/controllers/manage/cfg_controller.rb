@@ -1,4 +1,6 @@
 class Manage::CfgController < ManageController
+  before_action :check_permission
+  
   def index
     @manage_cfgs = Cfg.all
   end

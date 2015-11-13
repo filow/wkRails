@@ -4,6 +4,7 @@ class Manage::AdminsController < ManageController
 
   permission_alias :new, :create
   permission_alias :edit, :update
+  permission_alias :edit_role, :update_role
   # GET /manage/admins
   def index
     # return redirect_to manage_url, alert: "您没有权限" unless can?("index")
@@ -149,16 +150,6 @@ class Manage::AdminsController < ManageController
     end
     def manage_role_params
       params.require(:manage_role).permit(:name, :is_enabled)
-    end
-
-    def check_permission
-      unless can? params[:action]
-        if request.referer != nil
-          redirect_to request.referer,alert: '您没有访问此功能的权限'
-        else
-          redirect_to manage_url, alert: '您没有访问此功能的权限'
-        end
-      end
     end
 
 end
