@@ -1,13 +1,24 @@
 <h2>用户管理</h2>
 <section id="btnGroup" data-base="<%= manage_users_url %>">
-  <a role="new" data-needid="false">新建用户</a>
+  <%  can?("new") do %>
+    <a role="new" data-needid="false">新建用户</a>
+  <% end %>
   <div class="btn-group" role="group">
-    <a role="show"></a>
-    <a role="edit"></a>
+    <%  can?("show") do %>
+      <a role="show"></a>
+    <% end %>
+    <%  can?("edit") do %>
+      <a role="edit"></a>
+    <% end %>
+    <!-- 暂时不知道message应该算是什么权限 -->
     <a role="message" data-method="get" data-url="/{id}/message" data-button="primary" data-icon="envelope" data-multiple="true">发送短消息</a>
-    <a role="toggle" target="manage_user[is_forbidden]">切换禁用</a>
-    <a role="verify" target="manage_user[is_email_verified]" data-method="patch" data-url="/{id}" data-button="primary" data-icon="ok" data-multiple="false">设为验证</a>
-    <a role="delete"></a>
+    <%  can?("edit") do %>
+      <a role="toggle" target="manage_user[is_forbidden]">切换禁用</a>
+      <a role="verify" target="manage_user[is_email_verified]" data-method="patch" data-url="/{id}" data-button="primary" data-icon="ok" data-multiple="false">设为验证</a>
+    <% end %>
+    <%  can?("destroy") do %>
+      <a role="delete"></a>
+    <% end %>
   </div>
 </section>
 <table class="table table-hover">

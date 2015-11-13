@@ -1,6 +1,10 @@
 class Manage::UsersController < ManageController
   before_action :set_manage_user, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission
 
+  permission_alias :new, :create
+  permission_alias :edit, :update
+  
   # GET /manage/users
   # GET /manage/users.json
   def index
