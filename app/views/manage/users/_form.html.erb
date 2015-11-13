@@ -1,4 +1,4 @@
-<%= form_for @manage_user, html:{class:"form-horizontal"} do |f| %>
+<%= form_for @manage_user, html:{class:"form-horizontal", multipart: true} do |f| %>
   <%= form_errors(@manage_user) %>
 
   <div class="form-group">
@@ -33,8 +33,8 @@
   <div class="form-group">
     <%= f.label :avatar ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <%= f.file_field :avatar %>
-      <%= f.hidden_field :avatar_cache %>
+      <!--迫不得已换成了这个,因为manage_user[avatar]会被莫名其妙的屏蔽掉..鬼知道发生了什么-->
+      <input type="file" name="avatar">
     </div>
     <span class="col-sm-4 help-block">
 

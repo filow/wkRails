@@ -60,7 +60,9 @@ class Manage::UsersController < ManageController
   # PATCH/PUT /manage/users/1
   # PATCH/PUT /manage/users/1.json
   def update
-    if @manage_user.update(manage_user_params)
+    ta = manage_user_params
+    ta["avatar"] = params["avatar"]
+    if @manage_user.update(ta)
       redirect_to manage_users_url, notice: '修改成功'
     else
       render :edit
