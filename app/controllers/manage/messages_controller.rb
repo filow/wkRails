@@ -1,4 +1,7 @@
 class Manage::MessagesController < ManageController
+  before_action :check_permission
+  permission_alias :new, :create
+  
   def create
     message_content = manage_message_params
     @messages = {done: [], fail: []}
