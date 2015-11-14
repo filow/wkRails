@@ -13,16 +13,17 @@
       <tr  >
         <td><%= cfg.remark %></td>
         <td>
-          <div >
-            <!-- 使用form_tag构造表单 -->
-            <%= form_tag("cfg/#{cfg.id}", method: "patch", class: "form-group", multipart:true) do  %>
-              <td><%= send "cfg_#{cfg.field_type}_field",cfg %></td>
-              <!-- 此处没权限应当直接用label标签,但是方法的调用还没想到简洁的方案 -->
-              <%  can?("update") do %>
+          <%  if can?("update")  %>
+            <div >
+              <!-- 使用form_tag构造表单 -->
+              <%= form_tag("cfg/#{cfg.id}", method: "patch", class: "form-group", multipart:true) do  %>
+                <td><%= send "cfg_#{cfg.field_type}_field",cfg %></td>
                 <td><%= submit_tag("提交",class: "btn btn-warning") %></td>
               <% end %>
-            <% end %>
-          </div>
+            </div>
+          <% else %>
+            <td><%= cfg.value %></td>
+          <% end %>
         </td>
 
       </tr>
