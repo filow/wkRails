@@ -28,8 +28,12 @@ STR
   end
 
   def can?(action,controller = params[:controller])
-    if @admin.can_access?(action, controller.split('/')[-1])
-      yield
+    if block_given?
+      if @admin.can_access?(action, controller.split('/')[-1])
+        yield
+      end
+    else
+      @admin.can_access?(action, controller.split('/')[-1])
     end
   end
 
