@@ -1,21 +1,13 @@
-<extend name="Common:base" />
-<block name="title">{$opus.opus_name}--作品欣赏</block>
-<block name="extra_css">
-	<link rel="stylesheet" href="__PUBLIC__/index/css/opus.css">
-</block>
-<block name="SEO_SETTING">
-<meta name="description" content="{$opus.overview}" />
-</block>
-<block name="content">
 <div class="opus_wrapper">
 	<div class="row-fluid">
 		<div class="opus_main span9">
 			<div class="opus_title">
 				<strong>
-					<if condition="$opus['old_version']!=CF('CURRENT_VERSION')">[第{$opus.old_version}届作品] </if>
-					{$opus.opus_name}
-					<if condition="$opus['status']==1">[草稿]</if>
-					<if condition="$opus['status']==2">[禁用]</if>
+                  <% unless @creation.version.to_i == Cfg.get('current_version').to_i %>
+                      [第<%= @creation.version %>届作品]
+                  <% end %>
+                  <%= @creation.name %>
+                  [<%= @creation.status_cn %>]
 				</strong>
 			</div>
 			<div class="opus_video">
@@ -24,7 +16,7 @@
 			</div>
 			<div class="opus_enjoy"> <!-- vote&share -->
 				<div class="opus_vote">
-					<a>票数：<i class="icon-thumbs-o-up"></i><span id="vote_count">{$opus.vote_count}</span></a>
+					<a>票数：<i class="icon-thumbs-o-up"></i><span id="vote_count"><%= @creation.vote_count %></span></a>
 
 						<if condition="getVoteStatus($opus['id'])">
 							<a class="btn btn-primary" disabled>已投票</a>
@@ -47,22 +39,26 @@
 			</div>
 			<div class="opus_author">
 				<div class="opus_author_hp">
-					<a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><img src="{:getAvatar($author['avatar_large'])}" ></a>
+					<a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><img src=<%= @creation.user.avatar.thumb %> ></a>
 				</div>
 				<div class="opus_author_info">
-					<div class="opus_author_name"><a href="{:U('User/userinfo',array('uid'=>$author['uid']))}">{$author.nickname}</a></div>
-					<div class="opus_author_depart">{$author.belong.merge}</div>
+					<div class="opus_author_name"><a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><%= @creation.user.realname %></a></div>
+					<div class="opus_author_depart"><%= @creation.authors_str %></div>
 				</div>
 			</div>
 			<div class="opus_upt">
-				<div class="opus_upt_views">播放次数：<span class="label label-success" id="opus_view_label">{$opus.view_count}</span></div>
-				<div class="opus_upt_time">上传时间：{$opus.add_time|date="Y年m月d日",###}</div>
+				<div class="opus_upt_views">
+                  播放次数：
+                  <span class="label label-success" id="opus_view_label">
+                    <%= @creation.view_count %>
+                  </span>
+                </div>
+				<div class="opus_upt_time">上传时间：<%= @creation.created_at.strftime('%F %R') %></div>
 			</div>
 			<div class="clear"></div>
 			<div class="opus_intro">
 				<div class="well">
-					<p>{$opus.content}
-					</p>
+					<p><%= @creation.desc.html_safe %></p>
 				</div>
 
 			</div><!--  opus_intro end -->
@@ -70,7 +66,7 @@
 			<div class="opus_doc"></div>
 				<div class="clear"></div>
 				<div class="opus_cmt">
-					<div class="opus_cmt_header">全部评论（<span>{$pagecfg.count}</span>）</div>
+					<div class="opus_cmt_header">全部评论（<span><%= @creation.comment_count %></span>）</div>
 					<div class="cmt_menu">
 						<span>第{$pagecfg.first}-{$pagecfg.list}条/共{$pagecfg.count}条</span>
 						<div class="pagination">

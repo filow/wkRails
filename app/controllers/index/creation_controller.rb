@@ -3,6 +3,7 @@ class Index::CreationController < IndexController
   end
 
   def show
+    @creation = Manage::Creation.find(params[:id])
   end
 
   def vote
