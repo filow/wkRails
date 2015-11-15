@@ -64,14 +64,14 @@
               <div class="user_after">
                 <div class="user_info">
                   <div class="headphoto">
-                    <img src="{:getAvatar($acc['avatar_large'])}" class="user_header">
+                    <img src=<%= @user.avatar.thumb %> class="user_header">
                   </div>
                   <div class="user_info_detail">
                     <div class="user_name">
-                      <a href="{:U('UserCenter/index')}">{$acc.nickname}</a>
+                      <%= link_to @user.realname, usercenter_path %>
                     </div>
-                    <div>作品数：<span>{$opus_count}</span></div>
-                    <div>单位:<span>{$acc.department}</span></div>
+                    <div>作品数：<span><%= @user.opus_count %></span></div>
+                    <div>单位:<span><%= @user.department.blank? ? '未填写': @user.department %></span></div>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -79,9 +79,8 @@
                   <ul class="nav nav-list">
                     <li>
                       <a href="{:U('UserCenter/message')}">
-                        <i class="icon-comments"></i>
-                        消息箱
-                        <span class="badge badge-info">{$msg_unread}</span>
+                        <i class="icon-envelope"></i>消息箱
+                        <span class="badge badge-info"><%= @user.messages.count > 0 ? @user.messages.count : nil %></span>
                       </a>
                     </li>
                     <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>

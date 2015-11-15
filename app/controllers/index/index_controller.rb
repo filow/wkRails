@@ -2,6 +2,14 @@ class Index::IndexController < IndexController
   def index
     @posts = Post.valid_posts.order(is_top: :desc, publish_at: :desc, id: :desc).select(:id, :title, :publish_at).limit(6)
 
+    #用户
+    unless session[:user_id].blank?
+      @user = Manage::User.find_by_id session[:user_id]
+      if @user.nil?
+        session.delete(:user_id)
+      end
+    end
+
     #下面处理海报列表
     @posters = Cfg.get_all('broadcast_img').reject{|x| x.blank?}
     if @posters.empty?
