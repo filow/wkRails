@@ -10,7 +10,4 @@ $(function (){
     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
     CKobject.embedSWF('/ckplayer/ckplayer.swf','player','player','650','450',flashvars,params);
   });
-  $('#video_exp_modal').on('hidden', function () {
-    CKobject.getObjectById('player').videoClear()
-  });
 });
