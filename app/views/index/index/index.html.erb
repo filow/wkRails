@@ -120,14 +120,20 @@
         <div class="videobox">
           <div id="video_exp_carousel" class="carousel slide">
             <div class="carousel-inner">
-              <volist name="exp_video" id="li" key="k">
-                <div class="item <eq name='k' value='1'>active</eq>">
-                  <a href="#video_exp_modal" data-toggle="modal" data-title="{$li.title}" data-thumb="{:getThumb($li['id'])}" data-location="{$li.location}" class="video_exp_btn"><img src="{:getThumb($li['id'])}" alt="{$li.title}"></a>
+              <% @exp_video.each_with_index do |v,i| %>
+                <% if i == 0 %>
+                <div class="item active">
+                <% else %>
+                <div class="item">
+                <% end %>
+                  <a href="#video_exp_modal" data-toggle="modal" data-title="<%= v.name %>" data-location="<%= v.video.url %>" class="video_exp_btn">
+                    <img src="<%= v.thumb_url %>" alt="<%= v.name %>">
+                  </a>
                   <div class="caption" style="bottom:0">
-                    <p>{$li.title} <small>作者：{$li.username}</small></p>
+                    <p><%= v.name %> <small>作者：<%= v.author %></small></p>
                   </div>
                 </div>
-              </volist>
+              <% end %>
             </div>
             <a class="left carousel-control" href="#video_exp_carousel" data-slide="prev">‹</a>
             <a class="right carousel-control" href="#video_exp_carousel" data-slide="next">›</a>
@@ -143,7 +149,7 @@
           <h3 class="video_exp_title"></h3>
         </div>
         <div class="modal-body" style="max-height:500px;">
-          <div id="exp_player"></div>
+          <div id="player"></div>
         </div>
       </div>
 
@@ -260,38 +266,12 @@
 </div>
 
 <block name="extra_js">
-  <!--<script src="__PUBLIC__/plugins/sliders/slides.min.jquery.js" type="text/javascript"></script>-->
-  <!--<script type="text/javascript" src="__PUBLIC__/plugins/baiduWebPlayer/js/cyberplayer.min.js"></script>-->
   <script>
     // function ajaxvote(){return false;}
     //
     // $(document).ready(function(){
     //
-    //     var player;
-    //
-    //     $('.video_exp_btn').click(function(){
-    //         var title=$(this).attr('data-title');
-    //         var location=$(this).attr('data-location');
-    //         var thumb=$(this).attr('data-thumb');
-    //         $('.video_exp_title').html(title);
-    //         $('#exp_player').attr('href',location);
-    //         player = cyberplayer("exp_player").setup({
-    //             width : 650,
-    //             height : 450,
-    //             stretching : "uniform",
-    //             file : location,
-    //             image : thumb,
-    //             autoStart : true,
-    //             volume : 70,
-    //             controlbar : "over",
-    //             ak:"{:CF('BAIDU_AK')}",
-    //             sk:"{:CF('BAIDU_SK')}"
-    //         });
-    //     });
-    //     $('#video_exp_modal').on('hidden', function () {
-    //         if(typeof(player)!=undefined && player.getState()!=undefined)
-    //             player.remove();
-    //     });
+
     //     $('.author').tooltip();
     //     $('.vote_btn').click(function(){
     //         if($(this).attr('disabled')) return;

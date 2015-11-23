@@ -10,6 +10,9 @@ class Index::IndexController < IndexController
 
     @opus_rank = Manage::Creation.ranklist.limit(7)
     @user_rank = Manage::User.ranklist.limit(7)
+
+    @exp_video = Manage::Expvideo.all
+    
   end
 
   def search
