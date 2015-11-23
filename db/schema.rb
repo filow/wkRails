@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104111553) do
+ActiveRecord::Schema.define(version: 20151123080810) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 20151104111553) do
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.integer  "user_id",       limit: 4,                 null: false
+  end
+
+  create_table "expvideos", force: :cascade do |t|
+    t.string  "name",   limit: 255
+    t.string  "author", limit: 255
+    t.string  "video",  limit: 255
+    t.boolean "thumb",              default: false
   end
 
   create_table "judges", force: :cascade do |t|

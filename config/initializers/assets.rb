@@ -24,10 +24,11 @@ Rails.application.config.assets.precompile << Proc.new do |path|
       # puts "including asset: " + full_path
       true
     else
-      # puts "excluding asset: " + full_path
+
       false
     end
   else
+    # puts "excluding asset: " + path
     false
   end
 end

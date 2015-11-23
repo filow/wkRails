@@ -64,6 +64,10 @@ Rails.application.routes.draw do
     delete 'comment/:id' => 'comment#destroy'
 
     get 'cfgs' => 'cfg#index'
+    get 'cfg/exp_video' => 'cfg#exp_video'
+    delete 'cfg/:id' => 'cfg#delete_video', as: 'delete_video'
+    get 'cfg/:id/screenshot' => 'cfg#screenshot'
+    post 'cfg/exp_video' => 'cfg#upload_video'
     patch 'cfg/:id' => 'cfg#update'
 
     #新建/更新/删除角色

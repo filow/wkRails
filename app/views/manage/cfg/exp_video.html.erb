@@ -1,0 +1,63 @@
+<ul class="nav nav-tabs">
+  <li role="presentation"><%= link_to '通用设置', manage_cfgs_path %></li>
+  <li role="presentation" class="active"><%= link_to '示例视频', manage_cfg_exp_video_path %></li>
+</ul>
+
+<div class="page-header">
+  <h4>已上传的视频</h4>
+</div>
+<table class="table">
+  <th width="120">缩略图</th>
+  <th>视频名称</th>
+  <th>作者</th>
+  <th></th>
+  <% @videos.each do |x| %>
+  <tr>
+    <td>
+      <% if x.thumb %>
+        <img src="<%= x.thumb_url %>" width="120" height="69">
+      <% end %>
+    </td>
+    <td><%= x.name %></td>
+    <td><%= x.author %></td>
+    <td><%= link_to '删除', manage_delete_video_path(x), method: :delete, class:'btn btn-danger' %></td>
+  </tr>
+  <% end %>
+</table>
+
+
+<div class="page-header">
+  <h4>上传新视频</h4>
+</div>
+
+
+
+
+
+<div class="form-group">
+  <label>视频名称: <%= text_field_tag :name, nil,class:'form-control', id: 'video_name' %></label>
+  <label>作者: <%= text_field_tag :author, nil,class:'form-control', id: 'video_author' %></label>
+  <button class="btn btn-primary" id="next_step">下一步</button>
+</div>
+<div id="step2" style="display: none">
+  <div><label>视频文件</label></div>
+
+  <input id="file_upload" name="file_upload" type="file" multiple="false">
+  <div class="progress">
+    <div class="bar" style="width: 0%;" id="progress"></div>
+  </div>
+</div>
+
+<div id="step3" style="display: none">
+  <h4>截取缩略图</h4>
+  <div id="a1"></div>
+  <div>
+    <button class="btn btn-primary" id="screen_shot">截取当前画面</button>
+    <img src="" alt="" id="screen_shot_img">
+
+  </div>
+</div>
+
+<div id="step4" style="display: none">
+  <button id="finished" class="btn btn-success" onclick="location.reload()">完成</button>
+</div>

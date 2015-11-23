@@ -60,6 +60,9 @@ gem 'capistrano-rails', group: :development
 gem 'rmagick', require: false
 gem 'mini_magick'
 
+# 视频转码， 需要事先安装ffmpeg
+gem 'streamio-ffmpeg'
+
 # 获取文件系统信息
 gem 'sys-filesystem'
 

@@ -27,7 +27,7 @@
             <%= link_to '退出登录', manage_logout_path, method: :delete, class: "btn btn-warning" %>
           </div>
         </header>
-        <ul class="nav">
+        <ul class="nav nav-main">
           <% @navs.each do |nav| %>
             <% can?(nav[:options][:action], nav[:options][:controller]) do %>
               <% if params[:controller] == nav[:options][:controller] && params[:action] == nav[:options][:action] %>
