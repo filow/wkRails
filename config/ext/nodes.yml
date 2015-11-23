@@ -99,3 +99,8 @@ cfg:
   update:
     title: 修改系统设置
     remark: 修改系统设置
+
+messages:
+  new:
+    title: 发送站内信
+    remark: 给用户发送站内信

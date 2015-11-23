@@ -22,9 +22,21 @@ cfgs_links:
   remark: 友情链接
   field_type: url
 
-cfgs_poster:
-  key: broadcast_img
-  value: poster.jpg
+cfgs_poster1:
+  key: broadcast_img1
+  value: poster1.jpg
+  remark: 海报图片
+  field_type: img
+
+cfgs_poster2:
+  key: broadcast_img2
+  value: poster2.jpg
+  remark: 海报图片
+  field_type: img
+
+cfgs_poster3:
+  key: broadcast_img3
+  value: poster3.jpg
   remark: 海报图片
   field_type: img
 
