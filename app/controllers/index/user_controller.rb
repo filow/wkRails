@@ -1,10 +1,30 @@
 class Index::UserController < IndexController
+
   def reg
     unless session[:user_id].blank?
       redirect_to usercenter_path
       return
     end
-    @user = Manage::User.new
+  end
+
+  def validate
+    if  (/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/ =~ params[:tel_num]).nil?
+      redirect_to user_reg_path, notice: '请输入正确的手机号码'
+      return
+    end
+    redirect_to user_reg_path, alert: '号码格式正确'
+  end
+
+  def create
+    # @user = Manage::User.new(user_params)
+    #
+    # if @user.save
+    #   @user.send_activation_email
+    #   redirect_to @user, notice: "#{@user.name}, 注册成功！"
+    # else
+    #   render :reg
+    # end
+    redirect_to user_reg_path
   end
 
   def login
@@ -19,17 +39,6 @@ class Index::UserController < IndexController
   end
 
   def show
-  end
-
-  def create
-    @user = Manage::User.new(user_params)
-
-    if @user.save
-      @user.send_activation_email
-      redirect_to @user, notice: "#{@user.name}, 注册成功！"
-    else
-      render :reg
-    end
   end
 
   def do_login

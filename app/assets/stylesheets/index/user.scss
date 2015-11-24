@@ -1,4 +1,9 @@
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
+@import 'manage/session';
+#box{
+  margin-top: 0
+}
+
 .retry_wrapper{
 	background-color: #fff;
 	padding: 20px 30px;
@@ -222,29 +227,3 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 	height: 120px;
 }
 .error{border-color: red !important;}
-input{
-  padding: 10px !important;
-  font-size: 16px !important;
-  color: #12376F !important;
-  font-family: "微软雅黑","黑体","宋体";
-}
-.largefont{
-  font-size: 16px;
-  text-align: right !important;
-  color: #080B64;
-  padding-top: 20px !important;
-}
-tr > td:nth-child(1){
-  font-size: 16px;
-  text-align: right;
-  color: #080B64;
-  padding-top: 20px;
-}
-#btn-submit{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  color: #FFF !important;
-  padding: 15px 50px !important;
-}
