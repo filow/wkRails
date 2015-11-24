@@ -1,4 +1,9 @@
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
+@import 'manage/session';
+#box{
+  margin-top: 0
+}
+
 .retry_wrapper{
 	background-color: #fff;
 	padding: 20px 30px;

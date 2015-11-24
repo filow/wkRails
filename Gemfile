@@ -66,6 +66,12 @@ gem 'streamio-ffmpeg'
 # 获取文件系统信息
 gem 'sys-filesystem'
 
+#rest-client
+gem 'rest-client'
+gem 'mime-types'
+gem 'netrc'
+gem 'http-cookie'
+
 # 更友好地显示错误信息
 group :development do
   gem "better_errors"

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     #用户注册
     get 'user/reg'
     post 'user/reg' => 'user#create'
+    post 'user/reg/validate' =>'user#validate'
     #登陆控制
     get 'user/login'
     post 'user/login' => 'user#do_login'

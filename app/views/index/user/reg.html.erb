@@ -1,109 +1,34 @@
-<div class="usercenter">
-	<div class="row-fluid">
-		<div class="main span12">
-			<div class="box">
-				<div class="box-header">用户注册</div>
-				<div class="box-body">
-                  <%= form_errors @user %>
-                  <%= form_for(@user, url: user_reg_path, html: {id: 'form'}) do |f| %>
-                      <table class="table">
-                        <thead>
-                        <th width="300"></th>
-                        <th></th>
-                        <th width="300"></th>
-                        </thead>
-                        <tr>
-                          <td><%= f.label :name, class: 'essential' %></td>
-                          <td><%= f.text_field :name %></td>
-                          <td>
-                            <div class="alert alert-error hide" id="uiderr">
-                              格式错误
-                            </div>
-                            <div class="alert alert-success hide" id="uidsuccess">
-                              该用户名可以使用
-                            </div>
-                            <div class="alert alert-info notify">
-                              用户ID由5位以上的大小写字母和数字组成，不允许重复,设定后不允许更改
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :realname, class: 'essential' %></td>
-                          <td><%= f.text_field :realname %></td>
-                          <td>
-                            <div class="alert alert-info notify Validform_label">
-                              请填写您的真实姓名
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :password, class: 'essential' %></td>
-                          <td><%= f.text_field :password %></td>
-                          <td>
-                            <div class="alert alert-info notify">
-                              密码要求6位以上,16位以下
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :avatar %></td>
-                          <td><%= f.file_field :avatar %></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :sex %></td>
-                          <td>
-                            <%= f.select :sex, [['男', 'male'], ['女', 'female']] %>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :group %></td>
-                          <td>
-                            <%= f.select :group, [['学生组', 'student'], ['老师组', 'teacher']] %>
-                          </td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :department %></td>
-                          <td class="depart_td">
-                            <div class="depart" style="display:none;">学院(必填)：<input type="text" name="department" value="" /></div>
-                            <div class="college">学院(必填)：<input type="text" name="college"  placeholder="学院" /></div>
-                            <div class="profession">专业(选填)：<input type="text" name="profession" placeholder="专业" /></div>
-                            <div class="grade" >年级(选填)：<input type="text" name="grade" placeholder="年级" /></div>
-                          </td>
-                          <td>
-                            <div class="alert alert-info notify">
-                              请填写对应单位的全称。<br>
-                              如果您是本校教师，则只需要填写学院即可，否则请将专业和年级也一并填好<br><br>
-                              （年级填写示例：12级本科生/12级研究生）
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :phone, class: 'essential' %></td>
-                          <td><%= f.text_field :phone %></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :email %></td>
-                          <td><%= f.text_field :email %></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td><%= f.label :idcard %></td>
-                          <td><%= f.text_field :idcard %></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td colspan="3">
-                            <input type="submit" value="提交" class="btn btn-primary btn-large" id="btn-submit" onclick="return checkform()" />
-                          </td>
-                        </tr>
-                      </table>
-                  <% end %>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="box">
+  <header>用户注册</header>
+  <div class="login_main">
+    <% if flash[:notice] %>
+        <div class="alert alert-warning">
+          <%= flash[:notice] %>
+          <i class="icon-times removing-tag"></i><i class="icon-white"></i>
+        </div>
+    <% end %>
+    <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+    <% end %>
+    <%= form_tag user_reg_path do %>
+        <div class="form-field">
+          <label for="tel_num">手机号码</label>
+          <%= text_field_tag :tel_num, '', autofocus: true, placeholder:"请输入手机号",class: 'form-control' %>
+        </div>
+        <div class="form-field">
+          <label for="password">密码</label>
+          <%= password_field_tag :password, '',placeholder:"请输入密码",class: 'form-control' %>
+        </div>
+        <div class="form-field">
+          <label for="valicode">验证码</label>
+          <%= text_field :valicode, '',placeholder:"手机验证码",class: 'form-control' %>
+          <button type="submit" formaction="<%= user_reg_validate_path %>" class="btn btn-default">获取手机验证码</button>
+        </div>
+        <hr>
+        <%= submit_tag '注册',class: 'btn btn-block btn-primary' %>
+        <a href="<%= root_url %>" class="btn btn-block btn-default">返回首页</a>
+    <% end %>
+  </div>
 </div>
