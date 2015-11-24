@@ -5,7 +5,8 @@ class Manage::User < ActiveRecord::Base
   mount_uploader :avatar, UserAvatarUploader
   attr_accessor :activation_token
   before_create :create_activation_digest
-
+  before_create :generate_password_digest
+  before_update :generate_password_digest
   enum sex: [:male, :female]
   enum group: [:student, :teacher]
   validates :name, presence:true,length:{maximum:30}
@@ -17,10 +18,12 @@ class Manage::User < ActiveRecord::Base
             format: {with: VALID_EMAIL_REGEX},
             uniqueness:{case_senstive: false},
             allow_blank:true
-  has_secure_password
+  validates :password, :confirmation => true
   validates_length_of :password,minimum: 6, allow_blank:true,on: [:update]
   validates_length_of :password,minimum: 6, on: [:create]
-
+  attr_accessor :password_confirmation
+  attr_accessor :password
+  PRE_STR = '#wk@'
   #对sex汉化
   def sex_cn
     #翻译映射
@@ -83,11 +86,21 @@ class Manage::User < ActiveRecord::Base
   def self.new_token
     SecureRandom.urlsafe_base64
   end
-  
+  def authenticate(password)
+    if self.password_digest == Digest::MD5.hexdigest(PRE_STR+self.name+password)
+      self
+    else
+      nil
+    end
+  end
   private
   def create_activation_digest
     self.activation_token = self.class.new_token
     self.activation_digest = self.class.digest(activation_token)
+  end
+
+  def generate_password_digest
+    self.password_digest = Digest::MD5.hexdigest(PRE_STR+self.name+self.password)
   end
 
 end
