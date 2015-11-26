@@ -12,19 +12,20 @@
           <%= flash[:alert] %>
         </div>
     <% end %>
+    <%= form_errors @user unless @user.nil? %>
     <%= form_tag user_reg_path do %>
         <div class="form-field">
           <label for="tel_num">手机号码</label>
-          <%= text_field_tag :tel_num, '', autofocus: true, placeholder:"请输入手机号",class: 'form-control' %>
+          <%= text_field_tag :tel_num, params[:tel_num], autofocus: true, placeholder:"请输入手机号",class: 'form-control',id: 'tel_num' %>
         </div>
         <div class="form-field">
           <label for="password">密码</label>
-          <%= password_field_tag :password, '',placeholder:"请输入密码",class: 'form-control' %>
+          <%= password_field_tag :password, params[:password], placeholder:"请输入密码", class: 'form-control', id: 'password' %>
         </div>
         <div class="form-field">
           <label for="valicode">验证码</label>
-          <%= text_field :valicode, '',placeholder:"手机验证码",class: 'form-control' %>
-          <button type="submit" formaction="<%= user_reg_validate_path %>" class="btn btn-default">获取手机验证码</button>
+          <%= text_field_tag :valicode, params[:valicode], placeholder:"手机验证码", class: 'form-control', id: 'valicode' %>
+          <button id="validate" class="btn btn-default" data-url="<%= user_reg_validate_path %>" >获取手机验证码</button>
         </div>
         <hr>
         <%= submit_tag '注册',class: 'btn btn-block btn-primary' %>
