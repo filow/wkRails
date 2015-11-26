@@ -8,23 +8,62 @@ class Index::UserController < IndexController
   end
 
   def validate
+    res = {}
     if  (/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/ =~ params[:tel_num]).nil?
-      redirect_to user_reg_path, notice: '请输入正确的手机号码'
-      return
+      res[:failed] = true
+      res[:res] = '请输入正确的手机号码'
+    else
+      begin
+        msg_service_client['requestSmsCode'].post(%Q{{"mobilePhoneNumber": "#{params[:tel_num]}"}})
+        res[:failed] = false
+      rescue RestClient::Exception => e
+        res[:failed] = true
+        response = JSON.parse(e.response)
+        if response['code'] == 601  #短信数目超过限制的错误
+          res[:res] = response['error']
+        else  #其他错误
+          res[:res] = '验证码发送失败！请稍后再试'
+        end
+      end
     end
-    redirect_to user_reg_path, alert: '号码格式正确'
+    render json: res
   end
 
   def create
-    # @user = Manage::User.new(user_params)
-    #
-    # if @user.save
-    #   @user.send_activation_email
-    #   redirect_to @user, notice: "#{@user.name}, 注册成功！"
-    # else
-    #   render :reg
-    # end
-    redirect_to user_reg_path
+    if params[:password].length < 6 #验证密码长度
+      flash[:alert] = '密码长度必须不小于6位!'
+      render :reg
+      return
+    end
+    begin #验证短信
+      if params[:valicode].blank?
+        flash[:alert] = '请填写验证码!'
+        render :reg
+        return
+      end
+      msg_service_client["verifySmsCode/#{params[:valicode]}?mobilePhoneNumber=#{params[:tel_num]}"].post ''
+    rescue RestClient::Exception => e
+      response = JSON.parse(e.response)
+      if response['code'] == 603
+        redirect_to user_reg_path, notice: response['error']
+        return
+      else
+        flash[:notice] = '您输入的信息有有误，请重试！'
+        render :reg
+        return
+      end
+    end
+    #生成用户并存储
+    @user = Manage::User.new
+    @user.name = params[:tel_num]
+    @user.realname = params[:tel_num]
+    @user.phone = params[:tel_num]
+    @user.password = params[:password]
+    if @user.save
+      redirect_to usercenter_path, notice: "#{@user.name}, 注册成功！"
+    else
+      render :reg
+    end
   end
 
   def login
@@ -71,5 +110,23 @@ class Index::UserController < IndexController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :avatar, :password)
+    end
+
+    def msg_service_client
+      # 设置LeanCloud的鉴权参数
+      timestamp = Time.now.to_datetime.strftime('%Q')
+      app_id = '6k9Tdww1dlF4IzhWGGHVbQD9'
+      app_key = 'F9xrSOYuwitFJyFz9OdT87s4'
+      md5 = Digest::MD5.new
+      md5 << timestamp + app_key
+      sign = md5.hexdigest
+      # 设置请求头
+      headers = {
+          X_LC_Id: app_id,
+          X_LC_Sign: [sign, timestamp].join(','),
+          Content_Type: 'application/json'
+      }
+
+      resource = RestClient::Resource.new('https://leancloud.cn/1.1', headers: headers)
     end
 end

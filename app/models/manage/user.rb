@@ -23,6 +23,7 @@ class Manage::User < ActiveRecord::Base
 
   #对sex汉化
   def sex_cn
+    return nil if self.sex.nil?
     #翻译映射
     t = {
         male: '男',
@@ -33,6 +34,7 @@ class Manage::User < ActiveRecord::Base
 
   #对group汉化
   def group_cn
+    return nil if self.group.nil?
     #翻译映射
     t = {
         student: '学生组',

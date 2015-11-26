@@ -21,4 +21,12 @@ class Index::UserControllerTest < ActionController::TestCase
   #   assert_response :success
   # end
 
+  # test '发送验证码' do
+  #   post :validate, tel_num: '#'
+  # end
+
+  # test '验证并注册' do
+  #   post :create, tel_num: '#', valicode: '926195', password: '12345678'
+  # end
+
 end
