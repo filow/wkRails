@@ -1,20 +1,19 @@
 @charset "utf-8";
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
-
+$main_width: 1040px;
 .content{
-	border-bottom: dotted 1px #bebebe;
 	padding-bottom: 10px;
 	margin-top: 20px;
 }
 .slidebox{
-  width: 1040px;
+  width: $main_width;
   height: 400px;
 	margin-bottom: 30px;
 	display: block;
  	position: relative;
  	background-repeat: no-repeat;
  	.poster_slide{
-    width: 1040px;
+    width: $main_width;
     height: 400px;
 		position: relative;
 		overflow: auto;
@@ -26,7 +25,7 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 				list-style: none;
 				float: left;
 				img{
-          width: 1040px;
+          width: $main_width;
           height: 400px;
           border-radius: 5px;
 				}
@@ -38,9 +37,10 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 
 /******* 三大板块的标题图片 ***********/
 .icon{
-	height: 69px;
-	padding-left: 50px;
+	margin-left: auto;
+  margin-right: auto;
 	margin-bottom: 14px;
+  width: 183px;
 	.icon_img{
 		margin: 22px 0 22px 15px;
 		vertical-align: top;
@@ -48,68 +48,63 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 }
 
 
+/********** 三大信息框 *********/
+.main_content{
+	.well{
+		padding: 10px;
+		background:#FEFEFE;
+	}
+}
+
+.list_box{
+	height:210px;
+	table.table {
+    a {
+      display: block;
+    }
+    td {
+      border-top: 0;
+    }
+  }
+}
+
 /****** login ******/
 .login_box{
-	background-color: #fff;
-	border: 1px solid #dadada;
-	min-height: 220px;
-	width: 275px;
 	margin: 0 4px;
-    border-radius: 5px;
-	box-shadow:0 2px 7px #9e9f9f;
 	form{
-		padding: 20px;
+		padding: 5px;
 		margin: 0;
-		width: 220px;
-	}
-	input{
-		margin-left: 5px;
 	}
 	.login_input{
-		height: 28px !important;
-		width: 210px;
+    height: 45px;
+    margin-bottom: 6px;
+    font-size: 18px;
 	}
-    .login_submit{ padding: 8px 97px; }
-    .regist{
-        padding: 8px 61px;
-        width: 100px;
-        margin-left: 6px;
-        margin-top: 5px;
-    }
+  .login_submit{ padding: 8px 97px; }
 }
 /********** after login ***********/
 
-.user_after{
-	margin: 10px;
-	padding: 5px;
-	.user_info{
-		.headphoto{
-			padding: 2px;
-			width: 70px;
-			float:left;
-			img{width:70px;}
-		}
-		.user_info_detail{
-			float:right;
-			width: 164px;
-			div{
-				margin: 1px 0;
-				color: #5e8dee;
-				span{
-					float: right;
-					font-weight: bold;
-					color: #777;
-				}
+.user_after .user_info{
+  table.table {
+    margin-bottom: 0;
+  }
+	.user_info_detail{
+		div{
+			margin: 1px 0;
+			color: #5e8dee;
+			span{
+				float: right;
+				font-weight: bold;
+				color: #777;
 			}
-			.user_name{
-				margin-bottom: 6px;
-				margin-top: 5px;
-				a{
-					color: #0066a5;
-					font-weight: bold;
-					font-size:18px;
-					font-family: $cn-font;
-				}
+		}
+		.user_name{
+			margin-bottom: 6px;
+			a{
+				color: #0066a5;
+				font-weight: bold;
+				font-size:18px;
+				font-family: $cn-font;
 			}
 		}
 	}
@@ -119,7 +114,7 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 	padding-right: 0px;
 	margin: 5px 0px;
 	li{
-		padding: 2px 0;
+		padding: 2px 7px;
 		a{
 			color: #777;
 			margin:0px;
@@ -131,55 +126,8 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 		}
 	}
 }
-.user_button .btn{
-	padding: 8px 20px;
-	margin-left: 15px;
-}
 
-/********** 三大信息框 *********/
-.main_content{
-	margin: 10px 0 16px 0;
-	padding: 0 10px;
-	.well{
-		padding: 10px;
-		background:#FEFEFE;
-	}
-}
 
-.list_box{
-	height:210px;
-	ol{
-		margin:0px;
-		// list-style-position:inside;
-		li{
-			list-style:none;
-			a{
-				color: #000;
-				text-decoration: none;
-				font-size: 14px;
-				&:hover{
-					color:#08c !important;
-				}
-			}
-		}
-	}
-}
-
-.announcement,.introduce{
-	ol li{
-		margin-top: 4px;
-		&:hover{color:#2a609f;}
-		&:first-child{margin-top:0;}
-		a{
-			padding:5px 11px;
-			display:block;
-			&:hover{
-				background-color: #EFEFEF;
-				color:#2a609f;
-			}
-		}
-	}
-}
 
 /*********** 示例视频 ***********/
 .video_example{

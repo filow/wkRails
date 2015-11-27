@@ -84,11 +84,11 @@
           <% end %>
         </ul>
       </div>
-      <div class="col-md-4 stats friend_link">
+      <div class="col-md-4 stats">
         <h4>友情链接</h4>
         <ul data-no-turbolink>
           <% @friend_links.each do |x| %>
-            <li><a href="<%= x[:link] %>"><i class="glyphicon glyphicon-bookmark"></i><%= x[:name] %></a></li>
+            <li><a href="<%= x[:link] %>"><i class="glyphicon glyphicon-bookmark"></i> <%= x[:name] %></a></li>
           <% end %>
         </ul>
       </div>

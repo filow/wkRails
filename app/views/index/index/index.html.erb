@@ -1,6 +1,6 @@
 <div class="slidebox">
   <div id="poster_slide" class="carousel slide poster_slide">
-    <div class="carousel-inner">
+    <div class="carousel-inner" role="listbox">
       <% @posters.each_with_index do |x, index| %>
           <% if index == 0 %>
               <div class="active item"><%= image_tag x %></div>
@@ -10,28 +10,35 @@
       <% end %>
 
     </div>
-    <a class="carousel-control left" href="#poster_slide" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#poster_slide" data-slide="next">&rsaquo;</a>
+
+    <a class="carousel-control left" href="#poster_slide" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control right" href="#poster_slide" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
   </div>
 </div>
 <div class="content">
-  <div class="row-fluid">
+  <div class="row">
     <div class="announcement col-md-4">
       <div class="icon">
         <%= image_tag 'index/icon_ann.png' %>
         <%= image_tag 'index/title_ann.png', class:'icon_img', alt: '通知公告' %>
       </div>
       <div class="main_content">
+
         <div class="well list_box">
-          <ol>
+          <table class="table table-condensed table-hover">
             <% @posts.each_with_index do |p, i| %>
-                <li>
-                  <a href="<%= passage_path(p) %>">
-                    <%= i+1 %>.<span class="label label-info"><%= p.publish_at.strftime("%m-%d") %></span> <%= p.title %>
-                  </a>
-                </li>
+            <tr>
+              <td>
+                <%= link_to p.title, passage_path(p) %>
+              </td>
+              <td width="50px"><%= p.publish_at.strftime("%m-%d") %></td>
+            </tr>
             <% end %>
-          </ol>
+          </table>
         </div>
       </div>
     </div>
@@ -39,15 +46,17 @@
     <div class="introduce col-md-4">
       <div class="icon">
         <%= image_tag 'index/icon_intro.png' %>
-        <%= image_tag 'index/title_intro.png', class:'icindex/user#login on_img', alt: '大赛介绍' %>
+        <%= image_tag 'index/title_intro.png', class:'icindex/user#login icon_img', alt: '大赛介绍' %>
       </div>
       <div class="main_content">
-        <div class="well list_box">index/user#login
-          <ol>
-            <volist name="intro" id="ito" key="k">
-              <li><a href="{$ito.url}">{$k}. {$ito.title}</a></li>
-            </volist>
-          </ol>
+        <div class="well list_box">
+          <table class="table table-condensed table-hover">
+            <tr>
+              <td>
+                <a href="{$ito.url}">{$k}. {$ito.title}</a>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -59,51 +68,49 @@
         <%= image_tag 'index/title_login.png', class:'icon_img', alt: '选手登录' %>
       </div>
       <div class="main_content">
+        <div class="list_box well login_box">
         <% unless session[:user_id].blank? %>
-            <div class="login_box">
-              <div class="user_after">
-                <div class="user_info">
-                  <div class="headphoto">
-                    <img src=<%= @user.avatar.thumb %> class="user_header">
-                  </div>
-                  <div class="user_info_detail">
+          <div class="user_after">
+            <div class="user_info">
+              <table class="table">
+                <tr>
+                  <td width="70px">
+                    <% unless @user.avatar.thumb.url.nil? %>
+                      <img src="<%= @user.avatar.thumb %>" class="user_header" width="70">
+                    <% else %>
+                      <%= image_tag 'index/user.jpg' %>
+                    <% end %>
+                  </td>
+
+                  <td class="user_info_detail">
                     <div class="user_name">
                       <%= link_to @user.realname, usercenter_path %>
                     </div>
-                    <div>作品数：<span><%= @user.opus_count %></span></div>
+                    <div>未读消息数:<span><%= @user.msg_unread %></span></div>
+                    <div>人气：<span><%= @user.popularity %></span></div>
                     <div>单位:<span><%= @user.department.blank? ? '未填写': @user.department %></span></div>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-                <div class="user_nav">
-                  <ul class="nav nav-list">
-                    <li>
-                      <a href="{:U('UserCenter/message')}">
-                        <i class="icon-envelope"></i>消息箱
-                        <span class="badge badge-info"><%= @user.messages.count > 0 ? @user.messages.count : nil %></span>
-                      </a>
-                    </li>
-                    <li><a href="{:U('UserCenter/userInfo')}"><i class="icon-cog"></i> 个人设置</a></li>
-                  </ul>
-                  <div class="clear"></div>
-                </div>
-                <div class="user_button">
-                  <a href="{:U('UserCenter/OpusManage')}" class="btn btn-info">作品管理</a>
-                  <%= link_to '退出登陆', user_logout_path, class: "btn btn-warning", method: :delete %>
-                </div>
-                <div class="clear"></div>
-              </div>
-            </div> <!-- login-box end -->
-        <% else %>
-            <div class="login_box">
-              <%= form_tag(user_login_path, method: :post) do %>
-                  <input type="text" name="username" placeholder="用户名" class="login_input">
-                  <input type="password" name="password" placeholder="密码" class="login_input">
-                  <input type="submit" class="login_submit btn btn-warning" value="登陆"><br>
-                  <a href="<%= user_reg_path %>" class="regist btn btn-success" style="">立即注册</a>
-              <% end %>
+
+                  </td>
+                </tr>
+              </table>
             </div>
+            <div class="user_nav">
+              <ul class="nav nav-list">
+                <li><%= link_to '用户中心', usercenter_url %></li>
+                <li><%= link_to '退出登陆', user_logout_path, method: :delete %></li>
+              </ul>
+            </div>
+          </div>
+
+        <% else %>
+          <%= form_tag(user_login_path, method: :post) do %>
+              <input type="text" name="username" placeholder="用户名" class="login_input form-control">
+              <input type="password" name="password" placeholder="密码" class="login_input form-control">
+              <input type="submit" class="login_submit btn btn-warning btn-block" value="登陆">
+              <a href="<%= user_reg_path %>" class="btn btn-success btn-block">立即注册</a>
+          <% end %>
         <% end %>
+        </div> <!-- login-box end -->
       </div>
     </div>
   </div>
