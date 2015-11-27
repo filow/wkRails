@@ -5,15 +5,6 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
   *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
 }
-@mixin gradient-vertical($startColor: #555, $endColor: #333){
-  background-color: mix($startColor, $endColor, 60%);
-  background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
-  background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
-  background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
-  background-image: linear-gradient(to bottom, $startColor, $endColor); // Standard, IE10
-  background-repeat: repeat-x;
-}
 body{
   background: image-url("index/backgound.png") no-repeat;
 	background-color: #f3f3f3;
@@ -27,105 +18,69 @@ a:hover{
 }
 // 主容器
 .container{
-	width: 1040px !important;
-	margin-left: auto;
-	margin-right: auto;
+	width: 1070px !important;
 	margin-top: 10px;
 }
-.header{
-	height: 140px;
-	margin-bottom: 15px;
+.header {
+  height: 160px;
 }
-// 顶部通知栏
-.notification {
-	display: inline;
-	float: left;
-	margin-top: 30px;
-	margin-left: 19px;
-	width: 415px;
+#logo {
+  width: 261px;
+  margin-right: 20px;
+  position: absolute;
 }
-// 顶部（不包含导航）
-.header_top{
-	margin: 10px 0;
-	img{
-		float: left;
-	}
-}
-#ie7_margin{
-	height: 20px;
-}
-/******* 搜索 *******/
-
-.search{
-	padding-top: 30px;
-	float: right;
-	form{
-		margin:0;
-	}
-	input{
-    width: 220px;
-    height: 28px;
-		border-right: none;
-	}
-	a{
-		display: inline-block;
-		@include ie7-inline-block();
-		font-size: 17px;
-		color: #989898;
-		margin-left: -28px;
-	}
-	.search_button{
-		border: 1px solid #ccc !important;
-		padding: 8px 18px !important;
-		margin-left: 0 !important;
-	}
+#header-controls {
+  padding-left: 290px;
+  // 顶部通知栏
+  .notification {
+  	margin-top: 20px;
+    margin-bottom: 5px;
+  }
+  /******* 搜索 *******/
+  #search{
+  	padding-top: 26px;
+  	input{
+      height: 40px;
+  	}
+    button {
+      height: 40px;
+    }
+  }
 }
 
 /******* 导航条 *******/
 .header_nav {
-  width: 760px;
-  height: 42px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.15);
-  border-radius: 5px;
-	float: left;
-	margin-left: 280px;
-	margin-top: -52px;
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
+  height: 49px;
 	ul {
 		width: 100%;
-    @include gradient-vertical(#fff, #f4f4f4);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff4f4f4', GradientType=0);
-		// #gradient > .vertical(#fff,#f4f4f4);
-		margin: 0;
-    border-radius: 5px;
+    padding: 0;
 		list-style: none;
-		position: relative;
-		display: inline-table;
 		li {
 			float: left;
-      transition: background-color .7s;
+      transition: all 0.7s ease;
+      border-top: 3px solid white;
 			a {
 				display: block;
-				padding: 11px 40px;
-        // min-width: 50px;
+				padding: 13px 38px;
 				color: #757575;
 				font-weight: bold;
 				text-decoration: none;
-				&:hover{color: #fff;}
-				i{margin: 0 5px;}
 			}
-			&:hover{background: #4e9cdf;}
-			&.active{
-        @include gradient-vertical(#68ade8, #4e9cdf);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff68ade8', endColorstr='#ff4e9cdf', GradientType=0);
-				a{color: #fff;}
-			}
-			&:first-child{
-				border-top-left-radius: 5px;
-				border-bottom-left-radius: 5px;
-			}
+			&:hover, &.active{
+        background: #547C9F;
+        background: rgba(56, 103, 144, 0.85);
+        border-top: 3px solid #78D9FF;
+        a {
+          color: #fff;
+        }
+      }
+      &:hover {
+        transform: translatey(-4px);
+      }
 		}
 	}
-
 }
 
 /********** 用户性别图标显示 **********/
@@ -144,72 +99,30 @@ a:hover{
 
 /********** 页面底部 **********/
 .footer{
-	background-color: #313131;
+	background-color: #D0D0D0;
 	margin-top: 10px;
-	color: #E6E6E6;
-}
-
-.footer_wrap{
-  width: 1040px;
-  height: 260px;
-	margin-left: auto;
-	margin-right: auto;
-	.footer_logo,.footer_question,.footer_contact{
-		margin-top: 40px;
-		height: 150px;
-		float: left;
-	}
-	.footer_question{margin-right: 100px;}
-	.footer_question,.footer_contact{margin-left: 80px;}
-}
-
-.footer_logo div{
-	width: 230px;
-	text-align: center;
-	margin-top: 5px;
-}
-
-.qa_title{
-	margin: 0 0 20px 25px ;
-	font-family:$cn-font;
-	color: #fff;
-	font-size: 25px;
-	span{
-		margin: 0 10px;
-		font-size: 25px;
-		font-family:$cn-font;
-		color: #fff;
-	}
-}
-
-.qa_question ul li{
-	list-style: none;
-	font-size: 14px;
-	margin-bottom: 5px;
-	span{color: #fff;}
-}
-.footer_contact span{
-	color: #fff;
-	font-size: 25px;
-	font-family: $cn-font;
-}
-.friend_link{
-	margin-top: 10px;
-	a{
-		display: block;
-		color: #E6E6E6;
-		margin-bottom: 5px;
-		i{
-			color: #fff;
-			margin: 0 5px;
-		}
-		&:hover{color: #fff;}
-	}
-}
-.footer_copyright{
-	clear: both;
-	text-align: center;
-	color: #fff;
+	color: #333;
+  border-top: 3px solid #5EC4EA;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  .footer_logo div{
+    margin-top: 10px;
+  }
+  .stats {
+    h4 {
+      font-family: $cn-font;
+      font-weight: 200;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      a{
+        display: block;
+        color: #333;
+        padding: 5px 0;
+      }
+    }
+  }
 }
 
 /******* to top button ********/

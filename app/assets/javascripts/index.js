@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap2.min.js
+//= require bootstrap-sprockets
 
 $(document).on('ready page:load', function(){
   Turbolinks.enableProgressBar()

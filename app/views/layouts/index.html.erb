@@ -7,7 +7,7 @@
   <meta content="河海大学,远程与继续教育学院,远教院,微课程大赛,微课大赛" name="keywords">
   <%= yield :seo_extra %>
   <title><% if @title %><%= @title %>--<% end %>远教院微课大赛官方网站</title>
-  <%= stylesheet_link_tag  'bootstrap2', media: 'all' %>
+  <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
   <%= stylesheet_link_tag  'index', media: 'all','data-turbolinks-track'=> true %>
   <%= stylesheet_link_tag  params[:controller], media: 'all','data-turbolinks-track'=> true %>
   <link rel="shortcut icon" href="/favicon.png">
@@ -17,34 +17,48 @@
 <body>
 <div class="container">
   <div class="header">
-    <div class="header_top">
+    <div id="logo">
       <%= image_tag 'index/logo.jpg', alt: "微课程大赛" %>
-      <!-- 这里的条件是目前在上传的时间范围内 -->
-      <% if true %>
-        <!-- 这里的地址需要改掉 -->
-        <div class="notification alert alert-info">通知：大赛视频现已可以上传 <%= link_to '[通知详情]',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></div>
-      <% else %>
-        <div class="notification alert alert-warning">通知：目前不在作品上传时间内，无法投票/发布/取消发布。 </div>
-      <% end %>
-      <div class="search">
-        <%= form_tag '/search',method: 'get',class:'search_form' do %>
-          <div class="input-append">
-            <input type="text" name="q" placeholder="搜索相关选手/视频" value="<%= params['q'] %>">
-            <button class="search_button btn" type="submit"><i class="icon-search"></i></button>
+    </div>
+    <div id="header-controls">
+      <div class="row">
+        <div class="col-md-7">
+          <!-- 这里的条件是目前在上传的时间范围内 -->
+          <% if true %>
+            <!-- 这里的地址需要改掉 -->
+            <div class="notification alert alert-info">通知：大赛视频现已可以上传 <%= link_to '[通知详情]',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></div>
+          <% else %>
+            <div class="notification alert alert-warning">通知：目前不在作品上传时间内，无法投票/发布/取消发布。 </div>
+          <% end %>
+        </div>
+        <div class="col-md-5">
+          <%= form_tag '/search',method: 'get',class:'search_form' do %>
+          <div class="input-group" id="search">
+            <input type="text" class="form-control" name="q" placeholder="搜索相关选手/视频" value="<%= params['q'] %>">
+            <span class="input-group-btn">
+              <button class="search_button btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
           </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
+
+      <div class="header_nav">
+        <ul>
+          <li <%= index_nav_active(root_url) %>><a href="<%= root_url %>">首 &nbsp; 页</a></li>
+          <li <%= index_nav_active(passage_url(@broadcast_passage)) unless @broadcast_passage.empty? %>><%= link_to '大赛介绍',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></li>
+          <li <%= index_nav_active(creations_url) %>><%= link_to '参赛作品', creations_url %></li>
+          <li <%= index_nav_active(creations_url(type: 'old')) %>><%= link_to '往届作品', creations_url(type: 'old') %></li>
+          <li <%= index_nav_active(usercenter_url) %>><%= link_to '用户中心', usercenter_url %></li>
+          <li><%= link_to '后台', manage_path %></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="header_top">
       <div class="clear"></div>
     </div>
-    <div class="header_nav">
-      <ul>
-        <li <%= index_nav_active(root_url) %>><a href="<%= root_url %>">首 &nbsp; 页</a></li>
-        <li <%= index_nav_active(passage_url(@broadcast_passage)) unless @broadcast_passage.empty? %>><%= link_to '大赛介绍',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></li>
-        <li <%= index_nav_active(creations_url) %>><%= link_to '参赛作品', creations_url %></li>
-        <li <%= index_nav_active(creations_url(type: 'old')) %>><%= link_to '往届作品', creations_url(type: 'old') %></li>
-        <li <%= index_nav_active(usercenter_url) %>><%= link_to '用户中心', usercenter_url %></li>
-      </ul>
-    </div>
+
     <!--[if IE 7.0]><div id="ie7_margin"></div><![endif]-->
   </div>
   <%= yield %>
@@ -53,43 +67,40 @@
 
 <!-- 底部 -->
 <div class="footer">
-  <div class="footer_wrap">
-    <div class="footer_logo">
-      <%= image_tag 'index/logo.jpg', alt: "微课程大赛", width: 230 %>
-      <div>河海大学远程与继续教育学院<br>第<%= Cfg.get('current_version') %>届微课程大赛</div>
-    </div>
-    <div class="footer_question">
-      <div class="qa_title">
-        网站统计信息
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer_logo text-center">
+        <%= image_tag 'index/logo.jpg', alt: "微课程大赛", width: 230 %>
+        <div>河海大学远程与继续教育学院<br>第<%= Cfg.get('current_version') %>届微课程大赛</div>
       </div>
-      <div class="qa_question">
+      <div class="col-md-4 stats">
+        <h4>网站统计信息</h4>
         <ul>
-          <li><span>网站总访问量：</span>0</li>
-          <li><span>页面加载时间：</span>0 秒</li>
-          <li><span>当前在线人数：</span>0 </li>
+          <li><a>网站总访问量：0</a></li>
+          <li><a>页面加载时间：0 秒</a></li>
+          <li><a>当前在线人数：0</a></li>
           <% if Rails.env.production? %>
           <li><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000369442'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000369442' type='text/javascript'%3E%3C/script%3E"));</script></li>
           <% end %>
         </ul>
       </div>
-    </div>
-    <div class="footer_contact">
-      <div class="contact_weibo">
-        <span>友情链接</span>
-        <div class="friend_link" data-no-turbolink>
+      <div class="col-md-4 stats friend_link">
+        <h4>友情链接</h4>
+        <ul data-no-turbolink>
           <% @friend_links.each do |x| %>
-            <a href="<%= x[:link] %>"><i class="icon-bookmark  icon-white"></i><%= x[:name] %></a>
+            <li><a href="<%= x[:link] %>"><i class="glyphicon glyphicon-bookmark"></i><%= x[:name] %></a></li>
           <% end %>
-        </div>
+        </ul>
       </div>
     </div>
-      <div class="footer_copyright">
-        Copyright © <%= Date.today.year %> 主办：远程与继续教育学院 团委 教务处 研究生院  <br>
-        承办：江苏水源有限公司 河海大学设计院<br>
-        地址：江苏省南京市西康路1号 联系电话： 025-83787964
-      </div>
-      <div class="to_top"><div class="to_top_icon"></div></div>
-    </div>
+  </div>
+
+  <div class="footer_copyright text-center">
+    Copyright © <%= Date.today.year %> 主办：远程与继续教育学院 团委 教务处 研究生院  <br>
+    承办：江苏水源有限公司 河海大学设计院<br>
+    地址：江苏省南京市西康路1号 联系电话： 025-83787964
+  </div>
+  <div class="to_top"><div class="to_top_icon"></div></div>
 </div>
 
 <!-- <script src="__PUBLIC__/plugins/unslider/unslider.min.js" type="text/javascript"></script> -->
