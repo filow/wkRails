@@ -118,10 +118,10 @@
 
 
 <div class="content_video">
-  <div class="row-fluid">
+  <div class="row">
     <div class="main-content col-md-8">
       <!-- 示例视频 -->
-      <div class="video_example well">
+      <div class="video_example">
         <h4>示例视频</h4>
         <div class="videobox">
           <div id="video_exp_carousel" class="carousel slide">
@@ -135,27 +135,30 @@
                   <a href="#video_exp_modal" data-toggle="modal" data-title="<%= v.name %>" data-location="<%= v.video.url %>" class="video_exp_btn">
                     <img src="<%= v.thumb_url %>" alt="<%= v.name %>">
                   </a>
-                  <div class="caption" style="bottom:0">
+                  <div class="carousel-caption" style="bottom:0">
                     <p><%= v.name %> <small>作者：<%= v.author %></small></p>
                   </div>
                 </div>
               <% end %>
             </div>
-            <a class="left carousel-control" href="#video_exp_carousel" data-slide="prev">‹</a>
-            <a class="right carousel-control" href="#video_exp_carousel" data-slide="next">›</a>
+            <a class="left carousel-control" href="#video_exp_carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+            <a class="right carousel-control" href="#video_exp_carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
           </div>
-          <div class="clear"></div>
         </div>
       </div>
 
       <!-- Video_Example Modal -->
-      <div id="video_exp_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:680px;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 class="video_exp_title"></h3>
-        </div>
-        <div class="modal-body" style="max-height:500px;">
-          <div id="player"></div>
+      <div class="modal fade" id="video_exp_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="width:680px;margin-left:auto;margin-right:auto">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="video_exp_title"></h4>
+            </div>
+            <div class="modal-body" style="max-height:500px;">
+              <div id="player"></div>
+            </div>
+          </div>
         </div>
       </div>
 
