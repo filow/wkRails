@@ -46,12 +46,47 @@ $box-bg-color: #FEFEFE;
   margin-right: auto;
 	margin-bottom: 14px;
   width: 183px;
-	.icon_img{
-		margin: 22px 0 22px 15px;
-		vertical-align: top;
-	}
 }
-
+.sprite {
+  background-image: image-url('index/sprite.png');
+}
+.sprite-ann, .sprite-intro, .sprite-login {
+  width: 69px;
+  height: 69px;
+  float: left;
+}
+.sprite-intro {
+  background-position: 69px * 1 0;
+}
+.sprite-login {
+  background-position: 69px * 2 0;
+}
+.sprite-title-ann, .sprite-title-intro, .sprite-title-login {
+  width: 95px;
+  height: 24px;
+  float: left;
+  margin: 22px 0 0 15px;
+}
+.sprite-title-ann {
+  background-position: 0 71px;
+}
+.sprite-title-intro {
+  background-position: 0 189px;
+}
+.sprite-title-login {
+  background-position: 0 213px;
+}
+.sprite-top-author, .sprite-top-work {
+  width: 96px;
+  height: 23px;
+  margin: 10px;
+}
+.sprite-top-author {
+  background-position: -95px -92px;
+}
+.sprite-top-work {
+  background-position: -95px -69px;
+}
 
 /********** 三大信息框 *********/
 .main_content{
@@ -279,7 +314,6 @@ span.author {
       width: 95px;
     }
   }
-  .hot_box_title{margin: 10px;}
 }
 
 

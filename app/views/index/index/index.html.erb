@@ -23,8 +23,9 @@
   <div class="row">
     <div class="announcement col-md-4">
       <div class="icon">
-        <%= image_tag 'index/icon_ann.png' %>
-        <%= image_tag 'index/title_ann.png', class:'icon_img', alt: '通知公告' %>
+        <div class="sprite sprite-ann"></div>
+        <div class="sprite sprite-title-ann"></div>
+        <div class="clear"></div>
       </div>
       <div class="main_content">
 
@@ -45,8 +46,9 @@
     <!-- 大赛介绍 -->
     <div class="introduce col-md-4">
       <div class="icon">
-        <%= image_tag 'index/icon_intro.png' %>
-        <%= image_tag 'index/title_intro.png', class:'icindex/user#login icon_img', alt: '大赛介绍' %>
+        <div class="sprite sprite-intro"></div>
+        <div class="sprite sprite-title-intro"></div>
+        <div class="clear"></div>
       </div>
       <div class="main_content">
         <div class="well list_box">
@@ -64,8 +66,9 @@
     <!-- 选手登录 -->
     <div class="login col-md-4">
       <div class="icon">
-        <%= image_tag 'index/icon_login.png' %>
-        <%= image_tag 'index/title_login.png', class:'icon_img', alt: '选手登录' %>
+        <div class="sprite sprite-login"></div>
+        <div class="sprite sprite-title-login"></div>
+        <div class="clear"></div>
       </div>
       <div class="main_content">
         <div class="list_box well login_box">
@@ -209,7 +212,7 @@
 
 
       <div class="hot_author_box ranklist">
-        <%= image_tag 'index/top_author.png', alt:'人气选手', class:'hot_box_title', width: 96, height: 23 %>
+        <div class="sprite sprite-top-author"></div>
         <hr>
         <% if @user_rank.length > 0 %>
             <div class="top_author">
@@ -240,7 +243,7 @@
 
 
       <div class="hot_work_box ranklist">
-        <%= image_tag 'index/top_work.png', alt:'人气作品', class:'hot_box_title',width: 95, height: 23 %>
+        <div class="sprite sprite-top-work"></div>
         <hr>
         <% if @opus_rank.length > 0 %>
             <div class="top">
