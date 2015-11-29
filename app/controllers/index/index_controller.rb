@@ -15,12 +15,17 @@ class Index::IndexController < IndexController
     if @posters.empty?
       @posters.push('index/poster.jpg')
     end
-
+    # 排行榜
     @opus_rank = Manage::Creation.ranklist.limit(7)
     @user_rank = Manage::User.ranklist.limit(7)
 
+    # 示例视频
     @exp_video = Manage::Expvideo.all
-    
+
+
+    # 作品展示
+    @random_video = Manage::Creation.random.limit(4)
+  
   end
 
   def search

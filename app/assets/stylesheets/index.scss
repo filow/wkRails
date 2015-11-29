@@ -16,13 +16,22 @@ a:hover{
 	clear: both;
 }
 // 主容器
-.container{
-	width: 1070px !important;
-	margin-top: 10px;
+@media (min-width: 993px) {
+  .container{
+  	width: 1070px !important;
+  	margin-top: 10px;
+  }
 }
+@media (max-width: 993px) {
+  .container{
+  	width: 100%;
+  }
+}
+
 .header {
-  height: 160px;
+  margin-bottom: 20px;
 }
+
 #logo {
   width: 261px;
   margin-right: 20px;
@@ -46,18 +55,29 @@ a:hover{
     }
   }
 }
+@media (max-width: 993px) {
+  #logo {
+    position: relative;
+
+  }
+  #header-controls {
+    padding-left: 0px;
+    #search{
+    	padding-top: 5px;
+    }
+  }
+}
 
 /******* 导航条 *******/
 .header_nav {
-  background-color: white;
-  background-color: rgba(255, 255, 255, 0.75);
-  height: 49px;
 	ul {
 		width: 100%;
     padding: 0;
 		list-style: none;
 		li {
 			float: left;
+      background-color: white;
+      background-color: rgba(255, 255, 255, 0.75);
       transition: all 0.7s ease;
       border-top: 3px solid white;
 			a {

@@ -1,9 +1,11 @@
 @charset "utf-8";
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
 $main_width: 1040px;
+$box-bg-color: #FEFEFE;
 .content{
 	margin-top: 20px;
 }
+
 .slidebox{
   width: $main_width;
   height: 400px;
@@ -32,7 +34,11 @@ $main_width: 1040px;
 		}
 	}
 }
-
+@media (max-width: 993px) {
+  .slidebox {
+    display: none;
+  }
+}
 
 /******* 三大板块的标题图片 ***********/
 .icon{
@@ -51,7 +57,7 @@ $main_width: 1040px;
 .main_content{
 	.well{
 		padding: 10px;
-		background:#FEFEFE;
+		background:$box-bg-color;
 	}
 }
 
@@ -69,7 +75,6 @@ $main_width: 1040px;
 
 /****** login ******/
 .login_box{
-	margin: 0 4px;
 	form{
 		padding: 5px;
 		margin: 0;
@@ -129,18 +134,18 @@ $main_width: 1040px;
 
 
 /*********** 示例视频 ***********/
+h4.left-bar-title {
+  margin-top: 0;
+  color: #c14545;
+  font-size: 26px;
+  font-weight: normal;
+  font-family: $cn-font;
+  margin: auto auto 15px auto;
+  background-color: $box-bg-color;
+  padding: 16px 20px;
+  border-left: 4px solid #c14545;
+}
 .video_example{
-	h4{
-		margin-top: 0;
-		color: #c14545;
-		font-size: 26px;
-		font-weight: normal;
-    font-family: $cn-font;
-		margin: auto auto 15px auto;
-    background-color: #FEFEFE;
-    padding: 16px 20px;
-    border-left: 4px solid #c14545;
-	}
 	.videobox{
 		// width: 605px;
 		overflow: hidden;
@@ -162,99 +167,89 @@ $main_width: 1040px;
 		}
 	}
 }
-
+@media (max-width: 792px) {
+  .video_example {
+    display: none;
+  }
+}
 /************ 作品展示 *********/
 
 .works_show{
-	text-align: center;
-	margin: 20px 0 15px 0;
-}
-
-.slogan{
-	height: 25px;
-	width: 665px;
-	background-image: image-url('index/slogan.png');
-	margin: 0px auto 10px auto;
+  margin-top: 20px;
+  h4 {
+    border-left-color: #367AA7;
+    color: #367AA7;
+  }
 }
 
 /************ 作品展示视频 *********/
-.work{
-	background-color: #FAFAFA;
-	box-shadow: 1px 1px 8px #9e9f9f;
-	padding-bottom: 8px;
+.work-presentation{
+	background-color: $box-bg-color;
+	margin-bottom: 10px;
 }
-.video{
-  width: 320px;
-  height: 220px;
-	float: left;
-
-	.video_pic{
-		border: 5px solid #fff;
-    width: 310px;
-    height: 210px;
-	}
+.video_pic{
+  width: 100%;
 }
 .video_info{
-	padding: 0 5px;
-	width: 302px;
-	height: 220px;
-	float: left;
-	margin-left: 13px;
+	padding: 0;
+  position: relative;
 	p{
 		color: #6D6D6D;
-		height: 120px;
+		height: 108px;
 		overflow: hidden;
 		text-overflow:ellipsis;
 	}
 	h3{
 		max-height: 40px;
+    margin-top: 10px;
 		overflow: hidden;
 		text-overflow:ellipsis;
 	}
+  .vote {
+    position: absolute;
+    right: 15px;
+    padding: 10px;
+    background-color: #E8E8E8;
+    font-size: 16px;
+    color: #6B6B6B;
+    cursor: pointer;
+    &:hover {
+      color: #2672BF;
+    }
+  }
+  .voted {
+    color: #9A0A0A;
+  }
 }
 
-.info{
-	margin-top: 5px;
-	border-top: 1px solid #BDBDBD;
-	padding: 10px 5px 5px 5px;
-	.author{
-		float: left;
-		padding: 5px 8px;
-		margin-right: 8px;
-		background-color: #f7f7f7;
-		border: 1px solid #e3e3e3;
-		border-radius: 4px;
-		box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-	}
-	.vote {
-		float: right;
-		color: #7b7979;
-		i{
-			color: #940000;
-			font-size: 15px;
-			margin: 0 2px;
-		}
-	}
-	.poll{
-		font-size: 14px;
-		color: #940000;
-		margin: 0 2px;
-	}
+span.author {
+  a {
+    color: #fff;
+  }
+  cursor: default;
 }
 
-
+.reverted {
+  & > div:first-child {
+    float: right;
+  }
+  & > div:last-child {
+    padding-left: 27px;
+  }
+  .vote {
+    right: 0;
+  }
+}
 /******** 排行榜 *********/
 
 .ranklist{
   background-color: #fff;
-  border-radius: 3px;
-  margin: 20px 0;
+  margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #e5e6e6;
   box-shadow: 0 0 5px #E2E2E2;
   min-height: 150px;
   .video_thumb {
-
     height: 108px;
     width: 192px;
     margin: 4px auto;

@@ -122,7 +122,7 @@
     <div class="main-content col-md-8">
       <!-- 示例视频 -->
       <div class="video_example">
-        <h4>示例视频</h4>
+        <h4 class="left-bar-title">示例视频</h4>
         <div class="videobox">
           <div id="video_exp_carousel" class="carousel slide">
             <div class="carousel-inner">
@@ -162,50 +162,48 @@
         </div>
       </div>
 
-
-      <div class="works_show"><%= image_tag 'index/works_show.png', alt: '作品展示' %></div>
-      <div class="slogan"></div>
+      <% if @random_video.length > 0 %>
+      <div class="works_show">
+        <h4 class="left-bar-title">作品展示 <small>为你欣赏的作品投上一票</small></h4>
+      </div>
       <!-- 作品 -->
-      <volist name="random_video" id="li">
-        <div class="work well">
-          <div class="row-fluid">
-            <div class="video">
-              <a href="{:U('Opus/view',array('id'=>$li['id']))}">
-                <img src="{:getThumb($li['id'])}" alt="{$li.opus_name}" class="video_pic">
+      <% @random_video.each_with_index do |v, i| %>
+        <div class="work-presentation ">
+          <% if i%2 == 1 %>
+          <div class="row reverted">
+          <% else %>
+          <div class="row">
+          <% end %>
+
+            <div class="col-sm-6">
+              <a href="<%= creation_path(v.name) %>">
+                <%= image_tag v.thumb.url, alt: v.name, class: 'video_pic' %>
               </a>
             </div>
-            <div class="video_info">
-              <h3>{$li.opus_name}</h3>
-              <p>{$li.overview}</p>
-              <div style="float:right;">
-                <a class="btn btn-primary" href="{:U('Opus/view',array('id'=>$li['id']))}">查看详情</a>
-              </div>
-            </div>
-          </div>
-          <div class="info">
-            <volist name="li['authors']" id="author">
-              <div class="author" title="{$author.author} {$author.sex} {$author.belong}">
-                <i class="icon-user"></i>
-                <a>{$author.author}</a>
-              </div>
-            </volist>
-            <div class="vote">
-              当前票数:<span style="margin: 0 5px;"><i class="icon-heart"></i><a class="poll vote_count">{$li['vote_count']}</a></span>
-              <if condition="getVoteStatus($li['id'])">
-                <a class="btn btn-primary" disabled>已投票</a>
-                <else />
-                <if condition="can_vote()">
-                  <a class="btn btn-primary vote_btn" href="{:U('opus/vote',array('opus_id'=>$li['id']))}" onclick="return ajaxvote()">投他一票</a>
-                  <else />
-                  <a class="btn btn-primary" disabled>投票已截止</a>
-                </if>
-              </if>
 
+            <div class="video_info col-sm-6">
+              <div class="vote" data-id="<%= v.id %>">
+                <i class="glyphicon glyphicon-thumbs-up"></i>
+                <span class="vote_count"><%= v.vote_count %></span>
+              </div>
+
+              <h3><%= v.name %></h3>
+              <div class="authors">
+                <span>作者：</span>
+
+                <span class="author label label-default" title="{$author.author} {$author.sex} {$author.belong}" data-toggle="tooltip" data-placement="top">
+                  <i class="glyphicon glyphicon-user"></i>
+                  <a>用户</a>
+                </span>
+              </div>
+              <p><%= v.summary %></p>
             </div>
-            <div class="clear"></div>
+
           </div>
+
         </div>
-      </volist>
+      <% end %>
+      <% end %>
     </div>
     <div class="sidebar col-md-4">
 
@@ -273,32 +271,3 @@
     </div>
   </div>
 </div>
-
-<block name="extra_js">
-  <script>
-    // function ajaxvote(){return false;}
-    //
-    // $(document).ready(function(){
-    //
-
-    //     $('.author').tooltip();
-    //     $('.vote_btn').click(function(){
-    //         if($(this).attr('disabled')) return;
-    //         $(this).attr('disabled','disabled').html('已投票');
-    //         var selector=$(this);
-    //         var vote_url=selector.attr('href');
-    //         $.get(vote_url,function (result){
-    //             alert(result[1]+"（投票结果不会立即更新）");
-    //             if(typeof(_czc) != 'undefined'){
-    //                 _czc.push(["_trackEvent","首页作品投票",vote_url,1,"vote_btn"]);
-    //             }
-    //             if(result[0]==1){
-    //                 var vote_count_feild=selector.parent().find('.vote_count');
-    //                 var count=parseInt(vote_count_feild.html());
-    //                 vote_count_feild.html(count+1);
-    //             }
-    //         });
-    //     });
-    // });
-  </script>
-</block>

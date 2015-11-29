@@ -27,6 +27,9 @@ class Manage::Creation < ActiveRecord::Base
 
   end
 
+  def self.random
+    onshow.order('rand()')
+  end
 
   def self.ranklist
     onshow.order(popularity: :desc, vote_count: :desc, created_at: :desc)
@@ -56,6 +59,6 @@ class Manage::Creation < ActiveRecord::Base
       #除去html标记
       desc = ApplicationController.helpers.strip_tags(self.desc)
       #截取desc
-      self.summary = desc[0..83] << '...'
+      # self.summary = desc[0..83] << '...'
     end
 end

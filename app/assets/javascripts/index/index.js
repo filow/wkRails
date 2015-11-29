@@ -10,4 +10,27 @@ $(function (){
     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
     CKobject.embedSWF('/ckplayer/ckplayer.swf','player','player','650','450',flashvars,params);
   });
+
+  $('.author').tooltip();
+
+  $('.vote').click(function (){
+    var id = $(this).data('id');
+    if ($(this).data('voted')) {
+      if(confirm("确认要取消投票吗？")) {
+        $(this).find('.vote_count').text('0');
+        $(this).removeClass('voted').data('voted', false);
+      }
+
+    }else {
+      if(confirm("确认要给这个作品投票吗？")) { 
+        $(this).find('.vote_count').text('1');
+        $(this).addClass('voted').data('voted', true);
+      }
+
+    }
+
+
+
+
+  });
 });
