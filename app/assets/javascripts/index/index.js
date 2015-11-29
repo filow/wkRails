@@ -22,15 +22,14 @@ $(function (){
       }
 
     }else {
-      if(confirm("确认要给这个作品投票吗？")) { 
+      if(confirm("确认要给这个作品投票吗？")) {
         $(this).find('.vote_count').text('1');
         $(this).addClass('voted').data('voted', true);
       }
 
     }
 
-
-
-
   });
+
+
 });

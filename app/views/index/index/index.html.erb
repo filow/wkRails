@@ -210,33 +210,32 @@
     </div>
     <div class="sidebar col-md-4">
 
-
       <div class="hot_author_box ranklist">
         <div class="sprite sprite-top-author"></div>
         <hr>
         <% if @user_rank.length > 0 %>
-            <div class="top_author">
-              <a href="<%= user_detail_path @user_rank[0].name %>">
-                <%= image_tag @user_rank[0].avatar.url(:thumb), alt: @user_rank[0].realname, class:'top_author_headphoto' %>
-              </a>
-              <div class="author_info">
-                <a href="<%= user_detail_path @user_rank[0].realname %>" class="author_name"><%= @user_rank[0].realname %></a>
-                <a><span><%= @user_rank[0].department %></span>单位:</a>
-                <a><span><strong><%= @user_rank[0].popularity %></strong></span>热度:</a>
-              </div>
+          <div class="top_author">
+            <a href="<%= user_detail_path @user_rank[0].name %>">
+              <%= image_tag @user_rank[0].avatar.url(:thumb), alt: @user_rank[0].realname, class:'top_author_headphoto' %>
+            </a>
+            <div class="author_info">
+              <a href="<%= user_detail_path @user_rank[0].realname %>" class="author_name"><%= @user_rank[0].realname %></a>
+              <a><span><%= @user_rank[0].department %></span>单位:</a>
+              <a><span><strong><%= @user_rank[0].popularity %></strong></span>热度:</a>
             </div>
+          </div>
         <% else %>
-            目前还没有上传作品的用户！
+          目前还没有上传作品的用户！
         <% end %>
         <table class="hot_author table">
           <% @user_rank.each_with_index do |item, i| %>
-              <% unless i == 0 %>
-                  <tr>
-                    <td class="thumb"><%= image_tag item.avatar.url(:thumb_mini), alt: item.realname, class:'avatar' %></td>
-                    <td class="username"><%= link_to item.realname, user_detail_path(item.realname) %></td>
-                    <td class="department"><%= item.department %></td>
-                  </tr>
-              <% end %>
+            <% unless i == 0 %>
+              <tr>
+                <td class="thumb"><%= image_tag item.avatar.url(:thumb_mini), alt: item.realname, class:'avatar' %></td>
+                <td class="username"><%= link_to item.realname, user_detail_path(item.realname) %></td>
+                <td class="department"><%= item.department %></td>
+              </tr>
+            <% end %>
           <% end %>
         </table>
       </div>
@@ -246,28 +245,28 @@
         <div class="sprite sprite-top-work"></div>
         <hr>
         <% if @opus_rank.length > 0 %>
-            <div class="top">
-              <%= image_tag @opus_rank[0].thumb.url(:thumb),alt: @opus_rank[0].name,class:'video_thumb' %>
-              <div class="details">
-                <%= link_to @opus_rank[0].name, creation_url(@opus_rank[0].name),class:'work_name',title:@opus_rank[0].name %>
-                作者：<%= link_to @opus_rank[0].user.realname, user_detail_path(@opus_rank[0].user.realname) %>
-              </div>
+          <div class="top">
+            <%= image_tag @opus_rank[0].thumb.url(:thumb),alt: @opus_rank[0].name,class:'video_thumb' %>
+            <div class="details">
+              <%= link_to @opus_rank[0].name, creation_url(@opus_rank[0].name),class:'work_name',title:@opus_rank[0].name %>
+              作者：<%= link_to @opus_rank[0].user.realname, user_detail_path(@opus_rank[0].user.realname) %>
             </div>
+          </div>
         <% else %>
-            目前还没有已发布的作品！
+          目前还没有已发布的作品！
         <% end %>
         <table class="hot_work table">
           <% @opus_rank.each_with_index do |item,i|%>
-              <% unless i == 0 %>
-                  <tr>
-                    <td class="workname">
-                      <%= link_to item.name, creation_path(item.name), title: item.name %>
-                    </td>
-                    <td class="workauthor">
-                      <%= link_to item.user.realname, user_detail_path(item.user.realname) %>
-                    </td>
-                  </tr>
-              <% end %>
+            <% unless i == 0 %>
+              <tr>
+                <td class="workname">
+                  <%= link_to item.name, creation_path(item.name), title: item.name %>
+                </td>
+                <td class="workauthor">
+                  <%= link_to item.user.realname, user_detail_path(item.user.realname) %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </table>
       </div>

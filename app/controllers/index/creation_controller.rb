@@ -1,5 +1,5 @@
 class Index::CreationController < IndexController
-  before_action :set_creation, only: [:show, :vote, :comment]
+  before_action :set_creation, only: [:show, :vote, :unvote, :comment]
 
   def index
   end
@@ -16,6 +16,16 @@ class Index::CreationController < IndexController
         render json: [status: false, msg: @creation.errors[:vote].join(' ')], status: :ok
       end
 
+    else
+      render json: [status: false, msg: '您还未登录'], status: :unauthorized
+    end
+  end
+
+  def unvote
+    user = Manage::User.find_by_id session[:user_id]
+    if user
+      @creation.unvote(user)
+      render json: [status: true, msg: '取消投票成功'], status: :ok
     else
       render json: [status: false, msg: '您还未登录'], status: :unauthorized
     end

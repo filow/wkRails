@@ -2,10 +2,10 @@ class Manage::Creation < ActiveRecord::Base
   before_save :add_summary
 
   belongs_to :user
-  has_many :creation_authors
-  has_many :creation_comments
-  has_many :creation_views
-  has_many :creation_votes
+  has_many :creation_authors, dependent: :destroy
+  has_many :creation_comments, dependent: :destroy
+  has_many :creation_views, dependent: :destroy
+  has_many :creation_votes, dependent: :destroy
   has_many :judges
 
   validates_presence_of :name, :desc
@@ -51,7 +51,7 @@ class Manage::Creation < ActiveRecord::Base
     }
     t[self.status.to_sym]
   end
-  
+
   # 为作品投票
   def vote(user, ip)
     if Cfg.can_vote?
@@ -64,11 +64,18 @@ class Manage::Creation < ActiveRecord::Base
           user_id: user.id,
           ip: ip
           })
-        creation_votes.push(vote_obj)
+          creation_votes.push(vote_obj)
       end
     else
       errors.add(:vote, "目前不在投票时间内")
       false
+    end
+  end
+
+  def unvote(user)
+    votes = creation_votes.where(user_id: user.id)
+    votes.each do |v|
+      v.destroy
     end
   end
 

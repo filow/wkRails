@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get 'creations' => 'creation#index', as: 'creations'
     get 'creations/:id' => 'creation#show', as: 'creation'
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
+    delete 'creations/:id/vote' => 'creation#unvote'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
     #用户中心
     get 'usercenter' => 'usercenter#index'
