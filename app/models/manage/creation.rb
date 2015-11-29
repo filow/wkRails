@@ -51,7 +51,26 @@ class Manage::Creation < ActiveRecord::Base
     }
     t[self.status.to_sym]
   end
-
+  
+  # 为作品投票
+  def vote(user, ip)
+    if Cfg.can_vote?
+      exists = creation_votes.where(user_id: user.id).count > 0
+      if exists
+        errors.add(:vote, "您已经投过票了")
+        false
+      else
+        vote_obj = Manage::CreationVote.new({
+          user_id: user.id,
+          ip: ip
+          })
+        creation_votes.push(vote_obj)
+      end
+    else
+      errors.add(:vote, "目前不在投票时间内")
+      false
+    end
+  end
 
   private
     #生成简介
