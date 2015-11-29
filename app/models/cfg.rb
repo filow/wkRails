@@ -46,6 +46,19 @@ class Cfg < ActiveRecord::Base
     return result.value if result
   end
 
+
+  def self.can_upload?(current = Date.today)
+    can_do?('upload_date', current)
+  end
+
+  def self.can_vote?(current = Date.today)
+    can_do?('vote_date', current)
+  end
+
+  def self.can_pro_validate?(current = Date.today)
+    can_do?('pro_validate', current)
+  end
+
   def self.version
     self.get('current_version').to_i
   end
@@ -87,5 +100,15 @@ private
   def refresh_cache
     c_key = key.to_s.downcase
     @@config_cache[c_key] = nil
+  end
+
+  def self.can_do?(item, current = Date.today)
+    from_str = self.get("#{item}_from")
+    from_str = '2000-01-01' if from_str.empty?
+    to_str = self.get("#{item}_to")
+    to_str = '2200-01-01' if to_str.empty?
+    date_from = Date.parse(from_str)
+    date_to = Date.parse(to_str)
+    return current >= date_from && current <= date_to
   end
 end

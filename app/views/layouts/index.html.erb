@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-7">
           <!-- 这里的条件是目前在上传的时间范围内 -->
-          <% if true %>
+          <% if Cfg.can_upload? %>
             <!-- 这里的地址需要改掉 -->
             <div class="notification alert alert-info">通知：大赛视频现已可以上传 <%= link_to '[通知详情]',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></div>
           <% else %>
