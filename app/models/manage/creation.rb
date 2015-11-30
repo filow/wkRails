@@ -1,5 +1,8 @@
 class Manage::Creation < ActiveRecord::Base
   before_save :add_summary
+  after_update :calc_popularity
+  # 统计字段不能手动更改
+  attr_readonly :vote_count, :comment_count, :view_count
 
   belongs_to :user
   has_many :creation_authors, dependent: :destroy
@@ -64,7 +67,7 @@ class Manage::Creation < ActiveRecord::Base
           user_id: user.id,
           ip: ip
           })
-          creation_votes.push(vote_obj)
+        creation_votes.push(vote_obj)
       end
     else
       errors.add(:vote, "目前不在投票时间内")
@@ -86,5 +89,17 @@ class Manage::Creation < ActiveRecord::Base
       desc = ApplicationController.helpers.strip_tags(self.desc)
       #截取desc
       # self.summary = desc[0..83] << '...'
+    end
+
+    def calc_popularity
+  		# 内容概览评分：最高128*0.1=12.8分，基本作为初始分数
+  		# 投票评分:最高200分
+  		# 评论得分：最高200分
+  		# 查看得分：最高120分
+      def min(a, b)
+        return a>b ? b : a
+      end
+      popularity = min(vote_count, 200) + min(comment_count * 1.5, 200) + min(view_count * 0.2, 120)
+      save
     end
 end

@@ -11,13 +11,13 @@ class Index::CreationController < IndexController
     user = Manage::User.find_by_id session[:user_id]
     if user
       if @creation.vote(user, request.remote_ip)
-        render json: [status: true, msg: '投票成功'], status: :ok
+        render json: {status: true, msg: '投票成功', votes: @creation.vote_count}, status: :ok
       else
-        render json: [status: false, msg: @creation.errors[:vote].join(' ')], status: :ok
+        render json: {status: false, msg: @creation.errors[:vote].join(' ')}, status: :ok
       end
 
     else
-      render json: [status: false, msg: '您还未登录'], status: :unauthorized
+      render json: {status: false, msg: '您还未登录'}, status: :unauthorized
     end
   end
 
@@ -25,9 +25,9 @@ class Index::CreationController < IndexController
     user = Manage::User.find_by_id session[:user_id]
     if user
       @creation.unvote(user)
-      render json: [status: true, msg: '取消投票成功'], status: :ok
+      render json: {status: true, msg: '取消投票成功', votes: @creation.vote_count - 1}, status: :ok
     else
-      render json: [status: false, msg: '您还未登录'], status: :unauthorized
+      render json: {status: false, msg: '您还未登录'}, status: :unauthorized
     end
   end
 

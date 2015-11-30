@@ -95,6 +95,12 @@ class Manage::User < ActiveRecord::Base
       nil
     end
   end
+
+
+  def is_voted(creation)
+    creation.creation_votes.where(user_id: id).count > 0
+  end
+  
   private
   def create_activation_digest
     self.activation_token = self.class.new_token

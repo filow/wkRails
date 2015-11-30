@@ -37,4 +37,8 @@ STR
     end
   end
 
+
+  def is_voted(creation)
+    "voted" if @logged_user && @logged_user.is_voted(creation)
+  end
 end

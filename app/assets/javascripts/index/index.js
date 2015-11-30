@@ -14,19 +14,49 @@ $(function (){
   $('.author').tooltip();
 
   $('.vote').click(function (){
-    var id = $(this).data('id');
-    if ($(this).data('voted')) {
+    var $this = $(this);
+    var id = $this.data('id');
+    var className = $this.attr('class');
+
+    if (className.indexOf('voted') >= 0) {
       if(confirm("确认要取消投票吗？")) {
-        $(this).find('.vote_count').text('0');
-        $(this).removeClass('voted').data('voted', false);
+        $this.find('.vote_count').text('...');
+        $.ajax('creations/' + id + '/vote', {
+          cache: false,
+          method: 'delete',
+          statusCode: {
+            401: function () { alert("请您先登录后再进行操作")}
+          },
+          success: function (result) {
+            if(result.status) {
+              // 成功
+              $this.find('.vote_count').text(result.votes);
+              $this.removeClass('voted');
+            } else {
+              alert(result.msg);
+            }
+          }
+        });
       }
 
     }else {
-      if(confirm("确认要给这个作品投票吗？")) {
-        $(this).find('.vote_count').text('1');
-        $(this).addClass('voted').data('voted', true);
-      }
-
+      $this.find('.vote_count').text('...');
+      $.ajax('creations/' + id + '/vote', {
+        cache: false,
+        method: 'post',
+        statusCode: {
+          401: function () {alert("请您先登录后再投票")}
+        },
+        success: function (result) {
+          if(result.status) {
+            // 成功
+            $this.find('.vote_count').text(result.votes);
+            $this.addClass('voted');
+          } else {
+            alert(result.msg);
+          }
+        }
+      });
     }
 
   });
