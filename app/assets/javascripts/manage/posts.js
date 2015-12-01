@@ -1,14 +1,5 @@
 
 $(function(){
-  // 日期时间选择框
-  window.datepickerInstance = $('.input-group.date').datepicker({
-    language: 'zh-CN',
-    autoclose: true,
-    format: 'yyyy-mm-dd',
-    todayHighlight: true,
-    todayBtn: true
-  });
-
   // 点击表单行选中这个行
   $('tr').click(function(){
     var t = $(this);
@@ -27,5 +18,4 @@ $(function(){
       btnGroup.btnGroup('setField', 'is_top', !is_top);
     }
   });
-
 });

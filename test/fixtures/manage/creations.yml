@@ -65,6 +65,32 @@ creations_five:
   popularity: 0
   user: users_two
 
+creations_published_one:
+  name: 已发布状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 2
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two
+
+creations_published_two:
+  name: 已发布状态作品
+  desc: <a>这是一个测试作品</a>
+  summary: 这是一个测试作品
+  thumb: head.png
+  status: 2
+  version: 1
+  vote_count: 20
+  comment_count: 30
+  view_count: 400
+  popularity: 0
+  user: users_two
+
 #用于测试简介的自动生成
 creations_without_summary:
   name: 我有一百种方法让你们待不下去
