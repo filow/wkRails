@@ -6,6 +6,12 @@ valid_admin:
   realname: 测试用户
   is_forbidden: false
 
+another_valid_admin:
+  name: TestUser
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  realname: 测试用户
+  is_forbidden: false
+
 invalid_admin:
   name: TestUser2
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>

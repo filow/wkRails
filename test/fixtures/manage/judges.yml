@@ -3,11 +3,11 @@
 judges_one:
   rank: 99
   comment: 这个作品很不错
-  creation: creations_one
+  creation: creations_published_one
   admin: valid_admin
 
 judges_two:
   rank: 56
   comment: 做的很粗糙
-  creation: creations_two
-  admin: valid_admin
+  creation: creations_published_one
+  admin: another_valid_admin

@@ -37,23 +37,19 @@
                 <img src="<%= c.thumb.thumb_mini %>" alt="缩略图" class="img-thumbnail">
               </td>
               <td><%= c.name %></td>
-              <td><%= truncate c.summary, length:100 %></td>
+              <td><%= truncate c.summary, length:50 %></td>
               <td>
-          <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
-            <%= c.created_at.strftime("%F") %>
-          </span>
+                  <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
+                    <%= c.created_at.strftime("%F") %>
+                  </span>
               </td>
               <td>
-          <span class="time-column" title="<%= c.updated_at.strftime("%F %R") %>">
-            <%= c.updated_at.strftime("%F") %>
-          </span>
+                  <span class="time-column" title="<%= c.updated_at.strftime("%F %R") %>">
+                    <%= c.updated_at.strftime("%F") %>
+                  </span>
               </td>
-              <td>
-                <%= c.vote_count %>
-              </td>
-              <td>
-                <%= bs_label_tag c.status_cn, "info" %>
-              </td>
+              <td><%= c.vote_count %></td>
+              <td><%= bs_label_tag c.status_cn, "info" %></td>
             </tr>
         <% end %>
         </tbody>

@@ -90,6 +90,9 @@ cn:
         popularity: 人气
         created_at: 创建时间
         updated_at: 最后更改时间
+      manage/judge:
+        rank: 得分
+        comment: 评语
 
 
     errors:

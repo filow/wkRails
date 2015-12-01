@@ -23,7 +23,7 @@ nav:
   -
     text: 作品评审
     icon: ok
-    path: judge/index
+    path: judges/index
   -
     text: 后台管理员设置
     icon: star

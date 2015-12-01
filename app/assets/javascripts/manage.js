@@ -9,6 +9,15 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
 
 $(function (){
+    // 日期时间选择框
+    window.datepickerInstance = $('.input-group.date').datepicker({
+        language: 'zh-CN',
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        todayBtn: true
+    });
+
   $('.time-column').tooltip();
   window.btnGroup = $('#btnGroup').btnGroup();
   // 漂亮的单选和复选框
