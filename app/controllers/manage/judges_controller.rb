@@ -9,7 +9,7 @@ class Manage::JudgesController < ManageController
     # 已有的评审结果
     @judges = @manage_creation.judges
     # 当前管理员的评审
-    judge = @judges.where admin_id: params[:id]
+    judge = @judges.where admin_id: session[:admin_id]
     if judge.empty?
       @judge = Manage::Judge.new
     else
@@ -28,7 +28,12 @@ class Manage::JudgesController < ManageController
   end
 
   def update
-
+    @judge = Manage::Judge.find(params[:id])
+    if @judge.update(judge_params)
+      redirect_to :back, notice: '修改评审成功！'
+    else
+      redirect_to :back, alert: '修改评审失败，请重试！'
+    end
   end
 
   private
