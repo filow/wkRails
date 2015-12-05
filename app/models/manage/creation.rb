@@ -36,13 +36,6 @@ class Manage::Creation < ActiveRecord::Base
     onshow.order(popularity: :desc, vote_count: :desc, created_at: :desc)
   end
 
-  # 计算其平均评委得分
-  def average
-    total = 0
-    judges.each { |j| total += j.rank }
-    return 0 if judges.count == 0
-    total/judges.count
-  end
   # 是否已评审
   def judged(admin_id)
     not judges.where(admin_id: admin_id).empty?

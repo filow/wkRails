@@ -38,6 +38,7 @@ cn:
       post: 通知公告
       manage/creation: 作品
       manage/user: 用户
+      manage/admin: 管理员
       cfg: 设置
 
     attributes:

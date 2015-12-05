@@ -1,3 +1,4 @@
+<!--作品情况-->
 <h3>
   <% if @manage_creation.judged session[:admin_id] %>
       <%= bs_label_tag '已评审', "success" %>
@@ -46,8 +47,9 @@
     </td>
   </tr>
 </table>
+<!--作品情况结束-->
 
-
+<!--评审情况-->
 <% unless @judges.empty? %>
     <h2>评审情况</h2>
     <table class="table table-hover">
@@ -69,13 +71,18 @@
         <td><%= j.created_at.strftime('%F') %></td>
       </tr>
       <% end %>
+      <tr class="info">
+        <td colspan="2">评审记录数：<%= @judges.count %></td>
+        <td colspan="2">平均分：<%= @judges.average :rank %></td>
+      </tr>
       </tbody>
     </table>
-
-    <hr>
-    <h2>进行评审</h2>
 <% end %>
+<hr>
+<!--评审情况结束-->
 
+<!--评审提交表单-->
+<h2><%= @judge.id.blank? ? '进行评审' : '修改评审' %></h2>
 <%= form_for @judge do |f| %>
     <%= form_errors(@judge) %>
 
@@ -90,7 +97,7 @@
       </tr>
       <tr>
         <td><%= f.label :rank %></td>
-        <td><%= f.number_field :rank, value:60, in: 1..100, class: 'form-control' %></td>
+        <td><%= f.number_field :rank, in: 1..100, class: 'form-control' %></td>
       </tr>
     </table>
     <%= f.hidden_field :creation_id, value: @manage_creation.id %>

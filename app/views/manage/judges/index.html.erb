@@ -21,7 +21,7 @@
         <td><%= c.view_count %></td>
         <td><%= c.comment_count %></td>
         <td><%= c.popularity %></td>
-        <td><%= c.average %></td>
+        <td><%= c.judges.average :rank %></td>
         <td>
           <% if c.judged session[:admin_id] %>
               <%= bs_label_tag '已评审', "success" %>
