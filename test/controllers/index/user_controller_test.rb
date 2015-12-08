@@ -29,4 +29,8 @@ class Index::UserControllerTest < ActionController::TestCase
   #   post :create, tel_num: '#', valicode: '926195', password: '12345678'
   # end
 
+  # test '登陆' do
+  #   post :do_login, username: 'Mr.Right', password: 'password'
+  # end
+
 end

@@ -78,6 +78,7 @@ class Index::UserController < IndexController
   end
 
   def show
+    @user = Manage::User.find_by_name(params[:id])
   end
 
   def do_login
