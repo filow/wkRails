@@ -1,4 +1,7 @@
 //= require_self
+//= require inspinia/style
+//= require animate
+//= require_tree ./index
 @charset "utf-8";
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
 @mixin ie7-inline-block {

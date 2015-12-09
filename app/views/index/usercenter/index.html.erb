@@ -1,92 +1,86 @@
 <div class="usercenter">
-	<div class="row-fluid">
+	<div class="row">
     <%= render 'sidebar' %>
-		<div class="main span9">
-			<div class="user_info box">
-				<div class="box-header"><a href="#" class="pull-right">编辑资料</a>个人资料</div>
-				<div class="box-body">
-					<table class="user_info_table table">
-						<tr>
-							<td>用户名：</td>
-							<td><%= @user.name %></td>
-							<td>姓名：</td>
-							<td><%= @user.realname %></td>
-						</tr>
-						<tr>
-							<td>性别：</td>
-							<td><%= @user.sex_cn %></td>
-						</tr>
-						<tr>
-							<td>类型：</td>
-							<td><%= @user.group_cn %></td>
-							<td>所属单位：</td>
-							<td><%= @user.department %></td>
-						</tr>
-						<tr>
-							<td>电话号码：</td><td><%= @user.phone %></td>
-							<td>电子邮箱：</td><td><%= @user.email %></td>
-						</tr>
-                      <tr>
-                        <td>身份证号</td>
-                        <td><%= @user.idcard %></td>
-                      </tr>
-					</table>
-				</div>
-			</div>
-			<div class="user_work box">
-				<div class="box-header">作品管理</div>
-				<div class="box-body">
-					<div class="tabbable">
-					<div class="user_work_nav">
-						<ul>
-							<li class="active"><a href="#tab1" data-toggle="tab">本届作品</a></li>
-							<li><a href="#tab2" data-toggle="tab">往届作品</a></li>
-						</ul>
-				    </div>
-					<div class="tab-content">
-					    <div class="tab-pane active work_list" id="tab1">
-					      <ul>
-                            <% @current_creations.each do |c| %>
-                                <li>
-                                  <div class="work_thumb">
-                                    <a href="<%= creation_path(c) %>" class="thumbnail">
-                                      <%= image_tag c.thumb.thumb, alt: c.name %>
-                                    </a>
-                                  </div>
-                                  <div class="user_work_info">
-                                    <div class="user_work_name"><%= c.name %></div>
-                                    <div class="user_work_vote"><span><%= c.vote_count %></span>当前票数：</div>
-                                    <div class="user_work_uploadtime"><span><%= c.created_at.strftime("%F %R") %></span>上传时间:</div>
-                                  </div>
-                                </li>
-                            <% end %>
-					      </ul>
-					      <div class="clear"></div>
-					    </div>
-					    <div class="tab-pane work_list" id="tab2">
-							<ul>
-                              <% @original_creations.each do |c| %>
-                                  <li>
-                                    <div class="work_thumb">
-                                      <a href="<%= creation_path(c) %>" class="thumbnail">
-                                        <%= image_tag c.thumb.thumb, alt: c.name %>
-                                      </a>
-                                    </div>
-                                    <div class="user_work_info">
-                                      <div class="user_work_name"><%= c.name %></div>
-                                      <div class="user_work_author">作者:<span><%= c.authors_str %></span></div>
-                                      <div class="user_work_vote">当前票数：<span><%= c.vote_count %></span></div>
-                                      <div class="user_work_uploadtime">投票时间:<span>########</span></div>
-                                    </div>
-                                  </li>
-                              <% end %>
-					    	</ul>
-					    	<div class="clear"></div>
-						</div>
-					</div>
-					</div>
-				</div>
-			</div>
+		<div class="main col-md-9">
+      <div class="row animated fadeInUp">
+        <div class="col-md-4">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <span class="label label-success pull-right">本周</span>
+              <h5>作品访问量</h5>
+            </div>
+            <div class="ibox-content">
+              <h1 class="no-margins">5123</h1>
+              <div class="stat-percent font-bold text-success">49120 </div>
+              <small>总计</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <span class="label label-primary pull-right">本周</span>
+              <h5>新评论数量</h5>
+            </div>
+            <div class="ibox-content">
+              <h1 class="no-margins">5</h1>
+              <div class="stat-percent font-bold text-navy">24 <i class="fa fa-level-up"></i></div>
+              <small>总计</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <span class="label label-info pull-right">总计</span>
+              <h5>作品票数</h5>
+            </div>
+            <div class="ibox-content">
+              <h1 class="no-margins">12</h1>
+              <div class="stat-percent font-bold text-info">5 <i class="fa fa-level-up"></i></div>
+              <small>本周新投票</small>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- 消息框 -->
+      <div class="ibox ">
+        <div class="ibox-title">
+          <h5>近期消息</h5>
+        </div>
+        <div class="ibox-content" id="message_box">
+          <% if @messages.length > 0 %>
+            <% @messages.each do |m| %>
+            <h3><button class="btn btn-xs btn-warning">未读</button> <%= m.title %> <small> 来自： <%= m.from %></small><span class="pull-right label label-info"><%= m.created_at.strftime('%m月%d日 %H:%M') %></span></h3>
+            <div><%= m.content.html_safe %></div>
+            <% end %>
+          <% else %>
+            <p>暂时还没有消息或通知</p>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 作品状态 -->
+      <div class="ibox ">
+        <div class="ibox-title">
+          <h5>作品状态</h5>
+        </div>
+        <div class="ibox-content">
+          <% @current_creations.each do |c| %>
+          <div class="row">
+            <div class="col-md-3">
+              <%= c.thumb.url %>
+            </div>
+          </div>
+          <% end %>
+          <% if @current_creations.empty? %>
+            暂无作品
+          <% end %>
+        </div>
+      </div>
 		</div>
 	</div>
 </div>

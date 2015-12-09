@@ -8,8 +8,7 @@
   <%= yield :seo_extra %>
   <title><% if @title %><%= @title %>--<% end %>远教院微课大赛官方网站</title>
   <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
-  <%= stylesheet_link_tag  'index', media: 'all','data-turbolinks-track'=> true %>
-  <%= stylesheet_link_tag  params[:controller], media: 'all','data-turbolinks-track'=> true %>
+  <%= stylesheet_link_tag  'index', media: 'all' %>
   <link rel="shortcut icon" href="/favicon.png">
   <%= yield :before_js %>
   <%= csrf_meta_tags %>
@@ -50,7 +49,7 @@
           <li <%= index_nav_active(creations_url) %>><%= link_to '参赛作品', creations_url %></li>
           <li <%= index_nav_active(creations_url(type: 'old')) %>><%= link_to '往届作品', creations_url(type: 'old') %></li>
           <li <%= index_nav_active(usercenter_url) %>><%= link_to '用户中心', usercenter_url %></li>
-          <li><%= link_to '后台', manage_path %></li>
+          <li><%= link_to '后台', manage_path,'data-no-turbolink'=> true %></li>
         </ul>
       </div>
 
@@ -102,9 +101,6 @@
   </div>
   <div class="to_top"><div class="to_top_icon"></div></div>
 </div>
-
-<!-- <script src="__PUBLIC__/plugins/unslider/unslider.min.js" type="text/javascript"></script> -->
-
 <%= javascript_include_tag 'index' %>
 <%= javascript_include_tag params[:controller], 'data-turbolinks-track'=> true %>
 <%= yield :js %>

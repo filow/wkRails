@@ -1,56 +1,59 @@
-<div class="sidebar span3">
-  <div class="user_info box">
-    <div class="box-header">头像</div>
-    <div class="box-body">
-      <div class="user_head">
-        <a href="{:U('userinfo')}"><%= image_tag @user.avatar, alt: '用户头像' %></a>
-        <a href="{:U('userinfo')}" id="user_name"><%= @user.realname %></a>
+<div class="sidebar col-md-3 animated fadeInLeft">
+
+
+
+  <div class="user_avatar">
+    <div class="media">
+      <div class="media-left">
+        <a href="{:U('userinfo')}"><%= image_tag @user.avatar.url || 'index/user.jpg', alt: '用户头像', class:'img-circle' %></a>
+      </div>
+      <div class="media-body">
+        <p><a href="{:U('userinfo')}" id="user_name"><%= @user.realname %></a></p>
+        <p>单位：<%= @user.department %></p>
+        <p>类型：<span class="label label-default">普通账户</span></p>
       </div>
     </div>
   </div>
-  <div class="user_menu box">
-    <div class="box-header">功能菜单</div>
-    <div class="box-menu">
+  <div class="user_menu">
       <ul class="nav nav-list">
-        <li>
+        <li class="active">
           <%= link_to usercenter_path do%>
-              <i class="icon-home"></i>用户中心首页
+            <i class="glyphicon glyphicon-home"></i> 用户中心首页
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-envelope"></i>消息箱
-              <!--这里两个span标签之间如果只有一个回车的话显示时也会产生一个小标记-->
-              <!--只有什么字符都没有才不会产生标记-->
-              <span class="badge badge-info"><%= @user.messages.count > 0 ? @user.messages.count : nil %></span>
+            <i class="glyphicon glyphicon-envelope"></i> 消息箱
+            <!--这里两个span标签之间如果只有一个回车的话显示时也会产生一个小标记-->
+            <!--只有什么字符都没有才不会产生标记-->
+            <span class="badge badge-info pull-right"><%= @user.messages.count > 0 ? @user.messages.count : nil %></span>
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-cog"></i>个人信息设置
+              <i class="glyphicon glyphicon-cog"></i> 修改个人信息
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-film"></i>我的作品
+              <i class="glyphicon glyphicon-film"></i> 我的作品
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-file"></i>我投票过的作品
+              <i class="glyphicon glyphicon-file"></i> 我投票过的作品
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-bullhorn"></i>我评论过的作品
+              <i class="glyphicon glyphicon-bullhorn"></i> 我评论过的作品
           <% end %>
         </li>
         <li>
           <%= link_to '#' do%>
-              <i class="icon-log-out"></i> 退出登录
+              <i class="glyphicon glyphicon-log-out"></i> 退出登录
           <% end %>
         </li>
       </ul>
-    </div>
   </div>
 </div>

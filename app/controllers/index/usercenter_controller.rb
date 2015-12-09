@@ -9,8 +9,7 @@ class Index::UsercenterController < IndexController
       redirect_to root_path
       return
     end
-    version = Cfg.get 'current_version'
-    @current_creations = @user.creations.where(version: version)
-    @original_creations = @user.creations.where.not(version: version)
+    @messages = @user.messages.order(created_at: :desc).limit(5)
+    @current_creations = @user.creations.where(version: Cfg.version)
   end
 end
