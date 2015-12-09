@@ -1,0 +1,35 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th width="15%">作品名称</th>
+    <th width="30%">简介</th>
+    <th width="9%">投票数</th>
+    <th width="9%">浏览数</th>
+    <th width="9%">评论数</th>
+    <th width="9%">热度</th>
+    <th width="9%">平均分</th>
+    <th>状态</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @creations.each do |c| %>
+      <tr>
+        <td><%= link_to c.name, "/manage/judges/#{c.id}" %></td>
+        <td><%= truncate c.summary, length:40 %></td>
+        <td><%= c.vote_count %></td>
+        <td><%= c.view_count %></td>
+        <td><%= c.comment_count %></td>
+        <td><%= c.popularity %></td>
+        <td><%= c.judges.average :rank %></td>
+        <td>
+          <% if c.judged session[:admin_id] %>
+              <%= bs_label_tag '已评审', "success" %>
+          <% else %>
+              <%= bs_label_tag '未评审', "warning" %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

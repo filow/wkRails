@@ -12,6 +12,7 @@ class Manage::Creation < ActiveRecord::Base
   has_many :judges
 
   validates_presence_of :name, :desc
+  validates :name, uniqueness: true
 
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
@@ -27,7 +28,6 @@ class Manage::Creation < ActiveRecord::Base
   # 筛选出所有目前在前台展示的作品
   def self.onshow
     where(status: self.statuses[:published]).where(version: Cfg.version)
-
   end
 
   def self.random
@@ -36,6 +36,20 @@ class Manage::Creation < ActiveRecord::Base
 
   def self.ranklist
     onshow.order(popularity: :desc, vote_count: :desc, created_at: :desc)
+  end
+  # 是否已被当前用户投过票
+  def is_voted?(user_id)
+    unless user_id.nil?
+      votes = creation_votes.where user_id: user_id
+      return !votes.empty?
+    end
+    # 先不考虑未登录游客的情况
+    false
+  end
+
+  # 是否已评审
+  def judged(admin_id)
+    not judges.where(admin_id: admin_id).empty?
   end
 
   #生成作品作者组成的字符串
@@ -88,7 +102,7 @@ class Manage::Creation < ActiveRecord::Base
       #除去html标记
       desc = ApplicationController.helpers.strip_tags(self.desc)
       #截取desc
-      # self.summary = desc[0..83] << '...'
+      self.summary = desc[0..83] << '...'
     end
 
     def calc_popularity

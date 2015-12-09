@@ -1,0 +1,107 @@
+<!--作品情况-->
+<h3>
+  <% if @manage_creation.judged session[:admin_id] %>
+      <%= bs_label_tag '已评审', "success" %>
+  <% else %>
+      <%= bs_label_tag '未评审', "warning" %>
+  <% end %>
+  <%= @manage_creation.name %>
+</h3>
+
+<table>
+  <tr>
+    <td>
+      <table class="table">
+        <thead>
+        <tr>
+          <th width="15%"></th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>作者</td>
+          <td><%= @manage_creation.authors_str %></td>
+        </tr>
+        <tr>
+          <td>简介</td>
+          <td><%= @manage_creation.summary %></td>
+        </tr>
+        <tr>
+          <td>数值信息</td></td>
+          <td>
+            <%= bs_label_tag "浏览量:#{@manage_creation.view_count}" %>
+            <%= bs_label_tag "投票数:#{@manage_creation.vote_count}" %>
+            <%= bs_label_tag "评论数:#{@manage_creation.comment_count}" %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <div>
+        <img src="<%= @manage_creation.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+        <%= link_to '作品详细信息', creation_path(@manage_creation.name), class: 'btn btn-block btn-info' %>
+      </div>
+    </td>
+  </tr>
+</table>
+<!--作品情况结束-->
+
+<!--评审情况-->
+<% unless @judges.empty? %>
+    <h2>评审情况</h2>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th width="20%">管理员</th>
+        <th width="20%">评分</th>
+        <th width="40%">评语</th>
+        <th width="20%">评审日期</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @judges.each do |j| %>
+      <tr>
+        <td><%= j.admin.realname %></td>
+        <td><%= j.rank %></td>
+        <td><%= j.comment %></td>
+        <td><%= j.created_at.strftime('%F') %></td>
+      </tr>
+      <% end %>
+      <tr class="info">
+        <td colspan="2">评审记录数：<%= @judges.count %></td>
+        <td colspan="2">平均分：<%= @judges.average :rank %></td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>
+<hr>
+<!--评审情况结束-->
+
+<!--评审提交表单-->
+<h2><%= @judge.id.blank? ? '进行评审' : '修改评审' %></h2>
+<%= form_for @judge do |f| %>
+    <%= form_errors(@judge) %>
+
+    <table class="table">
+      <thead>
+      <th width="10%"></th>
+      <th></th>
+      </thead>
+      <tr>
+        <td><%= f.label :comment %></td>
+        <td><%= f.text_area :comment, class: 'form-control' %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :rank %></td>
+        <td><%= f.number_field :rank, in: 1..100, class: 'form-control' %></td>
+      </tr>
+    </table>
+    <%= f.hidden_field :creation_id, value: @manage_creation.id %>
+    <%= submit_tag '评审', class: 'btn btn-success' %>
+    <%= link_to '返回列表', manage_judges_path, class: 'btn btn-default' %>
+<% end %>
+

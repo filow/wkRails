@@ -8,7 +8,6 @@
 	<div class="retry_body span8">
 		<div class="retry_login">
           <%= form_tag user_login_path, method: :post do %>
-              <input type="hidden" name="redirect_url" value="{:I('redirect_url')}">
               <div class="retry_input">
                 <label for="name">用户名：</label>
                 <input type="text" id="name" name="username">

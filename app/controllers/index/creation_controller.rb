@@ -2,6 +2,12 @@ class Index::CreationController < IndexController
   before_action :set_creation, only: [:show, :vote, :unvote, :comment]
 
   def index
+    @creations = []
+    if params['type'] == 'old'
+      @creations = Manage::Creation.where 'version < ?', Cfg.get('current_version')
+    else
+      @creations = Manage::Creation.where version: Cfg.get('current_version').to_i
+    end
   end
 
   def show

@@ -55,10 +55,8 @@ Rails.application.routes.draw do
     post 'users/message' => 'messages#create', as: 'post_message'
     # 作品
     resources :creations, only: [:index, :edit, :update, :show, :destroy]
-
-    get 'judges' => 'judge#index'
-    get 'judges/:id' => 'judge#show'
-    post 'judges/:id' => 'judge#update'
+    # 评审
+    resources :judges, only: [:index, :update, :show, :create]
 
     get 'comments' => 'comment#index'
     get 'comment/:id' => 'comment#show'
