@@ -89,7 +89,7 @@
                     <div class="user_name">
                       <%= link_to @user.realname, usercenter_path %>
                     </div>
-                    <div>未读消息数:<span><%= @user.msg_unread %></span></div>
+                    <div>未读消息数:<span><%= @user.unreaded_messages_count %></span></div>
                     <div>人气：<span><%= @user.popularity %></span></div>
                     <div>单位:<span><%= @user.department.blank? ? '未填写': @user.department %></span></div>
 

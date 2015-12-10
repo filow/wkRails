@@ -13,7 +13,6 @@ users_one:
   is_forbidden: false
   is_email_verified: true
   opus_count: 1
-  msg_unread: 1
   avatar: a.png
   popularity: 1
 
@@ -30,6 +29,5 @@ users_two:
   is_forbidden: false
   is_email_verified: false
   opus_count: 1
-  msg_unread: 1
   avatar: b.jpg
   popularity: 1

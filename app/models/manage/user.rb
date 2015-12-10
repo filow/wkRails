@@ -60,11 +60,12 @@ class Manage::User < ActiveRecord::Base
     valid_account.where('popularity != 0').order(popularity: :desc, id: :asc)
   end
 
+  def unreaded_messages_count
+    messages.where(is_readed: false).count
+  end
+
   def send_message(options)
-    m = Manage::Message.create(options.merge({"user_id"=> id}))
-    count = messages.where(is_readed: false).count
-    update_column(:msg_unread, count)
-    m
+    Manage::Message.create(options.merge({"user_id"=> id}))
   end
 
   def send_activation_email
@@ -100,7 +101,7 @@ class Manage::User < ActiveRecord::Base
   def is_voted(creation)
     creation.creation_votes.where(user_id: id).count > 0
   end
-  
+
   private
   def create_activation_digest
     self.activation_token = self.class.new_token

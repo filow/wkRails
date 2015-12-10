@@ -75,7 +75,6 @@ cn:
         is_forbidden: 是否禁用
         is_email_verified: 邮箱验证
         opus_count: 作品数
-        msg_unread: 未读消息数
         avatar: 头像
         popularity: 人气
       manage/creation:
