@@ -1,37 +1,58 @@
-<div class="retry_wrapper">
-<div class="retry_head">
-  <% unless flash[:notice].blank? %>
-      <div class="retry_info"><%= flash[:notice] %></div>
-  <% end %>
+<div class="row">
+  <div class="col-md-7">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h3>用户登录</h3>
+      </div>
+      <div class="ibox-content">
+        <% unless flash[:notice].blank? %>
+        <div class="alert alert-info"><%= flash[:notice] %></div>
+        <% end %>
+        <div class="row">
+          <div class="col-md-3">
+            <%= image_tag 'index/login.png', id:'login_logo_img' %>
+          </div>
+          <div class="col-md-9">
+            <%= form_tag user_login_path, method: :post, class:'form-horizontal' do %>
+            <div class="form-group">
+              <label for="username" class="col-sm-4 control-label">用户名/手机号</label>
+              <div class="col-sm-8">
+                <%= text_field_tag :username, params[:username], class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-sm-4 control-label">密码</label>
+              <div class="col-sm-8">
+                <%= password_field_tag :password, params[:password], class:'form-control' %>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-4">
+                <%= submit_tag '登陆', class:'btn btn-success btn-block' %>
+              </div>
+              <div class="col-md-4">
+                <%= link_to '1分钟注册', user_reg_path,class:'btn btn-primary btn-block' %>
+              </div>
+            </div>
+          </div>
+
+            <% end %>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="ibox">
+      <div class="ibox-title"><h3>帮助</h3></div>
+      <div class="ibox-content">
+        <h4>我是以前的老用户，需要重新注册吗？</h4>
+        <p>以前的老用户可以直接使用以前的账号，新用户只能使用手机注册。</p>
+        <h4>忘记密码怎么办？</h4>
+  			<p>您可以在工作日拨打我们的联系电话重置密码。电话：025-83787964</p>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row-fliud">
-	<div class="retry_body span8">
-		<div class="retry_login">
-          <%= form_tag user_login_path, method: :post do %>
-              <div class="retry_input">
-                <label for="name">用户名：</label>
-                <input type="text" id="name" name="username">
-              </div>
-              <div class="retry_input">
-                <label for="password" class="retry_label" >密&nbsp;&nbsp;&nbsp;码：</label>
-                <input type="password" id="password" name="password">
-              </div>
-              <input type="submit" value="登 陆" class="btn btn-primary" id="submit_btn" >
-          <% end %>
-			<div class="retry_register">还没有账号？<%= link_to '立即注册', user_reg_path%>。</div> <!-- retry_register end -->
-		</div><!--  retry_login end -->
-	</div><!-- retry_body end -->
-	<div class="retry_help span4">
-		<div class="retry_title">
-        <%= image_tag 'index/retry_help.png' %>
-		</div>
-		<div class="helper">
-			<br>
- 			<h5>忘记密码怎么办？</h5>
-			<p>您可以在工作日拨打我们的联系电话重置密码。电话：025-83787964</p>
-		</div>
-	</div><!-- retry_help end -->
-</div><!--  row-fluid end -->
-<div class="retry_logo"><%= image_tag 'index/login.png' %></div>
-<div class="clear"></div>
-</div><!-- retry_wrapper end -->

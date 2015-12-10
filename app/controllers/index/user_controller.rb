@@ -28,7 +28,7 @@ class Index::UserController < IndexController
             res[:res] = '验证码发送失败！请稍后再试'
           end
         end
-        
+
       end
     end
     render json: res
@@ -104,8 +104,8 @@ class Index::UserController < IndexController
     end
   end
 
-  def edit
-      user = Manage::User.find_by(email: params[:email])
+  def email_verify
+    user = Manage::User.find_by(email: params[:email])
     if user && !user.is_email_verified? && user.authenticated?(:activation, params[:id])
       user.activate
       redirect_to user

@@ -29,7 +29,7 @@ $(function () {
   });
 
   //验证密码是否符合要求
-  $('form').submit(function (){
+  $('#reg_form').submit(function (){
     var password = $('#password').val();
     if(password.length<6){
       alert("密码长度必须不小于6位！");
