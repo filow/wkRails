@@ -22,3 +22,21 @@ $('.set_read_msg').click(function (){
     }
   });
 });
+
+
+$('#usercenter_messages_table tr').click(function () {
+  var id = $(this).data('id');
+  if(id) {
+    $.get('messages/' + id, function (data) {
+      if(data.code == 200) {
+        var d = data.data;
+        $('#modal-title').text(d.title)
+        $('#modal-body').html(d.content)
+        $('#msg_modal').modal()
+      } else {
+        alert('数据请求失败！')
+      }
+    })
+  }
+
+})

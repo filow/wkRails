@@ -41,3 +41,9 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
   margin: 5px -20px;
   padding: 12px 18px;
 }
+
+#usercenter_messages_table {
+  tr {
+    cursor: pointer;
+  }
+}

@@ -1,7 +1,4 @@
-<div class="sidebar col-md-3 animated fadeInLeft">
-
-
-
+<div class="sidebar col-md-3">
   <div class="user_avatar">
     <div class="media">
       <div class="media-left">
@@ -16,17 +13,17 @@
   </div>
   <div class="user_menu">
       <ul class="nav nav-list">
-        <li class="active">
+        <li class="<%= usercenter_sidebar_active('index') %>">
           <%= link_to usercenter_path do%>
             <i class="glyphicon glyphicon-home"></i> 用户中心首页
           <% end %>
         </li>
-        <li>
-          <%= link_to '#' do%>
+        <li class="<%= usercenter_sidebar_active('messages') %>">
+          <%= link_to usercenter_messages_path do%>
             <i class="glyphicon glyphicon-envelope"></i> 消息箱
             <!--这里两个span标签之间如果只有一个回车的话显示时也会产生一个小标记-->
             <!--只有什么字符都没有才不会产生标记-->
-            <span class="badge badge-info pull-right"><%= @user.messages.count > 0 ? @user.messages.count : nil %></span>
+            <span class="badge badge-info pull-right"><%= @user.unreaded_messages_count > 0 ? @user.unreaded_messages_count : nil %></span>
           <% end %>
         </li>
         <li>

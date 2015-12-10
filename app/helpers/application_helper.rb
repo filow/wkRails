@@ -41,4 +41,12 @@ STR
   def is_voted(creation)
     "voted" if @logged_user && @logged_user.is_voted(creation)
   end
+
+  def usercenter_sidebar_active(action)
+    if params[:action] == action
+      "active"
+    else
+      ""
+    end
+  end
 end

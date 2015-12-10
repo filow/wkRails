@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     #用户中心
     get 'usercenter' => 'usercenter#index'
     post 'usercenter/read_msg/:id' => 'usercenter#set_read_msg'  # 设置信息已读
+    get 'usercenter/messages' => 'usercenter#messages', as:'usercenter_messages'
+    get 'usercenter/messages/:id' => 'usercenter#show_msg'
+
+
     #用户注册
     get 'user/reg'
     post 'user/reg' => 'user#create'
