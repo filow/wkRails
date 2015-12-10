@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     post 'usercenter/read_msg/:id' => 'usercenter#set_read_msg'  # 设置信息已读
     get 'usercenter/messages' => 'usercenter#messages', as:'usercenter_messages'
     get 'usercenter/messages/:id' => 'usercenter#show_msg'
+    get 'usercenter/profile'
+    post 'usercenter/profile' => 'usercenter#profile_handler'
 
 
     #用户注册
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
     # 密码重设
     get 'user/reset'
     post 'user/reset' => 'user#reset_handler'
+    
     #登陆控制
     get 'user/login'
     post 'user/login' => 'user#do_login'

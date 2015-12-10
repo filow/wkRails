@@ -30,6 +30,12 @@ class Index::UsercenterController < IndexController
     end
   end
 
+  def profile
+  end
+
+  def profile_handler
+  end
+
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

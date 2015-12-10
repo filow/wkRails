@@ -26,8 +26,8 @@
             <span class="badge badge-info pull-right"><%= @user.unreaded_messages_count > 0 ? @user.unreaded_messages_count : nil %></span>
           <% end %>
         </li>
-        <li>
-          <%= link_to '#' do%>
+        <li class="<%= usercenter_sidebar_active('profile') %>">
+          <%= link_to usercenter_profile_path do%>
               <i class="glyphicon glyphicon-cog"></i> 修改个人信息
           <% end %>
         </li>

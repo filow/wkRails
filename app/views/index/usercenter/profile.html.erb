@@ -1,0 +1,72 @@
+<div class="usercenter">
+	<div class="row">
+    <%= render 'sidebar' %>
+		<div class="main col-md-9">
+      <div class="ibox animated fadeInDown">
+        <div class="ibox-title">
+          <h3>个人资料</h3>
+        </div>
+        <div class="ibox-content">
+          <%= form_tag usercenter_profile_path, method: :post, class:'form-horizontal' do %>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">头像</label>
+              <div class="col-sm-9">
+                上传新头像：
+                <%= file_field_tag :avatar %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">用户ID</label>
+              <div class="col-sm-9">
+                <input type="text" value="<%= @user.name %>" disabled="true" class="form-control">
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">姓名</label>
+              <div class="col-sm-9">
+                <%= text_field_tag :realname, params[:username] || @user.realname, class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">密码</label>
+              <div class="col-sm-9">
+                <%= password_field_tag :password, params[:password], class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">性别</label>
+              <div class="col-sm-9">
+                <%= select_tag :sex, options_for_select([ ["男", 'male'], ["女",'female'] ], @user.sex),include_blank: true, class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">所属单位</label>
+              <div class="col-sm-9">
+                <%= text_field_tag :department, params[:department] || @user.department, class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">手机号</label>
+              <div class="col-sm-9">
+                <%= text_field_tag :phone, params[:phone] || @user.phone, class:'form-control' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">电子邮箱</label>
+              <div class="col-sm-9">
+                <%= text_field_tag :email, params[:email] || @user.email, class:'form-control' %>
+              </div>
+            </div>
+            <div class="col-md-offset-3">
+              <%= submit_tag '提交更改', class:'btn btn-primary btn-large' %>
+            </div>
+
+
+          <% end %>
+        </div>
+      </div>
+
+		</div>
+	</div>
+</div>
