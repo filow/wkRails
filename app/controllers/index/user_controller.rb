@@ -1,69 +1,76 @@
 class Index::UserController < IndexController
 
   def reg
-    unless session[:user_id].blank?
-      redirect_to usercenter_path
-      return
-    end
   end
 
+  # 申请手机验证码
   def validate
-    res = {}
-    if  (/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/ =~ params[:tel_num]).nil?
+    phone = params[:tel_num]
+    res = {failed: false, res: ""}
+    if  (/^1(3[0-9]|5[012356789]|7[678]|8[0-9]|4[57])[0-9]{8}$/ =~ phone).nil?
       res[:failed] = true
       res[:res] = '请输入正确的手机号码'
     else
-      begin
-        msg_service_client['requestSmsCode'].post(%Q{{"mobilePhoneNumber": "#{params[:tel_num]}"}})
-        res[:failed] = false
-      rescue RestClient::Exception => e
+      # 开始检查手机号是否已经存在
+      if Manage::User.where(name: phone).count > 0
         res[:failed] = true
-        response = JSON.parse(e.response)
-        if response['code'] == 601  #短信数目超过限制的错误
-          res[:res] = response['error']
-        else  #其他错误
-          res[:res] = '验证码发送失败！请稍后再试'
+        res[:res] = '该手机号已被使用'
+      else
+        # 向手机发送短信验证码
+        begin
+          msg_service_client['requestSmsCode'].post(%Q{{"mobilePhoneNumber": "#{params[:tel_num]}"}})
+        rescue RestClient::Exception => e
+          res[:failed] = true
+          response = JSON.parse(e.response)
+          if response['code'] == 601  #短信数目超过限制的错误
+            res[:res] = response['error']
+          else  #其他错误
+            res[:res] = '验证码发送失败！请稍后再试'
+          end
         end
+        
       end
     end
     render json: res
   end
 
   def create
-    if params[:password].length < 6 #验证密码长度
-      flash[:alert] = '密码长度必须不小于6位!'
-      render :reg
-      return
-    end
-    begin #验证短信
-      if params[:valicode].blank?
-        flash[:alert] = '请填写验证码!'
-        render :reg
-        return
-      end
-      msg_service_client["verifySmsCode/#{params[:valicode]}?mobilePhoneNumber=#{params[:tel_num]}"].post ''
-    rescue RestClient::Exception => e
-      response = JSON.parse(e.response)
-      if response['code'] == 603
-        redirect_to user_reg_path, notice: response['error']
-        return
-      else
-        flash[:notice] = '您输入的信息有有误，请重试！'
-        render :reg
-        return
-      end
-    end
-    #生成用户并存储
-    @user = Manage::User.new
-    @user.name = params[:tel_num]
-    @user.realname = params[:tel_num]
-    @user.phone = params[:tel_num]
-    @user.password = params[:password]
-    if @user.save
-      redirect_to usercenter_path, notice: "#{@user.name}, 注册成功！"
+    @user = Manage::User.new({
+      name: params[:tel_num],
+      realname: params[:tel_num],
+      phone: params[:tel_num],
+      password: params[:password]
+      })
+    # 调用这个只是为了让它生成对应的errors数组
+    @user.valid?
+
+    if params[:valicode].blank?
+      @user.errors.add(:vcode, "没有填写")
     else
-      render :reg
+      begin #验证短信
+        msg_service_client["verifySmsCode/#{params[:valicode]}?mobilePhoneNumber=#{params[:tel_num]}"].post ''
+      rescue RestClient::Exception => e
+        response = JSON.parse(e.response)
+        if response['code'] == 603
+          @user.errors.add(:vcode, response['error'])
+        else
+          @user.errors.add(:vcode, '输入错误')
+        end
+      end
     end
+
+    # 如果账户信息有错，那就返回
+    if @user.errors.any?
+      render :reg
+    else
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to usercenter_path, notice: "#{@user.name}, 注册成功！"
+      else
+        render :reg
+      end
+    end
+
   end
 
   def login

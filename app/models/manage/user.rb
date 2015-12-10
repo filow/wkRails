@@ -8,10 +8,12 @@ class Manage::User < ActiveRecord::Base
   before_update :generate_password_digest
   enum sex: [:male, :female]
   enum group: [:student, :teacher]
-  validates :name, presence:true,length:{maximum:30}
+
+  PHONE_REGEX = /\A1[0-9]{10}\z/
+  validates :name, presence:true, format: { with: PHONE_REGEX }, uniqueness: true
   validates :realname, presence:true,length:{maximum:15}
-  # validates :idcard, presence:true
-  validates :phone, presence:true
+  validates :phone, presence:true, format: { with: PHONE_REGEX }
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
   validates :email, length:{maximum:255},
             format: {with: VALID_EMAIL_REGEX},

@@ -1,35 +1,46 @@
-<div id="box">
-  <header>用户注册</header>
-  <div class="login_main">
-    <% if flash[:notice] %>
-        <div class="alert alert-warning">
-          <%= flash[:notice] %>
-          <i class="icon-times removing-tag"></i><i class="icon-white"></i>
-        </div>
-    <% end %>
-    <% if flash[:alert] %>
-        <div class="alert alert-danger">
-          <%= flash[:alert] %>
-        </div>
-    <% end %>
+<div class="ibox col-md-6 col-md-offset-3">
+  <div class="ibox-title">
+    <h3>用户注册</h3>
+  </div>
+  <div class="ibox-content">
     <%= form_errors @user unless @user.nil? %>
-    <%= form_tag user_reg_path do %>
-        <div class="form-field">
-          <label for="tel_num">手机号码</label>
+    <%= form_tag user_reg_path, class:'form-horizontal' do %>
+
+      <div class="form-group">
+        <label for="tel_num" class="col-md-3 control-label">手机号码</label>
+        <div class="col-md-7">
           <%= text_field_tag :tel_num, params[:tel_num], autofocus: true, placeholder:"请输入手机号",class: 'form-control',id: 'tel_num' %>
         </div>
-        <div class="form-field">
-          <label for="password">密码</label>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-md-3 control-label">密码</label>
+        <div class="col-md-7">
           <%= password_field_tag :password, params[:password], placeholder:"请输入密码", class: 'form-control', id: 'password' %>
         </div>
-        <div class="form-field">
-          <label for="valicode">验证码</label>
+      </div>
+      <div class="hr-line-dashed"></div>
+
+      <div class="form-group">
+        <label for="valicode" class="col-md-3 control-label">验证码</label>
+        <div class="col-md-5">
           <%= text_field_tag :valicode, params[:valicode], placeholder:"手机验证码", class: 'form-control', id: 'valicode' %>
-          <button id="validate" class="btn btn-default" data-url="<%= user_reg_validate_path %>" >获取手机验证码</button>
         </div>
-        <hr>
-        <%= submit_tag '注册',class: 'btn btn-block btn-primary' %>
-        <a href="<%= root_url %>" class="btn btn-block btn-default">返回首页</a>
+        <div class="col-md-4">
+          <button id="validate" class="btn btn-warning" data-url="<%= user_reg_validate_path %>" >获取手机验证码</button>
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= submit_tag '注册',class: 'btn btn-block btn-primary' %>
+        </div>
+        <div class="col-md-6">
+          <a href="<%= root_url %>" class="btn btn-block btn-default">返回首页</a>
+        </div>
+      </div>
+      <div class="clear"></div>
     <% end %>
+
   </div>
 </div>

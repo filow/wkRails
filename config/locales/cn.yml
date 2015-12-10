@@ -77,6 +77,7 @@ cn:
         creation_count: 作品数
         avatar: 头像
         popularity: 人气
+        vcode: 验证码
       manage/creation:
         name: 作品名称
         desc: 介绍

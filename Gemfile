@@ -71,7 +71,7 @@ gem 'rest-client'
 gem 'mime-types'
 gem 'netrc'
 gem 'http-cookie'
-
+gem 'awesome_print'
 # 更友好地显示错误信息
 group :development do
   gem "better_errors"
