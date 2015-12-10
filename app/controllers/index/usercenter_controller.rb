@@ -12,4 +12,14 @@ class Index::UsercenterController < IndexController
     @messages = @user.messages.order(created_at: :desc).limit(5)
     @current_creations = @user.creations.where(version: Cfg.version)
   end
+
+  def set_read_msg
+    @msg = Manage::Message.find_by_id(params[:id])
+    if @msg
+      @msg.update_column(:is_readed, true)
+      render json: {code: 200}
+    else
+      render json: {code: 401}
+    end
+  end
 end

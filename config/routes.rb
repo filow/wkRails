@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
     #用户中心
     get 'usercenter' => 'usercenter#index'
+    post 'usercenter/read_msg/:id' => 'usercenter#set_read_msg'  # 设置信息已读
     #用户注册
     get 'user/reg'
     post 'user/reg' => 'user#create'

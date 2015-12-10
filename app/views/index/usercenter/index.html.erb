@@ -54,7 +54,14 @@
         <div class="ibox-content" id="message_box">
           <% if @messages.length > 0 %>
             <% @messages.each do |m| %>
-            <h3><button class="btn btn-xs btn-warning">未读</button> <%= m.title %> <small> 来自： <%= m.from %></small><span class="pull-right label label-info"><%= m.created_at.strftime('%m月%d日 %H:%M') %></span></h3>
+            <h3>
+              <% unless m.is_readed? %>
+              <button class="btn btn-xs btn-warning set_read_msg" data-id="<%= m.id %>">未读</button>
+              <% end %>
+              <%= m.title %>
+              <small> 来自： <%= m.from %></small>
+              <span class="pull-right label label-info"><%= m.created_at.strftime('%m月%d日 %H:%M') %></span>
+            </h3>
             <div><%= m.content.html_safe %></div>
             <% end %>
           <% else %>
