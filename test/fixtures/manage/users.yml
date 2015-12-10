@@ -12,7 +12,6 @@ users_one:
   email: lc@fbi.com
   is_forbidden: false
   is_email_verified: true
-  opus_count: 1
   avatar: a.png
   popularity: 1
 
@@ -28,6 +27,5 @@ users_two:
   email: rt@ga.cn
   is_forbidden: false
   is_email_verified: false
-  opus_count: 1
   avatar: b.jpg
   popularity: 1

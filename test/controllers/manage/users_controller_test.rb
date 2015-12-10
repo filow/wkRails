@@ -18,7 +18,7 @@ class Manage::UsersControllerTest < ActionController::TestCase
   #
   # test "should create manage_user" do
   #   assert_difference('Manage::User.count') do
-  #     post :create, manage_user: { avatar: @manage_user.avatar, department: @manage_user.department, email: @manage_user.email, group: @manage_user.group, idcard: @manage_user.idcard, is_email_verified: @manage_user.is_email_verified, is_forbidden: @manage_user.is_forbidden, name: @manage_user.name, opus_count: @manage_user.opus_count, password_digest: @manage_user.password_digest, phone: @manage_user.phone, popularity: @manage_user.popularity, realname: @manage_user.realname, sex: @manage_user.sex }
+  #     post :create, manage_user: { avatar: @manage_user.avatar, department: @manage_user.department, email: @manage_user.email, group: @manage_user.group, idcard: @manage_user.idcard, is_email_verified: @manage_user.is_email_verified, is_forbidden: @manage_user.is_forbidden, name: @manage_user.name,  password_digest: @manage_user.password_digest, phone: @manage_user.phone, popularity: @manage_user.popularity, realname: @manage_user.realname, sex: @manage_user.sex }
   #   end
   #
   #   assert_redirected_to manage_user_path(assigns(:manage_user))
@@ -35,7 +35,7 @@ class Manage::UsersControllerTest < ActionController::TestCase
   # end
   #
   # test "should update manage_user" do
-  #   patch :update, id: @manage_user, manage_user: { avatar: @manage_user.avatar, department: @manage_user.department, email: @manage_user.email, group: @manage_user.group, idcard: @manage_user.idcard, is_email_verified: @manage_user.is_email_verified, is_forbidden: @manage_user.is_forbidden, name: @manage_user.name, opus_count: @manage_user.opus_count, password_digest: @manage_user.password_digest, phone: @manage_user.phone, popularity: @manage_user.popularity, realname: @manage_user.realname, sex: @manage_user.sex }
+  #   patch :update, id: @manage_user, manage_user: { avatar: @manage_user.avatar, department: @manage_user.department, email: @manage_user.email, group: @manage_user.group, idcard: @manage_user.idcard, is_email_verified: @manage_user.is_email_verified, is_forbidden: @manage_user.is_forbidden, name: @manage_user.name, password_digest: @manage_user.password_digest, phone: @manage_user.phone, popularity: @manage_user.popularity, realname: @manage_user.realname, sex: @manage_user.sex }
   #   assert_redirected_to manage_user_path(assigns(:manage_user))
   # end
   #

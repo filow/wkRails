@@ -3,7 +3,6 @@ class Manage::User < ActiveRecord::Base
   has_many :creations
   has_many :creation_comments
   mount_uploader :avatar, UserAvatarUploader
-  attr_accessor :activation_token
   before_create :create_activation_digest
   before_create :generate_password_digest
   before_update :generate_password_digest
@@ -23,6 +22,7 @@ class Manage::User < ActiveRecord::Base
   validates_length_of :password,minimum: 6, on: [:create]
   attr_accessor :password_confirmation
   attr_accessor :password
+  attr_accessor :activation_token
   PRE_STR = '#wk@'
   #对sex汉化
   def sex_cn
@@ -62,6 +62,10 @@ class Manage::User < ActiveRecord::Base
 
   def unreaded_messages_count
     messages.where(is_readed: false).count
+  end
+
+  def creation_count
+    creations.onshow.count
   end
 
   def send_message(options)
