@@ -12,7 +12,7 @@ class Index::UserController < IndexController
       res[:res] = '请输入正确的手机号码'
     else
       # 开始检查手机号是否已经存在
-      if Manage::User.where(name: phone).count > 0
+      if params[:mode] != 'reset' && Manage::User.where(name: phone).count > 0
         res[:failed] = true
         res[:res] = '该手机号已被使用'
       else
@@ -114,6 +114,41 @@ class Index::UserController < IndexController
     end
   end
 
+  # 重置密码
+  def reset
+  end
+  def reset_handler
+    @user = Manage::User.find_by_name(params[:tel_num])
+    @user.password = params[:password]
+    # 调用这个只是为了让它生成对应的errors数组
+    @user.valid?
+
+    if params[:valicode].blank?
+      @user.errors.add(:vcode, "没有填写")
+    else
+      begin #验证短信
+        msg_service_client["verifySmsCode/#{params[:valicode]}?mobilePhoneNumber=#{params[:tel_num]}"].post ''
+      rescue RestClient::Exception => e
+        response = JSON.parse(e.response)
+        if response['code'] == 603
+          @user.errors.add(:vcode, response['error'])
+        else
+          @user.errors.add(:vcode, '输入错误')
+        end
+      end
+    end
+
+    # 如果账户信息有错，那就返回
+    if @user.errors.any?
+      render :reset
+    else
+      if @user.save
+        redirect_to user_login_path, notice: "密码修改成功"
+      else
+        render :reset
+      end
+    end
+  end
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

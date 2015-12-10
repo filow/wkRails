@@ -4,9 +4,12 @@ $(function () {
   $('#validate').click(function () {
     //请求发送验证码
     var url = $('#validate').data('url');
-    var tel = {tel_num: $('#tel_num').val()};
+    var payload = {
+      tel_num: $('#tel_num').val(),
+      mode: $(this).data('mode')
+    };
 
-    $.post(url,tel,function (data){
+    $.post(url,payload,function (data){
       if (data.failed) {
         alert(data.res);
       } else {

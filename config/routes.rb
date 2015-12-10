@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     get 'user/reg'
     post 'user/reg' => 'user#create'
     post 'user/reg/validate' =>'user#validate'
+    # 密码重设
+    get 'user/reset'
+    post 'user/reset' => 'user#reset_handler'
     #登陆控制
     get 'user/login'
     post 'user/login' => 'user#do_login'
