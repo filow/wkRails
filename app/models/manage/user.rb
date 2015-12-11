@@ -11,7 +11,7 @@ class Manage::User < ActiveRecord::Base
   enum group: [:student, :teacher]
 
   PHONE_REGEX = /\A1[0-9]{10}\z/
-  validates :name, presence:true, format: { with: PHONE_REGEX }, uniqueness: true
+  validates :name, presence:true, format: { with: PHONE_REGEX, on: :create }, uniqueness: true
   validates :realname, presence:true,length:{maximum:15}
   validates :phone, presence:true, format: { with: PHONE_REGEX }
 
@@ -57,10 +57,6 @@ class Manage::User < ActiveRecord::Base
   # 判断用户是否是一个可以上传的用户,条件为:没有被禁用, 邮箱通过验证
   def self.valid_account
     where(is_forbidden: false, is_email_verified: true)
-  end
-
-  def self.ranklist
-    valid_account.where('popularity != 0').order(popularity: :desc, id: :asc)
   end
 
   def unreaded_messages_count

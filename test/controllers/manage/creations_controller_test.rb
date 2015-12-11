@@ -24,7 +24,7 @@ class Manage::CreationsControllerTest < ActionController::TestCase
   #
   # test "should create manage_creation" do
   #   assert_difference('Manage::Creation.count') do
-  #     post :create, manage_creation: { comment_count: @manage_creation.comment_count, desc: @manage_creation.desc, name: @manage_creation.name, popularity: @manage_creation.popularity, status: @manage_creation.status, summary: @manage_creation.summary, thumb: @manage_creation.thumb, version: @manage_creation.version, view_count: @manage_creation.view_count, vote_count: @manage_creation.vote_count }
+  #     post :create, manage_creation: { comment_count: @manage_creation.comment_count, desc: @manage_creation.desc, name: @manage_creation.name, status: @manage_creation.status, summary: @manage_creation.summary, thumb: @manage_creation.thumb, version: @manage_creation.version, view_count: @manage_creation.view_count, vote_count: @manage_creation.vote_count }
   #   end
   #
   #   assert_redirected_to manage_creation_path(assigns(:manage_creation))
@@ -46,7 +46,6 @@ class Manage::CreationsControllerTest < ActionController::TestCase
         comment_count: @manage_creation.comment_count+5,
         desc: @manage_creation.desc << 'afgalkjs',
         name: '另一个名字',
-        popularity: @manage_creation.popularity+10,
         status: Manage::Creation.statuses[:publishing],
         version: @manage_creation.version+1,
         view_count: @manage_creation.view_count+5,
@@ -57,7 +56,6 @@ class Manage::CreationsControllerTest < ActionController::TestCase
                      comment_count: new.comment_count,
                      desc: new.desc,
                      name: new.name,
-                     popularity: new.popularity,
                      status: new.status,
                      version: new.version,
                      view_count: new.view_count,
@@ -69,7 +67,6 @@ class Manage::CreationsControllerTest < ActionController::TestCase
     assert_equal new.desc, creation.desc
     #有些属性是不会被接受的
     assert_not_equal new.comment_count, creation.comment_count
-    assert_not_equal new.popularity, creation.popularity
     assert_not_equal 'publishing', creation.status
     assert_not_equal new.version, creation.version
     assert_not_equal new.view_count, creation.view_count

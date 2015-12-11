@@ -16,8 +16,6 @@ class Manage::Creation < ActiveRecord::Base
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
   mount_uploader :thumb, CreationThumbUploader
-  #分页显示每页的个数
-  paginates_per 10
 
   #用于前台的搜索功能
   def self.search(key_word)
@@ -34,7 +32,7 @@ class Manage::Creation < ActiveRecord::Base
   end
 
   def self.ranklist
-    onshow.order(popularity: :desc, vote_count: :desc, created_at: :desc)
+    onshow.order(vote_count: :desc, comment_count: :desc, view_count: :desc, created_at: :desc)
   end
   # 是否已被当前用户投过票
   def is_voted?(user_id)
@@ -101,7 +99,7 @@ class Manage::Creation < ActiveRecord::Base
       v.destroy
     end
   end
-  
+
   private
     #生成简介
     def add_summary
@@ -109,17 +107,5 @@ class Manage::Creation < ActiveRecord::Base
       desc = ApplicationController.helpers.strip_tags(self.desc)
       #截取desc
       self.summary = desc[0..83] << '...'
-    end
-
-    def calc_popularity
-  		# 内容概览评分：最高128*0.1=12.8分，基本作为初始分数
-  		# 投票评分:最高200分
-  		# 评论得分：最高200分
-  		# 查看得分：最高120分
-      def min(a, b)
-        return a>b ? b : a
-      end
-      popularity = min(vote_count, 200) + min(comment_count * 1.5, 200) + min(view_count * 0.2, 120)
-      save
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211031956) do
+ActiveRecord::Schema.define(version: 20151211054102) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20151211031956) do
     t.integer  "vote_count",    limit: 4,     default: 0
     t.integer  "comment_count", limit: 4,     default: 0
     t.integer  "view_count",    limit: 4,     default: 0
-    t.integer  "popularity",    limit: 4,     default: 0
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.integer  "user_id",       limit: 4,                 null: false
@@ -177,7 +176,6 @@ ActiveRecord::Schema.define(version: 20151211031956) do
     t.boolean  "is_forbidden",                  default: false
     t.boolean  "is_email_verified",             default: false
     t.string   "avatar",            limit: 255
-    t.integer  "popularity",        limit: 4,   default: 0
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.string   "activation_digest", limit: 255

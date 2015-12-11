@@ -66,36 +66,12 @@
 
 <!-- 底部 -->
 <div class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 footer_logo text-center">
-        <%= image_tag 'index/logo.jpg', alt: "微课程大赛", width: 230 %>
-        <div>河海大学远程与继续教育学院<br>第<%= Cfg.get('current_version') %>届微课程大赛</div>
-      </div>
-      <div class="col-md-4 stats">
-        <h4>网站统计信息</h4>
-        <ul>
-          <li><a>网站总访问量：0</a></li>
-          <li><a>页面加载时间：0 秒</a></li>
-          <li><a>当前在线人数：0</a></li>
-          <% if Rails.env.production? %>
-          <li><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000369442'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000369442' type='text/javascript'%3E%3C/script%3E"));</script></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="col-md-4 stats">
-        <h4>友情链接</h4>
-        <ul data-no-turbolink>
-          <% @friend_links.each do |x| %>
-            <li><a href="<%= x[:link] %>"><i class="glyphicon glyphicon-bookmark"></i> <%= x[:name] %></a></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   <div class="footer_copyright text-center">
-    Copyright © <%= Date.today.year %> 主办：远程与继续教育学院 团委 教务处 研究生院  <br>
+    Copyright © <%= Date.today.year %> 主办：远程与继续教育学院 团委 教务处 研究生院
+    <% if Rails.env.production? %>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000369442'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000369442' type='text/javascript'%3E%3C/script%3E"));</script>
+    <% end %>
+    <br>
     承办：江苏水源有限公司 河海大学设计院<br>
     地址：江苏省南京市西康路1号 联系电话： 025-83787964
   </div>

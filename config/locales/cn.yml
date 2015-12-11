@@ -75,7 +75,6 @@ cn:
         is_email_verified: 邮箱验证
         creation_count: 作品数
         avatar: 头像
-        popularity: 人气
         vcode: 验证码
       manage/creation:
         name: 作品名称
@@ -87,7 +86,6 @@ cn:
         vote_count: 投票数
         comment_count: 评论数
         view_count: 浏览量
-        popularity: 人气
         created_at: 创建时间
         updated_at: 最后更改时间
       manage/judge:

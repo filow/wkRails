@@ -8,7 +8,7 @@ class Manage::UsersController < ManageController
   # GET /manage/users
   # GET /manage/users.json
   def index
-    sort_group = ["id","realname","popularity"];
+    sort_group = ["id","realname","vote_count"];
     @sorted = {};
     sort_group.each do |x|
       @sorted[x.to_sym]=0

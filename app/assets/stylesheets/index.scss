@@ -119,6 +119,20 @@ a:hover{
 	background-position: -15px 0;
 }
 
+
+.friend_links {
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    a{
+      display: block;
+      color: #333;
+      padding: 4px 0;
+    }
+  }
+}
 /********** 页面底部 **********/
 .footer{
 	background-color: #D0D0D0;
@@ -127,24 +141,7 @@ a:hover{
   border-top: 3px solid #5EC4EA;
   padding-bottom: 20px;
   padding-top: 20px;
-  .footer_logo div{
-    margin-top: 10px;
-  }
-  .stats {
-    h4 {
-      font-family: $cn-font;
-      font-weight: 200;
-    }
-    ul {
-      list-style: none;
-      padding-left: 0;
-      a{
-        display: block;
-        color: #333;
-        padding: 5px 0;
-      }
-    }
-  }
+
 }
 
 /******* to top button ********/
