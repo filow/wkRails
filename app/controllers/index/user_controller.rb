@@ -152,7 +152,7 @@ class Index::UserController < IndexController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :avatar, :password)
+      params.require(:manage_user).permit(:name, :realname, :sex, :group, :department, :phone, :email, :avatar, :password)
     end
 
     def msg_service_client

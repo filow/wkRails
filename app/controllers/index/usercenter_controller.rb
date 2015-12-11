@@ -34,6 +34,9 @@ class Index::UsercenterController < IndexController
   end
 
   def profile_handler
+    param = params.permit(:realname, :password, :sex, :group, :department, :phone, :email, :avatar)
+    @user.update(param)
+    render :profile
   end
 
 private

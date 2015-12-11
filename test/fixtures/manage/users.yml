@@ -5,7 +5,6 @@ users_one:
   realname: 叶良辰
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   sex: false
-  idcard: 330399200101011010
   group: 0
   department: FBI
   phone: 12399998888
@@ -20,7 +19,6 @@ users_two:
   realname: 赵日天
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   sex: true
-  idcard: 330399200101011010
   group: 1
   department: 国安局
   phone: 45699992222

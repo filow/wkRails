@@ -47,8 +47,8 @@
           <% end %>
         </li>
         <li>
-          <%= link_to '#' do%>
-              <i class="glyphicon glyphicon-log-out"></i> 退出登录
+          <%= link_to user_logout_path, method: :delete do %>
+            <i class="glyphicon glyphicon-log-out"></i> 退出登录
           <% end %>
         </li>
       </ul>

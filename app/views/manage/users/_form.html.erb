@@ -52,16 +52,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :idcard ,class:"col-sm-2 control-label" %>
-    <div class="col-sm-6">
-      <%= f.text_field :idcard ,class:"form-control",placeholder:"请输入证件号" %>
-    </div>
-    <span class="col-sm-4 help-block">
-
-    </span>
-  </div>
-
-  <div class="form-group">
     <%= f.label :group ,class:"col-sm-2 control-label" %>
     <div class="col-sm-6">
       <%= f.select :group,[['学生组', 'student'], ['教师组', 'teacher']] ,{}, class: 'form-control' %>

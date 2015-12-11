@@ -4,7 +4,7 @@ class Manage::UsersController < ManageController
 
   permission_alias :new, :create
   permission_alias :edit, :update
-  
+
   # GET /manage/users
   # GET /manage/users.json
   def index
@@ -105,6 +105,6 @@ class Manage::UsersController < ManageController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def manage_user_params
-      params.require(:manage_user).permit(:name, :realname, :sex, :idcard, :group, :department, :phone, :email, :is_forbidden,:is_email_verified, :avatar, :password, :password_confirmation)
+      params.require(:manage_user).permit(:name, :realname, :sex, :group, :department, :phone, :email, :is_forbidden,:is_email_verified, :avatar, :password, :password_confirmation)
     end
 end
