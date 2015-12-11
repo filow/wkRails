@@ -7,6 +7,7 @@
           <h3>已评论的作品</h3>
         </div>
         <div class="ibox-content">
+          <% if @commented.any? %>
           <table class="table">
             <th>作品名称</th>
             <th>评论内容</th>
@@ -23,6 +24,9 @@
             </tr>
             <% end %>
           </table>
+          <% else %>
+            <p>您暂时还没有评论作品</p>
+          <% end %>
         </div>
       </div>
 

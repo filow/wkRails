@@ -7,6 +7,7 @@
           <h3>已投票的作品</h3>
         </div>
         <div class="ibox-content">
+          <% if @voted.any? %>
           <table class="table">
             <th>作品名称</th>
             <th>投票IP</th>
@@ -21,6 +22,9 @@
             </tr>
             <% end %>
           </table>
+          <% else %>
+            <p>您暂时还没有投过票</p>
+          <% end %>
         </div>
       </div>
 
