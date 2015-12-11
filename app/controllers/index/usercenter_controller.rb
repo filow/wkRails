@@ -39,6 +39,11 @@ class Index::UsercenterController < IndexController
     render :profile
   end
 
+  def voted
+    @voted = @user.creation_votes.order(created_at: :desc)
+    render :voted
+  end
+
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

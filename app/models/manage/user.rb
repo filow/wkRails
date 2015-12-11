@@ -2,6 +2,7 @@ class Manage::User < ActiveRecord::Base
   has_many :messages
   has_many :creations
   has_many :creation_comments
+  has_many :creation_votes
   mount_uploader :avatar, UserAvatarUploader
   before_create :create_activation_digest
   before_create :generate_password_digest
@@ -115,7 +116,9 @@ class Manage::User < ActiveRecord::Base
   end
 
   def generate_password_digest
-    self.password_digest = Digest::MD5.hexdigest(PRE_STR+self.name+self.password)
+    if password
+      self.password_digest = Digest::MD5.hexdigest(PRE_STR+self.name+self.password)
+    end
   end
 
 end

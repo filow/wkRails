@@ -36,8 +36,8 @@
               <i class="glyphicon glyphicon-film"></i> 我的作品
           <% end %>
         </li>
-        <li>
-          <%= link_to '#' do%>
+        <li class="<%= usercenter_sidebar_active('voted') %>">
+          <%= link_to usercenter_voted_path do%>
               <i class="glyphicon glyphicon-file"></i> 我投票过的作品
           <% end %>
         </li>

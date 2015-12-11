@@ -1,0 +1,29 @@
+<div class="usercenter">
+	<div class="row">
+    <%= render 'sidebar' %>
+		<div class="main col-md-9">
+      <div class="ibox animated fadeInDown">
+        <div class="ibox-title">
+          <h3>已投票的作品</h3>
+        </div>
+        <div class="ibox-content">
+          <table class="table">
+            <th>作品名称</th>
+            <th>投票IP</th>
+            <th>投票时间</th>
+            <th>操作</th>
+            <% @voted.each do |v| %>
+            <tr>
+              <td><%= link_to v.creation.name, creation_path(v.creation.name)  %></td>
+              <td><span class="ip_addr"><%= v.ip %></span></td>
+              <td><%= v.created_at.strftime("%m-%d %H:%M") %></td>
+              <td><button class="btn btn-default btn-sm cancel_vote" data-id="<%= v.creation.name %>">取消投票</button></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+
+		</div>
+	</div>
+</div>
