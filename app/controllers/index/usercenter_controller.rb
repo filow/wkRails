@@ -41,7 +41,10 @@ class Index::UsercenterController < IndexController
 
   def voted
     @voted = @user.creation_votes.order(created_at: :desc)
-    render :voted
+  end
+
+  def commented
+    @commented = @user.creation_comments.order(created_at: :desc)
   end
 
 private

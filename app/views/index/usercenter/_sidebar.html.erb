@@ -38,12 +38,12 @@
         </li>
         <li class="<%= usercenter_sidebar_active('voted') %>">
           <%= link_to usercenter_voted_path do%>
-              <i class="glyphicon glyphicon-file"></i> 我投票过的作品
+              <i class="glyphicon glyphicon-heart"></i> 已投票的作品
           <% end %>
         </li>
-        <li>
-          <%= link_to '#' do%>
-              <i class="glyphicon glyphicon-bullhorn"></i> 我评论过的作品
+        <li class="<%= usercenter_sidebar_active('commented') %>">
+          <%= link_to usercenter_commented_path do%>
+              <i class="glyphicon glyphicon-comment"></i> 已评论的作品
           <% end %>
         </li>
         <li>

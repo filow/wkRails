@@ -1,6 +1,5 @@
 class Manage::Creation < ActiveRecord::Base
   before_save :add_summary
-  after_update :calc_popularity
   # 统计字段不能手动更改
   attr_readonly :vote_count, :comment_count, :view_count
 
@@ -96,6 +95,13 @@ class Manage::Creation < ActiveRecord::Base
     end
   end
 
+  def uncomment(user, id)
+    comments = creation_comments.where(user_id: user.id, id: id)
+    comments.each do |v|
+      v.destroy
+    end
+  end
+  
   private
     #生成简介
     def add_summary

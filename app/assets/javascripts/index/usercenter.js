@@ -47,7 +47,7 @@ $(function (){
     var $this = $(this);
     var id = $this.data('id');
     if($this.attr('disabled')) { return false; }
-    $this.attr('disabled', true).text('加载中');
+    $this.attr('disabled', true);
     $.ajax('/creations/' + id + '/vote', {
       cache: false,
       method: 'delete',
@@ -60,6 +60,7 @@ $(function (){
           $this.after('<p class="text-info">取消投票成功</p>');
           $this.remove();
         } else {
+          $this.attr('disabled', false);
           alert(result.msg);
         }
       }
@@ -68,4 +69,30 @@ $(function (){
     return false;
   })
 
+  $('.cancel_comment').click(function (){
+    var $this = $(this);
+    var id = $this.data('id'), cid=$this.data('cid');
+    if($this.attr('disabled')) { return false; }
+    $this.attr('disabled', true);
+
+    $.ajax('/creations/' + id + '/comment/' + cid, {
+      cache: false,
+      method: 'delete',
+      statusCode: {
+        401: function () { alert("请您先登录后再进行操作")}
+      },
+      success: function (result) {
+        if(result.status) {
+          // 成功
+          $this.after('<p class="text-info">' + result.msg + '</p>');
+          $this.remove();
+        } else {
+          $this.attr('disabled', false);
+          alert(result.msg);
+        }
+      }
+    })
+
+    return false;
+  })
 })

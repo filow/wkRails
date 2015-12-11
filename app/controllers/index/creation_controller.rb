@@ -1,5 +1,5 @@
 class Index::CreationController < IndexController
-  before_action :set_creation, only: [:show, :vote, :unvote, :comment]
+  before_action :set_creation, only: [:show, :vote, :unvote, :comment, :uncomment]
 
   def index
     @creations = []
@@ -38,6 +38,16 @@ class Index::CreationController < IndexController
   end
 
   def comment
+  end
+
+  def uncomment
+    user = Manage::User.find_by_id session[:user_id]
+    if user
+      @creation.uncomment(user, params[:cid])
+      render json: {status: true, msg: '评论已删除', votes: @creation.comment_count - 1}, status: :ok
+    else
+      render json: {status: false, msg: '您还未登录'}, status: :unauthorized
+    end
   end
 private
   def set_creation

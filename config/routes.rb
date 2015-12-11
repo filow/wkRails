@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
     delete 'creations/:id/vote' => 'creation#unvote'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
+    delete 'creations/:id/comment/:cid' => 'creation#uncomment'
     #用户中心
     get 'usercenter' => 'usercenter#index'
     post 'usercenter/read_msg/:id' => 'usercenter#set_read_msg'  # 设置信息已读
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
     get 'usercenter/profile'
     post 'usercenter/profile' => 'usercenter#profile_handler'
     get 'usercenter/voted'
+    get 'usercenter/commented'
 
 
     #用户注册
