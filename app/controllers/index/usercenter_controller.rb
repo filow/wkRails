@@ -47,6 +47,12 @@ class Index::UsercenterController < IndexController
     @commented = @user.creation_comments.order(created_at: :desc)
   end
 
+  def creations
+    # 检查权限
+    @user.validate_creation_upload_privilege
+
+  end
+
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

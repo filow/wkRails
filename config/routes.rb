@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     post 'usercenter/profile' => 'usercenter#profile_handler'
     get 'usercenter/voted'
     get 'usercenter/commented'
+    get 'usercenter/creations'
 
 
     #用户注册
@@ -36,6 +37,9 @@ Rails.application.routes.draw do
     # 密码重设
     get 'user/reset'
     post 'user/reset' => 'user#reset_handler'
+
+    post 'user/:id/email_verify' => 'user#send_email_verify', as: 'user_email_verify'
+    get 'user/:id/email_verify/:code' => 'user#check_email_verify', as: 'user_check_email'
 
     #登陆控制
     get 'user/login'

@@ -12,7 +12,7 @@ class Manage::User < ActiveRecord::Base
 
   PHONE_REGEX = /\A1[0-9]{10}\z/
   validates :name, presence:true, format: { with: PHONE_REGEX, on: :create }, uniqueness: true
-  validates :realname, presence:true,length:{maximum:15}
+  validates :realname, presence:true, length:{maximum:15}
   validates :phone, presence:true, format: { with: PHONE_REGEX }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
@@ -52,11 +52,6 @@ class Manage::User < ActiveRecord::Base
   #用于前台的搜索功能
   def self.search(key_word)
     rs = where('realname LIKE ?', "%#{key_word}%")
-  end
-
-  # 判断用户是否是一个可以上传的用户,条件为:没有被禁用, 邮箱通过验证
-  def self.valid_account
-    where(is_forbidden: false, is_email_verified: true)
   end
 
   def unreaded_messages_count
@@ -103,6 +98,41 @@ class Manage::User < ActiveRecord::Base
 
   def is_voted(creation)
     creation.creation_votes.where(user_id: id).count > 0
+  end
+
+  def validate_creation_upload_privilege
+    # 头像必须上传
+    if avatar.url.nil?
+      errors.add(:avatar, "")
+    end
+    # 真实名称必须是一个有效的中文名
+    unless realname =~ /[\u4e00-\u9fa5]{2,4}/
+      errors.add(:realname, "格式错误")
+    end
+    # 性别必须填写
+    if sex.nil? || sex.empty?
+      errors.add(:sex, "")
+    end
+    # 组别必须填写
+    if group.nil? || group.empty?
+      errors.add(:group, "")
+    end
+    # 所属单位必须填写
+    if department.nil? || department.empty?
+      errors.add(:department, "")
+    end
+    # 手机号必须填写
+    unless phone =~ PHONE_REGEX
+      errors.add(:phone, "格式错误")
+    end
+    # 电子邮箱必须填写且验证
+    unless email =~ VALID_EMAIL_REGEX
+      errors.add(:email, "格式错误")
+    end
+    unless is_email_verified?
+      errors.add(:email_validate, "未验证")
+    end
+
   end
 
   private

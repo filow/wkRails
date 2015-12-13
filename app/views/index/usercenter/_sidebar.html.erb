@@ -7,7 +7,7 @@
       <div class="media-body">
         <p><a href="{:U('userinfo')}" id="user_name"><%= @user.realname %></a></p>
         <p>单位：<%= @user.department %></p>
-        <p>类型：<span class="label label-default">普通账户</span></p>
+        <p>组别：<%= @user.group_cn %></p>
       </div>
     </div>
   </div>
@@ -31,8 +31,8 @@
               <i class="glyphicon glyphicon-cog"></i> 修改个人信息
           <% end %>
         </li>
-        <li>
-          <%= link_to '#' do%>
+        <li class="<%= usercenter_sidebar_active('creations') %>">
+          <%= link_to usercenter_creations_path do%>
               <i class="glyphicon glyphicon-film"></i> 我的作品
           <% end %>
         </li>

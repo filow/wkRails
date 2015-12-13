@@ -149,6 +149,23 @@ class Index::UserController < IndexController
       end
     end
   end
+
+  def send_email_verify
+    @user = Manage::User.find_by_name(params[:id])
+    @user.send_activation_email
+
+    redirect_to request.referer, notice: '验证邮件发送成功'
+  end
+
+  def check_email_verify
+    @user = Manage::User.find_by_name(params[:id])
+    digest = params[:code]
+    if @user.activation_digest == digest
+      @user.is_email_verified = true
+      @user.save
+      redirect_to usercenter_creations_url, notice: '您的邮箱已经确认'
+    end
+  end
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

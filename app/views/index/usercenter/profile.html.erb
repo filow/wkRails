@@ -8,7 +8,7 @@
         </div>
         <div class="ibox-content">
           <%= form_errors(@user) %>
-          <%= form_tag usercenter_profile_path, method: :post, class:'form-horizontal' do %>
+          <%= form_tag usercenter_profile_path, method: :post, multipart: true,  class:'form-horizontal' do %>
             <div class="form-group">
               <label class="col-sm-3 control-label">头像</label>
               <div class="col-sm-9">

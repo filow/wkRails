@@ -1,3 +1,8 @@
-Hi <%= @user.name %>,
-Welcome to the Sample App! Click on the link below to activate your account:
-<%= edit_user_url(@user.activation_token, email: @user.email) %>
+水利资源大赛网站
+您好， <%= @user.realname %>,
+
+您正在使用水利资源大赛的邮件验证服务，请点击下面的链接或者将链接地址复制到地址栏中
+
+<%= user_check_email_url(id: @user.name, code: @user.activation_digest) %>
+
+注：该邮箱仅用于发送验证邮件，请不要给这个邮件地址回复任何信息！

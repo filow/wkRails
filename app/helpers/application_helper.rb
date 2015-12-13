@@ -49,4 +49,17 @@ STR
       ""
     end
   end
+
+  def usercenter_creations_check_table(user, key)
+    if @user.errors[key].any?
+      text = @user.errors[key][0].empty? ? '请完善' : @user.errors[key][0]
+      content_tag(:td, class:'text-warning') do
+        "<i class=\"glyphicon glyphicon-remove\"></i> #{text}".html_safe
+      end
+    else
+      content_tag(:td, class:'text-navy') do
+        '<i class="glyphicon glyphicon-ok"></i> 通过'.html_safe
+      end
+    end
+  end
 end

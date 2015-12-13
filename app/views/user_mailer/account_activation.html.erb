@@ -1,6 +1,9 @@
-<h1>Sample App</h1>
-<p>Hi <%= @user.name %>,</p>
+<h2>水利资源大赛网站</h2>
+<p>您好， <%= @user.realname %>,</p>
 <p>
-Welcome to the Sample App! Click on the link below to activate your account:
+您正在使用水利资源大赛的邮件验证服务，请点击下面的链接或者将链接地址复制到地址栏中
 </p>
-<%= link_to "Activate", edit_user_url(@user.activation_token,email: @user.email) %>
+
+<%= link_to user_check_email_url(id: @user.name, code: @user.activation_digest),user_check_email_url(id: @user.name, code: @user.activation_digest) %>
+
+<p>该邮箱仅用于发送验证邮件，请不要给这个邮件地址回复任何信息！</p>
