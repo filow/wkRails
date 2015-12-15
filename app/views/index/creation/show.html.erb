@@ -1,3 +1,18 @@
+<main role="main">
+  <% unless flash[:notice].nil? %>
+      <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
+      </div>
+  <% end %>
+  <% unless flash[:alert].nil? %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+  <% end %>
+  <%= yield %>
+</main>
 <div class="opus_wrapper">
 	<div class="row-fluid">
 		<div class="opus_main span9">
@@ -21,7 +36,7 @@
                       <a class="btn btn-primary" disabled>已投票</a>
                   <% elsif @creation.version.to_i != Cfg.get('current_version').to_i %>
                       <a class="btn btn-primary" id="vote" disabled>往届作品不可投票</a>
-                  <% elsif false %>
+                  <% elsif Cfg.can_vote? %>
                       <!-- 投票截止暂未处理 -->
                       <a class="btn btn-primary" disabled>投票已截止</a>
                   <% else %>
@@ -91,36 +106,35 @@
                 <% if session[:user_id].nil? %>
                     <textarea name="" id="" cols="33" rows="3" disabled>登录后才可使用评论功能！</textarea>
                 <% else %>
-                    <form action="{:U('comment')}" method="post">
-                      <input type="hidden" name="opus_id" value="{$opus.id}">
-                      <textarea name="comments" id="" cols="33" rows="3" placeholder="发表你对视频的看法"></textarea>
-                      <input type="submit" class="btn btn-primary" value="发表评论">
-                    </form>
+                    <%= form_tag creation_comment_path @creation.name do %>
+                        <textarea name="comment" id="" cols="33" rows="3" placeholder="发表你对视频的看法"></textarea>
+                        <input type="submit" class="btn btn-primary" value="发表评论">
+                    <% end %>
                 <% end %>
               </div> <!-- opus_cmt_editor end -->
           <% end %>
 		</div> <!-- opus_main end -->
 		<div class="opus_sidebar span3">
-			<if condition="$other_opus">
-			<div class="opus_otheropus">
-				<div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
-				<ul class="opus_list">
-					<volist name="other_opus" id="li">
-					<li>
-						<div class="opus">
-							<a href="{:U('Opus/view',array('id'=>$li['id']))}">
-								<div class="opus_thumb">
-									<img src="{:getThumbMini($li['id'])}"  width="100">
-								</div>
-							</a>
-							<a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
-						</div>
-					</li>
-					</volist>
-				</ul>
-				<div class="clear"></div>
-			</div> <!-- opus_otheropus end -->
-			</if>
+          <% unless @creations.empty? %>
+              <div class="opus_otheropus">
+                <div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
+                <ul class="opus_list">
+                  <% @creations.each do |c| %>
+                      <li>
+                        <div class="opus">
+                          <%= link_to(creation_path(c.name)) do %>
+                              <div class="opus_thumb">
+                                <img src="<%= c.thumb.thumb_mini %>" alt="缩略图">
+                              </div>
+                          <% end %>
+                          <%= link_to c.name, creation_path(c.name) %>
+                        </div>
+                      </li>
+                  <% end %>
+                </ul>
+                <div class="clear"></div>
+              </div> <!-- opus_otheropus end -->
+          <% end %>
 
 			<div class="opus_hotopus">
 				<div class="opus_header"><a>热门</a>作品</div>

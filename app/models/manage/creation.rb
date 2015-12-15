@@ -17,6 +17,9 @@ class Manage::Creation < ActiveRecord::Base
 
   mount_uploader :thumb, CreationThumbUploader
 
+  # 分页显示时每页的个数
+  paginates_per 10
+
   #用于前台的搜索功能
   def self.search(key_word)
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
@@ -67,15 +70,14 @@ class Manage::Creation < ActiveRecord::Base
   end
 
   # 为作品投票
-  def vote(user, ip)
+  def vote(user_id, ip)
     if Cfg.can_vote?
-      exists = creation_votes.where(user_id: user.id).count > 0
-      if exists
+      if is_voted?(user_id)
         errors.add(:vote, "您已经投过票了")
         false
       else
         vote_obj = Manage::CreationVote.new({
-          user_id: user.id,
+          user_id: user_id,
           ip: ip
           })
         creation_votes.push(vote_obj)
@@ -86,15 +88,27 @@ class Manage::Creation < ActiveRecord::Base
     end
   end
 
-  def unvote(user)
-    votes = creation_votes.where(user_id: user.id)
+  def unvote(user_id)
+    votes = creation_votes.where(user_id: user_id)
     votes.each do |v|
       v.destroy
     end
   end
 
-  def uncomment(user, id)
-    comments = creation_comments.where(user_id: user.id, id: id)
+  def comment(user_id, ip, message)
+    comment = creation_comments.create({user_id: user_id, ip: ip, message: message})
+    if comment.id
+      return true
+    else
+      comment.errors.full_messages.each do |m|
+        errors.add(:comment, m)
+      end
+      return false
+    end
+  end
+
+  def uncomment(user_id, id)
+    comments = creation_comments.where(user_id: user_id, id: id)
     comments.each do |v|
       v.destroy
     end
