@@ -37,7 +37,6 @@
                   <% elsif @creation.version.to_i != Cfg.get('current_version').to_i %>
                       <a class="btn btn-primary" id="vote" disabled>往届作品不可投票</a>
                   <% elsif Cfg.can_vote? %>
-                      <!-- 投票截止暂未处理 -->
                       <a class="btn btn-primary" disabled>投票已截止</a>
                   <% else %>
                       <a class="btn btn-primary" id="vote" href="{:U('vote',array('opus_id'=>$opus['id']))}" onclick="return ajaxvote()">投他一票</a>
@@ -74,32 +73,33 @@
             <div class="opus_doc"></div>
             <div class="clear"></div>
             <div class="opus_cmt">
-                <div class="opus_cmt_header">全部评论（<span><%= @creation.comment_count %></span>）</div>
-                <div class="cmt_menu">
-                    <span>第{$pagecfg.first}-{$pagecfg.list}条/共{$pagecfg.count}条</span>
+              <div class="opus_cmt_header">全部评论（<span><%= @creation.comment_count %></span>）</div>
+              <% unless @comments.empty? %>
+                  <div class="cmt_menu">
+                    <span>第{$pagecfg.first}-{$pagecfg.list}条/共<%= @creation.comment_count %>条</span>
                     <div class="pagination">
-                      <ul>{$show}</ul>
+                      <%= paginate @comments %>
                     </div>
-                </div>
-                <div class="opus_cmt_box">
-                    <volist name="comment_data" id="li">
-                    <div class="cmt_hp"><img src="{:getAvatar($li['avatar_large'])}" alt=""></div>
-                    <a href="{:U('User/userinfo',array('uid'=>$li['uid']))}" class="cmt_author">{$li.nickname}</a>
-                    <div class="cmt_content">
-                        <p>{$li.message}</p>
+                  </div>
+                  <div class="opus_cmt_box">
+                    <% @comments.each do |c| %>
+                        <div class="cmt_hp"><img src="<%= c.user.avatar.thumb %>" alt=""></div>
+                        <a href="<%= user_detail_path(c.user.name) %>" class="cmt_author"><%= c.user.realname %></a>
+                        <div class="cmt_content">
+                          <p><%= c.message %></p>
+                        </div>
+                        <div class="cmt_panel">
+                          <span class="cmt_time"><%= c.created_at.strftime('%F %R') %></span>
+                        </div>
+                    <% end %>
+                  </div>
+                  <div class="cmt_menu cmt_menu_bottom">
+                    <span>第{$pagecfg.first}-{$pagecfg.list}条/共<%= @creation.comment_count %>条</span>
+                    <div class="pagination">
+                      <%= paginate @comments %>
                     </div>
-                    <div class="cmt_panel">
-                        <span class="cmt_time">{:tmspan($li['date'])}</span>
-                    </div>
-                    </volist>
-                </div>
-
-				<div class="cmt_menu cmt_menu_bottom">
-					<span>第{$pagecfg.first}-{$pagecfg.list}条/共{$pagecfg.count}条</span>
-					<div class="pagination">
-					  <ul>{$show}</ul>
-					</div>
-				</div>
+                  </div>
+              <% end %>
 			</div> <!-- opus_cmt end -->
           <% if @creation.version.to_i == Cfg.get('current_version').to_i %>
               <div class="opus_cmt_editor">
@@ -115,11 +115,11 @@
           <% end %>
 		</div> <!-- opus_main end -->
 		<div class="opus_sidebar span3">
-          <% unless @creations.empty? %>
+          <% unless @other_creations.empty? %>
               <div class="opus_otheropus">
                 <div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
                 <ul class="opus_list">
-                  <% @creations.each do |c| %>
+                  <% @other_creations.each do |c| %>
                       <li>
                         <div class="opus">
                           <%= link_to(creation_path(c.name)) do %>
