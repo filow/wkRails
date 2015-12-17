@@ -12,7 +12,6 @@ users_one:
   is_forbidden: false
   is_email_verified: true
   avatar: a.png
-  popularity: 1
 
 users_two:
   name: Mr.Right
@@ -26,4 +25,3 @@ users_two:
   is_forbidden: false
   is_email_verified: false
   avatar: b.jpg
-  popularity: 1

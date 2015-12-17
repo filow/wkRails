@@ -14,17 +14,6 @@ class Manage::CreationTest < ActiveSupport::TestCase
     assert_equal summary, creation.summary
   end
 
-  test "获取作品评审平均分" do
-    creation1 = manage_creations(:creations_published_one)
-    creation2 = manage_creations(:creations_published_two)
-
-    judges1 = manage_judges(:judges_one)
-    judges2 = manage_judges(:judges_two)
-
-    assert_equal creation1.average, (judges1.rank+judges2.rank)/2
-    assert_equal creation2.average, 0
-  end
-
   test "判别是否评审" do
     creation1 = manage_creations(:creations_published_one)
     creation2 = manage_creations(:creations_published_two)
@@ -34,4 +23,11 @@ class Manage::CreationTest < ActiveSupport::TestCase
     assert creation1.judged admin.id
     assert_not creation2.judged admin.id
   end
+
+  # test "发表评论" do
+  #   creation = manage_creations(:creations_published_one)
+  #   user = manage_users(:users_one)
+  #   comment = creation.comment(user.id, '0.0.0.0', 'asdf')
+  #   comment
+  # end
 end

@@ -10,7 +10,6 @@ creations_one:
   vote_count: 10
   comment_count: 5
   view_count: 100
-  popularity: 0
   user: users_one
 
 creations_two:
@@ -23,7 +22,6 @@ creations_two:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 creations_three:
@@ -36,7 +34,6 @@ creations_three:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 creations_four:
@@ -49,7 +46,6 @@ creations_four:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 creations_five:
@@ -62,7 +58,6 @@ creations_five:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 creations_published_one:
@@ -75,7 +70,6 @@ creations_published_one:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 creations_published_two:
@@ -88,7 +82,6 @@ creations_published_two:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
 
 #用于测试简介的自动生成
@@ -101,5 +94,4 @@ creations_without_summary:
   vote_count: 20
   comment_count: 30
   view_count: 400
-  popularity: 0
   user: users_two
