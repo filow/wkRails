@@ -1,42 +1,65 @@
-<table class="table table-hover">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation"><a href="#not_dealed" role="tab" data-toggle="tab">未处理评论</a></li>
+  <li role="presentation" class="active"><a href="#dealed" role="tab" data-toggle="tab">已处理评论</a></li>
+  <li role="presentation"><a href="#hidden" role="tab" data-toggle="tab">已隐藏评论</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="dealed">
+    <table class="table table-hover">
       <thead>
       <tr>
-        <th width="7%">评论者</th>
+        <th width="65px">评论者</th>
         <th width="50%">评论内容</th>
-        <th width="20%">作品</th>
+        <th width="100px">作品</th>
         <th width="10%">评论时间</th>
+        <th></th>
         <th></th>
       </tr>
       </thead>
 
-  <tbody>
-  <% @manage_comments.each do |c| %>
-      <tr data-id="<%= c.id %>">
-        <td width="7%">
-          <%= link_to user_detail_path(c.user.name) do %>
+      <tbody>
+      <% @manage_comments.each do |c| %>
+          <tr data-id="<%= c.id %>">
+            <td>
+              <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
+                  <div style="text-align: center">
+                    <img src="<%= c.user.avatar.thumb_mini %>" alt="缩略图" class="img-thumbnail"><br/>
+                    <%= c.user.realname %>
+                  </div>
+              <% end %>
+            </td>
+            <td><%= truncate c.message, length:100 %></td>
+            <td>
               <div style="text-align: center">
-                <img src="<%= c.user.avatar.thumb_mini %>" alt="缩略图" class="img-thumbnail"><br/>
-                <%= c.user.realname %>
+              <%= link_to creation_path(c.creation.name), target: '_blank' do %>
+                    <img src="<%= c.creation.thumb.thumb_mini %>">
+                    <br/><%= c.creation.name %>
+              <% end %>
               </div>
-          <% end %>
-        </td>
-        <td width="30%"><%= truncate c.message, length:100 %></td>
-        <td width="10%">
-          <%= link_to creation_path(c.creation.name) do %>
-            <div>
-              <img src="<%= c.creation.thumb.thumb_mini %>">
-            </div>
-          <% end %>
-        </td>
-        <td width="10%">
-          <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
-            <%= c.created_at.strftime("%F") %>
-          </span>
-        </td>
-        <td>
-          <%= link_to '删除', '#', class: 'btn btn-danger' %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+            </td>
+            <td>
+              <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
+                <%= c.created_at.strftime("%F") %>
+              </span>
+            </td>
+            <td>
+              <%= link_to '通过评审', '#', class: 'btn btn-success', data_toggle: "tooltip", data_placement: "bottom", title:"允许该评论出现在作品页上" %>
+            </td>
+            <td>
+              <%= link_to '隐藏', '#', class: 'btn btn-danger', data_toggle: "tooltip", data_placement: "bottom", title:"隐藏该评论后,它将不会出现在作品页上" %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="not_dealed">
+
+  </div>
+  <div role="tabpanel" class="tab-pane" id="hidden">
+
+  </div>
+</div>
