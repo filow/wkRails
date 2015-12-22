@@ -1,13 +1,20 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation"><a href="#not_dealed" role="tab" data-toggle="tab">未处理评论</a></li>
-  <li role="presentation" class="active"><a href="#dealed" role="tab" data-toggle="tab">已处理评论</a></li>
-  <li role="presentation"><a href="#hidden" role="tab" data-toggle="tab">已隐藏评论</a></li>
+  <li role="presentation" class="<%= 'active' if params[:type]=='unviewed'||params[:type].blank? %>">
+    <a href="#unviewed" role="tab" data-toggle="tab">未处理评论</a>
+  </li>
+  <li role="presentation" class="<%= 'active' if params[:type]=='viewed' %>">
+    <a href="#viewed" role="tab" data-toggle="tab">已处理评论</a>
+  </li>
+  <li role="presentation" class="<%= 'active' if params[:type]=='hidden' %>">
+    <a href="#hidden" role="tab" data-toggle="tab">已隐藏评论</a>
+  </li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="dealed">
+  <!--没有被处理过的评论-->
+  <div role="tabpanel" class="tab-pane active" id="unviewed">
     <table class="table table-hover">
       <thead>
       <tr>
@@ -16,12 +23,11 @@
         <th width="100px">作品</th>
         <th width="10%">评论时间</th>
         <th></th>
-        <th></th>
       </tr>
       </thead>
 
       <tbody>
-      <% @manage_comments.each do |c| %>
+      <% @unviewed_comments.each do |c| %>
           <tr data-id="<%= c.id %>">
             <td>
               <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
@@ -55,11 +61,104 @@
       <% end %>
       </tbody>
     </table>
+    <%= paginate @unviewed_comments, params: {type: 'unviewed'} %>
   </div>
-  <div role="tabpanel" class="tab-pane" id="not_dealed">
+  <!--已被处理过且没被隐藏的评论-->
+  <div role="tabpanel" class="tab-pane" id="viewed">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th width="65px">评论者</th>
+        <th width="50%">评论内容</th>
+        <th width="100px">作品</th>
+        <th width="10%">评论时间</th>
+        <th></th>
+      </tr>
+      </thead>
 
+      <tbody>
+      <% @viewed_comments.each do |c| %>
+          <tr data-id="<%= c.id %>">
+            <td>
+              <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
+                  <div style="text-align: center">
+                    <img src="<%= c.user.avatar.thumb_mini %>" alt="缩略图" class="img-thumbnail"><br/>
+                    <%= c.user.realname %>
+                  </div>
+              <% end %>
+            </td>
+            <td><%= truncate c.message, length:100 %></td>
+            <td>
+              <div style="text-align: center">
+                <%= link_to creation_path(c.creation.name), target: '_blank' do %>
+                    <img src="<%= c.creation.thumb.thumb_mini %>">
+                    <br/><%= c.creation.name %>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
+                <%= c.created_at.strftime("%F") %>
+              </span>
+            </td>
+            <td>
+              <%= link_to '隐藏', '#', class: 'btn btn-danger', data_toggle: "tooltip", data_placement: "bottom", title:"隐藏该评论后,它将不会出现在作品页上" %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @viewed_comments, params: {type: 'viewed'} %>
   </div>
+  <!--已经隐藏了的评论-->
   <div role="tabpanel" class="tab-pane" id="hidden">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th width="65px">评论者</th>
+        <th width="50%">评论内容</th>
+        <th width="100px">作品</th>
+        <th width="10%">评论时间</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
 
+      <tbody>
+      <% @hidden_comments.each do |c| %>
+          <tr data-id="<%= c.id %>">
+            <td>
+              <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
+                  <div style="text-align: center">
+                    <img src="<%= c.user.avatar.thumb_mini %>" alt="缩略图" class="img-thumbnail"><br/>
+                    <%= c.user.realname %>
+                  </div>
+              <% end %>
+            </td>
+            <td><%= truncate c.message, length:100 %></td>
+            <td>
+              <div style="text-align: center">
+                <%= link_to creation_path(c.creation.name), target: '_blank' do %>
+                    <img src="<%= c.creation.thumb.thumb_mini %>">
+                    <br/><%= c.creation.name %>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <span class="time-column" title="<%= c.created_at.strftime("%F %R") %>">
+                <%= c.created_at.strftime("%F") %>
+              </span>
+            </td>
+            <td>
+              <%= link_to '取消隐藏', '#', class: 'btn btn-warning', data_toggle: "tooltip", data_placement: "bottom", title:"取消对其的隐藏,允许该评论出现在作品页上" %>
+            </td>
+            <td>
+              <%= link_to '删除', '#', class: 'btn btn-danger', data_toggle: "tooltip", data_placement: "bottom", title:"彻底删除该评论,该操作无法恢复" %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @hidden_comments, params: {type: 'hidden'} %>
   </div>
 </div>
