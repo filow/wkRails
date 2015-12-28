@@ -1,2 +1,45 @@
-<h1>Manage::Comment#show</h1>
-<p>Find me in app/views/manage/comment/show.html.erb</p>
+<!--作品情况-->
+<h3>
+  <%= @creation.name %>
+</h3>
+
+<table>
+  <tr>
+    <td>
+      <table class="table">
+        <thead>
+        <tr>
+          <th width="15%"></th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+          <td>作者</td>
+          <td><%= @creation.authors_str %></td>
+        </tr>
+        <tr>
+          <td>简介</td>
+          <td><%= @creation.summary %></td>
+        </tr>
+        <tr>
+          <td>数值信息</td></td>
+          <td>
+            <%= bs_label_tag "浏览量:#{@creation.view_count}" %>
+            <%= bs_label_tag "投票数:#{@creation.vote_count}" %>
+            <%= bs_label_tag "评论数:#{@creation.comment_count}" %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <div>
+        <img src="<%= @creation.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
+        <%= link_to '作品详细信息', creation_path(@creation.name), target: '_blank', class: 'btn btn-block btn-info' %>
+      </div>
+    </td>
+  </tr>
+</table>
+<!--作品情况结束-->
