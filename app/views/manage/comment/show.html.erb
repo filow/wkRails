@@ -1,9 +1,50 @@
-<!--作品情况-->
-<h3>
-  <%= @creation.name %>
-</h3>
+<h3>评论详情</h3>
+<table class="table">
+  <tr>
+    <td colspan="2"><h4>评论内容</h4></td>
+  </tr>
+  <tr>
+    <td colspan="2"><%= @comment.message %></td>
+  </tr>
+  <!--评论者情况-->
+  <tr>
+    <td colspan="2"><h4>评论者信息</h4></td>
+  </tr>
+  <tr>
+    <td width="80px">
+      <div class="user-avatar">
+        <%= link_to user_detail_path(@user.name) do %>
+            <%= image_tag @user.avatar, alt: "头像", class:"img-rounded" %>
+        <% end %>
+      </div>
+    </td>
+    <td>
+      <table class="table">
+        <tr>
+          <td width="10%">昵称</td>
+          <td><%= @user.realname %></td>
+          <td width="10%">部门</td>
+          <td><%= @user.department %></td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td colspan="3"><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>电话</td>
+          <td colspan="3"><%= @user.phone %></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!--评论者情况结束 -->
 
+<!--作品情况-->
 <table>
+  <tr>
+    <td colspan="2"><h4>作品信息</h4></td>
+  </tr>
   <tr>
     <td>
       <table class="table">
@@ -15,6 +56,10 @@
         </thead>
 
         <tbody>
+        <tr>
+          <td>作品名称</td>
+          <td><%= @creation.name %></td>
+        </tr>
         <tr>
           <td>作者</td>
           <td><%= @creation.authors_str %></td>

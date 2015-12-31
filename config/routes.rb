@@ -82,7 +82,8 @@ Rails.application.routes.draw do
     get 'comments' => 'comment#index'
     get 'comment/:id' => 'comment#show', as: 'comment'
     delete 'comment/:id' => 'comment#destroy'
-    get 'comment/hide/:id' => 'comment#hide', as: 'hide_comment'
+    put 'comment/hide/:id' => 'comment#hide', as: 'hide_comment'
+    put 'comment/view/:id' => 'comment#view', as: 'view_comment'
 
     # 设置
     get 'cfgs' => 'cfg#index'
