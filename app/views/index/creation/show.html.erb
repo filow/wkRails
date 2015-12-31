@@ -36,7 +36,7 @@
                       <a class="btn btn-primary" disabled>已投票</a>
                   <% elsif @creation.version.to_i != Cfg.get('current_version').to_i %>
                       <a class="btn btn-primary" id="vote" disabled>往届作品不可投票</a>
-                  <% elsif Cfg.can_vote? %>
+                  <% elsif !Cfg.can_vote? %>
                       <a class="btn btn-primary" disabled>投票已截止</a>
                   <% else %>
                       <a class="btn btn-primary" id="vote" href="{:U('vote',array('opus_id'=>$opus['id']))}" onclick="return ajaxvote()">投他一票</a>

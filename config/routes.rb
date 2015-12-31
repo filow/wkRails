@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     post 'user/login' => 'user#do_login'
     delete 'user/logout' => 'user#logout'
 
-    get 'user/:name' => 'user#show', as: 'user_detail'
+    get 'user/detail/:name' => 'user#show', as: 'user_detail'
   end
 
   namespace :manage do
@@ -76,11 +76,16 @@ Rails.application.routes.draw do
     # 评审
     resources :judges, only: [:index, :update, :show, :create]
 
+    # 评论管理
+    get 'comments/viewed' => 'comment#viewed'
+    get 'comments/hidden' => 'comment#hidden'
     get 'comments' => 'comment#index'
-    get 'comment/:id' => 'comment#show'
-    patch 'comment/:id' => 'comment#update'
+    get 'comment/:id' => 'comment#show', as: 'comment'
     delete 'comment/:id' => 'comment#destroy'
+    put 'comment/hide/:id' => 'comment#hide', as: 'hide_comment'
+    put 'comment/view/:id' => 'comment#view', as: 'view_comment'
 
+    # 设置
     get 'cfgs' => 'cfg#index'
     get 'cfg/exp_video' => 'cfg#exp_video'
     delete 'cfg/:id' => 'cfg#delete_video', as: 'delete_video'
