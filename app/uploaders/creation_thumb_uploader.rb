@@ -17,12 +17,13 @@ class CreationThumbUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
+  def default_url
+    'index/nothumb.png'
   #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+    # ActionController::Base.helpers.asset_path("index/nothumb.png")
   #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+    # "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+  end
   # 调整临时文件的存放路径，默认是在 public 下面
   def cache_dir
     "#{Rails.root}/tmp/uploads"
@@ -36,7 +37,7 @@ class CreationThumbUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [192, 108]
+    process :resize_to_fill => [230, 145]
   end
 
   version :thumb_mini, :from_version => :thumb do

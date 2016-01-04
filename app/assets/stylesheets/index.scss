@@ -1,7 +1,7 @@
-//= require_self
 //= require inspinia/style
 //= require animate
 //= require_tree ./index
+//= require_self
 @charset "utf-8";
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
 @mixin ie7-inline-block {
@@ -164,4 +164,21 @@ a:hover{
 html.turbolinks-progress-bar::before {
   background-color: #5886A0 !important;
   height: 3px !important;
+}
+
+.file-box {
+  width: 230px;
+  margin-right: 10px;
+}
+.file {
+  margin-right: 0;
+}
+.file{
+  .image {
+    height: 145px;
+  }
+  .icon {
+    height: 131px;
+    padding: 35px 10px
+  }
 }

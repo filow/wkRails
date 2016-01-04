@@ -60,6 +60,38 @@
           <h3>我的作品</h3>
         </div>
         <div class="ibox-content">
+          <% @creations.each do |c| %>
+          <div class="file-box">
+            <div class="file">
+              <a href="#">
+                <span class="corner"></span>
+                <div class="image">
+                  <%= image_tag c.thumb %>
+                </div>
+                <div class="file-name">
+                  <%= c.name %><br><small><%= c.status_cn %></small>
+                </div>
+              </a>
+            </div>
+          </div>
+          <% end %>
+          <div class="file-box">
+            <div class="file">
+              <a href="#">
+                <span class="corner"></span>
+                <div class="icon">
+                  <i class="glyphicon glyphicon-film"></i>
+                </div>
+                <div class="file-name">
+                  添加新作品<br><small>点击进入新建作品页面</small>
+                </div>
+              </a>
+            </div>
+          </div>
+
+
+          <div class="clear"></div>
+
 
         </div>
       </div>
@@ -73,7 +105,7 @@
         </div>
       </div>
       <% end %>
-      
+
 
 
 		</div>

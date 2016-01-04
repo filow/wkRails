@@ -50,7 +50,8 @@ class Index::UsercenterController < IndexController
   def creations
     # 检查权限
     @user.validate_creation_upload_privilege
-
+    @creations = @user.creations.where(version: Cfg.version)
+    @creations_old = @user.creations.where('version != ?', Cfg.version)
   end
 
 private
