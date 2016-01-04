@@ -8,7 +8,7 @@
           <%= flash[:notice] %>
         </div>
       <% end %>
-      
+      <% if @user.errors.any? %>
       <div class="ibox animated fadeInDown">
         <div class="ibox-title ibox-info">
           <h3>作品上传权限检测</h3>
@@ -51,6 +51,9 @@
         </div>
       </div>
 
+      <% else %>
+      <!-- 用户有权上传作品的情况 -->
+
 
       <div class="ibox animated fadeInDown">
         <div class="ibox-title">
@@ -69,7 +72,8 @@
 
         </div>
       </div>
-
+      <% end %>
+      
 
 
 		</div>
