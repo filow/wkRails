@@ -1,10 +1,10 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active">
-    <a href="<%= manage_comments_path %>">未处理评论(<%= @unviewed_comments.count %>)</a>
-  </li>
   <li role="presentation">
-    <a href="<%= manage_comments_viewed_path %>">已处理评论</a>
+    <a href="<%= manage_comments_path %>">未处理评论</a>
+  </li>
+  <li role="presentation" class="active">
+    <a href="<%= manage_comments_viewed_path %>">已处理评论(<%= @viewed_comments.count %>)</a>
   </li>
   <li role="presentation">
     <a href="<%= manage_comments_hidden_path %>">已隐藏评论</a>
@@ -13,7 +13,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <!--没有被处理过的评论-->
+  <!--已被处理过且没被隐藏的评论-->
   <div>
     <table class="table table-hover">
       <thead>
@@ -27,7 +27,7 @@
       </thead>
 
       <tbody>
-      <% @unviewed_comments.each do |c| %>
+      <% @viewed_comments.each do |c| %>
           <tr data-id="<%= c.id %>">
             <td>
               <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
@@ -44,10 +44,10 @@
             </td>
             <td>
               <div style="text-align: center">
-              <%= link_to creation_path(c.creation.name), target: '_blank' do %>
+                <%= link_to creation_path(c.creation.name), target: '_blank' do %>
                     <img src="<%= c.creation.thumb.thumb_mini %>">
                     <br/><%= c.creation.name %>
-              <% end %>
+                <% end %>
               </div>
             </td>
             <td>
@@ -56,15 +56,12 @@
               </span>
             </td>
             <td>
-              <%= link_to '通过评审', manage_view_comment_path(c), method: 'put', class: 'btn btn-success', data_toggle: "tooltip", data_placement: "bottom", title:"允许该评论出现在作品页上" %>
-            </td>
-            <td>
               <%= link_to '隐藏', manage_hide_comment_path(c), method: 'put', class: 'btn btn-danger', data_toggle: "tooltip", data_placement: "bottom", title:"隐藏该评论后,它将不会出现在作品页上" %>
             </td>
           </tr>
       <% end %>
       </tbody>
     </table>
-    <%= paginate @unviewed_comments %>
+    <%= paginate @viewed_comments %>
   </div>
 </div>

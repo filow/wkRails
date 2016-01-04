@@ -12,7 +12,7 @@ class Index::CreationController < IndexController
 
   def show
     @other_creations = @creation.user.creations.where.not(id: @creation.id)
-    @comments = @creation.creation_comments.order(created_at: :desc).page(params[:page])
+    @comments = @creation.creation_comments.where(is_hidden: false).order(created_at: :desc).page(params[:page])
   end
 
   def vote
