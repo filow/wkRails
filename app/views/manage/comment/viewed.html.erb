@@ -31,7 +31,7 @@
           <tr data-id="<%= c.id %>">
             <td>
               <%= link_to user_detail_path(c.user.name), target: '_blank' do %>
-                  <div style="text-align: center">
+                  <div class="text-center">
                     <img src="<%= c.user.avatar.thumb_mini %>" alt="缩略图" class="img-thumbnail"><br/>
                     <%= c.user.realname %>
                   </div>
@@ -43,7 +43,7 @@
               <% end %>
             </td>
             <td>
-              <div style="text-align: center">
+              <div class="text-center">
                 <%= link_to creation_path(c.creation.name), target: '_blank' do %>
                     <img src="<%= c.creation.thumb.thumb_mini %>">
                     <br/><%= c.creation.name %>
