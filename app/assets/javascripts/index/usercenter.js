@@ -1,5 +1,10 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+//= require ckeditor/init
+
+
+
+
 $(function (){
   function getToken() {
     var key = $('meta[name=csrf-param]').attr('content');
@@ -97,4 +102,19 @@ $(function (){
   })
 
   $('[data-toggle="tooltip"]').tooltip();
+
+
+  $('#add_author').click(function(){
+    var t = $('#author_template').clone();
+    t.attr('id', null);
+    t.find('input').attr('value', null).attr('id', null)
+    t.find('select').val('0')
+    t.children('td').last().html('<td><a class="btn btn-danger btn-sm deleteline"><i class="glyphicon glyphicon-minus"></i></a></td>')
+    $('#author_table').append(t);
+	});
+	$('#author_table').delegate('td a.deleteline', "click", function (){
+    console.log($(this).parentsUntil('tr'))
+    $(this).parentsUntil('tbody').remove();
+	});
+
 })

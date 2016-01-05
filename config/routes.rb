@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get 'usercenter/voted'
     get 'usercenter/commented'
     get 'usercenter/creations'
+    get 'usercenter/creations/new' => 'usercenter#create_creation'
 
 
     #用户注册

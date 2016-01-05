@@ -52,3 +52,31 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
   background-color: #FAC68D;
   color: white;
 }
+
+
+#author_table{
+	margin-bottom: 5px;
+}
+#author_table input{
+	padding: 0px;
+	margin: 0px;
+	border:0;
+	width: 95%;
+	height: 100%;
+	padding-left: 5px;
+}
+#author_table th{
+	text-align: center;
+	vertical-align: middle;
+}
+#author_table td{
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+}
+#author_table select{
+	width: 50px;
+	height: 30px;
+	margin: 0px;
+	border:0;
+}

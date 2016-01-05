@@ -54,6 +54,18 @@ class Index::UsercenterController < IndexController
     @creations_old = @user.creations.where('version != ?', Cfg.version)
   end
 
+  def create_creation
+
+    default_author = Manage::CreationAuthor.new({
+      name: @user.realname,
+      sex: @user.sex,
+      department: @user.department,
+      phone: @user.phone,
+      email: @user.email
+    })
+    @authors = [default_author]
+
+  end
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

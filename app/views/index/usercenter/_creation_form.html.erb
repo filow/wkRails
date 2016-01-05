@@ -1,0 +1,114 @@
+<%= form_tag usercenter_creations_path, class:'form-horizontal' do %>
+<div class="form-group">
+  <label class="col-sm-2 control-label">作品标题</label>
+  <div class="col-sm-10">
+    <%= text_field_tag 'name',params['name'], class:'form-control' %>
+  </div>
+</div>
+<div class="hr-line-dashed"></div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">作者</label>
+  <div class="col-sm-10">
+    <table class="table table-bordered" id="author_table">
+    	<thead>
+    		<th>姓名</th>
+    		<th>性别</th>
+    		<th>所属单位</th>
+    		<th>手机号码</th>
+    		<th>电子邮箱</th>
+    		<th></th>
+    	</thead>
+      <% @authors.each_with_index do |e,i| %>
+    	<tr id="author_template">
+    		<td>
+    			<input type="text" name="name[]" value="<%= e.name %>">
+    		</td>
+    		<td>
+          <%= select_tag 'sex[]', options_for_select([
+            ["男", 'male'],
+            ["女", 'female']
+            ], e.sex) %>
+    		</td>
+    		<td>
+          <%= text_field_tag 'department[]', e.department %>
+    		</td>
+    		<td>
+          <%= text_field_tag 'phone[]', e.phone %>
+    		</td>
+    		<td>
+          <%= text_field_tag 'email[]', e.email %>
+    		</td>
+    		<td>
+          <% if i != 0 %>
+            <a class="btn btn-danger btn-small deleteline"><i class="glyphicon glyphicon-minus"></i></a>
+          <% end %>
+        </td>
+    	</tr>
+    	<% end %>
+    </table>
+
+    <a class="btn btn-success" id="add_author"><i class="glyphicon glyphicon-plus"></i> 添加作者</a>
+
+  </div>
+</div>
+<div class="hr-line-dashed"></div>
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">作品缩略图</label>
+  <div class="col-sm-10">
+    <p>支持jpg, png格式图片。 如果您希望将视频截图作为缩略图，可以在下一步的流程中使用截图工具截图</p>
+
+    <%= file_field_tag 'thumb', class:'form-control' %>
+  </div>
+</div>
+
+<div class="hr-line-dashed"></div>
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">登记表</label>
+  <div class="col-sm-10">
+    <p>仅支持doc, docx格式</p>
+
+    <%= file_field_tag 'document', class:'form-control' %>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">作品课件</label>
+  <div class="col-sm-10">
+    <p>仅支持PDF格式</p>
+
+    <%= file_field_tag 'presentation', class:'form-control' %>
+  </div>
+</div>
+
+<div class="hr-line-dashed"></div>
+
+
+<div class="form-group">
+  <label class="col-sm-2 control-label">作品介绍</label>
+  <div class="col-sm-10">
+    <%= cktext_area_tag :desc, nil, :ckeditor => {:uiColor => '#fefefe', :toolbar => [
+      {name:'clipboard', items: ['PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+      {name: 'links', items: ['Link', 'Unlink']},
+      {name: 'insert', items: ['Image', 'Table', 'HorizontalRule']},
+      { name: 'tools', items: [ 'Maximize' ] },
+      '/',
+      { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', 'Underline', '-', 'RemoveFormat' ] },
+      { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+      { name: 'styles', items: ['Format' ] },
+      ]}  %>
+  </div>
+</div>
+<div class="hr-line-dashed"></div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <button class="btn btn-primary btn-block btn-lg">提交并进入下一步</button>
+  </div>
+</div>
+
+<% end %>

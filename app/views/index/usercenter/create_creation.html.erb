@@ -1,0 +1,23 @@
+<div class="usercenter">
+	<div class="row">
+    <%= render 'sidebar' %>
+		<div class="main col-md-9">
+      <% unless flash[:notice].nil? %>
+        <div class="alert alert-info">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <div class="ibox animated fadeInDown">
+        <div class="ibox-title">
+          <h3>新建作品</h3>
+        </div>
+        <div class="ibox-content">
+          <%= render 'creation_form' %>
+        </div>
+      </div>
+
+
+		</div>
+	</div>
+</div>
