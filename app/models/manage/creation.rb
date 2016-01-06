@@ -52,6 +52,10 @@ class Manage::Creation < ActiveRecord::Base
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
   end
 
+  def valid_comments
+    creation_comments.where(is_hidden: false)
+  end
+
   # 筛选出所有目前在前台展示的作品
   def self.onshow
     where(status: self.statuses[:published]).where(version: Cfg.version)
