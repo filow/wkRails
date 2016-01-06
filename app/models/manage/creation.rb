@@ -10,17 +10,44 @@ class Manage::Creation < ActiveRecord::Base
   has_many :creation_votes, dependent: :destroy
   has_many :judges
 
-  validates_presence_of :name, :desc
-  validates :name, uniqueness: true
+  validates_presence_of :name
 
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
   mount_uploader :thumb, CreationThumbUploader
+  mount_uploader :doc, CreationDocUploader
+  mount_uploader :ppt, CreationPptUploader
+
+  validates :thumb, file_size: {:less_than => 6.megabytes.to_i}
+  validates :doc, file_size: {:less_than => 10.megabytes.to_i}
+  validates :ppt, file_size: {:less_than => 50.megabytes.to_i}
+
 
   # 分页显示时每页的个数
   paginates_per 10
 
-  #用于前台的搜索功能
+  # 为用户创建一个新的Creation, 如果之前存在一个没有编辑过的creation则使用它
+  def self.generate(user)
+    existed = user.creations.where('created_at = updated_at').first
+    if existed
+      existed
+    else
+      creation = new(name: '未命名作品', desc: '', version: Cfg.version)
+      user.creations << creation
+      creation.creation_authors << Manage::CreationAuthor.new({
+          name: user.realname,
+          sex: user.sex,
+          department: user.department,
+          phone: user.phone,
+          email: user.email
+      })
+      creation
+
+    end
+  end
+
+
+  # 用于前台的搜索功能
   def self.search(key_word)
     rs = where('name LIKE ? AND summary LIKE ?', "%#{key_word}%", "%#{key_word}%")
   end

@@ -1,8 +1,8 @@
-<%= form_tag usercenter_creations_path, class:'form-horizontal' do %>
+<%= form_tag usercenter_creations_path,method: :post, class:'form-horizontal',id:'creation_form' do %>
 <div class="form-group">
   <label class="col-sm-2 control-label">作品标题</label>
   <div class="col-sm-10">
-    <%= text_field_tag 'name',params['name'], class:'form-control' %>
+    <input type="text" name="name" v-model="name" class="form-control">
   </div>
 </div>
 <div class="hr-line-dashed"></div>
@@ -19,36 +19,34 @@
     		<th>电子邮箱</th>
     		<th></th>
     	</thead>
-      <% @authors.each_with_index do |e,i| %>
-    	<tr id="author_template">
+
+    	<tr v-for="(i, e) in authors">
     		<td>
-    			<input type="text" name="name[]" value="<%= e.name %>">
+    			<input type="text" name="author_name[]" v-model="e.name">
     		</td>
     		<td>
-          <%= select_tag 'sex[]', options_for_select([
-            ["男", 'male'],
-            ["女", 'female']
-            ], e.sex) %>
+          <select name="sex[]" v-model="e.sex">
+            <option value="male">男</option>
+            <option value="female">女</option>
+          </select>
     		</td>
     		<td>
-          <%= text_field_tag 'department[]', e.department %>
+          <input type="text" name="department[]" v-model="e.department"/>
     		</td>
     		<td>
-          <%= text_field_tag 'phone[]', e.phone %>
+          <input type="text" name="phone[]" v-model="e.phone"/>
     		</td>
     		<td>
-          <%= text_field_tag 'email[]', e.email %>
+          <input type="text" name="email[]" v-model="e.email"/>
     		</td>
     		<td>
-          <% if i != 0 %>
-            <a class="btn btn-danger btn-small deleteline"><i class="glyphicon glyphicon-minus"></i></a>
-          <% end %>
+            <a class="btn btn-danger btn-small deleteline" @click="deleteLine(i)" v-show="authors.length > 1"><i class="glyphicon glyphicon-minus"></i></a>
         </td>
     	</tr>
-    	<% end %>
+
     </table>
 
-    <a class="btn btn-success" id="add_author"><i class="glyphicon glyphicon-plus"></i> 添加作者</a>
+    <a class="btn btn-success" id="add_author" @click="addLine"><i class="glyphicon glyphicon-plus"></i> 添加作者</a>
 
   </div>
 </div>
@@ -57,9 +55,24 @@
 <div class="form-group">
   <label class="col-sm-2 control-label">作品缩略图</label>
   <div class="col-sm-10">
-    <p>支持jpg, png格式图片。 如果您希望将视频截图作为缩略图，可以在下一步的流程中使用截图工具截图</p>
+    <p>支持最大为6M的jpg, png格式图片。如果您希望将视频截图作为缩略图，可以在下一步的流程中使用截图工具截图</p>
+    <%= file_field_tag 'thumb', class:'form-control inputfile',data:{size: 6.megabytes.to_i, ext: 'jpg|png' },'@change' => 'file_v' %>
+    <label for="thumb" v-bind:class="{btn: true, 'btn-primary': file.thumb.error == null, 'btn-danger': file.thumb.error !== null}">
+      <span v-show="file.thumb.error !== null">
+        {{file.thumb.error}}
+      </span>
 
-    <%= file_field_tag 'thumb', class:'form-control' %>
+      <span v-show="file.thumb.size == 0">
+        <i class="glyphicon glyphicon-plus"></i>上传文件
+      </span>
+      <span v-show="file.thumb.size !== 0">
+        {{file.thumb.filename}}, {{file.thumb.size}}M
+      </span>
+
+
+
+    </label>
+
   </div>
 </div>
 
@@ -69,9 +82,23 @@
 <div class="form-group">
   <label class="col-sm-2 control-label">登记表</label>
   <div class="col-sm-10">
-    <p>仅支持doc, docx格式</p>
+    <p>仅支持不超过10M的doc, docx格式文档</p>
 
-    <%= file_field_tag 'document', class:'form-control' %>
+    <%= file_field_tag 'doc', class:'form-control inputfile',data:{size: 10.megabytes.to_i, ext: 'doc|docx' },'@change' => 'file_v' %>
+    <label for="doc"  v-bind:class="{btn: true, 'btn-primary': file.doc.error == null, 'btn-danger': file.doc.error !== null}">
+      <span v-show="file.doc.error !== null">
+        {{file.doc.error}}
+      </span>
+
+      <span v-show="file.doc.size == 0">
+        <i class="glyphicon glyphicon-plus"></i>上传文件
+      </span>
+      <span v-show="file.doc.size !== 0">
+        {{file.doc.filename}}, {{file.doc.size}}M
+      </span>
+
+    </label>
+
   </div>
 </div>
 
@@ -79,9 +106,22 @@
 <div class="form-group">
   <label class="col-sm-2 control-label">作品课件</label>
   <div class="col-sm-10">
-    <p>仅支持PDF格式</p>
+    <p>仅支持不超过50M的PDF格式课件, 您可以将ppt导出成pdf后上传</p>
 
-    <%= file_field_tag 'presentation', class:'form-control' %>
+    <%= file_field_tag 'ppt', class:'form-control inputfile',data:{size: 50.megabytes.to_i, ext: 'pdf' },'@change' => 'file_v' %>
+    <label for="ppt" v-bind:class="{btn: true, 'btn-primary': file.ppt.error == null, 'btn-danger': file.ppt.error !== null}">
+      <span v-show="file.ppt.error !== null">
+        {{file.ppt.error}}
+      </span>
+
+      <span v-show="file.ppt.size == 0">
+        <i class="glyphicon glyphicon-plus"></i>上传文件
+      </span>
+      <span v-show="file.ppt.size !== 0">
+        {{file.ppt.filename}}, {{file.ppt.size}}M
+      </span>
+
+    </label>
   </div>
 </div>
 
@@ -91,15 +131,13 @@
 <div class="form-group">
   <label class="col-sm-2 control-label">作品介绍</label>
   <div class="col-sm-10">
-    <%= cktext_area_tag :desc, nil, :ckeditor => {:uiColor => '#fefefe', :toolbar => [
+    <%= cktext_area_tag :desc, nil, "v-model"=> 'desc',:ckeditor => {:uiColor => '#fefefe',:filebrowserImageBrowseUrl => '', :toolbar => [
       {name:'clipboard', items: ['PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-      {name: 'links', items: ['Link', 'Unlink']},
+      { name: 'styles', items: ['Format' ] },
+      { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
       {name: 'insert', items: ['Image', 'Table', 'HorizontalRule']},
       { name: 'tools', items: [ 'Maximize' ] },
-      '/',
-      { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', 'Underline', '-', 'RemoveFormat' ] },
-      { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-      { name: 'styles', items: ['Format' ] },
+      { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList' ] },
       ]}  %>
   </div>
 </div>

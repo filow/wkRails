@@ -56,16 +56,25 @@ class Index::UsercenterController < IndexController
 
   def create_creation
 
-    default_author = Manage::CreationAuthor.new({
-      name: @user.realname,
-      sex: @user.sex,
-      department: @user.department,
-      phone: @user.phone,
-      email: @user.email
-    })
-    @authors = [default_author]
+    creation = Manage::Creation.generate(@user)
+    redirect_to edit_creation_url(creation)
 
   end
+
+  def creation_detail
+    @creation = @user.creations.find(params[:id])
+
+    respond_to do |format|
+      # format.html {  }
+      format.json
+    end
+  end
+
+
+  def edit_creation
+
+  end
+
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

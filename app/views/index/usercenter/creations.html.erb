@@ -63,7 +63,7 @@
           <% @creations.each do |c| %>
           <div class="file-box">
             <div class="file">
-              <a href="#">
+              <%= link_to edit_creation_path(c) do %>
                 <span class="corner"></span>
                 <div class="image">
                   <%= image_tag c.thumb %>
@@ -71,7 +71,7 @@
                 <div class="file-name">
                   <%= c.name %><br><small><%= c.status_cn %></small>
                 </div>
-              </a>
+              <% end %>
             </div>
           </div>
           <% end %>

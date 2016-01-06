@@ -30,6 +30,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # bootstrap 3
 gem 'bootstrap-sass'
+# Vuejs
+gem 'vuejs-rails'
 # 用于抹平浏览器间的部分兼容性问题
 gem "autoprefixer-rails"
 
@@ -52,6 +54,10 @@ gem 'carrierwave'
 # 富文本编辑器
 gem 'ckeditor'
 gem 'responders', '~> 2.0'
+
+# 文件信息检查器
+gem 'file_validators'
+
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development

@@ -55,15 +55,16 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 
 
 #author_table{
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 #author_table input{
-	padding: 0px;
-	margin: 0px;
-	border:0;
-	width: 95%;
-	height: 100%;
-	padding-left: 5px;
+  padding: 0px;
+  margin: 0px;
+  border:0;
+  width: 95%;
+  height: 100%;
+  padding-left: 5px;
+  outline: none;
 }
 #author_table th{
 	text-align: center;
@@ -79,4 +80,14 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 	height: 30px;
 	margin: 0px;
 	border:0;
+}
+
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
