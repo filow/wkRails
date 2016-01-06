@@ -66,7 +66,7 @@
               <%= link_to edit_creation_path(c) do %>
                 <span class="corner"></span>
                 <div class="image">
-                  <%= image_tag c.thumb %>
+                  <%= image_tag c.thumb.url(:thumb) %>
                 </div>
                 <div class="file-name">
                   <%= c.name %><br><small><%= c.status_cn %></small>

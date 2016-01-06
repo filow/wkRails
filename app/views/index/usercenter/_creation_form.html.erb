@@ -1,4 +1,5 @@
-<%= form_tag usercenter_creations_path,method: :post, class:'form-horizontal',id:'creation_form' do %>
+<%= form_tag creation_detail_path(@creation),method: :patch,multipart: true, class:'form-horizontal',id:'creation_form' do %>
+<% content_for :js do %><%= javascript_include_tag 'index/creation_form' %><% end %>
 <div class="form-group">
   <label class="col-sm-2 control-label">作品标题</label>
   <div class="col-sm-10">
@@ -22,25 +23,25 @@
 
     	<tr v-for="(i, e) in authors">
     		<td>
-    			<input type="text" name="author_name[]" v-model="e.name">
+    			<input type="text" name="authors[][name]" v-model="e.name">
     		</td>
     		<td>
-          <select name="sex[]" v-model="e.sex">
+          <select name="authors[][sex]" v-model="e.sex">
             <option value="male">男</option>
             <option value="female">女</option>
           </select>
     		</td>
     		<td>
-          <input type="text" name="department[]" v-model="e.department"/>
+          <input type="text" name="authors[][department]" v-model="e.department"/>
     		</td>
     		<td>
-          <input type="text" name="phone[]" v-model="e.phone"/>
+          <input type="text" name="authors[][phone]" v-model="e.phone"/>
     		</td>
     		<td>
-          <input type="text" name="email[]" v-model="e.email"/>
+          <input type="text" name="authors[][email]" v-model="e.email"/>
     		</td>
     		<td>
-            <a class="btn btn-danger btn-small deleteline" @click="deleteLine(i)" v-show="authors.length > 1"><i class="glyphicon glyphicon-minus"></i></a>
+            <a class="btn btn-danger btn-sm deleteline" @click="deleteLine(i)" v-show="authors.length > 1"><i class="glyphicon glyphicon-minus"></i></a>
         </td>
     	</tr>
 

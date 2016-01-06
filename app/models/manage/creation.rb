@@ -23,9 +23,6 @@ class Manage::Creation < ActiveRecord::Base
   validates :ppt, file_size: {:less_than => 50.megabytes.to_i}
 
 
-  # 分页显示时每页的个数
-  paginates_per 10
-
   # 为用户创建一个新的Creation, 如果之前存在一个没有编辑过的creation则使用它
   def self.generate(user)
     existed = user.creations.where('created_at = updated_at').first
@@ -144,7 +141,15 @@ class Manage::Creation < ActiveRecord::Base
       v.destroy
     end
   end
-
+  # 提交更新时需要的更新作者方法
+  def authors=(val)
+    creation_authors.clear
+    if val
+      val.each do |v|
+        creation_authors << Manage::CreationAuthor.new({name: v['name'], sex: v['sex'], department: v['department'], phone: v['phone'], email: v['email']})
+      end
+    end
+  end
   private
     #生成简介
     def add_summary

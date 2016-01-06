@@ -72,6 +72,21 @@ class Index::UsercenterController < IndexController
 
 
   def edit_creation
+    @creation = @user.creations.find(params[:id])
+
+  end
+
+  def update_creation
+    @creation = @user.creations.find(params[:id])
+    creation_params = params.permit(:name, :thumb, :doc, :ppt, :desc)
+    @creation.update(creation_params)
+    @creation.authors = params[:authors]
+
+    if @creation.errors.any?
+      render :edit_creation
+    else
+      redirect_to usercenter_creations_path, notice: '作品已修改成功'
+    end
 
   end
 

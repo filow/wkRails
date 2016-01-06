@@ -30,8 +30,9 @@ Rails.application.routes.draw do
     get 'usercenter/creations'
     get 'usercenter/creations/new' => 'usercenter#create_creation'
 
-    get 'usercenter/creations/:id' => 'usercenter#creation_detail'
+    get 'usercenter/creations/:id' => 'usercenter#creation_detail', as: 'creation_detail'
     get 'usercenter/creations/:id/edit' => 'usercenter#edit_creation', as: 'edit_creation'
+    patch 'usercenter/creations/:id' => 'usercenter#update_creation'
 
 
     #用户注册
