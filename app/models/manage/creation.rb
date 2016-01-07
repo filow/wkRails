@@ -86,6 +86,7 @@ class Manage::Creation < ActiveRecord::Base
     names.join(',')
   end
 
+
   def status_cn
     #翻译映射
     t = {

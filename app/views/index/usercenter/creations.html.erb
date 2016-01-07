@@ -62,8 +62,8 @@
         <div class="ibox-content">
           <% @creations.each do |c| %>
           <div class="file-box">
-            <div class="file">
-              <%= link_to edit_creation_path(c) do %>
+            <div class="file creation_detail" data-id="<%= c.id %>">
+              <a href="#">
                 <span class="corner"></span>
                 <div class="image">
                   <%= image_tag c.thumb.url(:thumb) %>
@@ -71,7 +71,7 @@
                 <div class="file-name">
                   <%= c.name %><br><small><%= c.status_cn %></small>
                 </div>
-              <% end %>
+              </a>
             </div>
           </div>
           <% end %>
@@ -112,3 +112,93 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="modal fade" id="creation_detail_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" v-show="loading">正在加载中</h4>
+        <h3 class="modal-title" v-show="!loading">{{name}}</h3>
+      </div>
+      <div class="modal-body" v-show="loading">
+        <div class="sk-spinner sk-spinner-wave">
+          <div class="sk-rect1"></div>
+          <div class="sk-rect2"></div>
+          <div class="sk-rect3"></div>
+          <div class="sk-rect4"></div>
+          <div class="sk-rect5"></div>
+        </div>
+      </div>
+      <div v-show="!loading">
+        <div v-show="thumb.indexOf('nothumb')<0">
+          <img :src="thumb" alt="" width="50%" style="margin: 10px auto 10px 25%">
+        </div>
+        <table class="table">
+          <tr>
+            <td width="120px">作者</td>
+            <td colspan="3">
+              <span class="label label-primary" v-for="a in authors" style="margin-right: 5px">
+                {{a.name}}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>简介</td>
+            <td colspan="3">{{{desc}}}</td>
+          </tr>
+          <tr>
+            <td>当前状态</td>
+            <td>{{status}}</td>
+            <td>最后修改日期</td>
+            <td>{{updated_at}}</td>
+
+          </tr>
+          <tr>
+            <td>浏览量</td>
+            <td>{{view_count}}</td>
+            <td width="120px">投票数</td>
+            <td>{{vote_count}}</td>
+          </tr>
+          <tr>
+            <td>登记表</td>
+            <td>
+              <span v-show="doc !== ''">
+                <a :href="doc.url" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> 下载</a>
+              </span>
+              <span v-show="doc == ''">
+                尚未上传
+              </span>
+
+            </td>
+            <td>演示文稿</td>
+            <td>
+              <span v-show="ppt !== ''">
+                <a :href="ppt.url" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> 下载</a>
+              </span>
+              <span v-show="ppt == ''">
+                尚未上传
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>文件</td>
+            <td colspan="3">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-danger" onclick="return confirm('删除作品将导致作品所有相关信息和文件永久丢失，请在删除前做好备份。确定删除吗？')">删除作品</button>
+        <button type="button" class="btn btn-primary">编辑</button>
+        <button type="button" class="btn btn-success">申请发布</button>
+        <button type="button" class="btn btn-success">申请取消发布</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

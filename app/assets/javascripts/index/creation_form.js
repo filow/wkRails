@@ -1,9 +1,6 @@
 /**
  * Created by filowlee on 16/1/6.
  */
-//= require vue
-//= require moment
-//= require moment/zh-cn.js
 
 var creation_form = new Vue({
   el:'#creation_form',
@@ -33,7 +30,7 @@ var creation_form = new Vue({
       if (data.thumb.small.indexOf("nothumb") < 0){
         this.file.thumb.url = data.thumb.small;
       }
-      
+
 
       if(data.doc !== ""){
         this.file.doc.size = data.doc.size;

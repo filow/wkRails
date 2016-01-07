@@ -58,7 +58,7 @@
   <div class="col-sm-10">
     <p>支持最大为6M的jpg, png格式图片。如果您希望将视频截图作为缩略图，可以在下一步的流程中使用截图工具截图</p>
     <%= file_field_tag 'thumb', class:'form-control inputfile',data:{size: 6.megabytes.to_i, ext: 'jpg|png' },'@change' => 'file_v' %>
-    <img :src="file.thumb.url" alt="" width="230" height="145" v-show="!!file.thumb.url">
+    <img :src="file.thumb.url" alt="" width="230" height="145" v->
 
     <label for="thumb" :class="{btn: true, 'btn-primary': file.thumb.error == null, 'btn-danger': file.thumb.error !== null}">
       <span v-show="file.thumb.error !== null">
