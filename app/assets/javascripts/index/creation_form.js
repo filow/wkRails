@@ -30,7 +30,10 @@ var creation_form = new Vue({
       this.name = data.name;
       this.desc = data.desc;
 
-      this.file.thumb.url = data.thumb.small;
+      if (data.thumb.small.indexOf("nothumb") < 0){
+        this.file.thumb.url = data.thumb.small;
+      }
+      
 
       if(data.doc !== ""){
         this.file.doc.size = data.doc.size;
