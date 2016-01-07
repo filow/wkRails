@@ -125,6 +125,8 @@ GEM
     mini_magick (4.2.10)
     mini_portile (0.6.2)
     minitest (5.8.0)
+    momentjs-rails (2.10.6)
+      railties (>= 3.1)
     multi_json (1.11.2)
     mysql2 (0.3.18)
     net-scp (1.2.1)
@@ -235,6 +237,7 @@ DEPENDENCIES
   kaminari
   mime-types
   mini_magick
+  momentjs-rails
   mysql2
   netrc
   rails (= 4.2.3)

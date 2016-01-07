@@ -63,7 +63,7 @@ class Index::UsercenterController < IndexController
 
   def creation_detail
     @creation = @user.creations.find(params[:id])
-
+    p @creation.ppt.file
     respond_to do |format|
       # format.html {  }
       format.json

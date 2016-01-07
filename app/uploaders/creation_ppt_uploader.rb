@@ -13,5 +13,7 @@ class CreationPptUploader < CarrierWave::Uploader::Base
   def extension_whitelist
     %w(pdf)
   end
-
+  def filename
+    Digest::SHA2.hexdigest(original_filename)[0..12]+Time.now.to_i.to_s+".#{original_filename.split('.')[-1]}" if original_filename
+  end
 end

@@ -58,7 +58,9 @@
   <div class="col-sm-10">
     <p>支持最大为6M的jpg, png格式图片。如果您希望将视频截图作为缩略图，可以在下一步的流程中使用截图工具截图</p>
     <%= file_field_tag 'thumb', class:'form-control inputfile',data:{size: 6.megabytes.to_i, ext: 'jpg|png' },'@change' => 'file_v' %>
-    <label for="thumb" v-bind:class="{btn: true, 'btn-primary': file.thumb.error == null, 'btn-danger': file.thumb.error !== null}">
+    <img :src="file.thumb.url" alt="" width="230" height="145">
+
+    <label for="thumb" :class="{btn: true, 'btn-primary': file.thumb.error == null, 'btn-danger': file.thumb.error !== null}">
       <span v-show="file.thumb.error !== null">
         {{file.thumb.error}}
       </span>
@@ -67,12 +69,11 @@
         <i class="glyphicon glyphicon-plus"></i>上传文件
       </span>
       <span v-show="file.thumb.size !== 0">
-        {{file.thumb.filename}}, {{file.thumb.size}}M
+        {{file.thumb.filename}}, {{file.thumb.size | sizeInM}}M
       </span>
 
-
-
     </label>
+
 
   </div>
 </div>
@@ -86,7 +87,7 @@
     <p>仅支持不超过10M的doc, docx格式文档</p>
 
     <%= file_field_tag 'doc', class:'form-control inputfile',data:{size: 10.megabytes.to_i, ext: 'doc|docx' },'@change' => 'file_v' %>
-    <label for="doc"  v-bind:class="{btn: true, 'btn-primary': file.doc.error == null, 'btn-danger': file.doc.error !== null}">
+    <label for="doc"  :class="{btn: true, 'btn-primary': file.doc.error == null, 'btn-danger': file.doc.error !== null}">
       <span v-show="file.doc.error !== null">
         {{file.doc.error}}
       </span>
@@ -95,7 +96,7 @@
         <i class="glyphicon glyphicon-plus"></i>上传文件
       </span>
       <span v-show="file.doc.size !== 0">
-        {{file.doc.filename}}, {{file.doc.size}}M
+        {{file.doc.filename}}, {{file.doc.size | sizeInM}}M
       </span>
 
     </label>
@@ -110,7 +111,7 @@
     <p>仅支持不超过50M的PDF格式课件, 您可以将ppt导出成pdf后上传</p>
 
     <%= file_field_tag 'ppt', class:'form-control inputfile',data:{size: 50.megabytes.to_i, ext: 'pdf' },'@change' => 'file_v' %>
-    <label for="ppt" v-bind:class="{btn: true, 'btn-primary': file.ppt.error == null, 'btn-danger': file.ppt.error !== null}">
+    <label for="ppt" :class="{btn: true, 'btn-primary': file.ppt.error == null, 'btn-danger': file.ppt.error !== null}">
       <span v-show="file.ppt.error !== null">
         {{file.ppt.error}}
       </span>
@@ -119,7 +120,7 @@
         <i class="glyphicon glyphicon-plus"></i>上传文件
       </span>
       <span v-show="file.ppt.size !== 0">
-        {{file.ppt.filename}}, {{file.ppt.size}}M
+        {{file.ppt.filename}}, {{file.ppt.size | sizeInM}}M
       </span>
 
     </label>

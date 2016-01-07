@@ -4,13 +4,19 @@ json.thumb do
   json.small @creation.thumb.url(:thumb)
 end
 if @creation.doc.url
-  json.doc @creation.doc
+  json.doc do
+    json.time File.mtime('./public' + @creation.doc.url.to_s)
+    json.size @creation.doc.size
+  end
 else
   json.doc ""
 end
 
 if @creation.ppt.url
-  json.ppt @creation.ppt
+  json.ppt do
+    json.time File.mtime('./public' + @creation.ppt.url.to_s)
+    json.size @creation.ppt.size
+  end
 else
   json.ppt ""
 end

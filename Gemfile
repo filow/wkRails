@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 # Vuejs
 gem 'vuejs-rails'
+# momentJS
+gem 'momentjs-rails'
 # 用于抹平浏览器间的部分兼容性问题
 gem "autoprefixer-rails"
 
