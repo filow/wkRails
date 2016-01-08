@@ -90,6 +90,35 @@ class Index::UsercenterController < IndexController
 
   end
 
+  def delete_creation
+    @creation = @user.creations.find(params[:id])
+    @creation.destroy
+    render json: {code: 200}
+  end
+
+  def publish_creation
+    @creation = @user.creations.find(params[:id])
+    if @creation.update({status: 'publishing'})
+      render json: {success: true}
+    else
+      render json: {success: false, errors: @creation.errors}
+    end
+  end
+  def unpublish_creation
+    @creation = @user.creations.find(params[:id])
+
+    if @creation.status == 'published'
+      status = 'unpublishing'
+    else
+      status = 'draft'
+    end
+    if @creation.update({status: status})
+      render json: {success: true}
+    else
+      render json: {success: false, errors: @creation.errors}
+    end
+  end
+
 private
   def set_sidebar
     if session[:user_id].blank?   #未登录

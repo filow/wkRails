@@ -146,7 +146,7 @@
           </tr>
           <tr>
             <td>简介</td>
-            <td colspan="3">{{{desc}}}</td>
+            <td colspan="3">{{{summary}}}</td>
           </tr>
           <tr>
             <td>当前状态</td>
@@ -192,10 +192,11 @@
       <div class="modal-footer">
 
 
-        <button type="button" class="btn btn-danger" onclick="return confirm('删除作品将导致作品所有相关信息和文件永久丢失，请在删除前做好备份。确定删除吗？')">删除作品</button>
-        <button type="button" class="btn btn-primary">编辑</button>
-        <button type="button" class="btn btn-success">申请发布</button>
-        <button type="button" class="btn btn-success">申请取消发布</button>
+        <button v-show="isDraft" type="button" class="btn btn-danger" @click.prevent="deleteCreation()">删除作品</button>
+
+        <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit" class="btn btn-primary">编辑</a>
+        <button v-show="isDraft" @click.prevent="publish()" type="button" class="btn btn-success">申请发布</button>
+        <button v-show="canUnpublish" @click.prevent="unPublish()" type="button" class="btn btn-success">申请取消发布</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
       </div>

@@ -33,7 +33,9 @@ Rails.application.routes.draw do
     get 'usercenter/creations/:id' => 'usercenter#creation_detail', as: 'creation_detail'
     get 'usercenter/creations/:id/edit' => 'usercenter#edit_creation', as: 'edit_creation'
     patch 'usercenter/creations/:id' => 'usercenter#update_creation'
-
+    delete 'usercenter/creations/:id' => 'usercenter#delete_creation'
+    patch 'usercenter/creations/:id/publish' => 'usercenter#publish_creation'
+    delete 'usercenter/creations/:id/publish' => 'usercenter#unpublish_creation'
 
     #用户注册
     get 'user/reg'

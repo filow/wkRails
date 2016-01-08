@@ -155,8 +155,8 @@ class Manage::Creation < ActiveRecord::Base
     #生成简介
     def add_summary
       #除去html标记
-      desc = ApplicationController.helpers.strip_tags(self.desc)
+      self.summary = ApplicationController.helpers.strip_tags(self.desc).gsub(/\s+/, ' ')
       #截取desc
-      self.summary = desc[0..83] << '...'
+      # self.summary = desc[0..83] << '...'
     end
 end

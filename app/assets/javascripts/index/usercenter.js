@@ -7,15 +7,15 @@
 //= require_self
 
 
+function getToken() {
+  var key = $('meta[name=csrf-param]').attr('content');
+  var val = $('meta[name=csrf-token]').attr('content');
+  var result = {};
+  result[key] = val;
+  return result;
+}
 
 $(function (){
-  function getToken() {
-    var key = $('meta[name=csrf-param]').attr('content');
-    var val = $('meta[name=csrf-token]').attr('content');
-    var result = {};
-    result[key] = val;
-    return result;
-  }
   $('.set_read_msg').click(function (){
     var id = $(this).data('id');
     var $this = $(this);
@@ -48,7 +48,7 @@ $(function (){
       })
     }
 
-  })
+  });
 
 
   $('.cancel_vote').click(function (){
@@ -118,7 +118,7 @@ $(function (){
         name: '',
         thumb: '',
         authors: [],
-        desc: '',
+        summary: '',
         status: '',
         vote_count: 0,
         view_count: 0,
@@ -126,7 +126,60 @@ $(function (){
         doc: {},
         ppt: {}
       },
+      computed: {
+        isDraft: function (){
+          return this.status === '草稿'
+        },
+        canUnpublish: function (){
+          return this.status === '发布审核' || this.status === '已发布'
+        }
+      },
       methods: {
+        publish: function (){
+          var token = getToken();
+          $.ajax('/usercenter/creations/' + this.id + '/publish', {
+            type: 'patch',
+            data: token
+          }).then(function (stat){
+            if(stat.success){
+              alert('已向管理员申请发布此作品,发布成功后将以短信形式告知');
+              location.reload()
+            }else {
+              alert('发布失败!');
+              console.log(stat);
+            }
+
+
+          });
+        },
+        unPublish: function (){
+          var token = getToken();
+          $.ajax('/usercenter/creations/' + this.id + '/publish', {
+            type: 'delete',
+            data: token
+          }).then(function (stat){
+            if(stat.success){
+              alert('操作成功');
+              location.reload()
+            }else {
+              alert('操作失败!');
+              console.log(stat);
+            }
+          });
+        },
+        deleteCreation: function () {
+          if (confirm('删除作品将导致作品所有相关信息和文件永久丢失，请在删除前做好备份。确定删除吗？')){
+            var token = getToken();
+            $.ajax('/usercenter/creations/' + this.id, {
+              type: 'delete',
+              data: token
+            }).then(function (stat){
+              alert('作品删除成功');
+              location.reload()
+            });
+            console.log(token)
+          }
+        },
         show: function (id){
           $(this.$el).modal();
           this.loading = true;
@@ -135,7 +188,7 @@ $(function (){
             this.name = data.name;
             this.thumb = data.thumb.large;
             this.authors = data.authors;
-            this.desc = data.desc;
+            this.summary = data.summary;
             this.status = data.status;
             this.vote_count = data.vote_count;
             this.view_count = data.view_count;
