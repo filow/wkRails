@@ -46,16 +46,21 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
   .file:active {
     transform: scale(1);
   }
-}
 
-.pagination ul li a{
-	color: #777;
-	font-weight: bold;
 }
-.pagination ul li a:hover{
-	background-color: #509cda;
-	color: #fff;
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color: #509CDA;
+  color: #fff;
 }
+//
+// .pagination ul li a{
+// 	color: #777;
+// 	font-weight: bold;
+// }
+// .pagination ul li a:hover{
+// 	background-color: #509cda;
+// 	color: #fff;
+// }
 
 
 a{

@@ -104,6 +104,8 @@ class Manage::Creation < ActiveRecord::Base
   def request_publish
     if status == 'draft'
       update status: :publishing
+    elsif status == 'unpublishing'
+      update status: :published
     else
       errors.add(:status, '只能申请发布草稿状态下的作品')
       nil
@@ -113,6 +115,8 @@ class Manage::Creation < ActiveRecord::Base
   def request_unpublish
     if status == 'published'
       update status: :unpublishing
+    elsif status == 'publishing'
+      update status: :draft
     else
       errors.add(:status, '只能对已发布的作品执行该操作')
       nil

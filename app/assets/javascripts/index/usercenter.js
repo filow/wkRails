@@ -162,7 +162,7 @@ $(function (){
               alert('操作成功');
               location.reload()
             }else {
-              alert('操作失败!');
+              alert(stat.errors.status[0]);
               console.log(stat);
             }
           });
@@ -227,4 +227,3 @@ $(function (){
 
 
 });
-
