@@ -1,43 +1,31 @@
 @charset "utf-8";
 $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi Micro Hei";
 
-.works_banner{
-	background:rgba(0,0,0,0.07);
-	padding: 20px 0;
-	text-align: center;
-	border-radius: 5px;
-	margin-top: 10px;
-	font-size: 18px;
-	font-weight: bold;
-	font-family: $cn-font;
-}
+
 .works_nav ul{
 	margin: 0;
-	padding: 20px 0;
-}
-.works_nav ul li{
-	float: left;
-	list-style: none;
-	margin-left: 10px;
-}
-.works_nav ul li:first-child{
-	margin-left: 0;
-}
-.works_nav ul li a{
-	display:inline-block;
-	padding: 5px 14px;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	color: #777;
-	font-weight: bold;
-	border-radius: 5px;
-}
-.works_nav ul li a.active,.works_nav ul li a:hover{
-	background-color: #509cda;
-	color: #fff;
-}
-.works_nav ul li a.disabled{
-	color: #A7A7A7;
+	padding: 0;
+  li {
+    float: left;
+  	list-style: none;
+  	margin-right: 10px;
+    a {
+      display:inline-block;
+    	padding: 5px 14px;
+    	background-color: #fff;
+    	border: 1px solid #ddd;
+    	color: #777;
+    	font-weight: bold;
+    	border-radius: 5px;
+      &.active, &:hover {
+        background-color: #509cda;
+      	color: #fff;
+      }
+      &.disabled {
+        color: #A7A7A7;
+      }
+    }
+  }
 }
 
 .works_nav ul li.group a.active,.works_nav ul li.group a:hover{
@@ -46,116 +34,20 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 }
 
 
-.works_nav hr{
-	border-bottom: 1px solid #ddd;
-	border-top: none;
-	margin: 0;
-}
 .works_group{
 	margin-top: 20px;
-}
-.works_group ul{
-	margin: 0;
-}
-.works_group ul li{
-	list-style: none;
-	float: left;
-	margin: 0 10px 30px 0;
-}
-.works_group ul li:nth-child(4n)
-{
-	margin-right: 0;
-}
-.works{
-	width: 210px;
-	position: relative;
-	padding: 9px 9px 5px 9px;
-	background-color: #fff;
-	border-radius: 3px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
-	box-shadow: 0 1px 2px rgba(0,0,0,0.07)
-}
-.works_name h5{
-	color: #000;
-	margin-top: 0px;
-	margin-bottom: 2px;
-	height: 20px;
-	overflow: hidden;
-}
-.works_over{
-	opacity: 0;
-	filter: alpha(opacity=0);
-	width: 200px;
-	height: 110px;
-	margin-top: 25px;
-	position: absolute;
-	top: 6px;
-	left: 5px;
-	color: #777;
-	background:#fff;
-	background:rgba(255,255,255,0.96);
-	overflow: hidden;
-	padding: 5px;
-}
-.works_over p{
-	font-size:13px;
-	line-height: 15px;
-	text-overflow: ellipsis;
-	margin-bottom: 5px;
-}
-.works_over strong{
-	color: #999;
-}
-.works_info{
-	float: right;
-}
-.works_info li{
-	margin: 0 5px !important;
-	color: #b1aabc;
-	font-size: 13px;
-}
-.works_info li a i{
-	margin: 3px;
-}
-.comments a,.votes a,.views a{
-	color: #bbb;
-}
-.comments a:hover,.votes a:hover{
-	color: #777;
-}
-.clear{
-	clear: both;
-}
-.works_author{
-	margin-top: 10px;
-	width: 230px;
-}
-.works_author a{
-	margin-left: 15px;
-}
-.works_author a span:hover{
-	color: #205f82;
-}
-.works_author img,.works_author_name{
-	float: left;
+  .vote_info {
+    float: right;
+    color: #9C2E2E;
+  }
+  .file:hover {
+    transform: scale(1.02);
+  }
+  .file:active {
+    transform: scale(1);
+  }
 }
 
-.works_author_department{
-	/*color: #999 !important;*/
-	float: right;
-}
-.works_author a span{
-	color: #4083a9;
-	font-weight: bold;
-	font-size: 14px;
-	margin-left: 5px;
-}
-.works_author a img{
-	border-radius: 3px;
-	width: 22px;
-	height: 22px;
-}
 .pagination ul li a{
 	color: #777;
 	font-weight: bold;
@@ -163,11 +55,6 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 .pagination ul li a:hover{
 	background-color: #509cda;
 	color: #fff;
-}
-
-.works_pic,.works_pic img{
-	width:192px;
-	height: 108px;
 }
 
 

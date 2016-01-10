@@ -4,10 +4,23 @@ class Index::CreationController < IndexController
   def index
     @creations = []
     if params['type'] == 'old'
-      @creations = Manage::Creation.where 'version < ?', Cfg.get('current_version')
+      @creations = Manage::Creation.old
     else
-      @creations = Manage::Creation.where version: Cfg.get('current_version').to_i
+      @creations = Manage::Creation.onshow
     end
+    if params[:order]
+      case params[:order]
+      when 'vote'
+        @creations = @creations.order(vote_count: :desc)
+      when 'comment'
+        @creations = @creations.order(comment_count: :desc)
+      when 'view'
+        @creations = @creations.order(view_count: :desc)
+      else
+        @creations = @creations.order(updated_at: :desc)
+      end
+    end
+    @creations = @creations.page(params[:page])
   end
 
   def show

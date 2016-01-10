@@ -57,6 +57,9 @@ class Manage::Creation < ActiveRecord::Base
   def self.onshow
     where(status: self.statuses[:published]).where(version: Cfg.version)
   end
+  def self.old
+    where(status: self.statuses[:published]).where('version != ?', Cfg.version)
+  end
 
   def self.random
     onshow.order('rand()')

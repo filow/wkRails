@@ -1,76 +1,57 @@
-<extend name="Common:base" />
-<block name="title">作品展示</block>
-<block name="content">
 <div class="exhibition_wrapper">
 	<div class="works_nav">
 		<ul>
-			<li class="group"><a href="{:U('gallery',array('order'=>I('order')))}" class="<%= 'active' if true %>" >所有组别</a></li>
-			<li class="group"><a href="{:U('gallery',array('group'=>'teacher','order'=>I('order')))}" class="<%= 'active' if false %>">教师组</a></li>
-			<li class="group"><a href="{:U('gallery',array('group'=>'student','order'=>I('order')))}" class="<%= 'active' if false %>">学生组</a></li>
+			<li class="group"><a href="<%= creations_path(order: params[:order], type: params[:type]) %>" class="<%= 'active' unless params[:group] %>" >所有组别</a></li>
+      <li class="group"><a href="<%= creations_path(group: 'teacher', order: params[:order], type: params[:type]) %>" class="<%= 'active' if params[:group] == 'teacher' %>">教师组</a></li>
+			<li class="group"><a href="<%= creations_path(group: 'student', order: params[:order], type: params[:type]) %>" class="<%= 'active' if params[:group] == 'student' %>">学生组</a></li>
 
-			<li><a href="{:U('gallery',array('group'=>I('group')))}" class="<%= 'active' if true %>">最新提交</a></li>
-			<li><a href="{:U('gallery',array('group'=>I('group'),'order'=>'all'))}" class="<%= 'active' if false %>">综合排序</a></li>
-			<li><a href="{:U('gallery',array('group'=>I('group'),'order'=>'vote'))}" class="<%= 'active' if false %>">最多票数</a></li>
-			<li><a href="{:U('gallery',array('group'=>I('group'),'order'=>'view'))}" class="<%= 'active' if false %>">最多播放</a></li>
-			<li><a href="{:U('gallery',array('group'=>I('group'),'order'=>'comment'))}" class="<%= 'active' if false %>">最多评论</a></li>
+      <li><a href="<%= creations_path(group: params[:group], type: params[:type]) %>" class="<%= 'active' unless params[:order] %>">最新提交</a></li>
+      <li><a href="<%= creations_path(group: params[:group], order: 'vote', type: params[:type]) %>" class="<%= 'active' if params[:order]=='vote' %>">最多票数</a></li>
+      <li><a href="<%= creations_path(group: params[:group], order: 'view', type: params[:type]) %>" class="<%= 'active' if params[:order]=='view' %>">最多播放</a></li>
+      <li><a href="<%= creations_path(group: params[:group], order: 'comment', type: params[:type]) %>" class="<%= 'active' if params[:order]=='comment' %>">最多评论</a></li>
+
 			<li><a class="disabled">共有<%= @creations.count %>个参赛作品</a></li>
 			<div class="clear"></div>
 		</ul>
-		<div class="clear"></div>
-		<hr>
+
 	</div> <!-- 顶部内容 -->
+
 	<div class="works_group">
-		<ul>
-          <% @creations.each do |c| %>
-              <li>
-                <div class="works">
-                  <div class="works_name"><h5><%= c.name %></h5></div>
-                  <div class="works_shot">
-                    <div class="works_thumb">
-                      <%= link_to(creation_path(c.name), target: '_blank') do %>
-                          <div class="works_pic">
-                            <img src="<%= c.thumb.thumb %>" alt="缩略图" class="img-thumbnail">
-                          </div>
-                      <% end %>
-                      <%= link_to(creation_path(c.name), target: '_blank', class: "works_over", style: "opacity:0;") do %>
-                          <p><%= c.summary %></p>
-                          <strong><%= c.created_at.strftime('%F') %></strong>
-                      <% end %>
-                    </div>
-                    <ul class="works_info">
-                      <li class="views"><a title="浏览数"><i class="glyphicon glyphicon-eye-open"></i><%= c.view_count %></a></li>
-                      <li class="comments"><a title="评论数"><i class="glyphicon glyphicon-comment"></i><%= c.comment_count %></a></li>
-                      <li class="votes"><a title="投票数"><i class="glyphicon glyphicon-heart"></i><%= c.vote_count %></a></li>
-                      <div class="clear"></div>
-                    </ul>
-                    <div class="clear"></div>
-                  </div>
+    <% @creations.each do |c| %>
+      <div class="file-box">
+        <div class="file">
+          <%= link_to creation_path(c.name), target: '_blank' do %>
+              <span class="corner"></span>
+              <div class="image">
+                <%= image_tag c.thumb.url(:thumb) %>
+              </div>
+              <div class="file-name">
+                <%= c.name %>
+                <div class="vote_info">
+                  <i class="glyphicon glyphicon-thumbs-up"></i> <%= c.vote_count %>
                 </div>
-                <div class="works_author">
-                  <%= link_to user_detail_path(c.user.name) do %>
-                      <img src="<%= c.user.avatar.thumb_mini %>" alt="作者" width="22"/>
-                      <span class="works_author_name"><%= c.user.realname %></span>
-                  <% end %>
-                  <span class="works_author_department"><%= c.user.department %></span>
+                <div>
+                  <small>
+                    <%= c.creation_authors.map{|x| x.name}.join(' ') %>
+                  </small>
                 </div>
-              </li>
+
+              </div>
+              </a>
           <% end %>
-		</ul>
+        </div>
+      </div>
+    <% end %>
 	</div><!--  works_group end -->
 	<div class="clear"></div>
 	<div class="pagination pagination-centered">
 	  <ul>
-      <!-- 这里是分页 -->
+      <%= paginate @creations %>
 	  </ul>
 	</div>
 </div> <!-- exhibition_wrapper end -->
-</block>
-<block name="extra_js">
 <script>
 $(document).ready(function(){
-	$("#close_icon").click(function(){
-		$('.works_banner').fadeOut();
-	});
 	$(".works_over").hover(function(){
 		$(this).animate({ opacity: 1 }, 400);
 	},function(){
@@ -79,4 +60,3 @@ $(document).ready(function(){
 	);
 });
 </script>
-</block>
