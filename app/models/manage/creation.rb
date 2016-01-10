@@ -98,6 +98,25 @@ class Manage::Creation < ActiveRecord::Base
     t[self.status.to_sym]
   end
 
+  def request_publish
+    if status == 'draft'
+      update status: :publishing
+    else
+      errors.add(:status, '只能申请发布草稿状态下的作品')
+      nil
+    end
+  end
+
+  def request_unpublish
+    if status == 'published'
+      update status: :unpublishing
+    else
+      errors.add(:status, '只能对已发布的作品执行该操作')
+      nil
+    end
+  end
+
+
   # 为作品投票
   def vote(user_id, ip)
     if Cfg.can_vote?

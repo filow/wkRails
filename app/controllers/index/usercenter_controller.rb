@@ -98,21 +98,16 @@ class Index::UsercenterController < IndexController
 
   def publish_creation
     @creation = @user.creations.find(params[:id])
-    if @creation.update({status: 'publishing'})
+    if @creation.request_publish
       render json: {success: true}
     else
       render json: {success: false, errors: @creation.errors}
     end
   end
+
   def unpublish_creation
     @creation = @user.creations.find(params[:id])
-
-    if @creation.status == 'published'
-      status = 'unpublishing'
-    else
-      status = 'draft'
-    end
-    if @creation.update({status: status})
+    if @creation.request_unpublish
       render json: {success: true}
     else
       render json: {success: false, errors: @creation.errors}

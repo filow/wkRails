@@ -145,7 +145,7 @@ $(function (){
               alert('已向管理员申请发布此作品,发布成功后将以短信形式告知');
               location.reload()
             }else {
-              alert('发布失败!');
+              alert(stat.errors.status[0]);
               console.log(stat);
             }
 
