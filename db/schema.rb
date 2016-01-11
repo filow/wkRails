@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106013740) do
+ActiveRecord::Schema.define(version: 20160111082008) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255,                 null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160106013740) do
   end
 
   add_index "admins_roles", ["admin_id", "role_id"], name: "index_admins_roles_on_admin_id_and_role_id", using: :btree
+  add_index "admins_roles", ["role_id"], name: "fk_rails_e8d2351252", using: :btree
 
   create_table "cfgs", force: :cascade do |t|
     t.string "key",        limit: 255
@@ -62,6 +63,8 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.integer "sex",         limit: 4
   end
 
+  add_index "creation_authors", ["creation_id"], name: "fk_rails_45742f63c8", using: :btree
+
   create_table "creation_comments", force: :cascade do |t|
     t.text     "message",     limit: 65535
     t.boolean  "is_hidden",                 default: false
@@ -72,6 +75,9 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.boolean  "is_viewed",                 default: false
   end
 
+  add_index "creation_comments", ["creation_id"], name: "fk_rails_1a9d4df8bc", using: :btree
+  add_index "creation_comments", ["user_id"], name: "fk_rails_520ce5b250", using: :btree
+
   create_table "creation_views", force: :cascade do |t|
     t.integer  "creation_id", limit: 4
     t.string   "ip",          limit: 39
@@ -80,12 +86,17 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.datetime "created_at"
   end
 
+  add_index "creation_views", ["creation_id"], name: "fk_rails_4b86182685", using: :btree
+
   create_table "creation_votes", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.integer  "creation_id", limit: 4
     t.string   "ip",          limit: 39
     t.datetime "created_at"
   end
+
+  add_index "creation_votes", ["creation_id"], name: "fk_rails_ea0f739a87", using: :btree
+  add_index "creation_votes", ["user_id"], name: "fk_rails_de66e966ce", using: :btree
 
   create_table "creations", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -104,6 +115,8 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.string   "ppt",           limit: 255
   end
 
+  add_index "creations", ["user_id"], name: "fk_rails_a152910aea", using: :btree
+
   create_table "expvideos", force: :cascade do |t|
     t.string  "name",   limit: 255
     t.string  "author", limit: 255
@@ -119,6 +132,9 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.datetime "created_at"
   end
 
+  add_index "judges", ["admin_id"], name: "fk_rails_9de3f96c22", using: :btree
+  add_index "judges", ["creation_id"], name: "fk_rails_40ed632993", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.string   "title",      limit: 255,                   null: false
     t.text     "content",    limit: 65535
@@ -128,6 +144,8 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
   end
+
+  add_index "messages", ["user_id"], name: "fk_rails_273a25a7a6", using: :btree
 
   create_table "nodes", force: :cascade do |t|
     t.string "controller", limit: 255
@@ -141,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.integer "node_id", limit: 4, null: false
   end
 
+  add_index "nodes_roles", ["node_id"], name: "fk_rails_c047f5d103", using: :btree
   add_index "nodes_roles", ["role_id", "node_id"], name: "index_nodes_roles_on_role_id_and_node_id", using: :btree
 
   create_table "option_records", force: :cascade do |t|
@@ -150,6 +169,8 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.text     "desc",       limit: 65535
     t.datetime "created_at",               null: false
   end
+
+  add_index "option_records", ["admin_id"], name: "fk_rails_bf57c3ab3b", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",         limit: 255,                   null: false
@@ -184,4 +205,19 @@ ActiveRecord::Schema.define(version: 20160106013740) do
     t.string   "activation_digest", limit: 255
   end
 
+  add_foreign_key "admins_roles", "admins", on_delete: :cascade
+  add_foreign_key "admins_roles", "roles", on_delete: :cascade
+  add_foreign_key "creation_authors", "creations", on_delete: :cascade
+  add_foreign_key "creation_comments", "creations", on_delete: :cascade
+  add_foreign_key "creation_comments", "users", on_delete: :cascade
+  add_foreign_key "creation_views", "creations", on_delete: :cascade
+  add_foreign_key "creation_votes", "creations", on_delete: :cascade
+  add_foreign_key "creation_votes", "users", on_delete: :cascade
+  add_foreign_key "creations", "users"
+  add_foreign_key "judges", "admins", on_delete: :cascade
+  add_foreign_key "judges", "creations", on_delete: :cascade
+  add_foreign_key "messages", "users", on_delete: :cascade
+  add_foreign_key "nodes_roles", "nodes", on_delete: :cascade
+  add_foreign_key "nodes_roles", "roles", on_delete: :cascade
+  add_foreign_key "option_records", "admins"
 end
