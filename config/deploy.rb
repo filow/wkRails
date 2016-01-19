@@ -2,14 +2,14 @@
 lock '3.2.1'
 
 set :application, 'wkRails'
-set :repo_url, 'https://git.coding.net/filow/wkRails.git'
+set :repo_url, 'git@git.coding.net:filow/wkRails.git'
 set :rails_env, "production"
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/alidata1/web/wkRails'
+set :deploy_to, '/alidata1/wkRails'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -39,7 +39,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:tiien), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       execute :touch, release_path.join('tmp/restart.txt')
     end
@@ -48,10 +48,10 @@ namespace :deploy do
   after :publishing, :restart
 
   after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+    on roles(:tiien), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within release_path do
-        execute :rake, 'cache:clear'
+        # execute :rake, 'cache:clear'
         execute :rake, 'assets:precompile'
         execute :rake, 'db:migrate'
         # execute "bin/delayed_job", 'restart'
