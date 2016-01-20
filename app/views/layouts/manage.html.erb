@@ -6,8 +6,9 @@
     <title><%= @title || '微课大赛后台管理系统' %></title>
     <link rel="shortcut icon" href="/favicon.png">
     <%= stylesheet_link_tag  'bootstrap-pack', media: 'all' %>
-    <%= stylesheet_link_tag  'manage', media: 'all' %>
+    <%= stylesheet_link_tag  'manage/common', media: 'all' %>
     <%= stylesheet_link_tag   params[:controller], media: 'all' %>
+
     <%= yield :before_js %>
     <%= csrf_meta_tags %>
   </head>
@@ -65,7 +66,7 @@
       </main>
     </div>
 
-    <%= javascript_include_tag 'manage' %>
+    <%= javascript_include_tag 'manage/common' %>
     <%= javascript_include_tag params[:controller] %>
     <%= yield :js %>
   </body>

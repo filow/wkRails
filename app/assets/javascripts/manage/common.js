@@ -7,6 +7,7 @@
 //= require jquery.btnGroup
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
+//= require_self
 
 $(function (){
     // 日期时间选择框
