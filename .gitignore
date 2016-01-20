@@ -26,3 +26,5 @@
 /vendor/cache
 
 /app/assets/stylesheets/scaffolds.scss
+# 由于部署文件含有大量生产服务器的配置，因此这里不加入版本控制系统
+config/deploy.rb
