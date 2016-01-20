@@ -4,6 +4,7 @@ lock '3.2.1'
 set :application, 'wkRails'
 set :repo_url, 'git@git.coding.net:filow/wkRails.git'
 set :rails_env, "production"
+set :rake_env, "production"
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -52,8 +53,10 @@ namespace :deploy do
       # Here we can do anything such as:
       within release_path do
         # execute :rake, 'cache:clear'
-        execute :rake, 'assets:precompile'
-        execute :rake, 'db:migrate'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'assets:precompile'
+          execute :rake, 'db:migrate'
+        end
         # execute "bin/delayed_job", 'restart'
       end
     end

@@ -28,5 +28,5 @@ test:
 production:
   <<: *default
   database: wkRails_production
-  username: <%= ENV["db_user"] %>
-  password: <%= ENV["db_password"] %>
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
