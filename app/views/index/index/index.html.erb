@@ -98,16 +98,24 @@
             </div>
             <div class="user_nav">
               <ul class="nav nav-list">
-                <li><%= link_to '用户中心', usercenter_url %></li>
+                <li><%= link_to '用户中心', usercenter_path %></li>
+                <li><%= link_to '作品管理', usercenter_creations_path %></li>
                 <li><%= link_to '退出登陆', user_logout_path, method: :delete %></li>
               </ul>
             </div>
           </div>
 
         <% else %>
-          <%= form_tag(user_login_path, method: :post) do %>
-              <input type="text" name="username" placeholder="用户名" class="login_input form-control">
-              <input type="password" name="password" placeholder="密码" class="login_input form-control">
+          <%= form_tag(user_login_path, method: :post, class:'form-inline') do %>
+            <div class="form-group">
+              <label for="login_username">用户名</label>
+              <input type="text" id="login_username" name="username" class="login_input form-control">
+            </div>
+            <div class="form-group">
+              <label for="login_password">密码</label>
+              <input type="password" id="login_password" name="password" class="login_input form-control">
+            </div>
+
               <input type="submit" class="login_submit btn btn-warning btn-block" value="登陆">
               <a href="<%= user_reg_path %>" class="btn btn-success btn-block">一分钟注册</a>
           <% end %>
