@@ -84,8 +84,6 @@
 <!--评审提交表单-->
 <h2><%= @judge.id.blank? ? '进行评审' : '修改评审' %></h2>
 <%= form_for @judge do |f| %>
-    <%= form_errors(@judge) %>
-
     <table class="table">
       <thead>
       <th width="10%"></th>

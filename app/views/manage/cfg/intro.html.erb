@@ -1,0 +1,60 @@
+<ul class="nav nav-tabs">
+  <li role="presentation"><%= link_to '通用设置', manage_cfgs_path %></li>
+  <li role="presentation"><%= link_to '示例视频', manage_cfg_exp_video_path %></li>
+  <li role="presentation" class="active"><%= link_to '大赛介绍', manage_cfg_intro_path %></li>
+</ul>
+<!--大赛介绍内容-->
+<% unless @intro.blank? %>
+    <h2>大赛介绍</h2>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th width="20%">序号</th>
+        <th width="20%">名称</th>
+        <th width="20%">文章id</th>
+        <th width="25%">锚点名称</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @intro.each do |i| %>
+          <tr>
+            <td><%= i['id'] %></td>
+            <td><%= i['name'] %></td>
+            <td><%= i['p_id'] %></td>
+            <td><%= i['anchor'] %></td>
+            <td><%= link_to '删除', manage_delete_intro_path(i['id']), method: :delete, class: 'btn btn-danger btn-block' %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+<hr>
+<!--大赛介绍内容结束-->
+
+<!--添加大赛介绍-->
+<h2>新增介绍</h2>
+<%= form_tag manage_add_intro_path do |f| %>
+    <table class="table">
+      <thead>
+      <th width="10%"></th>
+      <th></th>
+      <th width="10%"></th>
+      <th></th>
+      </thead>
+      <tr>
+        <td><%= label_tag :id, '序号' %></td>
+        <td><%= number_field_tag :id, @intro.blank? ? 0:@intro.last['id'].to_i+1, min: 0, class: 'form-control' %></td>
+        <td><%= label_tag :name, '名称' %></td>
+        <td><%= text_field_tag :name, '', class: 'form-control' %></td>
+      </tr>
+      <tr>
+        <td><%= label_tag :p_id, '文章id' %></td>
+        <td><%= text_field_tag :p_id, '', class: 'form-control' %></td>
+        <td><%= label_tag :anchor, '锚点名称' %></td>
+        <td><%= text_field_tag :anchor, '', class: 'form-control' %></td>
+      </tr>
+    </table>
+    <%= submit_tag '添加大赛介绍', class: 'btn btn-success' %>
+<% end %>

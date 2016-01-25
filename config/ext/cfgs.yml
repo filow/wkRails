@@ -70,3 +70,7 @@ links:
   type: url
   desc: 友情链接
   default: ""
+index_intro:
+  type: json
+  desc: 大赛介绍
+  default: "[]"
