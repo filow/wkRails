@@ -19,7 +19,7 @@
               <td><%= link_to v.creation.name, creation_path(v.creation.name)  %></td>
               <td><%= v.message %></td>
               <td><%= v.created_at.strftime("%m-%d %H:%M") %></td>
-              <td><%= v.is_hide? ? "被管理员或作者隐藏": "正常" %></td>
+              <td><%= v.is_hidden? ? "被管理员或作者隐藏": "正常" %></td>
               <td><button class="btn btn-default btn-sm cancel_comment" data-cid="<%= v.id %>" data-id="<%= v.creation.name %>">删除评论</button></td>
             </tr>
             <% end %>

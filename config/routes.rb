@@ -95,6 +95,9 @@ Rails.application.routes.draw do
     # 设置
     get 'cfgs' => 'cfg#index'
     get 'cfg/exp_video' => 'cfg#exp_video'
+    get 'cfg/intro' => 'cfg#intro'
+    post 'cfg/add_intro' => 'cfg#add_intro', as: 'add_intro'
+    delete 'cfg/intro/:id' => 'cfg#delete_intro', as: 'delete_intro'
     delete 'cfg/:id' => 'cfg#delete_video', as: 'delete_video'
     get 'cfg/:id/screenshot' => 'cfg#screenshot'
     post 'cfg/exp_video' => 'cfg#upload_video'
