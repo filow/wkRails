@@ -6,7 +6,7 @@ class Manage::CfgController < ManageController
   end
 
   def intro
-    @intro = JSON.parse(Cfg.find_by_key('index_intro').value)
+    @intro = JSON.parse(Cfg.get('index_intro'))
   end
 
   def add_intro
