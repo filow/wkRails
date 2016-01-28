@@ -2,7 +2,45 @@ class Manage::CfgController < ManageController
   before_action :check_permission
 
   def index
-    @manage_cfgs = Cfg.all
+    @manage_cfgs = Cfg.where.not(key: 'index_intro')
+  end
+
+  def intro
+    @intro = JSON.parse(Cfg.get('index_intro'))
+  end
+
+  def add_intro
+    new_intro = params.permit(:id, :name, :p_id, :anchor)
+    if new_intro[:id].blank?
+      redirect_to manage_cfg_intro_path, alert: '序号不能为空'
+      return
+    end
+
+    Cfg.transaction do
+      cfg_intro = Cfg.find_by_key('index_intro')
+      intro = JSON.parse(cfg_intro.value)
+      intro << new_intro
+      # 根据序号排序
+      intro.sort_by!{ |i| i['id'].to_i }
+
+      if cfg_intro.update(value: intro.to_json)
+        redirect_to manage_cfg_intro_path, notice: '添加成功'
+      else
+        redirect_to manage_cfg_intro_path, alert: '添加失败，请重试'
+      end
+    end
+  end
+
+  def delete_intro
+    cfg_intro = Cfg.find_by_key('index_intro')
+    intro = JSON.parse(cfg_intro.value)
+    intro.delete_if{ |i| i['id'].to_i == params[:id].to_i }
+
+    if cfg_intro.update(value: intro.to_json)
+      redirect_to manage_cfg_intro_path, notice: '删除成功'
+    else
+      redirect_to manage_cfg_intro_path, alert: '删除失败，请重试'
+    end
   end
 
   def update

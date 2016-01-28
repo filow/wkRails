@@ -1,3 +1,4 @@
+#用于验证友情链接的格式
 class LinksValidator < ActiveModel::Validator
   def validate(record)
     if record.key == 'links'
@@ -15,7 +16,7 @@ end
 
 class Cfg < ActiveRecord::Base
   @@config_cache = Cache.new("Config-Cache")
-  validates_inclusion_of :field_type,in: %w(string boolean text rich_text date email url number img),allow_nil:true,allow_empty:true
+  validates_inclusion_of :field_type,in: %w(string boolean text rich_text date email url number img json),allow_nil:true,allow_empty:true
   #允许值为空避免进行格式验证时报错
   # validates :value,allow_blank:true
   #根据field_type的值来验证value是否合法
@@ -82,19 +83,6 @@ class Cfg < ActiveRecord::Base
     end
     super(attributes)
   end
-
-  # def save_poster(img)
-  #   uploader = PosterUploader.new
-  #   # 先删除原图片
-  #   unless value.blank?
-  #     uploader.retrieve_from_store! value
-  #     uploader.remove!
-  #   end
-  #   #存储图片
-  #   uploader.store! img
-  #   #更新文件名
-  #   update value: uploader.filename
-  # end
 
 private
   def refresh_cache
