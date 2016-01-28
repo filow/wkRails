@@ -20,7 +20,7 @@
     <% @creations.each do |c| %>
       <div class="file-box">
         <div class="file">
-          <%= link_to creation_path(c.name), target: '_blank' do %>
+          <%= link_to creation_path(c.name) do %>
               <span class="corner"></span>
               <div class="image">
                 <%= image_tag c.thumb.url(:thumb) %>

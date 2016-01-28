@@ -6,15 +6,15 @@
     <%= @creation.name %>
   </h1>
   <div class="btn-group vote <%= is_voted(@creation) %>" data-id="<%= @creation.name %>">
-    <a class="btn btn-info"><i class="glyphicon glyphicon-heart"></i><span class="vote_count"> <%= @creation.vote_count %></span></a>
+    <a class="btn btn-primary"><i class="glyphicon glyphicon-heart"></i><span class="vote_count"> <%= @creation.vote_count %></span></a>
     <% if @creation.is_voted? session[:user_id] %>
-    <a class="btn btn-primary" disabled>已投票</a>
+    <a class="btn btn-info" disabled>已投票</a>
     <% elsif @creation.version.to_i != Cfg.get('current_version').to_i %>
-    <a class="btn btn-primary" disabled>往届作品不可投票</a>
+    <a class="btn btn-info" disabled>往届作品不可投票</a>
     <% elsif !Cfg.can_vote? %>
-    <a class="btn btn-primary" disabled>投票已截止</a>
+    <a class="btn btn-info" disabled>投票已截止</a>
     <% else %>
-    <a class="btn btn-primary" href="javascript: void(0);">投票</a>
+    <a class="btn btn-info" href="javascript: void(0);">投票</a>
     <% end %>
   </div>
   <div class="clear"></div>
@@ -38,15 +38,14 @@
               the present moment; and yet I feel that I never was a greater artist than now. When.</p>
         </div>
       </div>
+
       <div id="tab-2" class="tab-pane">
         <div class="panel-body">
-          <strong>Donec quam felis</strong>
-
-          <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-              and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-
-          <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-              sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+          <% if @creation.ppt.url %>
+            <iframe src="<%= pdf_view_url(@creation) %>" width="790" height="500"></iframe>
+          <% else %>
+            <p>抱歉，无法找到文件:(</p>
+          <% end %>
         </div>
       </div>
     </div>

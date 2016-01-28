@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'pdf/:id' => 'pdf_view#show', as: 'pdf_view'
+
   root 'index/index#index'
 
   scope module: 'index' do
