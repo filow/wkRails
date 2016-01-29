@@ -83,10 +83,14 @@ class Manage::Creation < ActiveRecord::Base
     not judges.where(admin_id: admin_id).empty?
   end
 
+  def authors_arr
+    names = self.creation_authors.select 'name'
+    names.map{|x| x.name}
+  end
+
   #生成作品作者组成的字符串
   def authors_str
-    names = self.creation_authors.select 'name'
-    names.join(',')
+    authors_arr.join(',')
   end
 
 

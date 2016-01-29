@@ -17,18 +17,26 @@
     <a class="btn btn-info" href="javascript: void(0);">投票</a>
     <% end %>
   </div>
+  <!-- TODO: 添加一个分享功能 -->
   <div class="clear"></div>
 </div>
 
-<div class="tabs-container">
+<div class="tabs-container" style="margin-top: 15px;">
   <div class="tabs-left">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#tab-1"><i class="glyphicon glyphicon-film"></i> 作品视频</a></li>
-        <li class=""><a data-toggle="tab" href="#tab-2"><i class="glyphicon glyphicon-blackboard"></i> 演示文稿</a></li>
+        <li class="active"><a data-toggle="tab" href="#tab-0"><i class="glyphicon glyphicon-info-sign"></i> 简要介绍</a></li>
+        <li><a data-toggle="tab" href="#tab-1"><i class="glyphicon glyphicon-film"></i> 作品视频</a></li>
+        <li><a data-toggle="tab" href="#tab-2"><i class="glyphicon glyphicon-blackboard"></i> 演示文稿</a></li>
     </ul>
     <div class="tab-content ">
-      <div id="tab-1" class="tab-pane active">
+      <div id="tab-0" class="tab-pane active">
         <div class="panel-body">
+          <%= @creation.desc.html_safe %>
+        </div>
+      </div>
+      <div id="tab-1" class="tab-pane">
+        <div class="panel-body">
+          <div id="player_box" style=""></div>
           <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing</strong>
 
           <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
@@ -54,50 +62,131 @@
 
 </div>
 
+<div class="sub_wrapper row">
+  <div class="col-md-8">
+    <h3>作品信息</h3>
+    <div class="creation_info_container">
+      <div class="info-box">
+        <p class="number"><%= @creation.version %></p>
+        <p class="desc">第几届</p>
+      </div>
+      <div class="info-box">
+        <p class="number"><%= @creation.created_at.strftime('%F') %></p>
+        <p class="desc">上传时间</p>
+      </div>
+      <div class="info-box">
+        <p class="number"><%= @creation.updated_at.strftime('%F') %></p>
+        <p class="desc">更新时间</p>
+      </div>
+      <div class="info-box">
+        <p class="number"><%= @creation.view_count %></p>
+        <p class="desc">播放量</p>
+      </div>
+      <div class="info-box">
+        <p class="number"><%= @creation.comment_count %></p>
+        <p class="desc">评论数</p>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <h3>作者信息</h3>
+    <div class="author_container">
+        <div class="avatar">
+          <%= link_to image_tag(@creation.user.avatar.thumb, width:100, height: 100), user_detail_path(@creation.user.realname) %>
+        </div>
+        <div class="detail">
+          <% @creation.creation_authors.each do |a| %>
+          <div class="author btn-group">
+            <span class="btn btn-info">
+              <i class="glyphicon glyphicon-map-marker"></i>
+              <%= a.department %>
+            </span>
+            <span class="btn btn-primary"> <%= a.name %></span>
+          </div>
+
+
+          <% end %>
+
+        </div>
+    </div>
+    <h3>评论</h3>
+
+    <div class="comment_container">
+
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="recommand_container">
+
+
+      <div class="opus_sidebar span3">
+            <% unless @other_creations.empty? %>
+                <div class="opus_otheropus">
+                  <div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
+                  <ul class="opus_list">
+                    <% @other_creations.each do |c| %>
+                        <li>
+                          <div class="opus">
+                            <%= link_to(creation_path(c.name)) do %>
+                                <div class="opus_thumb">
+                                  <img src="<%= c.thumb.thumb_mini %>" alt="缩略图">
+                                </div>
+                            <% end %>
+                            <%= link_to c.name, creation_path(c.name) %>
+                          </div>
+                        </li>
+                    <% end %>
+                  </ul>
+                  <div class="clear"></div>
+                </div> <!-- opus_otheropus end -->
+            <% end %>
+
+        <div class="opus_hotopus">
+          <div class="opus_header"><a>热门</a>作品</div>
+            <ul class="opus_list">
+            <volist name="hot_opus" id="li">
+            <li>
+              <div class="opus">
+                <a href="{:U('Opus/view',array('id'=>$li['id']))}">
+                <div class="opus_thumb">
+                  <img src="{:getThumbMini($li['id'])}"  width="100">
+                </div>
+                </a>
+              <a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
+              </div>
+            </li>
+            </volist>
+          </ul>
+          <div class="clear"></div>
+        </div><!--  opus_hotopus end -->
+        <div class="opus_hotauthor">
+          <div class="opus_header"><a>人气</a>选手</div>
+          <ul class="author_list">
+            <volist name="hot_user" id="li">
+            <li>
+              <div class="hot_author">
+                <img src="{:getAvatar($li['avatar'])}" alt="{$li.nickname}">
+                <a href="{:U('User/userinfo',array('uid'=>$li['uid']))}">{$li.nickname} <span>{$li.department}</span></a>
+              </div>
+            </li>
+            </volist>
+          </ul>
+        </div>
+      </div> <!-- opus_sidebar end -->
+
+
+
+    </div>
+  </div>
+</div>
+
+
 <div class="opus_wrapper">
 	<div class="row-fluid">
 		<div class="opus_main span9">
             <div class="opus_video">
-                <div id="player_box" style="">
-                </div>
-            </div>
-            <div class="opus_enjoy"> <!-- vote&share -->
-                <div class="opus_vote">
 
-
-                    <a href="{:getdown($opus['documents']['access_key'])}" class="btn btn-warning">查看作品说明文档</a>
-                </div>
-                <div class="clear"></div>
             </div>
-            <div class="opus_author">
-                <div class="opus_author_hp">
-                    <a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><img src=<%= @creation.user.avatar.thumb %> ></a>
-                </div>
-                <div class="opus_author_info">
-                    <div class="opus_author_name"><a href="{:U('User/userinfo',array('uid'=>$author['uid']))}"><%= @creation.user.realname %></a></div>
-                    <div class="opus_author_depart"><%= @creation.authors_str %></div>
-                </div>
-            </div>
-            <div class="opus_upt">
-                <div class="opus_upt_views">
-                  播放次数：
-                  <span class="label label-success" id="opus_view_label">
-                    <%= @creation.view_count %>
-                  </span>
-                </div>
-                <div class="opus_upt_time">上传时间：<%= @creation.created_at.strftime('%F %R') %></div>
-            </div>
-            <div class="clear"></div>
-            <div class="opus_intro">
-                <div class="well">
-                    <p><%= @creation.desc.html_safe %></p>
-                </div>
-            </div><!--  opus_intro end -->
-
-            <div class="opus_doc"></div>
-            <div class="clear"></div>
             <div class="opus_cmt">
-              <div class="opus_cmt_header">全部评论（<span><%= @creation.comment_count %></span>）</div>
               <% unless @comments.empty? %>
                   <div class="cmt_menu">
                     <span>第{$pagecfg.first}-{$pagecfg.list}条/共<%= @creation.comment_count %>条</span>
@@ -138,59 +227,5 @@
               </div> <!-- opus_cmt_editor end -->
           <% end %>
 		</div> <!-- opus_main end -->
-		<div class="opus_sidebar span3">
-          <% unless @other_creations.empty? %>
-              <div class="opus_otheropus">
-                <div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
-                <ul class="opus_list">
-                  <% @other_creations.each do |c| %>
-                      <li>
-                        <div class="opus">
-                          <%= link_to(creation_path(c.name)) do %>
-                              <div class="opus_thumb">
-                                <img src="<%= c.thumb.thumb_mini %>" alt="缩略图">
-                              </div>
-                          <% end %>
-                          <%= link_to c.name, creation_path(c.name) %>
-                        </div>
-                      </li>
-                  <% end %>
-                </ul>
-                <div class="clear"></div>
-              </div> <!-- opus_otheropus end -->
-          <% end %>
-
-			<div class="opus_hotopus">
-				<div class="opus_header"><a>热门</a>作品</div>
-					<ul class="opus_list">
-					<volist name="hot_opus" id="li">
-					<li>
-						<div class="opus">
-							<a href="{:U('Opus/view',array('id'=>$li['id']))}">
-							<div class="opus_thumb">
-								<img src="{:getThumbMini($li['id'])}"  width="100">
-							</div>
-							</a>
-						<a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
-						</div>
-					</li>
-					</volist>
-				</ul>
-				<div class="clear"></div>
-			</div><!--  opus_hotopus end -->
-			<div class="opus_hotauthor">
-				<div class="opus_header"><a>人气</a>选手</div>
-				<ul class="author_list">
-					<volist name="hot_user" id="li">
-					<li>
-						<div class="hot_author">
-							<img src="{:getAvatar($li['avatar'])}" alt="{$li.nickname}">
-							<a href="{:U('User/userinfo',array('uid'=>$li['uid']))}">{$li.nickname} <span>{$li.department}</span></a>
-						</div>
-					</li>
-					</volist>
-				</ul>
-			</div>
-		</div> <!-- opus_sidebar end -->
 	</div> <!-- row-fliud end -->
 </div> <!-- opus_wrapper end -->
