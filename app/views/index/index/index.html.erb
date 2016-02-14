@@ -53,11 +53,13 @@
       <div class="main_content">
         <div class="well list_box">
           <table class="table table-condensed table-hover">
+            <% @index_intro.each do |x| %>
             <tr>
               <td>
-                <a href="{$ito.url}">{$k}. {$ito.title}</a>
+                <%= link_to "#{x["id"]}. #{x["name"]}", passage_url(x["p_id"], anchor: 'fef')  %>
               </td>
             </tr>
+            <% end %>
           </table>
         </div>
       </div>

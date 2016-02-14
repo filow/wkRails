@@ -21,9 +21,11 @@ class Index::IndexController < IndexController
     # 示例视频
     @exp_video = Manage::Expvideo.all
 
-
     # 作品展示
     @random_video = Manage::Creation.random.limit(4)
+
+    # 作品介绍
+    @index_intro = JSON.parse(Cfg.get('index_intro'))
 
   end
 
