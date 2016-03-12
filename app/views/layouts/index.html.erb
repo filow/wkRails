@@ -47,10 +47,13 @@
           <li <%= index_nav_active(root_url) %>><a href="<%= root_url %>">首 &nbsp; 页</a></li>
           <li <%= index_nav_active(passage_url(@broadcast_passage)) unless @broadcast_passage.empty? %>><%= link_to '大赛介绍',passage_url(@broadcast_passage) unless @broadcast_passage.empty? %></li>
           <li class="<%= 'active' if params[:controller] == 'index/creation' && params[:type] != 'old' %> "><%= link_to '参赛作品', creations_url %></li>
+          <% if Cfg.version > 1 %>
           <li class="<%= 'active' if current_page?(controller: 'index/creation', type: 'old') %> "><%= link_to '往届作品', creations_url(type: 'old') %></li>
+          <% end %>
 
           <li class="<%= 'active' if params[:controller] == 'index/usercenter' %>"><%= link_to '用户中心', usercenter_url %></li>
           <li><%= link_to '后台', manage_path,'data-no-turbolink'=> true %></li>
+          <div class="clear"></div>
         </ul>
       </div>
 
