@@ -62,4 +62,20 @@ STR
       end
     end
   end
+  
+  def creation_filter_link(name, key, value=nil, &block)
+    filters = {}
+    filters.merge!(params)
+    key = key.to_s
+    # 这里要判断这个nav是不是active的
+    is_active = params[key] == value ? 'active' : '';
+    # 当传入参数中没有value时，那么就是默认选项，删除这个键即可
+    # 如果传入了value，就设置成value
+    if value.nil?
+      filters.delete(key)
+    else
+      filters[key] = value
+    end
+    link_to name,filters, class: is_active
+  end
 end

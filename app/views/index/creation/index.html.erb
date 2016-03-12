@@ -1,20 +1,38 @@
+
 <div class="exhibition_wrapper">
 	<div class="works_nav">
 		<ul>
-			<li class="group"><a href="<%= creations_path(order: params[:order], type: params[:type]) %>" class="<%= 'active' unless params[:group] %>" >所有组别</a></li>
-      <li class="group"><a href="<%= creations_path(group: 'teacher', order: params[:order], type: params[:type]) %>" class="<%= 'active' if params[:group] == 'teacher' %>">教师组</a></li>
-			<li class="group"><a href="<%= creations_path(group: 'student', order: params[:order], type: params[:type]) %>" class="<%= 'active' if params[:group] == 'student' %>">学生组</a></li>
+			<li class="group">
+        <%= creation_filter_link('所有组别', :group) %>
+      </li>
+      <li class="group">
+        <%= creation_filter_link('教师组', :group, 'teacher') %>
+      </li>
+      <li class="group">
+        <%= creation_filter_link('学生组', :group, 'student') %>
+      </li>
 
-      <li><a href="<%= creations_path(group: params[:group], type: params[:type]) %>" class="<%= 'active' unless params[:order] %>">最新提交</a></li>
-      <li><a href="<%= creations_path(group: params[:group], order: 'vote', type: params[:type]) %>" class="<%= 'active' if params[:order]=='vote' %>">最多票数</a></li>
-      <li><a href="<%= creations_path(group: params[:group], order: 'view', type: params[:type]) %>" class="<%= 'active' if params[:order]=='view' %>">最多播放</a></li>
-      <li><a href="<%= creations_path(group: params[:group], order: 'comment', type: params[:type]) %>" class="<%= 'active' if params[:order]=='comment' %>">最多评论</a></li>
+      <li><%= creation_filter_link('最新提交', :order) %></li>
+      <li><%= creation_filter_link('最多票数', :order, 'vote') %></li>
+      <li><%= creation_filter_link('最多播放', :order, 'view') %></li>
+      <li><%= creation_filter_link('最多评论', :order, 'comment') %></li>
 
-			<li><a class="disabled">共有<%= @creations.count %>个参赛作品</a></li>
+      <% if Cfg.version > 1 && params[:type] == 'old' %>
+        <li><%= creation_filter_link("第 1 - #{Cfg.version - 1} 届", :history) %></li>
+        <% (Cfg.version - 1).times do |x| %>
+          <li><%= creation_filter_link("第 #{x + 1} 届", :history, (x+1).to_s) %></li>
+        <% end %>
+  			<div class="clear"></div>
+      <% end %>
+
 			<div class="clear"></div>
 		</ul>
 
+
 	</div> <!-- 顶部内容 -->
+  <div id="creation_count">
+    当前筛选条件下，共有 <%= @creations.count %> 个作品</a></li>
+  </div>
 
 	<div class="works_group">
     <% @creations.each do |c| %>
@@ -44,17 +62,9 @@
     <% end %>
 	</div><!--  works_group end -->
 	<div class="clear"></div>
+
   <div class="text-center">
     <%= paginate @creations %>
   </div>
+
 </div> <!-- exhibition_wrapper end -->
-<script>
-$(document).ready(function(){
-	$(".works_over").hover(function(){
-		$(this).animate({ opacity: 1 }, 400);
-	},function(){
-			$(this).animate({ opacity: 0 }, 400);
-		}
-	);
-});
-</script>

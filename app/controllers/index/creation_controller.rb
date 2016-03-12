@@ -20,6 +20,9 @@ class Index::CreationController < IndexController
         @creations = @creations.order(updated_at: :desc)
       end
     end
+    if params[:history]
+      @creations = @creations.where(version: params[:history])
+    end
     @creations = @creations.page(params[:page])
   end
 

@@ -5,6 +5,7 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 .works_nav ul{
 	margin: 0;
 	padding: 0;
+  margin-bottom: 10px;
   li {
     float: left;
   	list-style: none;
@@ -33,6 +34,11 @@ $cn-font:"Source Han Sans CN","Hiragino Sans GB", "Microsoft YaHei","WenQuanYi M
 	color: #fff;
 }
 
+.exhibition_wrapper #creation_count {
+  color: #6B6B6B;
+font-size: 13px;
+font-style: italic;
+}
 
 .works_group{
 	margin-top: 20px;
