@@ -25,7 +25,7 @@ class Index::IndexController < IndexController
     @random_video = Manage::Creation.random.limit(4)
 
     # 作品介绍
-    @index_intro = JSON.parse(Cfg.get('index_intro'))
+    @index_intro = ComIntro.order(sort: :asc).all
 
   end
 

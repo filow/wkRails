@@ -6,41 +6,23 @@ class Manage::CfgController < ManageController
   end
 
   def intro
-    @intro = JSON.parse(Cfg.get('index_intro'))
+    @intro = ComIntro.order(sort: :asc).all
   end
 
   def add_intro
-    new_intro = params.permit(:id, :name, :p_id, :anchor)
-    if new_intro[:id].blank?
-      redirect_to manage_cfg_intro_path, alert: '序号不能为空'
-      return
+    new_intro = params.permit(:sort, :name, :post_id, :anchor)
+    result = ComIntro.create(new_intro)
+    if result.errors.any?
+      redirect_to manage_cfg_intro_path, alert: result.errors.full_messages.join(' ')
+    else
+      redirect_to manage_cfg_intro_path, notice: '添加成功'
     end
 
-    Cfg.transaction do
-      cfg_intro = Cfg.find_by_key('index_intro')
-      intro = JSON.parse(cfg_intro.value)
-      intro << new_intro
-      # 根据序号排序
-      intro.sort_by!{ |i| i['id'].to_i }
-
-      if cfg_intro.update(value: intro.to_json)
-        redirect_to manage_cfg_intro_path, notice: '添加成功'
-      else
-        redirect_to manage_cfg_intro_path, alert: '添加失败，请重试'
-      end
-    end
   end
 
   def delete_intro
-    cfg_intro = Cfg.find_by_key('index_intro')
-    intro = JSON.parse(cfg_intro.value)
-    intro.delete_if{ |i| i['id'].to_i == params[:id].to_i }
-
-    if cfg_intro.update(value: intro.to_json)
-      redirect_to manage_cfg_intro_path, notice: '删除成功'
-    else
-      redirect_to manage_cfg_intro_path, alert: '删除失败，请重试'
-    end
+    ComIntro.find(params[:id]).destroy
+    redirect_to manage_cfg_intro_path, notice: '删除成功'
   end
 
   def update

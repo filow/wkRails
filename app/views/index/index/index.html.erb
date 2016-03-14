@@ -53,10 +53,10 @@
       <div class="main_content">
         <div class="well list_box">
           <table class="table table-condensed table-hover">
-            <% @index_intro.each do |x| %>
+            <% @index_intro.each_with_index do |x, i| %>
             <tr>
               <td>
-                <%= link_to "#{x["id"]}. #{x["name"]}", passage_url(x["p_id"], anchor: 'fef')  %>
+                <%= link_to "#{i+1}. #{x.name}", passage_url(x.post_id, anchor: x.anchor)  %>
               </td>
             </tr>
             <% end %>

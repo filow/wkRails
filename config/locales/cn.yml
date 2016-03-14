@@ -58,6 +58,8 @@ cn:
         publish_at: '发布时间'
         created_at: '创建时间'
         updated_at: '最后修改时间'
+      com_intro:
+        post: '文章ID'
       manage/admin:
         name: '用户名'
         realname: '真实姓名'
