@@ -8,6 +8,7 @@ class Manage::Creation < ActiveRecord::Base
   has_many :creation_comments, dependent: :destroy
   has_many :creation_views, dependent: :destroy
   has_many :creation_votes, dependent: :destroy
+  has_many :creation_attaches, dependent: :destroy
   has_many :judges
 
   validates_presence_of :name

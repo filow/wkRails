@@ -90,6 +90,33 @@ class Index::UsercenterController < IndexController
 
   end
 
+  def edit_attach
+    @creation = @user.creations.find(params[:id])
+    @videos = @creation.creation_attaches
+  end
+
+  def submit_attach
+    @creation = @user.creations.find(params[:id])
+    file = params[:Filedata]
+    attach = Manage::CreationAttach.new(filename: file, original_filename: file.original_filename, mime: file.content_type, creation_id: @creation.id)
+    if attach.save
+      render json: {success: true, message: '上传成功'}
+    else
+      render json: {success: false, message: attach.errors.full_messages.join(' ')}
+    end
+  end
+
+  def delete_attach
+    @creation = @user.creations.find(params[:id])
+    @attach = @creation.creation_attaches.find(params[:attach_id])
+    if @attach.destroy
+      redirect_to edit_attach_url(@creation), notice: '删除成功'
+    else
+      redirect_to edit_attach_url(@creation), alert: '删除失败'
+    end
+  end
+
+
   def delete_creation
     @creation = @user.creations.find(params[:id])
     @creation.destroy

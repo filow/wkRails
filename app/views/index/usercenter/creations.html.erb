@@ -195,6 +195,7 @@
         <button v-show="isDraft" type="button" class="btn btn-danger" @click.prevent="deleteCreation()">删除作品</button>
 
         <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit" class="btn btn-primary">编辑</a>
+        <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit_attach" class="btn btn-primary">管理附件</a>
         <button v-show="isDraft" @click.prevent="publish()" type="button" class="btn btn-success">申请发布</button>
         <button v-show="canUnpublish" @click.prevent="unPublish()" type="button" class="btn btn-success">申请取消发布</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

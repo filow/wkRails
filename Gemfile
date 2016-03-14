@@ -81,10 +81,10 @@ gem 'netrc'
 gem 'http-cookie'
 gem 'awesome_print'
 # 更友好地显示错误信息
-group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
-end
+# group :development do
+#   gem "better_errors"
+#   gem "binding_of_caller"
+# end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

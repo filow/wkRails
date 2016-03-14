@@ -34,6 +34,12 @@ Rails.application.routes.draw do
 
     get 'usercenter/creations/:id' => 'usercenter#creation_detail', as: 'creation_detail'
     get 'usercenter/creations/:id/edit' => 'usercenter#edit_creation', as: 'edit_creation'
+
+    # attach
+    get 'usercenter/creations/:id/edit_attach' => 'usercenter#edit_attach', as: 'edit_attach'
+    post 'usercenter/creations/:id/edit_attach' => 'usercenter#submit_attach'
+    delete 'usercenter/creations/:id/attach/:attach_id' => 'usercenter#delete_attach', as: 'creation_attach'
+
     patch 'usercenter/creations/:id' => 'usercenter#update_creation'
     delete 'usercenter/creations/:id' => 'usercenter#delete_creation'
     patch 'usercenter/creations/:id/publish' => 'usercenter#publish_creation'
