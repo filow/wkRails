@@ -26,7 +26,14 @@
             <tr>
               <td><%= x.original_filename %></td>
               <td><%= x.created_at.strftime('%Y-%m-%d') %></td>
-              <td><%= x.stat_cn %></td>
+              <td>
+                <%= x.stat_cn %>
+                <% if x.transcoding? %>
+                  - <%= x.progress %>%
+                <% elsif x.done? && x.progress == 0 && x.mime =~ /^video/ %>
+                  <%= link_to '转码', transcode_attach_url(@creation, x.id), method: :post, class:'btn btn-sm btn-info' %>
+                <% end %>
+              </td>
               <td><%= link_to '删除', creation_attach_url(@creation, x.id), method: :delete, class:'btn btn-danger' %></td>
             </tr>
             <% end %>
@@ -34,7 +41,8 @@
           <% else %>
             您目前还没有上传附件
           <% end %>
-
+          <br>
+          <small>注：申请转码功能仅在您的视频上传后无法播放时使用。转码后的视频文件分辨率为720*576，转码后原文件会被删除。每个上传的视频文件仅能使用一次该功能，若转码失败，请自行在本地电脑转码为mp4格式(H.264编码)并上传。</small>
         </div>
       </div>
 
@@ -44,10 +52,9 @@
         </div>
         <div class="ibox-content">
           <div class="alert alert-warning">
-            <h5>请注意：</h5>
+            <h4>请注意：</h4>
             <ul>
               <li>文件最多上传<b>10</b>个。每个文件不得大于<b>1280MB</b>，且文件名应当有意义（不推荐形如"文件1.zip"的文件名）</li>
-              <li>所有视频在上传后都会自动转码成1280*720分辨率的mp4格式视频。这个过程比较耗费时间，请耐心等待。如果发现转码后的文件无法播放，请尝试自己转码后再上传。</li>
               <li>为保证上传的体验，请使用<b>chrome浏览器</b>或者其他浏览器的极速模式访问该页面。</li>
             </ul>
           </div>

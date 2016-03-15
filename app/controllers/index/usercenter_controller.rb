@@ -99,11 +99,19 @@ class Index::UsercenterController < IndexController
     @creation = @user.creations.find(params[:id])
     file = params[:Filedata]
     attach = Manage::CreationAttach.new(filename: file, original_filename: file.original_filename, mime: file.content_type, creation_id: @creation.id)
+    attach.stat = :done
     if attach.save
       render json: {success: true, message: '上传成功'}
     else
       render json: {success: false, message: attach.errors.full_messages.join(' ')}
     end
+  end
+
+  def transcode_attach
+    creation = @user.creations.find(params[:id])
+    attach = creation.creation_attaches.find(params[:attach_id])
+    attach.transcode
+    redirect_to edit_attach_url(creation), notice: '申请转码成功'
   end
 
   def delete_attach

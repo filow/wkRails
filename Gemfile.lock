@@ -81,7 +81,13 @@ GEM
     coffee-script-source (1.9.1.1)
     colorize (0.7.3)
     columnize (0.9.0)
+    daemons (1.2.3)
     dalli (2.7.4)
+    delayed_job (4.1.1)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.1.0)
+      activerecord (>= 3.0, < 5)
+      delayed_job (>= 3.0, < 5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
@@ -218,7 +224,9 @@ DEPENDENCIES
   capistrano-rails
   carrierwave
   ckeditor
+  daemons
   dalli
+  delayed_job_active_record
   file_validators
   http-cookie
   icheck-rails

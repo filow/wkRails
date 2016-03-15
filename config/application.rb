@@ -22,7 +22,7 @@ module WkRails
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-
+    config.active_job.queue_adapter = :delayed_job
     # 设置中国时区  东八区+0800
     I18n.enforce_available_locales = false
     config.time_zone = 'Beijing'

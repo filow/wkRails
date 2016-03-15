@@ -68,6 +68,9 @@ gem 'capistrano-rails', group: :development
 gem 'rmagick', require: false
 gem 'mini_magick'
 
+# 延迟任务
+gem 'daemons'
+gem 'delayed_job_active_record'
 # 视频转码， 需要事先安装ffmpeg
 gem 'streamio-ffmpeg'
 

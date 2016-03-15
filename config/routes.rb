@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     # attach
     get 'usercenter/creations/:id/edit_attach' => 'usercenter#edit_attach', as: 'edit_attach'
     post 'usercenter/creations/:id/edit_attach' => 'usercenter#submit_attach'
+    post 'usercenter/creations/:id/attach/:attach_id/transcode' => 'usercenter#transcode_attach', as: 'transcode_attach'
     delete 'usercenter/creations/:id/attach/:attach_id' => 'usercenter#delete_attach', as: 'creation_attach'
 
     patch 'usercenter/creations/:id' => 'usercenter#update_creation'
