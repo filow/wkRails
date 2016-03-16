@@ -51,6 +51,8 @@ cn:
         name: 视频名
         author: 作者
         video: 视频
+      manage/creaton_attach:
+        filename: 附件
       post:
         title: '标题'
         content: '内容'
@@ -115,6 +117,7 @@ cn:
         inclusion: "不是一个有效的值"
         not_an_integer: "不是一个整数"
         extension_white_list_error: 文件格式不正确
+        file_size_is_less_than: "文件大小应当小于%{count}"
 
   views:
     pagination:

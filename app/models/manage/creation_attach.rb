@@ -1,6 +1,7 @@
 class Manage::CreationAttach < ActiveRecord::Base
   mount_uploader :filename, CreationVideoUploader
   enum stat: [ :wait, :transcoding, :done, :fail ]
+  validates :filename, file_size: {:less_than => Cfg.get('upload_max_size').to_i.megabytes.to_i, only: [:create]}
   StatMap = {
     wait: '等待转码',
     transcoding: '转码中',

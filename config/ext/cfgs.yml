@@ -14,10 +14,10 @@ upload_max_size:
   type: number
   desc: 上传单个文件的大小限制(MB)
   default: 510
-upload_max_size_total:
+upload_max_count:
   type: number
-  desc: 单个作品中所有文件的大小总和限制(MB)
-  default: 1300
+  desc: 作品附件的最大数量
+  default: 5
 vote_date_from:
   type: date
   desc: 用户投票起始日期

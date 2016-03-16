@@ -24,7 +24,12 @@
             <th></th>
             <% @videos.each do |x| %>
             <tr>
-              <td><%= x.original_filename %></td>
+              <td>
+                <%= x.original_filename %>
+                <a href="<%= x.filename.url %>" target="_blank">
+                  <i class="glyphicon glyphicon-download-alt"></i>
+                </a>
+              </td>
               <td><%= x.created_at.strftime('%Y-%m-%d') %></td>
               <td>
                 <%= x.stat_cn %>
@@ -51,7 +56,7 @@
             您目前还没有上传附件
           <% end %>
           <br>
-          <small>注：申请转码功能仅在您的视频上传后无法播放时使用。转码后原文件会被删除。每个上传的视频文件仅能使用一次该功能，若转码失败，请自行在本地电脑转码为mp4格式(H.264编码)并上传。</small>
+          <small>注：申请转码功能仅在您的视频无法播放时使用。转码后原文件会被删除。每个上传的视频文件仅能使用一次该功能，若转码失败，请自行在本地电脑转码为mp4格式(H.264编码)并上传。</small>
         </div>
       </div>
 
@@ -60,19 +65,27 @@
           <h3>上传新文件</h3>
         </div>
         <div class="ibox-content">
+
           <div class="alert alert-warning">
             <h4>请注意：</h4>
             <ul>
-              <li>文件最多上传<b>10</b>个。每个文件不得大于<b>1280MB</b>，且文件名应当有意义（不推荐形如"文件1.zip"的文件名）</li>
+              <li>文件最多上传<b><%= Cfg.get('upload_max_count') %></b>个。每个文件不得大于<b><%= Cfg.get('upload_max_size') %> MB</b>，且文件名应当有意义（不推荐形如"文件1.zip"的文件名）</li>
               <li>为保证上传的体验，请使用<b>chrome浏览器</b>或者其他浏览器的极速模式访问该页面。</li>
             </ul>
           </div>
 
-          <!-- 上传插件 -->
-          <input id="file_upload" name="file_upload" type="file" multiple="false">
-          <div class="progress" style="margin-top: 5px;">
-            <div class="progress-bar" style="width: 0%;" id="progress"></div>
-          </div>
+
+          <% unless @creation.creation_attaches.count >= Cfg.get('upload_max_count').to_i %>
+            <!-- 上传插件 -->
+            <input id="file_upload" name="file_upload" type="file" multiple="false">
+            <div class="progress" style="margin-top: 5px;">
+              <div class="progress-bar" style="width: 0%;" id="progress"></div>
+            </div>
+          <% else %>
+            <p>抱歉，您上传的文件数量已经满额。</p>
+          <% end %>
+
+
         </div>
       </div>
 

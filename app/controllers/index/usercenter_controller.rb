@@ -97,13 +97,17 @@ class Index::UsercenterController < IndexController
 
   def submit_attach
     @creation = @user.creations.find(params[:id])
-    file = params[:Filedata]
-    attach = Manage::CreationAttach.new(filename: file, original_filename: file.original_filename, mime: file.content_type, creation_id: @creation.id)
-    attach.stat = :done
-    if attach.save
-      render json: {success: true, message: '上传成功'}
+    unless @creation.creation_attaches.count >= Cfg.get('upload_max_count').to_i
+      file = params[:Filedata]
+      attach = Manage::CreationAttach.new(filename: file, original_filename: file.original_filename, mime: file.content_type, creation_id: @creation.id)
+      attach.stat = :done
+      if attach.save
+        render json: {success: true, message: '上传成功'}
+      else
+        render json: {success: false, message: attach.errors.full_messages.join(' ')}
+      end
     else
-      render json: {success: false, message: attach.errors.full_messages.join(' ')}
+      render json: {success: false, message: '您上传的文件数量已经满额'}
     end
   end
 
