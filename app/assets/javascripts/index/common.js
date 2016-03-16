@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require ckplayer.js
 //= require_self
 
 $(document).on('ready page:load', function(){

@@ -34,7 +34,16 @@
                   <%= link_to '转码', transcode_attach_url(@creation, x.id), method: :post, class:'btn btn-sm btn-info' %>
                 <% end %>
               </td>
-              <td><%= link_to '删除', creation_attach_url(@creation, x.id), method: :delete, class:'btn btn-danger' %></td>
+              <td>
+                <% if x.mime =~ /^video/ && x.done? %>
+                  <%= link_to creation_play_url(@user.realname, @creation.name, x.id), class:'btn btn-sm btn-info',remote: true do %>
+                    <i class="glyphicon glyphicon-play"></i>
+                  <% end %>
+                <% end %>
+                <%= link_to creation_attach_url(@creation, x.id), method: :delete, class:'btn btn-sm btn-danger', data: { confirm: "确认删除文件吗？" } do %>
+                  <i class="glyphicon glyphicon-remove"></i>
+                <% end %>
+              </td>
             </tr>
             <% end %>
           </table>
@@ -42,7 +51,7 @@
             您目前还没有上传附件
           <% end %>
           <br>
-          <small>注：申请转码功能仅在您的视频上传后无法播放时使用。转码后的视频文件分辨率为720*576，转码后原文件会被删除。每个上传的视频文件仅能使用一次该功能，若转码失败，请自行在本地电脑转码为mp4格式(H.264编码)并上传。</small>
+          <small>注：申请转码功能仅在您的视频上传后无法播放时使用。转码后原文件会被删除。每个上传的视频文件仅能使用一次该功能，若转码失败，请自行在本地电脑转码为mp4格式(H.264编码)并上传。</small>
         </div>
       </div>
 

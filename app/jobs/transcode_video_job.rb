@@ -12,14 +12,21 @@ class TranscodeVideoJob < ActiveJob::Base
 
     movie = FFMPEG::Movie.new(url)
     puts "#{Time.now.to_s} 开始转码ID为#{args[0]}的视频，原视频名称为：#{attach.original_filename}, 编码：#{movie.video_codec}，分辨率#{movie.resolution}"
-    options = {
-      video_codec: "libx264",
-      resolution: "720x576",
-      preserve_aspect_ratio: :width,
-      x264_vprofile: "high",
-      threads: 2
-    }
-    
+
+    options = [
+      '-c:v libx264',
+      '-preset fast',
+      '-x264opts keyint=25',
+      '-r 15',
+      '-b:v 500k',
+      '-c:a aac',
+      '-strict experimental',
+      '-ar 44100',
+      '-ac 2',
+      '-b:a 64k',
+      '-f mp4'
+    ].join(' ')
+
     if movie.valid?
       movie.transcode(dest, options) do |progress|
         attach.progress = progress * 100

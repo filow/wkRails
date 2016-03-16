@@ -1,0 +1,15 @@
+// 如果节点已经存在
+var dom = $('#video_exp_modal');
+
+if (dom.length == 0) {
+  dom = $('<%=j render "play_frame"  %>')
+  $('body').append(dom);
+}
+var title='<%= @attach.original_filename %>';
+var file_location='<%= @attach.filename.url %>';
+$('#video_exp_title').text(title);
+
+var flashvars={f: file_location, c: 0, h: 3,p: 1};
+var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+CKobject.embedSWF('/ckplayer/ckplayer.swf','player','player','720','576',flashvars,params);
+dom.modal();

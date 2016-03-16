@@ -1,4 +1,3 @@
-//= require ckplayer.js
 $(function (){
 
   $('.video_exp_btn').click(function(){

@@ -1,5 +1,5 @@
 class Index::CreationController < IndexController
-  before_action :set_creation, only: [:show, :vote, :unvote, :comment, :uncomment]
+  before_action :set_creation, only: [:show, :vote, :unvote, :comment, :uncomment, :play]
 
   def index
     @creations = []
@@ -76,6 +76,12 @@ class Index::CreationController < IndexController
     else
       render json: {status: false, msg: '您还未登录'}, status: :unauthorized
     end
+  end
+
+  def play
+    @creation = Manage::Creation.find_by_name(params[:creation_id])
+    @attach = @creation.creation_attaches.find(params[:attach_id])
+
   end
 private
   def set_creation
