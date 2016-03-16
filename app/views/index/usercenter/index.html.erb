@@ -10,8 +10,8 @@
               <h5>作品访问量</h5>
             </div>
             <div class="ibox-content">
-              <h1 class="no-margins">5123</h1>
-              <div class="stat-percent font-bold text-success">49120 </div>
+              <h1 class="no-margins"><%= @counts[:view][:week] %></h1>
+              <div class="stat-percent font-bold text-success"><%= @counts[:view][:all] %></div>
               <small>总计</small>
             </div>
           </div>
@@ -23,8 +23,8 @@
               <h5>新评论数量</h5>
             </div>
             <div class="ibox-content">
-              <h1 class="no-margins">5</h1>
-              <div class="stat-percent font-bold text-navy">24 <i class="fa fa-level-up"></i></div>
+              <h1 class="no-margins"><%= @counts[:comment][:week] %></h1>
+              <div class="stat-percent font-bold text-navy"><%= @counts[:comment][:all] %> <i class="fa fa-level-up"></i></div>
               <small>总计</small>
             </div>
           </div>
@@ -36,8 +36,8 @@
               <h5>作品票数</h5>
             </div>
             <div class="ibox-content">
-              <h1 class="no-margins">12</h1>
-              <div class="stat-percent font-bold text-info">5 <i class="fa fa-level-up"></i></div>
+              <h1 class="no-margins"><%= @counts[:vote][:all] %></h1>
+              <div class="stat-percent font-bold text-info"><%= @counts[:vote][:week] %> <i class="fa fa-level-up"></i></div>
               <small>本周新投票</small>
             </div>
           </div>

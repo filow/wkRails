@@ -6,6 +6,22 @@ class Index::UsercenterController < IndexController
   def index
     @messages = @user.messages.order(created_at: :desc).limit(5)
     @current_creations = @user.creations.where(version: Cfg.version)
+
+    # 统计各个数据
+    ids = @current_creations.collect{|x| x.id}
+    counter = {
+      all: lambda{|s| s.where(creation_id: ids).count},
+      week: lambda{|s| s.where(creation_id: ids).where('created_at > ?', 1.weeks.ago).count}
+    }
+    @counts = {}
+    [Manage::CreationView, Manage::CreationComment, Manage::CreationVote].each do |sym|
+      s = sym.to_s.underscore.match(/\w+\/\w+_(\w+)/)[1].to_sym
+      @counts[s] ||= {}
+      [:all, :week].each do |type|
+        @counts[s][type] = counter[type].call(sym)
+      end
+    end
+
   end
 
   # 消息箱相关
