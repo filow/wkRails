@@ -77,12 +77,21 @@
         </div>
         <div class="ibox-content">
           <% @current_creations.each do |c| %>
-          <div class="row">
-            <div class="col-md-3">
-              <%= c.thumb.url %>
+          <div class="file-box">
+            <div class="file creation_detail" data-id="<%= c.id %>">
+              <a href="<%= creation_path(c.name) %>">
+                <span class="corner"></span>
+                <div class="image">
+                  <%= image_tag c.thumb.url(:thumb) %>
+                </div>
+                <div class="file-name">
+                  <%= c.name %><br><small><%= c.status_cn %></small>
+                </div>
+              </a>
             </div>
           </div>
           <% end %>
+          <div class="clear"></div>
           <% if @current_creations.empty? %>
             暂无作品
           <% end %>
