@@ -120,6 +120,7 @@ $(function (){
         authors: [],
         summary: '',
         status: '',
+        is_current: true,
         vote_count: 0,
         view_count: 0,
         updated_at: null,
@@ -189,6 +190,7 @@ $(function (){
             this.name = data.name;
             this.thumb = data.thumb.large;
             this.authors = data.authors;
+            this.is_current = data.is_current;
             this.summary = data.summary;
             this.status = data.status;
             this.vote_count = data.vote_count;

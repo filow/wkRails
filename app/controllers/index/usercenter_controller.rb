@@ -1,10 +1,16 @@
 class Index::UsercenterController < IndexController
   before_action :set_sidebar
   before_action :set_creation, only: [:creation_detail, :edit_creation, :update_creation, :edit_attach, :submit_attach, :transcode_attach, :delete_attach, :delete_creation, :publish_creation, :unpublish_creation]
+  before_action :check_version, only: [:edit_creation, :update_creation, :edit_attach, :submit_attach, :transcode_attach, :delete_attach, :delete_creation, :delete_creation, :publish_creation, :unpublish_creation]
 
   def index
     @messages = @user.messages.order(created_at: :desc).limit(5)
     @current_creations = @user.creations.where(version: Cfg.version)
+  end
+
+  # 消息箱相关
+  def messages
+    @messages = @user.messages.order(created_at: :desc)
   end
 
   def set_read_msg
@@ -17,10 +23,6 @@ class Index::UsercenterController < IndexController
     end
   end
 
-  def messages
-    @messages = @user.messages.order(created_at: :desc)
-  end
-
   def show_msg
     @msg = @user.messages.find_by_id(params[:id])
     if @msg
@@ -31,6 +33,7 @@ class Index::UsercenterController < IndexController
     end
   end
 
+  # 修改个人信息
   def profile
   end
 
@@ -40,14 +43,17 @@ class Index::UsercenterController < IndexController
     render :profile
   end
 
+  # 已投票的作品
   def voted
     @voted = @user.creation_votes.order(created_at: :desc)
   end
 
+  #  已评论的作品
   def commented
     @commented = @user.creation_comments.order(created_at: :desc)
   end
 
+  # ======== 作品相关 ========
   def creations
     # 检查权限
     @user.validate_creation_upload_privilege
@@ -55,13 +61,13 @@ class Index::UsercenterController < IndexController
     @creations_old = @user.creations.where('version != ?', Cfg.version)
   end
 
+  # 新建一个作品
   def create_creation
-
     creation = Manage::Creation.generate(@user)
     redirect_to edit_creation_url(creation)
-
   end
 
+  # 查看作品详情
   def creation_detail
     respond_to do |format|
       # format.html {  }
@@ -69,7 +75,7 @@ class Index::UsercenterController < IndexController
     end
   end
 
-
+  # 编辑作品信息
   def edit_creation
   end
 
@@ -86,6 +92,7 @@ class Index::UsercenterController < IndexController
 
   end
 
+  # 作品附件
   def edit_attach
     @videos = @creation.creation_attaches
   end
@@ -105,12 +112,14 @@ class Index::UsercenterController < IndexController
     end
   end
 
+  # 转码
   def transcode_attach
     attach = @creation.creation_attaches.find(params[:attach_id])
     attach.transcode
     redirect_to edit_attach_url(creation), notice: '申请转码成功'
   end
 
+  # 删除附件
   def delete_attach
     @attach = @creation.creation_attaches.find(params[:attach_id])
     if @attach.destroy
@@ -120,12 +129,13 @@ class Index::UsercenterController < IndexController
     end
   end
 
-
+  # 删除作品
   def delete_creation
     @creation.destroy
     render json: {code: 200}
   end
 
+  # 发布和取消发布
   def publish_creation
     if @creation.request_publish
       render json: {success: true}
@@ -157,5 +167,11 @@ private
 
   def set_creation
     @creation = @user.creations.find(params[:id])
+  end
+
+  def check_version
+    if @creation.version != Cfg.version
+      redirect_to usercenter_creations_path, notice: '抱歉，您不能编辑往届作品'
+    end
   end
 end

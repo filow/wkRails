@@ -63,7 +63,7 @@
           <% @creations.each do |c| %>
           <div class="file-box">
             <div class="file creation_detail" data-id="<%= c.id %>">
-              <a href="#">
+              <a href="javascript: void(0)">
                 <span class="corner"></span>
                 <div class="image">
                   <%= image_tag c.thumb.url(:thumb) %>
@@ -97,14 +97,34 @@
         </div>
       </div>
 
+      <% if @creations_old.any? %>
       <div class="ibox animated fadeInDown">
         <div class="ibox-title">
           <h3>往届作品</h3>
         </div>
         <div class="ibox-content">
 
+          <% @creations_old.each do |c| %>
+          <div class="file-box">
+            <div class="file creation_detail" data-id="<%= c.id %>">
+              <a href="javascript: void(0)">
+                <span class="corner"></span>
+                <div class="image">
+                  <%= image_tag c.thumb.url(:thumb) %>
+                </div>
+                <div class="file-name">
+                  <%= c.name %><br><small><%= c.status_cn %></small>
+                </div>
+              </a>
+            </div>
+          </div>
+          <% end %>
+          <div class="clear"></div>
+
         </div>
       </div>
+      <% end %>
+
       <% end %>
 
 
@@ -185,7 +205,7 @@
           <tr>
             <td>文件</td>
             <td colspan="3">
-              <a href="{{a.link}}" style="margin:3px" target="_blank" v-for="a in attaches" class="btn btn-sm  btn-info btn-outline">{{a.filename}} </a>
+              <a href="{{a.link}}" style="margin:3px" target="_blank" v-for="a in attaches" class="btn btn-sm btn-primary btn-outline">{{a.filename}} </a>
             </td>
           </tr>
         </table>
@@ -193,12 +213,12 @@
       <div class="modal-footer">
 
 
-        <button v-show="isDraft" type="button" class="btn btn-danger btn-outline" @click.prevent="deleteCreation()">删除作品</button>
+        <button v-show="isDraft && is_current" type="button" class="btn btn-danger btn-outline" @click.prevent="deleteCreation()">删除作品</button>
 
-        <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit" class="btn btn-primary">编辑</a>
-        <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit_attach" class="btn btn-primary">管理附件</a>
-        <button v-show="isDraft" @click.prevent="publish()" type="button" class="btn btn-success">申请发布</button>
-        <button v-show="canUnpublish" @click.prevent="unPublish()" type="button" class="btn btn-success">申请取消发布</button>
+        <a v-show="isDraft && is_current" href="/usercenter/creations/{{id}}/edit" class="btn btn-primary">编辑</a>
+        <a v-show="isDraft && is_current" href="/usercenter/creations/{{id}}/edit_attach" class="btn btn-primary">管理附件</a>
+        <button v-show="isDraft && is_current" @click.prevent="publish()" type="button" class="btn btn-success">申请发布</button>
+        <button v-show="canUnpublish && is_current" @click.prevent="unPublish()" type="button" class="btn btn-success">申请取消发布</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
       </div>

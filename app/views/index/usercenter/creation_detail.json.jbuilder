@@ -1,5 +1,6 @@
 json.extract! @creation, :id, :name, :desc, :summary, :version, :vote_count, :comment_count, :view_count, :created_at, :updated_at
 json.status @creation.status_cn
+json.is_current @creation.version == Cfg.version
 json.thumb do
   json.large @creation.thumb.url
   json.small @creation.thumb.url(:thumb)
