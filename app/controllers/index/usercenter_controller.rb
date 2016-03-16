@@ -1,5 +1,6 @@
 class Index::UsercenterController < IndexController
   before_action :set_sidebar
+  before_action :set_creation, only: [:creation_detail, :edit_creation, :update_creation, :edit_attach, :submit_attach, :transcode_attach, :delete_attach, :delete_creation, :publish_creation, :unpublish_creation]
 
   def index
     @messages = @user.messages.order(created_at: :desc).limit(5)
@@ -62,8 +63,6 @@ class Index::UsercenterController < IndexController
   end
 
   def creation_detail
-    @creation = @user.creations.find(params[:id])
-    p @creation.ppt.file
     respond_to do |format|
       # format.html {  }
       format.json
@@ -72,12 +71,9 @@ class Index::UsercenterController < IndexController
 
 
   def edit_creation
-    @creation = @user.creations.find(params[:id])
-
   end
 
   def update_creation
-    @creation = @user.creations.find(params[:id])
     creation_params = params.permit(:name, :thumb, :doc, :ppt, :desc)
     @creation.update(creation_params)
     @creation.authors = params[:authors]
@@ -85,18 +81,16 @@ class Index::UsercenterController < IndexController
     if @creation.errors.any?
       render :edit_creation
     else
-      redirect_to usercenter_creations_path, notice: '作品已修改成功'
+      redirect_to edit_attach_path(@creation), notice: '作品已修改成功'
     end
 
   end
 
   def edit_attach
-    @creation = @user.creations.find(params[:id])
     @videos = @creation.creation_attaches
   end
 
   def submit_attach
-    @creation = @user.creations.find(params[:id])
     unless @creation.creation_attaches.count >= Cfg.get('upload_max_count').to_i
       file = params[:Filedata]
       attach = Manage::CreationAttach.new(filename: file, original_filename: file.original_filename, mime: file.content_type, creation_id: @creation.id)
@@ -112,14 +106,12 @@ class Index::UsercenterController < IndexController
   end
 
   def transcode_attach
-    creation = @user.creations.find(params[:id])
-    attach = creation.creation_attaches.find(params[:attach_id])
+    attach = @creation.creation_attaches.find(params[:attach_id])
     attach.transcode
     redirect_to edit_attach_url(creation), notice: '申请转码成功'
   end
 
   def delete_attach
-    @creation = @user.creations.find(params[:id])
     @attach = @creation.creation_attaches.find(params[:attach_id])
     if @attach.destroy
       redirect_to edit_attach_url(@creation), notice: '删除成功'
@@ -130,13 +122,11 @@ class Index::UsercenterController < IndexController
 
 
   def delete_creation
-    @creation = @user.creations.find(params[:id])
     @creation.destroy
     render json: {code: 200}
   end
 
   def publish_creation
-    @creation = @user.creations.find(params[:id])
     if @creation.request_publish
       render json: {success: true}
     else
@@ -145,7 +135,6 @@ class Index::UsercenterController < IndexController
   end
 
   def unpublish_creation
-    @creation = @user.creations.find(params[:id])
     if @creation.request_unpublish
       render json: {success: true}
     else
@@ -164,5 +153,9 @@ private
       redirect_to root_path
       return
     end
+  end
+
+  def set_creation
+    @creation = @user.creations.find(params[:id])
   end
 end
