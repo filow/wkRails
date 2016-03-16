@@ -124,7 +124,8 @@ $(function (){
         view_count: 0,
         updated_at: null,
         doc: {},
-        ppt: {}
+        ppt: {},
+        attaches: []
       },
       computed: {
         isDraft: function (){
@@ -192,6 +193,7 @@ $(function (){
             this.status = data.status;
             this.vote_count = data.vote_count;
             this.view_count = data.view_count;
+            this.attaches = data.attaches;
             this.updated_at = moment(data.updated_at).calendar();
             if (data.doc !== ''){
               this.doc =  {

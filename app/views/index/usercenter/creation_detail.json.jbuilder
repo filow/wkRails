@@ -24,3 +24,9 @@ else
   json.ppt ""
 end
 json.authors @creation.creation_authors
+
+json.attaches @creation.creation_attaches do |a|
+  json.(a, :id, :mime)
+  json.filename a.original_filename
+  json.link a.filename.url
+end

@@ -185,6 +185,7 @@
           <tr>
             <td>文件</td>
             <td colspan="3">
+              <a href="{{a.link}}" style="margin:3px" target="_blank" v-for="a in attaches" class="btn btn-sm  btn-info btn-outline">{{a.filename}} </a>
             </td>
           </tr>
         </table>
@@ -192,7 +193,7 @@
       <div class="modal-footer">
 
 
-        <button v-show="isDraft" type="button" class="btn btn-danger" @click.prevent="deleteCreation()">删除作品</button>
+        <button v-show="isDraft" type="button" class="btn btn-danger btn-outline" @click.prevent="deleteCreation()">删除作品</button>
 
         <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit" class="btn btn-primary">编辑</a>
         <a v-show="isDraft" href="/usercenter/creations/{{id}}/edit_attach" class="btn btn-primary">管理附件</a>
