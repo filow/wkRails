@@ -27,8 +27,13 @@ class Index::CreationController < IndexController
   end
 
   def show
+    @user = Manage::User.find_by_id session[:user_id]
     @creation.viewpage(request.remote_ip, request.user_agent, request.referer)
-    @other_creations = @creation.user.creations.where.not(id: @creation.id)
+    # 如果作品目前不是发布状态，那么就无法显示
+    unless @creation.published?
+      redirect_to creations_path, notice: '该作品目前还未公开发布'
+    end
+    @other_creations = @creation.user.creations.onshow.where.not(id: @creation.id)
     @comments = @creation.valid_comments.order(created_at: :desc).page(params[:page])
   end
 

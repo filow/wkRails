@@ -12,7 +12,7 @@ class Manage::User < ActiveRecord::Base
 
   PHONE_REGEX = /\A1[0-9]{10}\z/
   validates :name, presence:true, format: { with: PHONE_REGEX, on: :create }, uniqueness: true
-  validates :realname, presence:true, length:{maximum:15}
+  validates :realname, presence:true, uniqueness: true, length:{maximum:15}
   validates :phone, presence:true, format: { with: PHONE_REGEX }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/

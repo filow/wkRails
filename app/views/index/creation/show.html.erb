@@ -27,7 +27,7 @@
         <li class="active"><a data-toggle="tab" href="#tab-0"><i class="glyphicon glyphicon-info-sign"></i> 简要介绍</a></li>
 
         <% @creation.creation_attaches.each do |t| %>
-        <li><a data-toggle="tab" href="#tab-<%= t.id %>"><i class="glyphicon glyphicon-film"></i> <%= t.original_filename %></a></li>
+        <li><a data-toggle="tab" href="#tab-<%= t.id %>"><i class="glyphicon glyphicon-film"></i> <%= t.original_filename.split('.')[0] %></a></li>
         <% end %>
 
         <li><a data-toggle="tab" href="#tab-ppt"><i class="glyphicon glyphicon-blackboard"></i> 演示文稿</a></li>
@@ -115,62 +115,27 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="recommand_container">
-
+    <div class="sidebar_container">
 
       <div class="opus_sidebar span3">
-            <% unless @other_creations.empty? %>
-                <div class="opus_otheropus">
-                  <div class="opus_header"><a><%= @creation.user.realname %></a>的其他作品</div>
-                  <ul class="opus_list">
-                    <% @other_creations.each do |c| %>
-                        <li>
-                          <div class="opus">
-                            <%= link_to(creation_path(c.name)) do %>
-                                <div class="opus_thumb">
-                                  <img src="<%= c.thumb.thumb_mini %>" alt="缩略图">
-                                </div>
-                            <% end %>
-                            <%= link_to c.name, creation_path(c.name) %>
-                          </div>
-                        </li>
-                    <% end %>
-                  </ul>
-                  <div class="clear"></div>
-                </div> <!-- opus_otheropus end -->
+        <% unless @other_creations.empty? %>
+        <div class="ibox">
+          <div class="ibox-title">
+            <h3><a><%= link_to @creation.user.realname, user_detail_path(@creation.user.realname) %></a>的其他作品</h3>
+          </div>
+          <div class="ibox-content other_creations">
+            <% @other_creations.each_with_index do |c, i| %>
+            <div class="opus_item">
+              <%= link_to(creation_path(c.name)) do %>
+                <%= image_tag c.thumb, alt:"缩略图", class: 'opus_thumb' %>
+              <% end %>
+              <%= link_to c.name, creation_path(c.name), class: 'opus_name' %>
+            </div>
             <% end %>
-
-        <div class="opus_hotopus">
-          <div class="opus_header"><a>热门</a>作品</div>
-            <ul class="opus_list">
-            <volist name="hot_opus" id="li">
-            <li>
-              <div class="opus">
-                <a href="{:U('Opus/view',array('id'=>$li['id']))}">
-                <div class="opus_thumb">
-                  <img src="{:getThumbMini($li['id'])}"  width="100">
-                </div>
-                </a>
-              <a href="{:U('Opus/view',array('id'=>$li['id']))}" title="{$li.opus_name}">{$li.opus_name}</a>
-              </div>
-            </li>
-            </volist>
-          </ul>
-          <div class="clear"></div>
-        </div><!--  opus_hotopus end -->
-        <div class="opus_hotauthor">
-          <div class="opus_header"><a>人气</a>选手</div>
-          <ul class="author_list">
-            <volist name="hot_user" id="li">
-            <li>
-              <div class="hot_author">
-                <img src="{:getAvatar($li['avatar'])}" alt="{$li.nickname}">
-                <a href="{:U('User/userinfo',array('uid'=>$li['uid']))}">{$li.nickname} <span>{$li.department}</span></a>
-              </div>
-            </li>
-            </volist>
-          </ul>
+            <div class="clear"></div>
+          </div>
         </div>
+        <% end %>
       </div> <!-- opus_sidebar end -->
 
 
@@ -197,7 +162,7 @@
                   <div class="opus_cmt_box">
                     <% @comments.each do |c| %>
                         <div class="cmt_hp"><img src="<%= c.user.avatar.thumb %>" alt=""></div>
-                        <a href="<%= user_detail_path(c.user.name) %>" class="cmt_author"><%= c.user.realname %></a>
+                        <a href="<%= user_detail_path(c.user.real) %>" class="cmt_author"><%= c.user.realname %></a>
                         <div class="cmt_content">
                           <p><%= c.message %></p>
                         </div>

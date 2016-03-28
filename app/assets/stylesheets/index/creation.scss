@@ -110,7 +110,7 @@ font-style: italic;
   }
   .detail {
     position: absolute;
-    padding-left: 100px + 15px;
+    margin-left: 100px + 15px;
     padding-right: 20px;
     top: 15px;
     width: 100%;
@@ -122,156 +122,25 @@ font-style: italic;
   }
 }
 
-
-/*********** comment editor ********/
-.opus_cmt_editor{
-	margin-top: 20px;
-}
-.cmt_editor_hp{
-	float: left;
-}
-.cmt_editor_hp img{
-	border-radius: 4px;
-}
-.cmt_editor_name{
-	margin-left: 60px;
-}
-.opus_cmt_editor textarea{
-	width: 740px;
-	margin: 10px 0 0 10px;
-	border-radius: 0;
-	-webkit-box-shadow: inset 0 3px 3px #ebebeb;
-	border: 2px solid #d4d9dd
-}
-.opus_cmt_editor textarea:focus{
-	border: 2px solid #4e9cdf;
-}
-.opus_cmt_editor input{
-	float: right;
-	margin:10px 10px 0 0;
-	background-color: #4e9cdf;
-}
-/****** comment *********/
-.opus_cmt_header{
-	border-bottom: 2px solid #ddd;
-	margin: 10px 0;
-	padding: 10px 0;
-	font-weight: bold;
-}
-.cmt_menu span{
-	margin-top: 5px;
-}
-.cmt_menu .pagination{
-	display: inline-block;
-	float: right;
-	margin: 0;
-}
-.cmt_menu_bottom{
-	margin-top: 10px;
-}
-.opus_cmt_box{
-	border-bottom: 1px solid #ddd;
-	padding:10px 0;
-	margin-top: 10px;
-}
-.cmt_hp{
-	float: left;
-}
-.cmt_hp img{
-	border-radius: 4px;
-	width: 50px;
-	height: 50px;
-}
-.cmt_author{
-	margin-left: 10px;
-	padding: 5px 0;
-}
-.cmt_content p{
-	text-indent: 0;
-}
-.cmt_content,.cmt_panel{
-	margin-left: 60px;
-}
-.cmt_panel,.cmt_menu{
-	color: #777;
-	font-size:13px;
-}
-.cmt_panel a{
-	float: right;
+.sidebar_container {
+  margin-top: 40px;
 }
 
-/********* sidebar ***********/
-
-/********* opus *********/
-.opus_header,.hotopus_header
-{
-	margin-top: 20px;
-	color: #777;
-	padding: 5px 0;
-	border-bottom: 2px solid #ddd;
-}
-.opus_header a,.hotopus_header a{
-	color: #4083a9;
-	font-weight: bold;
-	font-size: 16px;
-	margin-right: 5px;
-}
-.opus_header a:hover{
-	color:#2d4450 ;
-	cursor: pointer;
-}
-.opus_list{
-	margin: 10px 0 0 0 ;
-}
-.opus_list li{
-	list-style: none;
-	float: left;
-	margin: 5px 11px 5px 0;
-}
-.opus,.opus_more{
-	text-align: center;
-	font-size: 13px;
-	width: 106px;
-}
-.opus a,.opus_more a{
-	color: #777;
-}
-.opus a,.opus_more a{
-	color: #999;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: block;
-	white-space: nowrap;
-}
-.opus_thumb{
-	padding: 5px;
-	border-radius: 5px;
-	background-color: #fff;
-}
-.opus_more{
-	float: right;
-}
-.author_list{
-	margin: 0;
-}
-.author_list li{
-	list-style: none;
-	border-top: 1px dotted #ddd;
-	padding: 5px 0;
-}
-.author_list li:first-child{
-	border-top: none;
-}
-.hot_author span{
-	float: right;
-	margin-top: 4px;
-}
-.hot_author img{
-	border: 1px solid #9d9c9c;
-	width: 27px;
-	height: 27px;
-}
-.opus_thumb,.opus_thumb img{
-	width: 96px;
-	height: 54px;
+div.other_creations {
+  padding-left: 0;
+  .opus_item {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+    padding: 0 12px 10px 12px;
+    text-align: center;
+    word-break: break-all;
+  }
+  img.opus_thumb {
+    width: 150px;
+  }
+  .opus_name {
+    margin-top: 5px;
+    display: block;
+  }
 }
