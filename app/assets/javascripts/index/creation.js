@@ -22,18 +22,11 @@ $(document).ready(function(){
 
         });
     });
-
-//	<if condition="$opus['video']">
-//	player = cyberplayer("player_box").setup({
-//        width : 760,
-//        height : 450,
-//        stretching : "uniform",
-//        file : "{$opus['video']['file_location']}",
-//        autoStart : true,
-//        volume : 70,
-//        controlbar : "over",
-//        ak:"{:CF('BAIDU_AK')}",
-//        sk:"{:CF('BAIDU_SK')}"
-//    });
-//	</if>
+    $('.player_box').each(function (e){
+      var location = $(this).data('url');
+      var flashvars={f: location, c: 0, h: 3,p: 1};
+      console.log('player_' + this.id)
+      var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+      CKobject.embedSWF('/ckplayer/ckplayer.swf', this.id,  this.id,'790','500',flashvars,params);
+    });
 });

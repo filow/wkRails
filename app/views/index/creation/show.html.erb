@@ -25,8 +25,12 @@
   <div class="tabs-left">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#tab-0"><i class="glyphicon glyphicon-info-sign"></i> 简要介绍</a></li>
-        <li><a data-toggle="tab" href="#tab-1"><i class="glyphicon glyphicon-film"></i> 作品视频</a></li>
-        <li><a data-toggle="tab" href="#tab-2"><i class="glyphicon glyphicon-blackboard"></i> 演示文稿</a></li>
+
+        <% @creation.creation_attaches.each do |t| %>
+        <li><a data-toggle="tab" href="#tab-<%= t.id %>"><i class="glyphicon glyphicon-film"></i> <%= t.original_filename %></a></li>
+        <% end %>
+
+        <li><a data-toggle="tab" href="#tab-ppt"><i class="glyphicon glyphicon-blackboard"></i> 演示文稿</a></li>
     </ul>
     <div class="tab-content ">
       <div id="tab-0" class="tab-pane active">
@@ -34,20 +38,16 @@
           <%= @creation.desc.html_safe %>
         </div>
       </div>
-      <div id="tab-1" class="tab-pane">
+
+      <% @creation.creation_attaches.each do |t| %>
+      <div id="tab-<%= t.id %>" class="tab-pane">
         <div class="panel-body">
-          <div id="player_box" style=""></div>
-          <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing</strong>
-
-          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-              existence in this spot, which was created for the bliss of souls like mine.</p>
-
-          <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-              the present moment; and yet I feel that I never was a greater artist than now. When.</p>
+          <div class="player_box" id="player_<%= t.id %>" data-id="<%= t.id %>" data-url="<%= t.filename.url %>" style=""></div>
         </div>
       </div>
+      <% end %>
 
-      <div id="tab-2" class="tab-pane">
+      <div id="tab-ppt" class="tab-pane">
         <div class="panel-body">
           <% if @creation.ppt.url %>
             <iframe src="<%= pdf_view_url(@creation) %>" width="790" height="500"></iframe>
