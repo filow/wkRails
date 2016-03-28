@@ -34,6 +34,7 @@ class Index::CreationController < IndexController
       redirect_to creations_path, notice: '该作品目前还未公开发布'
     end
     @other_creations = @creation.user.creations.onshow.where.not(id: @creation.id)
+    @posts = Post.valid_posts.order(is_top: :desc, publish_at: :desc, id: :desc).select(:id, :title, :publish_at).limit(6)
     @comments = @creation.valid_comments.order(created_at: :desc).page(params[:page])
   end
 
