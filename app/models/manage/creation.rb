@@ -136,6 +136,14 @@ class Manage::Creation < ActiveRecord::Base
     end
   end
 
+  def viewpage(ip, ua, referer)
+    Manage::CreationView.create({
+      ip: ip,
+      ua: ua,
+      referer: referer,
+      creation_id: id
+      })
+  end
 
   # 为作品投票
   def vote(user_id, ip)

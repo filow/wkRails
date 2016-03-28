@@ -27,6 +27,7 @@ class Index::CreationController < IndexController
   end
 
   def show
+    @creation.viewpage(request.remote_ip, request.user_agent, request.referer)
     @other_creations = @creation.user.creations.where.not(id: @creation.id)
     @comments = @creation.valid_comments.order(created_at: :desc).page(params[:page])
   end
