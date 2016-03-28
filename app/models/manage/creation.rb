@@ -12,6 +12,7 @@ class Manage::Creation < ActiveRecord::Base
   has_many :judges
 
   validates_presence_of :name
+  validates_uniqueness_of :name
 
   enum status: [ :draft, :publishing, :published, :unpublishing ]
 
@@ -30,7 +31,14 @@ class Manage::Creation < ActiveRecord::Base
     if existed
       existed
     else
-      creation = new(name: '未命名作品', desc: '', version: Cfg.version)
+      creation_name = '未命名作品_'
+      loop do
+        r = rand(65536).to_s(16)
+        creation_name += r
+        break unless find_by_name(r)
+      end
+
+      creation = new(name: creation_name, desc: '', version: Cfg.version)
       user.creations << creation
       creation.creation_authors << Manage::CreationAuthor.new({
           name: user.realname,
