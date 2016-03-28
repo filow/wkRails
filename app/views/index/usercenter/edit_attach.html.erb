@@ -41,7 +41,7 @@
               </td>
               <td>
                 <% if x.mime =~ /^video/ && x.done? %>
-                  <%= link_to creation_play_url(@user.realname, @creation.name, x.id), class:'btn btn-sm btn-info',remote: true do %>
+                  <%= link_to creation_play_url(@creation.name, x.id), class:'btn btn-sm btn-info',remote: true do %>
                     <i class="glyphicon glyphicon-play"></i>
                   <% end %>
                 <% end %>

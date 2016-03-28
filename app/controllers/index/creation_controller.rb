@@ -79,10 +79,10 @@ class Index::CreationController < IndexController
   end
 
   def play
-    @creation = Manage::Creation.find_by_name(params[:creation_id])
+    @creation = Manage::Creation.find_by_name(params[:id])
     @attach = @creation.creation_attaches.find(params[:attach_id])
-
   end
+
 private
   def set_creation
     @creation = Manage::Creation.find_by_name(params[:id])

@@ -15,12 +15,14 @@ Rails.application.routes.draw do
     get '/passage/:id' => 'passage#show', as: 'passage'
 
     get 'creations' => 'creation#index', as: 'creations'
+
     get 'creations/:id' => 'creation#show', as: 'creation'
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
     delete 'creations/:id/vote' => 'creation#unvote'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
     delete 'creations/:id/comment/:cid' => 'creation#uncomment'
-    get '/:user_id/:creation_id/video/:attach_id' => 'creation#play', as: 'creation_play'
+    get 'creations/:id/video/:attach_id' => 'creation#play', as: 'creation_play'
+
     #用户中心
     get 'usercenter' => 'usercenter#index'
     post 'usercenter/read_msg/:id' => 'usercenter#set_read_msg'  # 设置信息已读
