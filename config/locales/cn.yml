@@ -72,7 +72,7 @@ cn:
         password: 密码
         sex: 性别
         group: 组别
-        department: 部门
+        department: 单位
         phone: 手机号
         email: 电子邮箱
         is_forbidden: 是否禁用
