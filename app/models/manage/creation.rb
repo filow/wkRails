@@ -137,12 +137,14 @@ class Manage::Creation < ActiveRecord::Base
   end
 
   def viewpage(ip, ua, referer)
+    unless Manage::CreationView.where(ip: ip, creation_id: id).where('created_at > ?', 5.minutes.ago).count() > 0
     Manage::CreationView.create({
       ip: ip,
       ua: ua,
       referer: referer,
       creation_id: id
       })
+    end
   end
 
   # 为作品投票
