@@ -174,14 +174,20 @@ class Manage::Creation < ActiveRecord::Base
   end
 
   def comment(user_id, ip, message)
-    comment = creation_comments.create({user_id: user_id, ip: ip, message: message})
-    if comment.id
-      return true
-    else
-      comment.errors.full_messages.each do |m|
-        errors.add(:comment, m)
-      end
+    message = ActionController::Base.helpers.strip_tags(message).strip
+    if Manage::CreationComment.where(user_id: self.user_id).where('created_at > ?', 2.minutes.ago).count > 0
+      errors.add(:comment, '2分钟内只能发布一次评论')
       return false
+    else
+      comment = creation_comments.create({user_id: user_id, ip: ip, message: message})
+      if comment.id
+        return true
+      else
+        comment.errors.full_messages.each do |m|
+          errors.add(:comment, m)
+        end
+        return false
+      end
     end
   end
 

@@ -5,9 +5,6 @@
         <h3>用户登录</h3>
       </div>
       <div class="ibox-content">
-        <% unless flash[:notice].blank? %>
-        <div class="alert alert-info"><%= flash[:notice] %></div>
-        <% end %>
         <div class="row">
           <div class="col-md-3">
             <%= image_tag 'index/login.png', id:'login_logo_img' %>

@@ -112,13 +112,38 @@
 
         </div>
     </div>
+    <a name="comment"></a>
     <h3>评论</h3>
 
     <div class="comment_container" id="comment_container">
-      <p>正在加载评论，请稍后</p>
-
+      <div class="ibox"><div class="ibox-content">正在加载评论，请稍后</div></div>
     </div>
+
     <div id="comment_paginate"></div>
+    <div class="clear"></div>
+    <% if @creation.version == Cfg.version %>
+        <div class="comment_editor">
+          <% if session[:user_id].nil? %>
+              <textarea name="" id="" cols="33" rows="3" disabled>登录后才可使用评论功能！</textarea>
+          <% else %>
+            <div class="social-feed-separated">
+              <h4>发表新评论</h4>
+              <div class="social-avatar">
+                <a href="{{=author.homepage}}">
+                  <%= image_tag @user.avatar.thumb %>
+                </a>
+              </div>
+              <div class="social-feed-box">
+                <div id="comment_editor_textarea" class="social-body" contentEditable="true">
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary pull-right" id="send_comment">发表评论</button>
+            </div>
+
+          <% end %>
+        </div> <!-- opus_cmt_editor end -->
+    <% end %>
+
   </div>
   <div class="col-md-4">
     <div class="sidebar_container">
@@ -172,23 +197,7 @@
 </div>
 
 
-<div class="opus_wrapper">
-	<div class="row-fluid">
-          <% if @creation.version.to_i == Cfg.get('current_version').to_i %>
-              <div class="opus_cmt_editor">
-                <% if session[:user_id].nil? %>
-                    <textarea name="" id="" cols="33" rows="3" disabled>登录后才可使用评论功能！</textarea>
-                <% else %>
-                    <%= form_tag creation_comment_path @creation.name do %>
-                        <textarea name="comment" id="" cols="33" rows="3" placeholder="发表你对视频的看法"></textarea>
-                        <input type="submit" class="btn btn-primary" value="发表评论">
-                    <% end %>
-                <% end %>
-              </div> <!-- opus_cmt_editor end -->
-          <% end %>
-		</div> <!-- opus_main end -->
-	</div> <!-- row-fliud end -->
-</div> <!-- opus_wrapper end -->
+
 
 <script type="text/template" id="comment_template">
 <div class="social-feed-separated">
@@ -198,18 +207,24 @@
     </a>
   </div>
   <div class="social-feed-box">
+    {{ if(author.is_current_user){ }}
+      <button type="button" class="btn btn-xs btn-link pull-right cancel_comment" data-cid="{{=id}}" data-id="<%= @creation.name %>">
+        删除
+      </button>
+    {{ } }}
     <div class="social-avatar">
       <a href="{{=author.homepage}}">{{=author.username}}</a>
       <small class="text-muted">{{=moment(created_at).calendar()}}</small>
     </div>
     <div class="social-body">
+
       <p>{{=content}}</p>
     </div>
   </div>
 </div>
 </script>
 <script type="text/template" id="pagination_template">
-{{ if(current !== total){ }}
+{{ if(!(current === total && total === 1) && total !==0){ }}
 <ul class="pagination pull-right">
   {{ if(current>1){ }}
     <li class="prev"><a data-page="{{=current-1}}">上一页</a></li>

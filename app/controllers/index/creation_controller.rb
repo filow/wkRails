@@ -64,7 +64,7 @@ class Index::CreationController < IndexController
 
 
   def show_comment
-    @comments = @creation.creation_comments.where(is_hidden: false).order(created_at: :desc).page(params[:page])
+    @comments = @creation.creation_comments.where(is_hidden: false).order(created_at: :desc).page(params[:page]).per(10)
   end
 
 
@@ -72,12 +72,12 @@ class Index::CreationController < IndexController
     user = Manage::User.find_by_id session[:user_id]
     if user
       if @creation.comment(user.id, request.remote_ip, params[:comment])
-        redirect_to :back, notice: '评论发表成功'
+        render json: {status: 200, msg: '评论发表成功'}
       else
-        redirect_to :back, alert: @creation.errors[:comment].join("\n")
+        render json: {status: 403, msg: @creation.errors[:comment].join("\n")}
       end
     else
-      redirect_to :back, alert: '您还未登录'
+      render json: {status: 401, msg: '您还未登录'}
     end
   end
 
@@ -98,6 +98,6 @@ class Index::CreationController < IndexController
 
 private
   def set_creation
-    @creation = Manage::Creation.find_by_name(params[:id])
+    @creation = Manage::Creation.find_by_name!(params[:id])
   end
 end

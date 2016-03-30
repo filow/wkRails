@@ -4,9 +4,11 @@ json.page do
 end
 json.comments do
   json.array! @comments do |comment|
-    json.content comment.message
+    json.id comment.id
+    json.content comment.message.html_safe
     json.created_at comment.created_at
     json.author do
+      json.is_current_user comment.user.id == session[:user_id]
       json.avatar comment.user.avatar.thumb.url
       json.username comment.user.realname
       json.homepage user_detail_path(comment.user)

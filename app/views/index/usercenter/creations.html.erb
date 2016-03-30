@@ -2,12 +2,6 @@
 	<div class="row">
     <%= render 'sidebar' %>
 		<div class="main col-md-9">
-      <% unless flash[:notice].nil? %>
-        <div class="alert alert-info">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <%= flash[:notice] %>
-        </div>
-      <% end %>
       <% if @user.errors.any? %>
       <div class="ibox animated fadeInDown">
         <div class="ibox-title ibox-info">

@@ -82,22 +82,14 @@ $(function (){
     var id = $this.data('id'), cid=$this.data('cid');
     if($this.attr('disabled')) { return false; }
     $this.attr('disabled', true);
-
-    $.ajax('/creations/' + id + '/comment/' + cid, {
-      cache: false,
-      method: 'delete',
-      statusCode: {
-        401: function () { alert("请您先登录后再进行操作")}
-      },
-      success: function (result) {
-        if(result.status) {
-          // 成功
-          $this.after('<p class="text-info">' + result.msg + '</p>');
-          $this.remove();
-        } else {
-          $this.attr('disabled', false);
-          alert(result.msg);
-        }
+    cancel_comment(id, cid, function (result) {
+      if(result.status) {
+        // 成功
+        $this.after('<p class="text-info">' + result.msg + '</p>');
+        $this.remove();
+      } else {
+        $this.attr('disabled', false);
+        alert(result.msg);
       }
     });
 
