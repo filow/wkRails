@@ -114,9 +114,11 @@
     </div>
     <h3>评论</h3>
 
-    <div class="comment_container">
+    <div class="comment_container" id="comment_container">
+      <p>正在加载评论，请稍后</p>
 
     </div>
+    <div id="comment_paginate"></div>
   </div>
   <div class="col-md-4">
     <div class="sidebar_container">
@@ -166,43 +168,12 @@
 
     </div>
   </div>
+
 </div>
 
 
 <div class="opus_wrapper">
 	<div class="row-fluid">
-		<div class="opus_main span9">
-            <div class="opus_video">
-
-            </div>
-            <div class="opus_cmt">
-              <% unless @comments.empty? %>
-                  <div class="cmt_menu">
-                    <span>第{$pagecfg.first}-{$pagecfg.list}条/共<%= @creation.comment_count %>条</span>
-                    <div class="pagination">
-                      <%= paginate @comments %>
-                    </div>
-                  </div>
-                  <div class="opus_cmt_box">
-                    <% @comments.each do |c| %>
-                        <div class="cmt_hp"><img src="<%= c.user.avatar.thumb %>" alt=""></div>
-                        <a href="<%= user_detail_path(c.user.real) %>" class="cmt_author"><%= c.user.realname %></a>
-                        <div class="cmt_content">
-                          <p><%= c.message %></p>
-                        </div>
-                        <div class="cmt_panel">
-                          <span class="cmt_time"><%= c.created_at.strftime('%F %R') %></span>
-                        </div>
-                    <% end %>
-                  </div>
-                  <div class="cmt_menu cmt_menu_bottom">
-                    <span>第{$pagecfg.first}-{$pagecfg.list}条/共<%= @creation.comment_count %>条</span>
-                    <div class="pagination">
-                      <%= paginate @comments %>
-                    </div>
-                  </div>
-              <% end %>
-			</div> <!-- opus_cmt end -->
           <% if @creation.version.to_i == Cfg.get('current_version').to_i %>
               <div class="opus_cmt_editor">
                 <% if session[:user_id].nil? %>
@@ -218,3 +189,46 @@
 		</div> <!-- opus_main end -->
 	</div> <!-- row-fliud end -->
 </div> <!-- opus_wrapper end -->
+
+<script type="text/template" id="comment_template">
+<div class="social-feed-separated">
+  <div class="social-avatar">
+    <a href="{{=author.homepage}}">
+      <img src="{{=author.avatar}}">
+    </a>
+  </div>
+  <div class="social-feed-box">
+    <div class="social-avatar">
+      <a href="{{=author.homepage}}">{{=author.username}}</a>
+      <small class="text-muted">{{=moment(created_at).calendar()}}</small>
+    </div>
+    <div class="social-body">
+      <p>{{=content}}</p>
+    </div>
+  </div>
+</div>
+</script>
+<script type="text/template" id="pagination_template">
+{{ if(current !== total){ }}
+<ul class="pagination pull-right">
+  {{ if(current>1){ }}
+    <li class="prev"><a data-page="{{=current-1}}">上一页</a></li>
+  {{ }else{ }}
+    <li class="prev disabled"><span>上一页</span></li>
+  {{ } }}
+  {{ for(var i=1; i<=total; i++){ }}
+    {{ if(current === i){ }}
+      <li class="active"><span>{{=i}}</span></li>
+    {{ }else{ }}
+      <li><a data-page="{{=i}}">{{=i}}</a></li>
+    {{ } }}
+  {{ } }}
+
+  {{ if(current<total){ }}
+    <li class="next"><a data-page="{{=current+1}}">下一页</a></li>
+  {{ }else{ }}
+    <li class="next disabled"><span>下一页</span></li>
+  {{ } }}
+</ul>
+{{ } }}
+</script>

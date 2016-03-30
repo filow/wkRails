@@ -1,5 +1,5 @@
 class Index::CreationController < IndexController
-  before_action :set_creation, only: [:show, :vote, :unvote, :comment, :uncomment, :play]
+  before_action :set_creation, only: [:show, :vote, :unvote, :show_comment, :comment, :uncomment, :play]
 
   def index
     @creations = []
@@ -61,6 +61,12 @@ class Index::CreationController < IndexController
       render json: {status: false, msg: '您还未登录'}, status: :unauthorized
     end
   end
+
+
+  def show_comment
+    @comments = @creation.creation_comments.where(is_hidden: false).order(created_at: :desc).page(params[:page])
+  end
+
 
   def comment
     user = Manage::User.find_by_id session[:user_id]

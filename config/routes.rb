@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'creations/:id' => 'creation#show', as: 'creation'
     post 'creations/:id/vote' => 'creation#vote', as: 'creation_vote'
     delete 'creations/:id/vote' => 'creation#unvote'
+    get 'creations/:id/comments' => 'creation#show_comment'
     post 'creations/:id/comment' => 'creation#comment', as: 'creation_comment'
     delete 'creations/:id/comment/:cid' => 'creation#uncomment'
     get 'creations/:id/video/:attach_id' => 'creation#play', as: 'creation_play'
